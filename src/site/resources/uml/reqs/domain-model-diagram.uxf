@@ -1,27 +1,105 @@
-<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text></help_text><element><id>UMLClass</id><coordinates><x>380</x><y>676</y><w>210</w><h>180</h></coordinates><panel_attributes>Προφίλ
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <help_text/>
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>310</x>
+      <y>670</y>
+      <w>210</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>Προφίλ
 --
 id: Integer
 name: String
 surname: String
 email: String
 phoneNo: String
-balance: Double</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>380</x><y>1156</y><w>110</w><h>50</h></coordinates><panel_attributes>
-Αγορά</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>390</x><y>956</y><w>200</w><h>150</h></coordinates><panel_attributes>Εντολή
+balance: Double</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>310</x>
+      <y>1150</y>
+      <w>110</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>
+Αγορά</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>320</x>
+      <y>950</y>
+      <w>200</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>Εντολή
 --
 id: Integer
 amount: Integer
 stockPrice: Float
 fee: Float
 date: Date
-/orderPrice: Float</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>760</x><y>986</y><w>120</w><h>90</h></coordinates><panel_attributes>Αυτοματοποιημένη 
+/orderPrice: Float</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>690</x>
+      <y>980</y>
+      <w>120</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Αυτοματοποιημένη 
 Εντολή
 --
 limit: Float
-buy_sell: Boolean </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>500</x><y>1156</y><w>110</w><h>50</h></coordinates><panel_attributes>
-Πώληση</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>500</x><y>1096</y><w>80</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;60;60</additional_attributes></element><element><id>Relation</id><coordinates><x>420</x><y>1096</y><w>70</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>50;10;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>580</x><y>1026</y><w>200</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;180;10</additional_attributes></element><element><id>Relation</id><coordinates><x>480</x><y>846</y><w>80</w><h>130</h></coordinates><panel_attributes>lt=-
+buy_sell: Boolean </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>430</x>
+      <y>1150</y>
+      <w>110</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>
+Πώληση</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>410</x>
+      <y>840</y>
+      <w>90</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=-
 m1=1
 m2=*
-εκτελεί &gt;</panel_attributes><additional_attributes>10;10;10;110</additional_attributes></element><element><id>UMLClass</id><coordinates><x>70</x><y>956</y><w>180</w><h>160</h></coordinates><panel_attributes>Μετοχή
+εκτελεί &gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>950</y>
+      <w>180</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>Μετοχή
 --
 id: String
 companyName: String
@@ -30,50 +108,350 @@ open: Float
 close: Float
 high: Float
 low: Float
-vol: Float</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>1016</y><w>170</w><h>50</h></coordinates><panel_attributes>lt=-
+vol: Float</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>170</x>
+      <y>1010</y>
+      <w>170</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-
 m1=*
 m2=1
-&lt; αφορά</panel_attributes><additional_attributes>150;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>580</x><y>736</y><w>200</w><h>50</h></coordinates><panel_attributes>lt=-
+&lt; αφορά</panel_attributes>
+    <additional_attributes>150.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>510</x>
+      <y>730</y>
+      <w>200</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-
 m1=1
 m2=*
-κάνει &gt;</panel_attributes><additional_attributes>10;20;180;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>760</x><y>706</y><w>130</w><h>100</h></coordinates><panel_attributes>Συναλλαγή
+κάνει &gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;180.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>690</x>
+      <y>700</y>
+      <w>130</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Συναλλαγή
 --
 id: Integer
 amount: Integer
-date: Date</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>830</x><y>566</y><w>110</w><h>50</h></coordinates><panel_attributes>
-Ανάληψη</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>710</x><y>566</y><w>110</w><h>50</h></coordinates><panel_attributes>
-Κατάθεση</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>840</x><y>606</y><w>70</w><h>120</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;100;50;10</additional_attributes></element><element><id>Relation</id><coordinates><x>750</x><y>606</y><w>70</w><h>120</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>50;100;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>526</y><w>90</w><h>170</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;150;70;10</additional_attributes></element><element><id>Relation</id><coordinates><x>390</x><y>526</y><w>80</w><h>170</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>60;150;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>310</x><y>436</y><w>150</w><h>100</h></coordinates><panel_attributes>ΠροφίλΕπενδυτή
+date: Date</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>760</x>
+      <y>560</y>
+      <w>110</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>
+Ανάληψη</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>640</x>
+      <y>560</y>
+      <w>110</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>
+Κατάθεση</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>770</x>
+      <y>600</y>
+      <w>70</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;100.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>680</x>
+      <y>600</y>
+      <w>70</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>50.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>240</x>
+      <y>430</y>
+      <w>150</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>ΠροφίλΕπενδυτή
 --
 committedBalance: Integer
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>530</x><y>436</y><w>120</w><h>100</h></coordinates><panel_attributes>ΠροφίλΜεσίτη
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>460</x>
+      <y>430</y>
+      <w>120</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>ΠροφίλΜεσίτη
 --
-brokerageFee: float</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>430</x><y>246</y><w>120</w><h>100</h></coordinates><panel_attributes>Εξουσιοδότηση
+brokerageFee: float</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>360</x>
+      <y>240</y>
+      <w>120</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Εξουσιοδότηση
 --
 starDate: Date
-endDate: Date</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>390</x><y>336</y><w>90</w><h>120</h></coordinates><panel_attributes>lt=-
+endDate: Date</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>330</y>
+      <w>100</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=-
 m1=1
 m2=*
-δίνει &gt;</panel_attributes><additional_attributes>10;100;60;10</additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>336</y><w>130</w><h>120</h></coordinates><panel_attributes>lt=-
+δίνει &gt;</panel_attributes>
+    <additional_attributes>10.0;100.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>450</x>
+      <y>330</y>
+      <w>140</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=-
 m1=1
 m2=*
-λαμβάνει &gt;</panel_attributes><additional_attributes>80;100;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>90</x><y>696</y><w>150</w><h>100</h></coordinates><panel_attributes>Ιδιοκτησία Μετοχής
+λαμβάνει &gt;</panel_attributes>
+    <additional_attributes>80.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>20</x>
+      <y>690</y>
+      <w>150</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Ιδιοκτησία Μετοχής
 --
 amount: Integer
-commitedAmount: Integer</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>390</x><y>146</y><w>100</w><h>120</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>80;100;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>500</x><y>146</y><w>100</w><h>120</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;100;80;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>530</x><y>76</y><w>120</w><h>80</h></coordinates><panel_attributes>ΤμήμαΧαρτοφυλακίου
+commitedAmount: Integer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>460</x>
+      <y>70</y>
+      <w>120</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>ΤμήμαΧαρτοφυλακίου
 --
-amount: Integer</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>340</x><y>76</y><w>110</w><h>80</h></coordinates><panel_attributes>Κεφάλαιο
+amount: Integer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>270</x>
+      <y>70</y>
+      <w>110</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Κεφάλαιο
 --
-amount: Integer</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>233</x><y>736</y><w>160</w><h>50</h></coordinates><panel_attributes>lt=-
+amount: Integer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>160</x>
+      <y>730</y>
+      <w>160</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-
 m1=*
 m2=1
-</panel_attributes><additional_attributes>10;20;140;20</additional_attributes></element><element><id>Relation</id><coordinates><x>153</x><y>786</y><w>40</w><h>190</h></coordinates><panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>80</x>
+      <y>780</y>
+      <w>40</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>lt=-
 m1=*
-m2=1</panel_attributes><additional_attributes>10;10;10;170</additional_attributes></element><element><id>Relation</id><coordinates><x>150</x><y>0</y><w>460</w><h>710</h></coordinates><panel_attributes>lt=-
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>80</x>
+      <y>0</y>
+      <w>460</w>
+      <h>710</h>
+    </coordinates>
+    <panel_attributes>lt=-
 m1=1
 m2=*
-</panel_attributes><additional_attributes>10;690;20;20;440;20;440;70</additional_attributes></element><element><id>Relation</id><coordinates><x>580</x><y>820</y><w>200</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;130;10;130;80;180;80</additional_attributes></element><element><id>UMLClass</id><coordinates><x>760</x><y>870</y><w>110</w><h>90</h></coordinates><panel_attributes>Διεύθυνση
+</panel_attributes>
+    <additional_attributes>10.0;690.0;20.0;20.0;440.0;20.0;440.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>510</x>
+      <y>820</y>
+      <w>200</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;130.0;10.0;130.0;80.0;180.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>690</x>
+      <y>870</y>
+      <w>110</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Διεύθυνση
 --
 city: String
 street: String
 number: Integer
-zipCode: Integer</panel_attributes><additional_attributes></additional_attributes></element></diagram>
+zipCode: Integer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>140</y>
+      <w>100</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>440</x>
+      <y>140</y>
+      <w>100</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;100.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>450</x>
+      <y>520</y>
+      <w>100</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;150.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>520</y>
+      <w>90</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>70.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>430</x>
+      <y>1090</y>
+      <w>80</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>360</x>
+      <y>1090</y>
+      <w>60</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>40.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>510</x>
+      <y>1020</y>
+      <w>200</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;180.0;10.0</additional_attributes>
+  </element>
+</diagram>
