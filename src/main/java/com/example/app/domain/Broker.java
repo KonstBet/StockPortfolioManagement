@@ -1,20 +1,25 @@
 package com.example.app.domain;
 
-public class Broker extends User{
+public class Broker extends User {
+	
 	private double brokerageFee;
-	public Broker(){
+	
+	public Broker() {
 		super();
 		this.brokerageFee=0;
 	}
-	public Broker(String name, String surname, String email, String phoneNo, double brokerageFee) {
-		super();
+	
+	public Broker(String name, String surname, String email, String phoneNo, Double brokerageFee) {
+		super(name, surname, email, phoneNo);
 		this.brokerageFee=0;
 	}
-	public double getBrokerageFee() {
+	
+	public Double getBrokerageFee() {
 		return this.brokerageFee;
 	}
-	public void setBrokerageFee(double brokerageFee) {
-		this.brokerageFee=brokerageFee;
+	
+	public void setBrokerageFee(Double brokerageFee) {
+		this.brokerageFee = brokerageFee;
 	}
 	
 }

@@ -1,15 +1,17 @@
 package com.example.app.domain;
 
 public class Investor extends User {
+	
 	private double committedBalance;
-	public Investor(){
+	
+	public Investor() {
 		super();
-		this.committedBalance=0;
+		this.committedBalance = 0;
 	}
 	
 	public Investor(String name, String surname, String email, String phoneNo, double committedBalance) {
-		super();
-		this.committedBalance=0;
+		super(name, surname, email, phoneNo);
+		this.committedBalance = 0;
 	}
 	
 	public double getCommittedBalance() {
@@ -17,7 +19,7 @@ public class Investor extends User {
 	}
 	
 	public void setCommittedBalance(double committedBalance) {
-		this.committedBalance=committedBalance;
+		this.committedBalance = committedBalance;
 	}
 	
 }
