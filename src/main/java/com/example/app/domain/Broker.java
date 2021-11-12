@@ -1,6 +1,6 @@
 package com.example.app.domain;
 
-public class Broker {
+public class Broker extends User{
 	private double brokerageFee;
 	public Broker(){
 		super();
