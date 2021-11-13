@@ -1,4 +1,5 @@
 package com.example.app.domain;
+import java.util.*;
 
 import javax.persistence.*;
 
@@ -8,6 +9,9 @@ public class Broker extends User {
 	
 	@Column(name="brokerageFee", length=20, nullable=false)
 	private Double brokerageFee;
+	
+	@OneToMany(mappedBy="authorization")
+	private Set<Authorization> authorizations=new HashSet<Authorization>();
 	
 	public Broker() {
 		super();
