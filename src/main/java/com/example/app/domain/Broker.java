@@ -10,7 +10,7 @@ public class Broker extends User {
 	@Column(name="brokerageFee", length=20, nullable=false)
 	private Double brokerageFee;
 	
-	@OneToMany(mappedBy="authorization")
+	@OneToMany(mappedBy="broker")
 	private Set<Authorization> authorizations=new HashSet<Authorization>();
 	
 	public Broker() {

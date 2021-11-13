@@ -1,4 +1,5 @@
 package com.example.app.domain;
+import java.util.*;
 
 import javax.persistence.*;
 
@@ -27,6 +28,10 @@ public class User {
 	
 	@Column(name="phoneNo", length=20, nullable=false)
 	private String phoneNo;
+	
+	@OneToMany(mappedBy="user")
+	private Set<Transaction> transactions=new HashSet<Transaction>();
+	
 	
 //	private Double balance;
 //	List<Transaction> Transactions=new ArrayList<Transaction>();

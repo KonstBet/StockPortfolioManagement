@@ -9,7 +9,7 @@ public class Investor extends User {
 	@Column(name="committedBalance", length=100, nullable=false)
 	private Double committedBalance;
 	
-	@OneToMany(mappedBy="authorization")
+	@OneToMany(mappedBy="investor")
 	private Set<Authorization> authorizations=new HashSet<Authorization>();
 	
 	public Investor() {
