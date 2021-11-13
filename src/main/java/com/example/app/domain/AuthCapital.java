@@ -1,14 +1,14 @@
 package com.example.app.domain;
 
+import java.time.LocalDateTime;
+
+import javax.persistence.*;
+
+@Entity
+@DiscriminatorValue("AuthCapital")
 public class AuthCapital extends Authorization {
 
-	private Integer amount;
-
-	public Integer getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Integer amount) {
-		this.amount = amount;
+	public AuthCapital(LocalDateTime startdate, LocalDateTime enddate, Integer amount) {
+		super(startdate, enddate, amount);
 	}
 }

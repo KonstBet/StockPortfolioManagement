@@ -1,14 +1,18 @@
 package com.example.app.domain;
 
+import java.time.LocalDateTime;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="AuthStocks")
 public class AuthStocks extends Authorization {
+
+	public AuthStocks(LocalDateTime startdate, LocalDateTime enddate, Integer amount) {
+		super(startdate, enddate, amount);
+	}
 	
-	private Integer amount;
-
-	public Integer getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Integer amount) {
-		this.amount = amount;
-	}
+	@ManyToOne
+	@JoinColumn(name="StockHoldingid", nullable = false)
+	private StockHolding user;
 }
