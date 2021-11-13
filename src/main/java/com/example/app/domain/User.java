@@ -1,12 +1,34 @@
 package com.example.app.domain;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="User")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+		name="type",
+		discriminatorType=DiscriminatorType.STRING
+)
 public class User {
 	
+	@Id
+	@Column(name="id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Integer id;
+	
+	@Column(name="name", length=30, nullable=false)
 	private String name;
+	
+	@Column(name="surname", length=30, nullable=false)
 	private String surname;
+	
+	@Column(name="email", length=200, nullable=false)
 	private String email;
+	
+	@Column(name="phoneNo", length=20, nullable=false)
 	private String phoneNo;
-//	private double balance;
+	
+//	private Double balance;
 //	List<Transaction> Transactions=new ArrayList<Transaction>();
 	
 	public User() {

@@ -1,17 +1,22 @@
 package com.example.app.domain;
 
+import javax.persistence.*;
+
+@Entity
+@DiscriminatorValue("B")
 public class Broker extends User {
 	
-	private double brokerageFee;
+	@Column(name="brokerageFee", length=20, nullable=false)
+	private Double brokerageFee;
 	
 	public Broker() {
 		super();
-		this.brokerageFee=0;
+		this.brokerageFee=0.0;
 	}
 	
 	public Broker(String name, String surname, String email, String phoneNo, Double brokerageFee) {
 		super(name, surname, email, phoneNo);
-		this.brokerageFee=0;
+		this.brokerageFee=0.0;
 	}
 	
 	public Double getBrokerageFee() {
