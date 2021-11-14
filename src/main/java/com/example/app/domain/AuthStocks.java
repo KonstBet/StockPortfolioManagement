@@ -5,14 +5,25 @@ import java.time.LocalDateTime;
 import javax.persistence.*;
 
 @Entity
-@Table(name="AuthStocks")
+@DiscriminatorValue("AuthStocks")
 public class AuthStocks extends Authorization {
 
-	public AuthStocks(LocalDateTime startdate, LocalDateTime enddate, Integer amount) {
-		super(startdate, enddate, amount);
+	public AuthStocks(Investor investor, StockHolding stockholding, Broker broker, 
+			LocalDateTime startdate, LocalDateTime enddate, Integer amount) {
+		
+		super(investor, broker, startdate, enddate, amount);
+		this.stockholding = stockholding;
 	}
 	
 	@ManyToOne
 	@JoinColumn(name="StockHolding", nullable = false)
-	private StockHolding user;
+	private StockHolding stockholding;
+
+	public StockHolding getStockholding() {
+		return stockholding;
+	}
+
+	public void setStockholding(StockHolding stockholding) {
+		this.stockholding = stockholding;
+	}
 }

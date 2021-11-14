@@ -32,8 +32,10 @@ public class Authorization {
 	@JoinColumn(name="Brokerid", nullable = false)
 	private Broker broker;
 	
-	public Authorization(LocalDateTime startdate, LocalDateTime enddate, Integer amount) {
+	public Authorization(Investor investor, Broker broker,LocalDateTime startdate, LocalDateTime enddate, Integer amount) {
 		super();
+		this.investor = investor;
+		this.broker = broker;
 		this.startdate = startdate;
 		this.enddate = enddate;
 		this.amount = amount;

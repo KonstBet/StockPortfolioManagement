@@ -26,8 +26,9 @@ public abstract class Transaction {
 	private User user;
 
 	
-	public Transaction(Integer amount, LocalDateTime date) {
+	public Transaction(User user, Integer amount, LocalDateTime date) {
 		super();
+		this.user = user;
 		this.amount = amount;
 		this.date = date;
 	}
