@@ -36,6 +36,10 @@ public class Order {
     @JoinColumn(name="id")
     protected Stock stock;
     
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="id")
+    protected User user;
+    
 	public enum Action {
 		BUY,
 		SELL
