@@ -1,6 +1,5 @@
 package com.example.app.domain;
 import java.util.*;
-
 import javax.persistence.*;
 
 @Entity
@@ -31,6 +30,10 @@ public class User {
 	
 	@OneToMany(mappedBy="user")
 	private Set<Transaction> transactions=new HashSet<Transaction>();
+	
+	@OneToMany(mappedBy="user")
+	private Set<StockHolding> stockHoldings= new HashSet<StockHolding>();
+	
 	
 	
 //	private Double balance;

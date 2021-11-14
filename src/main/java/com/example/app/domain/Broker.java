@@ -1,6 +1,5 @@
 package com.example.app.domain;
 import java.util.*;
-
 import javax.persistence.*;
 
 @Entity
