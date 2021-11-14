@@ -1,7 +1,8 @@
 package com.example.app.domain;
 
 import java.sql.Date;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 
 @Entity
@@ -32,6 +33,12 @@ public class Stock
 	
 	@Column(name="vol", precision = 10, scale = 4)
 	private Float vol;
+	
+	@OneToMany(mappedBy="stock", fetch=FetchType.LAZY)
+	private Set<Order> orders = new HashSet<Order>();
+	
+	@OneToMany(mappedBy="stock", fetch=FetchType.LAZY)
+	private Set<StockHolding> holdings = new HashSet<StockHolding>();
 	
 	public Stock() {
 		

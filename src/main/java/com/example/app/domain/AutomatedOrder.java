@@ -1,5 +1,4 @@
 package com.example.app.domain;
-
 import java.util.Date;
 import javax.persistence.*;
 
@@ -13,8 +12,8 @@ public class AutomatedOrder extends Order {
 	
 	public AutomatedOrder() {}
 	
-	public AutomatedOrder(Integer id, Integer amount, Double stockPrice, Float fee, Date date, Action action, Float limit) {
-		super(id, amount, stockPrice, fee, date, action);
+	public AutomatedOrder(Integer id, Integer amount, Float fee, Date date, Action action, Float limit) {
+		super(id, amount, fee, date, action);
 		this.limit = limit;
 	}
 
@@ -30,6 +29,10 @@ public class AutomatedOrder extends Order {
 		return super.toString() +
 				"\nLimit: " + this.getLimit();
 	
+	}
+	
+	private Float calculatePrice() {
+		return stock.getOpen() + Math.max(6, super.getAmount()*stock.getClose()*super.getFee());
 	}
 	
 }

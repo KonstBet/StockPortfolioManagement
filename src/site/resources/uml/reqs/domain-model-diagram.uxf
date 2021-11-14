@@ -32,7 +32,6 @@ balance: Double</panel_attributes>
 --
 id: Integer
 amount: Integer
-stockPrice: Float
 fee: Float
 date: Date
 action: Action

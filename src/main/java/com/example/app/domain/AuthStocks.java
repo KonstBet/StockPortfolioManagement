@@ -13,6 +13,6 @@ public class AuthStocks extends Authorization {
 	}
 	
 	@ManyToOne
-	@JoinColumn(name="StockHoldingid", nullable = false)
+	@JoinColumn(name="StockHolding", nullable = false)
 	private StockHolding user;
 }

@@ -1,5 +1,4 @@
 package com.example.app.domain;
-
 import java.util.Date;
 import javax.persistence.*;
 
@@ -19,10 +18,7 @@ public class Order {
 	
 	@Column(name="amount", nullable=false)
 	private Integer amount;
-	
-	@Column(name="stockprice", precision = 10, scale = 4)
-	private Double stockPrice;
-	
+		
 	@Column(name="fee", precision = 10, scale = 4)
 	private Float fee;
 	
@@ -30,12 +26,20 @@ public class Order {
 	private Date date;
 	
 	@Column(name="orderprice", precision = 10, scale = 4)
-	private Double orderPrice;
+	private Float orderPrice;
 	
     @Enumerated(EnumType.STRING)
     @Column(name="action")
 	private Action action;
 	
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="id")
+    protected Stock stock;
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="id")
+    protected User user;
+    
 	public enum Action {
 		BUY,
 		SELL
@@ -45,11 +49,10 @@ public class Order {
 		
 	}
 	
-	public Order(Integer id, Integer amount, Double stockPrice, Float fee, Date date, Action action) {
+	public Order(Integer id, Integer amount, Float fee, Date date, Action action) {
 		super();
 		this.id = id;
 		this.amount = amount;
-		this.stockPrice = stockPrice;
 		this.fee = fee;
 		this.date = date;
 		this.action = action;
@@ -71,15 +74,7 @@ public class Order {
 	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
-	
-	public Double getStockPrice() {
-		return this.stockPrice;
-	}
-	
-	public void setStockPrice(Double stockPrice) {
-		this.stockPrice = stockPrice;
-	}
-	
+		
 	public Float getFee() {
 		return fee;
 	}
@@ -104,26 +99,25 @@ public class Order {
 		this.action = action;
 	}
 	
-	public Double getOrderPrice() {
+	public Float getOrderPrice() {
 		return this.orderPrice;
 	}
 	
-	public void setOrderPrice(Double orderPrice) {
+	public void setOrderPrice(Float orderPrice) {
 		this.orderPrice = orderPrice;
 	}
 	
-	private Double calculatePrice() {
-		return stockPrice * amount + fee;
+	private Float calculatePrice() {
+		return stock.getOpen() + Math.max(6, amount*stock.getOpen()*fee);
 	}
 	
 	public String toString() {
 		return "ID: " + getId() +
 				"\nAmount: " + getAmount() + 
-				"\nStock Price: "+ getStockPrice() + "€" +
 				"\nFee: " + getFee() + "%" +
 				"\nDate: " + getDate().toString() + 
 				"\nAction: " + getAction() + 
-				"\nOrder Price: " + getOrderPrice();
+				"\nOrder Price: " + getOrderPrice() + "€";
 	}
 	
 }
