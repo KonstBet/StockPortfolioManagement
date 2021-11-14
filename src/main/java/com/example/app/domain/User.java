@@ -1,4 +1,5 @@
 package com.example.app.domain;
+import java.time.LocalDateTime;
 import java.util.*;
 import javax.persistence.*;
 
@@ -35,8 +36,8 @@ public class User {
 	private Set<StockHolding> stockHoldings= new HashSet<StockHolding>();
 	
 	
+	private Double balance;
 	
-//	private Double balance;
 //	List<Transaction> Transactions=new ArrayList<Transaction>();
 	
 	public User() {
@@ -68,8 +69,6 @@ public class User {
 	public String getPhoneNo() {
 		return this.phoneNo;
 	}
-	
-//	public double getBalance() {
 
 	public void setName(String name) {
 		this.name = name;
@@ -86,6 +85,45 @@ public class User {
 	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
 	}
+	
+	public Set<Transaction> getTransactions() {
+		return transactions;
+	}
+
+	public void setTransactions(Set<Transaction> transactions) {
+		this.transactions = transactions;
+	}
+
+	public Set<StockHolding> getStockHoldings() {
+		return stockHoldings;
+	}
+
+	public void setStockHoldings(Set<StockHolding> stockHoldings) {
+		this.stockHoldings = stockHoldings;
+	}
+
+	public Double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Double balance) {
+		this.balance = balance;
+	}
 
 	
+	
+	
+	
+	public Integer withdraw(Integer amount) {
+		if (this.balance < amount)
+			return 1;
+		transactions.add(new Withdrawal(this, amount, LocalDateTime.now()));
+		this.balance -= amount;
+		return 0;
+	}
+	public Integer deposit(Integer amount) {
+		transactions.add(new Deposit(this, amount, LocalDateTime.now()));
+		this.balance += amount;
+		return 0;
+	}
 }

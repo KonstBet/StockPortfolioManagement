@@ -30,4 +30,27 @@ public class Broker extends User {
 		this.brokerageFee = brokerageFee;
 	}
 	
+	
+	
+	
+	public Integer buyStocksForInvestor(AuthCapital authCapital, Stock stock, Integer amount) {
+		//TODO IMPLEMENTATION
+		if (authorizations.contains(authCapital))
+			//Make a new ORDER and StockHolding by authCapital.getInvestor
+			//Make a new AuthStocks by authCapital.getInvestor
+			//Delete authCapital
+			return 0;
+		
+		return 1;
+	}
+	public Integer sellStocksForInvestor(AuthStocks authstocks, Integer amount) {
+		//TODO IMPLEMENTATION
+		if (authorizations.contains(authstocks))
+			//Make a new ORDER by authstocks.getInvestor
+			//Make a new AuthCapital by authCapital.getInvestor
+			//Delete authstocks
+			return 0;
+		
+		return 1;
+	}
 }
