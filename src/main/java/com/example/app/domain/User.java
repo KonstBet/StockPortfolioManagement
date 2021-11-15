@@ -29,6 +29,9 @@ public class User {
 	@Column(name="phoneNo", length=20, nullable=false)
 	private String phoneNo;
 	
+	@Embedded
+	private Address address;
+	
 	@OneToMany(mappedBy="user")
 	private Set<Transaction> transactions=new HashSet<Transaction>();
 	
