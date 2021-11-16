@@ -49,9 +49,8 @@ public class Order {
 		
 	}
 	
-	public Order(Integer id, Integer amount, Float fee, Date date, Action action) {
+	public Order(Integer amount, Float fee, Date date, Action action) {
 		super();
-		this.id = id;
 		this.amount = amount;
 		this.fee = fee;
 		this.date = date;

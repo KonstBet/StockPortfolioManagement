@@ -38,6 +38,9 @@ public class User {
 	@OneToMany(mappedBy="user")
 	private Set<StockHolding> stockHoldings= new HashSet<StockHolding>();
 	
+	@OneToMany(mappedBy="user")
+	private Set<Order> orders= new HashSet<Order>();
+	
 	
 	private Double balance;
 	
@@ -128,5 +131,13 @@ public class User {
 		transactions.add(new Deposit(this, amount, LocalDateTime.now()));
 		this.balance += amount;
 		return 0;
+	}
+	
+	public Integer buyStock(Stock stock, Integer amount) {
+		Double orderPrice=stock.getOpen()*amount+stock.getOpen()*amount*0.1;
+		if (this.balance < orderPrice)
+			return 1;
+		float fee=1;
+		orders.add(new Order(amount, fee, LocalDateTime.now(), Order.Action.BUY));
 	}
 }
