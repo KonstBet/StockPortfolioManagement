@@ -35,10 +35,10 @@ public class User {
 	private Address address;
 	
 	@OneToMany(mappedBy="user")
-	private Set<Transaction> transactions=new HashSet<Transaction>();
+	private Set<Transaction> transactions = new HashSet<Transaction>();
 	
 	@OneToMany(mappedBy="user")
-	private Set<StockHolding> stockHoldings= new HashSet<StockHolding>();
+	private Map<Stock, StockHolding> stockHoldings = new HashMap<Stock, StockHolding>();
 	
 	@OneToMany(mappedBy="user")
 	private Set<Order> orders= new HashSet<Order>();
@@ -102,11 +102,11 @@ public class User {
 		this.transactions = transactions;
 	}
 
-	public Set<StockHolding> getStockHoldings() {
+	public Map<Stock,StockHolding> getStockHoldings() {
 		return stockHoldings;
 	}
 
-	public void setStockHoldings(Set<StockHolding> stockHoldings) {
+	public void setStockHoldings(Map<Stock,StockHolding> stockHoldings) {
 		this.stockHoldings = stockHoldings;
 	}
 
@@ -118,10 +118,7 @@ public class User {
 		this.balance = balance;
 	}
 
-	
-	
-	
-	
+
 	public Integer withdraw(Integer amount) {
 		if (this.balance < amount)
 			return 1;
@@ -135,12 +132,61 @@ public class User {
 		return 0;
 	}
 	
-	public Integer buyStock(Stock stock, Integer amount) {
-		Double orderPrice=stock.getOpen()*amount+stock.getOpen()*amount*0.1;
-		if (this.balance < orderPrice)
-			return 1;
-		float fee=1;
-		orders.add(new Order(amount, fee, LocalDateTime.now(), Action.BUY));
-		return 0; //TODO
+	public Boolean buyStock(Stock stock, Integer amount) {
+		
+		// Maybe make fee a constant?!
+		Float fee = (float) 0.1; 
+		Order o = new Order(amount, fee, LocalDateTime.now(), Action.BUY);
+		Float orderPrice = o.getOrderPrice();
+		
+		// Not enough Balance
+		if (getBalance() < orderPrice) {
+			return false;
+		}
+
+		// New Balance (not the brand)
+		setBalance(getBalance() - orderPrice);
+		
+		// Save Order
+		orders.add(o);
+		
+		// Add stock to stock holdings
+		stockHoldings.put(stock, new StockHolding(amount, stock, this));
+		
+		return true;
+	}
+	
+	public Boolean sellStock(Stock stock, Integer amount) {
+		// Maybe make fee a constant?!
+		Float fee = (float) 0.1;
+		Order o = new Order(amount, fee, LocalDateTime.now(), Action.SELL);
+		Float orderPrice = o.getOrderPrice();
+
+		// Check if the user has the stock holding
+		if (!stockHoldings.containsKey(stock)) {
+			return false;
+		}
+		
+		StockHolding sh = stockHoldings.get(stock);
+		
+		// Check if the user has the amount to sell
+		if (sh.getAmount() > amount) {
+			return false;
+		}
+		sh.setAmount(sh.getAmount() - amount);
+		
+		// Check if the amount became 0
+		if (sh.getAmount() == 0) {
+			stockHoldings.remove(stock);
+			orders.add(o);
+			setBalance(getBalance() + orderPrice);
+		}
+		else {
+			stockHoldings.put(stock, sh);
+			orders.add(o);
+			setBalance(getBalance() + orderPrice);
+		}
+		
+		return true;
 	}
 }

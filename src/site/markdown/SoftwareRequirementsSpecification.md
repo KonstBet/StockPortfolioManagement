@@ -64,13 +64,13 @@
 
 #### [ΠΧ5 Παραγωγή Αναφοράς Συναλλαγών 30 Ημερών](uc5-30-day-transaction-report.md)
 
-#### [ΠΧ6 Εξουσιοδότηση Μεσίτη] (uc6-authorize-broker.md)
+#### [ΠΧ6 Εξουσιοδότηση Μεσίτη](uc6-authorize-broker.md)
 
-#### [ΠΧ7 Διαχείριση Κεφαλαίου Επενδυτή] (uc7-investor-capital-management.md)
+#### [ΠΧ7 Διαχείριση Κεφαλαίου Επενδυτή](uc7-investor-capital-management.md)
 
-#### [ΠΧ8 Ανανέωση Τιμών Μετοχών] (uc8-price-update.md)
+#### [ΠΧ8 Ανανέωση Τιμών Μετοχών](uc8-price-update.md)
 
-#### [ΠΧ9 Εκτέλεση Αυτόματων Εντολών] (uc9-automated-order-execution.md)
+#### [ΠΧ9 Εκτέλεση Αυτόματων Εντολών](uc9-automated-order-execution.md)
 
 ## Συμπληρωματικές προδιαγραφές
 

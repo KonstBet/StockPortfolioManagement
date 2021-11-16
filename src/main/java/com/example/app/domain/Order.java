@@ -22,7 +22,7 @@ public class Order {
 	@Column(name="fee", precision = 10, scale = 4)
 	private Float fee;
 	
-	@Temporal(TemporalType.DATE)
+	@Column
 	private LocalDateTime date;
 	
 	@Column(name="orderprice", precision = 10, scale = 4)
@@ -55,7 +55,11 @@ public class Order {
 		this.fee = fee;
 		this.date = date;
 		this.action = action;
-		this.orderPrice = this.calculatePrice();
+		if (action.equals(Action.BUY)) {
+			this.orderPrice = this.calculatePriceB();
+		} else {
+			this.orderPrice = this.calculatePriceS();
+		}
 	}
 
 	public Integer getId() {
@@ -106,8 +110,12 @@ public class Order {
 		this.orderPrice = orderPrice;
 	}
 	
-	private Float calculatePrice() {
-		return stock.getOpen() + Math.max(6, amount*stock.getOpen()*fee);
+	private Float calculatePriceB() {
+		return stock.getOpen()*getAmount() + Math.max(6, getAmount()*stock.getOpen()*fee);
+	}
+	
+	private Float calculatePriceS() {
+		return stock.getOpen()*getAmount() - Math.max(6, getAmount()*stock.getOpen()*fee);
 	}
 	
 	public String toString() {
