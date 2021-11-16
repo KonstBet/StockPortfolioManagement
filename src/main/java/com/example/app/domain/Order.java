@@ -1,5 +1,5 @@
 package com.example.app.domain;
-import java.util.Date;
+import java.time.LocalDateTime;
 import javax.persistence.*;
 
 @Entity
@@ -23,7 +23,7 @@ public class Order {
 	private Float fee;
 	
 	@Temporal(TemporalType.DATE)
-	private Date date;
+	private LocalDateTime date;
 	
 	@Column(name="orderprice", precision = 10, scale = 4)
 	private Float orderPrice;
@@ -40,7 +40,7 @@ public class Order {
     @JoinColumn(name="id")
     protected User user;
     
-	public enum Action {
+	enum Action {
 		BUY,
 		SELL
 	}
@@ -49,7 +49,7 @@ public class Order {
 		
 	}
 	
-	public Order(Integer amount, Float fee, Date date, Action action) {
+	public Order(Integer amount, Float fee, LocalDateTime date, Action action) {
 		super();
 		this.amount = amount;
 		this.fee = fee;
@@ -82,11 +82,11 @@ public class Order {
 		this.fee = fee;
 	}
 	
-	public Date getDate() {
+	public LocalDateTime getDate() {
 		return this.date;
 	}
 	
-	public void setDate(Date date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 	

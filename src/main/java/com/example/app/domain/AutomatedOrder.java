@@ -1,4 +1,5 @@
 package com.example.app.domain;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.*;
 
@@ -12,7 +13,7 @@ public class AutomatedOrder extends Order {
 	
 	public AutomatedOrder() {}
 	
-	public AutomatedOrder(Integer id, Integer amount, Float fee, Date date, Action action, Float limit) {
+	public AutomatedOrder(Integer id, Integer amount, Float fee, LocalDateTime date, Action action, Float limit) {
 		super(amount, fee, date, action);
 		this.limit = limit;
 	}

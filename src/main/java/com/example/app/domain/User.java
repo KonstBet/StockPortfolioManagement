@@ -3,6 +3,8 @@ import java.time.LocalDateTime;
 import java.util.*;
 import javax.persistence.*;
 
+import com.example.app.domain.Order.Action;
+
 @Entity
 @Table(name="User")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
@@ -138,6 +140,7 @@ public class User {
 		if (this.balance < orderPrice)
 			return 1;
 		float fee=1;
-		orders.add(new Order(amount, fee, LocalDateTime.now(), Order.Action.BUY));
+		orders.add(new Order(amount, fee, LocalDateTime.now(), Action.BUY));
+		return 0; //TODO
 	}
 }
