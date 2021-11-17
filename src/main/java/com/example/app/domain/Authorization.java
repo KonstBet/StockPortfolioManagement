@@ -21,9 +21,6 @@ public class Authorization {
 	@Column(name = "enddate")
 	private LocalDateTime enddate;
 	
-	@Column(name = "amount")
-	private Integer amount;
-	
 	@ManyToOne
 	@JoinColumn(name="Investorid", nullable = false)
 	private Investor investor;
@@ -32,13 +29,12 @@ public class Authorization {
 	@JoinColumn(name="Brokerid", nullable = false)
 	private Broker broker;
 	
-	public Authorization(Investor investor, Broker broker,LocalDateTime startdate, LocalDateTime enddate, Integer amount) {
+	public Authorization(Investor investor, Broker broker,LocalDateTime startdate, LocalDateTime enddate) {
 		super();
 		this.investor = investor;
 		this.broker = broker;
 		this.startdate = startdate;
 		this.enddate = enddate;
-		this.amount = amount;
 	}
 	
 	public Integer getId() {
@@ -58,12 +54,6 @@ public class Authorization {
 	}
 	public void setEnddate(LocalDateTime enddate) {
 		this.enddate = enddate;
-	}
-	public Integer getAmount() {
-		return amount;
-	}
-	public void setAmount(Integer amount) {
-		this.amount = amount;
 	}
 	public Investor getInvestor() {
 		return investor;

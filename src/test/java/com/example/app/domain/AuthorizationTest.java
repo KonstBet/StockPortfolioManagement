@@ -30,7 +30,7 @@ public class AuthorizationTest {
 	
 	@Test
 	public void testGetters() {
-		AuthCapital authcapital = new AuthCapital(investor, broker, date1, date2, 10);
+		AuthCapital authcapital = new AuthCapital(investor, broker, date1, date2, 10.0);
 		
 		boolean flag = false;
 		if (authcapital.getAmount() == 10 & authcapital.getStartdate().isEqual(date1)

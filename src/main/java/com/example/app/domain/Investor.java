@@ -26,7 +26,6 @@ public class Investor extends User {
 	public Double getCommittedBalance() {
 		return this.committedBalance;
 	}
-	
 	public void setCommittedBalance(Double committedBalance) {
 		this.committedBalance = committedBalance;
 	}
@@ -35,7 +34,7 @@ public class Investor extends User {
 	
 	
 	
-	public Integer giveCapitalAuthorization(Integer amount, Broker broker, LocalDateTime endDate) {
+	public Integer giveCapitalAuthorization(Double amount, Broker broker, LocalDateTime endDate) {
 		if (amount < this.getBalance())
 			return 1;
 		
