@@ -20,7 +20,7 @@ public class AuthStocks extends Authorization {
 	private StockHolding stockholding;
 
 	public StockHolding getStockholding() {
-		return stockholding;
+		return this.stockholding;
 	}
 
 	public void setStockholding(StockHolding stockholding) {

@@ -41,7 +41,7 @@ public class StockHolding {
 	}
 
 	public Integer getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(Integer id) {
@@ -49,7 +49,7 @@ public class StockHolding {
 	}
 
 	public Integer getAmount() {
-		return amount;
+		return this.amount;
 	}
 
 	public void setAmount(Integer amount) {
@@ -57,7 +57,7 @@ public class StockHolding {
 	}
 
 	public Integer getCommittedAmount() {
-		return committedAmount;
+		return this.committedAmount;
 	}
 
 	public void setCommittedAmount(Integer committedAmount) {
@@ -65,7 +65,7 @@ public class StockHolding {
 	}
 
 	public User getUser() {
-		return user;
+		return this.user;
 	}
 
 	public void setUser(User user) {
@@ -73,7 +73,7 @@ public class StockHolding {
 	}
 
 	public Stock getStock() {
-		return stock;
+		return this.stock;
 	}
 
 	public void setStock(Stock stock) {
@@ -81,7 +81,7 @@ public class StockHolding {
 	}
 
 	public Set<AuthStocks> getAuthStock() {
-		return authStock;
+		return this.authStock;
 	}
 
 	public void setAuthStock(Set<AuthStocks> authStock) {

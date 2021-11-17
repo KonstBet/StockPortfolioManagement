@@ -14,7 +14,7 @@ public class Address {
 	private String zipCode;
 
 	public String getStreet() {
-		return street;
+		return this.street;
 	}
 
 	public void setStreet(String street) {
@@ -22,7 +22,7 @@ public class Address {
 	}
 
 	public String getNumber() {
-		return number;
+		return this.number;
 	}
 
 	public void setNumber(String number) {
@@ -30,7 +30,7 @@ public class Address {
 	}
 
 	public String getZipCode() {
-		return zipCode;
+		return this.zipCode;
 	}
 
 	public void setZipCode(String zipCode) {

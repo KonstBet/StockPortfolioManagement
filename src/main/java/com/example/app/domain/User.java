@@ -150,6 +150,12 @@ public class User {
 		// Save Order
 		orders.add(order);
 		
+		if (stockHoldings.containsKey(stock)) {
+			amount=stockHoldings.get(stock).getAmount()+amount;
+			stockHoldings.put(stock, new StockHolding(amount, stock, this));
+			return true;
+		}
+			
 		// Add stock to stock holdings
 		stockHoldings.put(stock, new StockHolding(amount, stock, this));
 		
@@ -170,7 +176,7 @@ public class User {
 		StockHolding sh = stockHoldings.get(stock);
 		
 		// Check if the user has the amount to sell
-		if (sh.getAmount() > amount) {
+		if (sh.getAmount() < amount) {
 			return false;
 		}
 		sh.setAmount(sh.getAmount() - amount);
