@@ -20,13 +20,13 @@ public class Order {
 	private Integer amount;
 		
 	@Column(name="fee", precision = 10, scale = 4)
-	private Float fee;
+	private Double fee;
 	
 	@Column
 	private LocalDateTime date;
 	
 	@Column(name="orderprice", precision = 10, scale = 4)
-	private Float orderPrice;
+	private Double orderPrice;
 	
     @Enumerated(EnumType.STRING)
     @Column(name="action")
@@ -49,8 +49,8 @@ public class Order {
 		
 	}
 	
-	public Order(Integer amount, Float fee, LocalDateTime date, Action action) {
-		super();
+	public Order(User user, Integer amount, Double fee, LocalDateTime date, Action action) {
+		this.user= user;
 		this.amount = amount;
 		this.fee = fee;
 		this.date = date;
@@ -78,11 +78,11 @@ public class Order {
 		this.amount = amount;
 	}
 		
-	public Float getFee() {
+	public Double getFee() {
 		return fee;
 	}
 	
-	public void setFee(Float fee) {
+	public void setFee(Double fee) {
 		this.fee = fee;
 	}
 	
@@ -102,19 +102,19 @@ public class Order {
 		this.action = action;
 	}
 	
-	public Float getOrderPrice() {
+	public Double getOrderPrice() {
 		return this.orderPrice;
 	}
 	
-	public void setOrderPrice(Float orderPrice) {
+	public void setOrderPrice(Double orderPrice) {
 		this.orderPrice = orderPrice;
 	}
 	
-	private Float calculatePriceB() {
+	private Double calculatePriceB() {
 		return stock.getOpen()*getAmount() + Math.max(6, getAmount()*stock.getOpen()*fee);
 	}
 	
-	private Float calculatePriceS() {
+	private Double calculatePriceS() {
 		return stock.getOpen()*getAmount() - Math.max(6, getAmount()*stock.getOpen()*fee);
 	}
 	

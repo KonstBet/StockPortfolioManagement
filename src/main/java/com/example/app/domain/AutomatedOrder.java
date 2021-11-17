@@ -9,20 +9,20 @@ import javax.persistence.*;
 public class AutomatedOrder extends Order {
 	
 	@Column(name="limit", precision = 10, scale = 4)
-	private Float limit;
+	private Double limit;
 	
 	public AutomatedOrder() {}
 	
-	public AutomatedOrder(Integer id, Integer amount, Float fee, LocalDateTime date, Action action, Float limit) {
-		super(amount, fee, date, action);
+	public AutomatedOrder(User user,Integer id, Integer amount, Double fee, LocalDateTime date, Action action, Double limit) {
+		super(user, amount, fee, date, action);
 		this.limit = limit;
 	}
 
-	public Float getLimit() {
+	public Double getLimit() {
 		return limit;
 	}
 
-	public void setLimit(Float limit) {
+	public void setLimit(Double limit) {
 		this.limit = limit;
 	}
 	
@@ -32,7 +32,7 @@ public class AutomatedOrder extends Order {
 	
 	}
 	
-	private Float calculatePrice() {
+	private Double calculatePrice() {
 		return stock.getOpen() + Math.max(6, super.getAmount()*stock.getClose()*super.getFee());
 	}
 	

@@ -135,9 +135,9 @@ public class User {
 	public Boolean buyStock(Stock stock, Integer amount) {
 		
 		// Maybe make fee a constant?!
-		Float fee = (float) 0.1; 
-		Order o = new Order(amount, fee, LocalDateTime.now(), Action.BUY);
-		Float orderPrice = o.getOrderPrice();
+		Double fee = 0.1; 
+		Order order = new Order(this, amount, fee, LocalDateTime.now(), Action.BUY);
+		Double orderPrice = order.getOrderPrice();
 		
 		// Not enough Balance
 		if (getBalance() < orderPrice) {
@@ -148,7 +148,7 @@ public class User {
 		setBalance(getBalance() - orderPrice);
 		
 		// Save Order
-		orders.add(o);
+		orders.add(order);
 		
 		// Add stock to stock holdings
 		stockHoldings.put(stock, new StockHolding(amount, stock, this));
@@ -158,9 +158,9 @@ public class User {
 	
 	public Boolean sellStock(Stock stock, Integer amount) {
 		// Maybe make fee a constant?!
-		Float fee = (float) 0.1;
-		Order o = new Order(amount, fee, LocalDateTime.now(), Action.SELL);
-		Float orderPrice = o.getOrderPrice();
+		Double fee = 0.1;
+		Order order = new Order(this, amount, fee, LocalDateTime.now(), Action.SELL);
+		Double orderPrice = order.getOrderPrice();
 
 		// Check if the user has the stock holding
 		if (!stockHoldings.containsKey(stock)) {
@@ -178,12 +178,12 @@ public class User {
 		// Check if the amount became 0
 		if (sh.getAmount() == 0) {
 			stockHoldings.remove(stock);
-			orders.add(o);
+			orders.add(order);
 			setBalance(getBalance() + orderPrice);
 		}
 		else {
 			stockHoldings.put(stock, sh);
-			orders.add(o);
+			orders.add(order);
 			setBalance(getBalance() + orderPrice);
 		}
 		
