@@ -33,11 +33,11 @@ public class Order {
 	private Action action;
 	
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="id")
+    @JoinColumn(name="stockid")
     protected Stock stock;
     
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="id")
+    @JoinColumn(name="userid")
     protected User user;
     
 	enum Action {

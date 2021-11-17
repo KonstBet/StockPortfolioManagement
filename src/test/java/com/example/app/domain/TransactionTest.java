@@ -1,10 +1,8 @@
 package com.example.app.domain;
 
 import java.time.LocalDateTime;
-
-import org.junit.jupiter.api.*;
-
 import javax.persistence.*;
+import org.junit.jupiter.api.*;
 
 public class TransactionTest {
 
@@ -16,7 +14,7 @@ public class TransactionTest {
 
 	@BeforeEach
 	public void setUpAllTests() {
-		emf = Persistence.createEntityManagerFactory("StockExchange");
+		emf = Persistence.createEntityManagerFactory("StockMarket");
 
 		EntityManager em = emf.createEntityManager();
 
