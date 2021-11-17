@@ -103,7 +103,7 @@ public class User {
 	}
 
 	public Map<Stock,StockHolding> getStockHoldings() {
-		return stockHoldings;
+		return this.stockHoldings;
 	}
 
 	public void setStockHoldings(Map<Stock,StockHolding> stockHoldings) {
@@ -117,6 +117,15 @@ public class User {
 	public void setBalance(Double balance) {
 		this.balance = balance;
 	}
+	
+	public void addOrder(Order order) {
+		orders.add(order);
+	}
+	
+	public void addStockHolding(Stock stock, StockHolding sh) {
+		this.stockHoldings.put(stock, sh);
+	}
+	
 
 
 	public Boolean withdraw(Integer amount) {
@@ -150,14 +159,15 @@ public class User {
 		// Save Order
 		orders.add(order);
 		
-		if (stockHoldings.containsKey(stock)) {
-			amount=stockHoldings.get(stock).getAmount()+amount;
-			stockHoldings.put(stock, new StockHolding(amount, stock, this));
+		// Add stock to stock holdings
+		if (this.stockHoldings.containsKey(stock)) {
+			amount=this.stockHoldings.get(stock).getAmount()+amount;
+			this.stockHoldings.put(stock, new StockHolding(amount, stock, this));
 			return true;
 		}
 			
-		// Add stock to stock holdings
-		stockHoldings.put(stock, new StockHolding(amount, stock, this));
+		
+		this.stockHoldings.put(stock, new StockHolding(amount, stock, this));
 		
 		return true;
 	}
