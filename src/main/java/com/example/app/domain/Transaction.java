@@ -15,8 +15,8 @@ public abstract class Transaction {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
-	@Column(name = "amount", nullable = false)
-	private Integer amount;
+    @Column(name ="amount", precision = 10, scale = 4)
+	private Double amount;
 	
 	@Column(name = "date", nullable = false)
 	private LocalDateTime date;
@@ -26,7 +26,7 @@ public abstract class Transaction {
 	private User user;
 
 	
-	public Transaction(User user, Integer amount, LocalDateTime date) {
+	public Transaction(User user, Double amount, LocalDateTime date) {
 		super();
 		this.user = user;
 		this.amount = amount;
@@ -39,10 +39,10 @@ public abstract class Transaction {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
-	public void setAmount(Integer amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 	public LocalDateTime getDate() {

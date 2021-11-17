@@ -1,4 +1,5 @@
 package com.example.app.domain;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 import javax.persistence.*;
@@ -43,9 +44,9 @@ public class User {
 	@OneToMany(mappedBy="user")
 	private Set<Order> orders= new HashSet<Order>();
 	
-	
+	@Column(name="balance", precision = 10, scale = 4)
 	private Double balance;
-	
+		
 //	List<Transaction> Transactions=new ArrayList<Transaction>();
 	
 	public User() {
@@ -126,18 +127,27 @@ public class User {
 		this.stockHoldings.put(stock, sh);
 	}
 	
+	
 
-
-	public Boolean withdraw(Integer amount) {
-		if (this.balance < amount)
+	// Withdrawal to External Source
+	public Boolean withdraw(Double amount) {
+		if (getBalance() < amount || amount == 0) {
 			return false;
+		}
 		transactions.add(new Withdrawal(this, amount, LocalDateTime.now()));
-		this.balance -= amount;
+		// Double needs round up
+		setBalance((double) Math.round((getBalance() - amount)*100)/100);
+		System.out.print(getBalance());
 		return true;
 	}
-	public Boolean deposit(Integer amount) {
+	
+	// Deposit from External Source
+	public Boolean deposit(Double amount) {
+		if(amount == 0) {
+			return false;
+		}
 		transactions.add(new Deposit(this, amount, LocalDateTime.now()));
-		this.balance += amount;
+		setBalance(getBalance() + amount);
 		return true;
 	}
 	
@@ -150,6 +160,7 @@ public class User {
 		
 		// Not enough Balance
 		if (getBalance() < orderPrice) {
+			System.err.println("Not enough Balance");
 			return false;
 		}
 
@@ -161,12 +172,11 @@ public class User {
 		
 		// Add stock to stock holdings
 		if (this.stockHoldings.containsKey(stock)) {
-			amount=this.stockHoldings.get(stock).getAmount()+amount;
+			amount += this.stockHoldings.get(stock).getAmount();
 			this.stockHoldings.put(stock, new StockHolding(amount, stock, this));
 			return true;
 		}
 			
-		
 		this.stockHoldings.put(stock, new StockHolding(amount, stock, this));
 		
 		return true;
@@ -205,4 +215,29 @@ public class User {
 		
 		return true;
 	}
+
+	
+	public Boolean limitOrder(Double limit, Stock stock, Integer amount, Action action) {
+		Double fee = 0.1;
+		if(action.equals(Action.BUY)) {
+			AutomatedOrder ao = new AutomatedOrder(this, stock, amount, fee, LocalDateTime.now(), action, limit);
+			if (getBalance() < ao.getOrderPrice()) {
+				return false;
+			}
+			orders.add(ao);
+		} else {
+			if (!stockHoldings.containsKey(stock)) {
+				return false;
+			}
+			StockHolding sh = stockHoldings.get(stock);
+			// Check if the user has the amount to sell
+			if (sh.getAmount() < amount) {
+				return false;
+			}
+			AutomatedOrder ao = new AutomatedOrder(this, stock, amount, fee, LocalDateTime.now(), action, limit);
+			orders.add(ao);
+		}
+		return true;
+	}
+
 }

@@ -50,7 +50,7 @@ public class TransactionTest {
 	
 	@Test
 	public void testGetters() {
-		Withdrawal withdrawal = new Withdrawal(user, 10, date1);
+		Withdrawal withdrawal = new Withdrawal(user, 10.00, date1);
 		
 		boolean flag = false;
 		if (withdrawal.getAmount() == 10 & withdrawal.getDate().isEqual(date1)
@@ -62,9 +62,9 @@ public class TransactionTest {
 	
 	@Test
 	public void testSetters() {
-		Deposit deposit = new Deposit(user, 10, date1);
+		Deposit deposit = new Deposit(user, 10.00, date1);
 		
-		deposit.setAmount(20);
+		deposit.setAmount(20.00);
 		deposit.setId(7);
 		deposit.setUser(user2);
 		deposit.setDate(date2);

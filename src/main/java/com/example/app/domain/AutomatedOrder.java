@@ -1,6 +1,5 @@
 package com.example.app.domain;
 import java.time.LocalDateTime;
-import java.util.*;
 import javax.persistence.*;
 
 
@@ -11,11 +10,21 @@ public class AutomatedOrder extends Order {
 	@Column(name="limit", precision = 10, scale = 4)
 	private Double limit;
 	
+    @Enumerated(EnumType.STRING)
+    @Column(name="status")
+	private Status status;
+	
+    enum Status {
+		PENDING,
+		COMPLETED
+	}
+	
 	public AutomatedOrder() {}
 	
-	public AutomatedOrder(User user, Stock stock, Integer id, Integer amount, Double fee, LocalDateTime date, Action action, Double limit) {
+	public AutomatedOrder(User user, Stock stock, Integer amount, Double fee, LocalDateTime date, Action action, Double limit) {
 		super(user, stock, amount, fee, date, action);
 		this.limit = limit;
+		this.status = Status.PENDING;
 	}
 
 	public Double getLimit() {
@@ -30,10 +39,6 @@ public class AutomatedOrder extends Order {
 		return super.toString() +
 				"\nLimit: " + this.getLimit();
 	
-	}
-	
-	private Double calculatePrice() {
-		return stock.getOpen() + Math.max(6, super.getAmount()*stock.getClose()*super.getFee());
 	}
 	
 }

@@ -1,6 +1,7 @@
 package com.example.app.domain;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
@@ -16,23 +17,23 @@ public class Stock
 	@Column(name="company", length=40, nullable=false)
 	private String companyName;
 	
-    @Temporal(TemporalType.DATE)
-	private Date date;
+ 
+	private LocalDateTime date;
 	
     @Column(name ="open", precision = 10, scale = 4)
-	private Float open;
+	private Double open;
 	
 	@Column(name="close", precision = 10, scale = 4)
-	private Float close;
+	private Double close;
 	
 	@Column(name="high", precision = 10, scale = 4)
-	private Float high;
+	private Double high;
 	
 	@Column(name="low", precision = 10, scale = 4)
-	private Float low;
+	private Double low;
 	
 	@Column(name="vol", precision = 10, scale = 4)
-	private Float vol;
+	private Double vol;
 	
 	@OneToMany(mappedBy="stock", fetch=FetchType.LAZY)
 	private Set<Order> orders = new HashSet<Order>();
@@ -44,8 +45,8 @@ public class Stock
 		
 	}
 	
-	public Stock(String id, String companyName, Date date,
-			Float open, Float close, Float high, Float low, Float vol) 
+	public Stock(String id, String companyName, LocalDateTime date,
+			Double open, Double close, Double high, Double low, Double vol) 
 	{
 		this.id = id;
 		this.companyName = companyName;
@@ -73,51 +74,51 @@ public class Stock
 		this.companyName = companyName;
 	}
 
-	public Date getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 
-	public Float getOpen() {
+	public Double getOpen() {
 		return open;
 	}
 
-	public void setOpen(Float open) {
+	public void setOpen(Double open) {
 		this.open = open;
 	}
 
-	public Float getClose() {
+	public Double getClose() {
 		return close;
 	}
 
-	public void setClose(Float close) {
+	public void setClose(Double close) {
 		this.close = close;
 	}
 
-	public Float getHigh() {
+	public Double getHigh() {
 		return high;
 	}
 
-	public void setHigh(Float high) {
+	public void setHigh(Double high) {
 		this.high = high;
 	}
 
-	public Float getLow() {
+	public Double getLow() {
 		return low;
 	}
 
-	public void setLow(Float low) {
+	public void setLow(Double low) {
 		this.low = low;
 	}
 
-	public Float getVol() {
+	public Double getVol() {
 		return vol;
 	}
 
-	public void setVol(Float vol) {
+	public void setVol(Double vol) {
 		this.vol = vol;
 	}
 	
