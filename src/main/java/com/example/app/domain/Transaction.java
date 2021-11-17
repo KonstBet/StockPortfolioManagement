@@ -11,17 +11,17 @@ import javax.persistence.*;
 public abstract class Transaction {
 	
 	@Id
-	@Column(name = "id")
+	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
-	@Column(name = "amount")
+	@Column(name = "amount", nullable = false)
 	private Integer amount;
 	
-	@Column(name = "date")
+	@Column(name = "date", nullable = false)
 	private LocalDateTime date;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="Userid", nullable = false)
 	private User user;
 

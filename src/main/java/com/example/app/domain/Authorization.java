@@ -11,21 +11,21 @@ import javax.persistence.*;
 public class Authorization {
 	
 	@Id
-	@Column(name = "id")
+	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@Column(name = "startdate")
+	@Column(name = "startdate", nullable = false)
 	private LocalDateTime startdate;
 	
-	@Column(name = "enddate")
+	@Column(name = "enddate", nullable = false)
 	private LocalDateTime enddate;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="Investorid", nullable = false)
 	private Investor investor;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="Brokerid", nullable = false)
 	private Broker broker;
 	

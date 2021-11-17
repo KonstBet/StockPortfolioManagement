@@ -8,7 +8,7 @@ import javax.persistence.*;
 @DiscriminatorValue("AuthCapital")
 public class AuthCapital extends Authorization {
 
-	@Column(name = "amount")
+	@Column(name = "amount", nullable = false)
 	private Double amount;
 
 	public AuthCapital(Investor investor, Broker broker, LocalDateTime startdate, LocalDateTime enddate, Double amount) {

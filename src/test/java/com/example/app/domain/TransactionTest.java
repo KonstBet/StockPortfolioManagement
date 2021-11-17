@@ -2,28 +2,51 @@ package com.example.app.domain;
 
 import java.time.LocalDateTime;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.*;
+
+import javax.persistence.*;
 
 public class TransactionTest {
-	
+
+	public static EntityManagerFactory emf;
 	public static User user;
 	public static User user2;
 	public static LocalDateTime date1;
 	public static LocalDateTime date2;
-	
-	@BeforeClass
-	public static void setUpAllTests() {
+
+	@BeforeEach
+	public void setUpAllTests() {
+		emf = Persistence.createEntityManagerFactory("StockExchange");
+
+		EntityManager em = emf.createEntityManager();
+
+		em.getTransaction().begin();
+
 		user = new User();
 		user.setName("Giannhs");
-		
+		em.persist(user);
+
 		user2 = new User();
 		user2.setName("Kwstas");
-		
+		em.persist(user2);
+
+		em.getTransaction().commit();
+
 		date1 = LocalDateTime.now();
 		date2 = LocalDateTime.now();
 	}
+	
+//	@BeforeClass
+//	public static void setUpAllTests2() {
+//		user = new User();
+//		user.setName("Giannhs");
+//
+//		user2 = new User();
+//		user2.setName("Kwstas");
+//
+//		date1 = LocalDateTime.now();
+//		date2 = LocalDateTime.now();
+//	}
 	
 	@Test
 	public void testGetters() {

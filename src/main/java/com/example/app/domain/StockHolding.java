@@ -26,7 +26,7 @@ public class StockHolding {
 	@JoinColumn(name="StockId", nullable=false)
 	private Stock stock;
 	
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="stockholding")
 	private Set<AuthStocks> authStock=new HashSet<AuthStocks>();
 
 	

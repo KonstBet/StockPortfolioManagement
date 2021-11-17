@@ -8,8 +8,12 @@ import javax.persistence.*;
 @DiscriminatorValue("AuthStocks")
 public class AuthStocks extends Authorization {
 
-	@Column(name = "amount")
+	@Column(name = "amount", nullable = false)
 	private Integer amount;
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="StockHoldingId", nullable = false)
+	private StockHolding stockholding;
 
 	public AuthStocks(Investor investor, StockHolding stockholding, Broker broker, 
 			LocalDateTime startdate, LocalDateTime enddate, Integer amount) {
@@ -18,10 +22,6 @@ public class AuthStocks extends Authorization {
 		this.amount = amount;
 		this.stockholding = stockholding;
 	}
-	
-	@ManyToOne
-	@JoinColumn(name="StockHolding", nullable = false)
-	private StockHolding stockholding;
 
 	public Integer getAmount() {
 		return amount;
