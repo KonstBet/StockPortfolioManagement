@@ -13,8 +13,8 @@ public class AutomatedOrder extends Order {
 	
 	public AutomatedOrder() {}
 	
-	public AutomatedOrder(User user,Integer id, Integer amount, Double fee, LocalDateTime date, Action action, Double limit) {
-		super(user, amount, fee, date, action);
+	public AutomatedOrder(User user, Stock stock, Integer id, Integer amount, Double fee, LocalDateTime date, Action action, Double limit) {
+		super(user, stock, amount, fee, date, action);
 		this.limit = limit;
 	}
 
