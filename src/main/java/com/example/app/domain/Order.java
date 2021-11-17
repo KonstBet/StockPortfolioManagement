@@ -49,7 +49,8 @@ public class Order {
 		
 	}
 	
-	public Order(User user, Integer amount, Double fee, LocalDateTime date, Action action) {
+	public Order(User user,Stock stock, Integer amount, Double fee, LocalDateTime date, Action action) {
+		this.stock=stock;
 		this.user= user;
 		this.amount = amount;
 		this.fee = fee;

@@ -119,24 +119,24 @@ public class User {
 	}
 
 
-	public Integer withdraw(Integer amount) {
+	public Boolean withdraw(Integer amount) {
 		if (this.balance < amount)
-			return 1;
+			return false;
 		transactions.add(new Withdrawal(this, amount, LocalDateTime.now()));
 		this.balance -= amount;
-		return 0;
+		return true;
 	}
-	public Integer deposit(Integer amount) {
+	public Boolean deposit(Integer amount) {
 		transactions.add(new Deposit(this, amount, LocalDateTime.now()));
 		this.balance += amount;
-		return 0;
+		return true;
 	}
 	
 	public Boolean buyStock(Stock stock, Integer amount) {
 		
 		// Maybe make fee a constant?!
 		Double fee = 0.1; 
-		Order order = new Order(this, amount, fee, LocalDateTime.now(), Action.BUY);
+		Order order = new Order(this, stock, amount, fee, LocalDateTime.now(), Action.BUY);
 		Double orderPrice = order.getOrderPrice();
 		
 		// Not enough Balance
@@ -159,7 +159,7 @@ public class User {
 	public Boolean sellStock(Stock stock, Integer amount) {
 		// Maybe make fee a constant?!
 		Double fee = 0.1;
-		Order order = new Order(this, amount, fee, LocalDateTime.now(), Action.SELL);
+		Order order = new Order(this, stock, amount, fee, LocalDateTime.now(), Action.SELL);
 		Double orderPrice = order.getOrderPrice();
 
 		// Check if the user has the stock holding
