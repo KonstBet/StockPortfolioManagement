@@ -125,8 +125,7 @@ public class User {
 	public void addStockHolding(Stock stock, StockHolding sh) {
 		this.stockHoldings.put(stock, sh);
 	}
-	
-	
+		
 
 	// Withdrawal to External Source
 	public Boolean withdraw(Double amount) {
@@ -135,7 +134,7 @@ public class User {
 		}
 		transactions.add(new Withdrawal(this, amount, LocalDateTime.now()));
 		// Double needs round up
-		setBalance((double) Math.round((getBalance() - amount)*100)/100);
+		setBalance( (double) Math.round((getBalance() - amount)*100)/100 );
 		System.out.print(getBalance());
 		return true;
 	}

@@ -30,26 +30,27 @@ public class Investor extends User {
 		this.committedBalance = committedBalance;
 	}
 	
+	public void addAuthorization(Authorization auth) {
+		this.authorizations.add(auth);
+	}
 	
-	
-	
-	
-	public Integer giveCapitalAuthorization(Double amount, Broker broker, LocalDateTime endDate) {
-		if (amount < this.getBalance())
-			return 1;
-		
+	public Boolean giveCapitalAuthorization(Double amount, Broker broker, LocalDateTime endDate) {
+		if (amount < this.getBalance()) {
+			return false;
+		}
+			
 		AuthCapital authCapital = new AuthCapital(this, broker, LocalDateTime.now(), endDate, amount);
 		this.committedBalance += amount;
 		authorizations.add(authCapital);
 		
-		return 0;
+		return true;
 	}
 	
-	public Integer removeCapitalAuthorization(AuthCapital authCapital) {
+	public Boolean removeCapitalAuthorization(AuthCapital authCapital) {
 		this.committedBalance -= authCapital.getAmount();
 		authorizations.remove(authCapital);
 		
-		return 0;
+		return true;
 	}
 	
 	public Integer giveStocksAuthorization(Integer amount, StockHolding stockHolding, Broker broker, LocalDateTime endDate) {

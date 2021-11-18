@@ -13,7 +13,7 @@ public class Broker extends User {
 	private Double brokerageFee;
 	
 	@OneToMany(mappedBy="broker")
-	private Set<Authorization> authorizations=new HashSet<Authorization>();
+	private Set<Authorization> authorizations = new HashSet<Authorization>();
 	
 	public Broker() {
 		super();
@@ -37,32 +37,40 @@ public class Broker extends User {
 	
 	
 	public Boolean buyStocksForInvestor(AuthCapital authCapital, Stock stock, Integer amount) {
-		//TODO IMPLEMENTATION
 		if (authorizations.contains(authCapital)) {
-			//Make a new ORDER and StockHolding by authCapital.getInvestor
-			Double fee=0.1;
-			Order ord=new Order(authCapital.getInvestor(), stock, amount, fee, LocalDateTime.now(), Action.BUY);
-			Double orderPrice=ord.getOrderPrice();
-			if (orderPrice>authCapital.getAmount())
+			// Make a new ORDER and StockHolding by authCapital.getInvestor
+			Double fee = 0.1;
+			Order ord = new Order(authCapital.getInvestor(), stock, amount, fee, LocalDateTime.now(), Action.BUY);
+			Double orderPrice = ord.getOrderPrice();
+			
+			if (orderPrice > authCapital.getAmount()) {
 				return false;
+			}
 			authCapital.getInvestor().addOrder(ord);
 			
 			// Add stock to stock holdings
-			if (authCapital.getInvestor().getStockHoldings().containsKey(stock)) {
-				Integer newAmount=authCapital.getInvestor().getStockHoldings().get(stock).getAmount()+amount;
+			if (authCapital.getInvestor().getStockHoldings().containsKey(stock)) 
+			{
+				Integer newAmount = authCapital.getInvestor().getStockHoldings().get(stock).getAmount() + amount;
 				authCapital.getInvestor().addStockHolding(stock, new StockHolding(newAmount, stock, authCapital.getInvestor()));
+			} 
+			else 
+			{
+				authCapital.getInvestor().addStockHolding(stock, new StockHolding(amount, stock, authCapital.getInvestor()));
 			}
 			
-			authCapital.getInvestor().addStockHolding(stock, new StockHolding(amount, stock, authCapital.getInvestor()));
-			//Make a new AuthStocks by authCapital.getInvestor
-			AuthStocks auths=new AuthStocks(authCapital.getInvestor(), authCapital.getInvestor().getStockHoldings().get(stock), authCapital.getBroker(), 
+
+			// Make a new AuthStocks by authCapital.getInvestor
+			AuthStocks auths = new AuthStocks(authCapital.getInvestor(), authCapital.getInvestor().getStockHoldings().get(stock), authCapital.getBroker(), 
 					LocalDateTime.now(), authCapital.getEnddate(), amount);
+			
 			authorizations.add(auths);
+			authCapital.getInvestor().addAuthorization(auths);
 			
 
-			//Delete authCapital
-			Double newMoney= authCapital.getAmount()-orderPrice;
-			if (newMoney!=0) {
+			// Delete authCapital
+			Double newMoney = authCapital.getAmount() - orderPrice;
+			if (newMoney != 0) {
 				authCapital.getInvestor().giveCapitalAuthorization(newMoney, authCapital.getBroker(), authCapital.getEnddate());
 				authorizations.remove(authCapital);
 				return true;
@@ -72,6 +80,7 @@ public class Broker extends User {
 		}
 		return false;
 	}
+	
 	public Boolean sellStocksForInvestor(AuthStocks authStocks, Integer amount) {
 		//TODO IMPLEMENTATION
 		if (authorizations.contains(authStocks)) {
