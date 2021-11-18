@@ -150,6 +150,22 @@ public class User {
 		return true;
 	}
 	
+	public Boolean buy(Stock stock, Integer amount, Double orderPrice) {
+		if (this.getBalance()<orderPrice) {
+			return false;
+		}
+		this.setBalance(this.getBalance()-orderPrice);
+		if (this.stockHoldings.containsKey(stock)) {
+			amount+=this.stockHoldings.get(stock).getAmount();
+			this.stockHoldings.put(stock, new StockHolding(amount, stock, this));
+		}
+		else {
+		this.stockHoldings.put(stock, new StockHolding(amount, stock, this));
+		}
+		return true;
+		
+	}
+	
 	public Boolean buyStock(Stock stock, Integer amount) {
 		
 		// Maybe make fee a constant?!
