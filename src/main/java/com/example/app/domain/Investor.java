@@ -66,7 +66,7 @@ public class Investor extends User {
 	public Integer giveStocksAuthorization(Integer amount, StockHolding stockHolding, Broker broker, LocalDateTime endDate) {
 		//TODO ELEGXOS (if fail return 1), StockHolding
 		AuthStocks authStocks = new AuthStocks(this, stockHolding, broker, LocalDateTime.now(), endDate, amount);
-		//stockHolding.committedAmount += amount;
+		stockHolding.setCommittedAmount(stockHolding.getCommittedAmount()+amount);
 		authorizations.add(authStocks);
 		
 		return 0;
@@ -75,7 +75,7 @@ public class Investor extends User {
 	public Integer removeStockAuthorization(AuthStocks authStocks) {
 		//TODO StockHolding
 		StockHolding stockHolding = authStocks.getStockholding();
-		//stockHolding.setCommittedAmount(stockHolding.getCommittedAmount -= authStocks.getAmount());
+		stockHolding.setCommittedAmount(stockHolding.getCommittedAmount() - authStocks.getAmount());
 		authorizations.remove(authStocks);
 		
 		return 0;
