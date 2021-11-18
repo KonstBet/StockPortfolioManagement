@@ -38,6 +38,7 @@ public class StockHolding {
 		this.amount = amount;
 		this.stock = stock;
 		this.user = user;
+		this.committedAmount = 0;
 	}
 
 	public Integer getId() {

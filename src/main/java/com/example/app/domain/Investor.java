@@ -42,7 +42,7 @@ public class Investor extends User {
 
 	
 	public Boolean giveCapitalAuthorization(Double amount, Broker broker, LocalDateTime endDate) {
-		if (amount < this.getBalance()) {
+		if (amount > this.getBalance()) {
 			return false;
 		}
 			
@@ -54,27 +54,33 @@ public class Investor extends User {
 	}
 	
 	public Boolean removeCapitalAuthorization(AuthCapital authCapital) {
+		if (!authorizations.contains(authCapital)) {
+			return false;
+		}
 		this.committedBalance -= authCapital.getAmount();
 		authorizations.remove(authCapital);
 		authCapital.getBroker().removeAuthorization(authCapital);
 		return true;
 	}
 	
-	public Integer giveStocksAuthorization(Integer amount, StockHolding stockHolding, Broker broker, LocalDateTime endDate) {
-		//TODO ELEGXOS (if fail return 1), StockHolding
+	public Boolean giveStocksAuthorization(Integer amount, StockHolding stockHolding, Broker broker, LocalDateTime endDate) {
+		if (amount > (stockHolding.getAmount() - stockHolding.getCommittedAmount())) //amount > notcommitedAmount
+			return false;
 		AuthStocks authStocks = new AuthStocks(this, stockHolding, broker, LocalDateTime.now(), endDate, amount);
 		stockHolding.setCommittedAmount(stockHolding.getCommittedAmount()+amount);
 		authorizations.add(authStocks);
 		
-		return 0;
+		return true;
 	}
 	
-	public Integer removeStockAuthorization(AuthStocks authStocks) {
-		//TODO StockHolding
+	public Boolean removeStockAuthorization(AuthStocks authStocks) {
+		if (!authorizations.contains(authStocks)) {
+			return false;
+		}
 		StockHolding stockHolding = authStocks.getStockholding();
 		stockHolding.setCommittedAmount(stockHolding.getCommittedAmount() - authStocks.getAmount());
 		authorizations.remove(authStocks);
 		authStocks.getBroker().removeAuthorization(authStocks);
-		return 0;
+		return true;
 	}
 }

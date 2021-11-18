@@ -32,7 +32,15 @@ public class Broker extends User {
 	public void setBrokerageFee(Double brokerageFee) {
 		this.brokerageFee = brokerageFee;
 	}
-	
+
+	public Set<Authorization> getAuthorizations() {
+		return authorizations;
+	}
+
+	public void setAuthorizations(Set<Authorization> authorizations) {
+		this.authorizations = authorizations;
+	}
+
 	public void addAuthorization(Authorization auth) {
 		this.authorizations.add(auth);
 	}
