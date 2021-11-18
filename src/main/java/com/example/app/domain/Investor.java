@@ -26,10 +26,20 @@ public class Investor extends User {
 	public Double getCommittedBalance() {
 		return this.committedBalance;
 	}
+	
 	public void setCommittedBalance(Double committedBalance) {
 		this.committedBalance = committedBalance;
 	}
 	
+	
+	public Set<Authorization> getAuthorizations() {
+		return authorizations;
+	}
+
+	public void setAuthorizations(Set<Authorization> authorizations) {
+		this.authorizations = authorizations;
+	}
+
 	public void addAuthorization(Authorization auth) {
 		this.authorizations.add(auth);
 	}
