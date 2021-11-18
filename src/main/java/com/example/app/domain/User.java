@@ -216,27 +216,27 @@ public class User {
 	}
 
 	
-	public Boolean limitOrder(Double limit, Stock stock, Integer amount, Action action) {
-		Double fee = 0.1;
-		if(action.equals(Action.BUY)) {
-			AutomatedOrder ao = new AutomatedOrder(this, stock, amount, fee, LocalDateTime.now(), action, limit);
-			if (getBalance() < ao.getOrderPrice()) {
-				return false;
-			}
-			orders.add(ao);
-		} else {
-			if (!stockHoldings.containsKey(stock)) {
-				return false;
-			}
-			StockHolding sh = stockHoldings.get(stock);
-			// Check if the user has the amount to sell
-			if (sh.getAmount() < amount) {
-				return false;
-			}
-			AutomatedOrder ao = new AutomatedOrder(this, stock, amount, fee, LocalDateTime.now(), action, limit);
-			orders.add(ao);
-		}
-		return true;
-	}
+//	public Boolean limitOrder(Double limit, Stock stock, Integer amount, Action action) {
+//		Double fee = 0.1;
+//		if(action.equals(Action.BUY)) {
+//			AutomatedOrder ao = new AutomatedOrder(this, stock, amount, fee, LocalDateTime.now(), action, limit);
+//			if (getBalance() < ao.getOrderPrice()) {
+//				return false;
+//			}
+//			orders.add(ao);
+//		} else {
+//			if (!stockHoldings.containsKey(stock)) {
+//				return false;
+//			}
+//			StockHolding sh = stockHoldings.get(stock);
+//			// Check if the user has the amount to sell
+//			if (sh.getAmount() < amount) {
+//				return false;
+//			}
+//			AutomatedOrder ao = new AutomatedOrder(this, stock, amount, fee, LocalDateTime.now(), action, limit);
+//			orders.add(ao);
+//		}
+//		return true;
+//	}
 
 }
