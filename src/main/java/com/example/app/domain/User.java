@@ -152,6 +152,7 @@ public class User {
 	
 	public Boolean buy(Stock stock, Integer amount, Double orderPrice) {
 		if (this.getBalance()<orderPrice) {
+			System.err.println("Not enough Balance");
 			return false;
 		}
 		this.setBalance(this.getBalance()-orderPrice);
@@ -166,7 +167,18 @@ public class User {
 		
 	}
 	
+	
 	public Boolean buyStock(Stock stock, Integer amount) {
+		Double fee= 0.1;
+		Order order= new Order(this, stock, amount, fee, LocalDateTime.now(), Action.BUY);
+		Double orderPrice=order.getOrderPrice();
+		if (!buy(stock, amount, orderPrice)) {
+			return false;
+		}
+		this.orders.add(order);
+		return true;
+	}
+	/*public Boolean buyStock(Stock stock, Integer amount) {
 		
 		// Maybe make fee a constant?!
 		Double fee = 0.1; 
@@ -196,7 +208,7 @@ public class User {
 		
 		return true;
 	}
-	
+	*/
 	public Boolean sellStock(Stock stock, Integer amount) {
 		// Maybe make fee a constant?!
 		Double fee = 0.1;
