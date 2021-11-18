@@ -125,7 +125,8 @@ public class User {
 	public void addStockHolding(Stock stock, StockHolding sh) {
 		this.stockHoldings.put(stock, sh);
 	}
-		
+	
+
 
 	// Withdrawal to External Source
 	public Boolean withdraw(Double amount) {

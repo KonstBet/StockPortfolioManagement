@@ -40,9 +40,6 @@ public class Investor extends User {
 		this.authorizations = authorizations;
 	}
 
-	public void addAuthorization(Authorization auth) {
-		this.authorizations.add(auth);
-	}
 	
 	public Boolean giveCapitalAuthorization(Double amount, Broker broker, LocalDateTime endDate) {
 		if (amount < this.getBalance()) {
@@ -52,14 +49,14 @@ public class Investor extends User {
 		AuthCapital authCapital = new AuthCapital(this, broker, LocalDateTime.now(), endDate, amount);
 		this.committedBalance += amount;
 		authorizations.add(authCapital);
-		
+		broker.addAuthorization(authCapital);
 		return true;
 	}
 	
 	public Boolean removeCapitalAuthorization(AuthCapital authCapital) {
 		this.committedBalance -= authCapital.getAmount();
 		authorizations.remove(authCapital);
-		
+		authCapital.getBroker().removeAuthorization(authCapital);
 		return true;
 	}
 	
@@ -77,7 +74,7 @@ public class Investor extends User {
 		StockHolding stockHolding = authStocks.getStockholding();
 		stockHolding.setCommittedAmount(stockHolding.getCommittedAmount() - authStocks.getAmount());
 		authorizations.remove(authStocks);
-		
+		authStocks.getBroker().removeAuthorization(authStocks);
 		return 0;
 	}
 }

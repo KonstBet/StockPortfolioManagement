@@ -33,6 +33,13 @@ public class Broker extends User {
 		this.brokerageFee = brokerageFee;
 	}
 	
+	public void addAuthorization(Authorization auth) {
+		this.authorizations.add(auth);
+	}
+	
+	public void removeAuthorization(Authorization auth) {
+		this.authorizations.remove(auth);
+	}
 	
 	
 	
@@ -65,7 +72,8 @@ public class Broker extends User {
 					LocalDateTime.now(), authCapital.getEnddate(), amount);
 			
 			authorizations.add(auths);
-			authCapital.getInvestor().addAuthorization(auths);
+			authCapital.getInvestor().giveStocksAuthorization(amount, authCapital.getInvestor().getStockHoldings().get(stock), 
+					authCapital.getBroker(), authCapital.getEnddate());
 			
 
 			// Delete authCapital
