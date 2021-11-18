@@ -51,7 +51,6 @@ public class Broker extends User {
 			if (authCapital.getInvestor().getStockHoldings().containsKey(stock)) {
 				Integer newAmount=authCapital.getInvestor().getStockHoldings().get(stock).getAmount()+amount;
 				authCapital.getInvestor().addStockHolding(stock, new StockHolding(newAmount, stock, authCapital.getInvestor()));
-				return true;
 			}
 			
 			authCapital.getInvestor().addStockHolding(stock, new StockHolding(amount, stock, authCapital.getInvestor()));
@@ -59,7 +58,16 @@ public class Broker extends User {
 			AuthStocks auths=new AuthStocks(authCapital.getInvestor(), authCapital.getInvestor().getStockHoldings().get(stock), authCapital.getBroker(), 
 					LocalDateTime.now(), authCapital.getEnddate(), amount);
 			authorizations.add(auths);
+			
+
 			//Delete authCapital
+			Double newMoney= authCapital.getAmount()-orderPrice;
+			if (newMoney!=0) {
+				authCapital.getInvestor().giveCapitalAuthorization(newMoney, authCapital.getBroker(), authCapital.getEnddate());
+				authorizations.remove(authCapital);
+				return true;
+			}
+			authorizations.remove(authCapital);
 			return true;
 		}
 		return false;
