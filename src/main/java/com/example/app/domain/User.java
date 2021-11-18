@@ -209,7 +209,46 @@ public class User {
 		return true;
 	}
 	*/
+	
+	public Boolean sell(Stock stock, Integer amount, Double orderPrice) {
+		if (!this.stockHoldings.containsKey(stock)) {
+			return false;
+		}
+		
+		StockHolding sh = stockHoldings.get(stock);
+		
+		if (sh.getAmount()<amount) {
+			return false;
+		}
+		
+		this.setBalance(this.getBalance()+orderPrice);
+		
+		sh.setAmount(sh.getAmount()-amount);
+		if (sh.getAmount()==0) {
+			this.stockHoldings.remove(stock);
+		}
+		else {
+			this.stockHoldings.put(stock, sh);
+		}
+		return true;
+		
+	}
+	
 	public Boolean sellStock(Stock stock, Integer amount) {
+		
+		Double fee = 0.1;
+		Order order = new Order(this, stock, amount, fee, LocalDateTime.now(),Action.SELL);
+		Double orderPrice = order.getOrderPrice();
+		
+		if (!this.sell(stock,  amount, orderPrice)) {
+			return false;
+		}
+		
+		this.orders.add(order);
+		return true;
+	}
+	
+/*	public Boolean sellStock(Stock stock, Integer amount) {
 		// Maybe make fee a constant?!
 		Double fee = 0.1;
 		Order order = new Order(this, stock, amount, fee, LocalDateTime.now(), Action.SELL);
@@ -242,7 +281,7 @@ public class User {
 		
 		return true;
 	}
-
+*/
 	
 //	public Boolean limitOrder(Double limit, Stock stock, Integer amount, Action action) {
 //		Double fee = 0.1;
