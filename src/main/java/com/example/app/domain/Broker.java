@@ -4,6 +4,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import com.example.app.domain.Order.Action;
+import com.example.app.domain.Order.Status;
 
 @Entity
 @DiscriminatorValue("B")
@@ -55,7 +56,7 @@ public class Broker extends User {
 		if (authorizations.contains(authCapital)) {
 			// Make a new ORDER and StockHolding by authCapital.getInvestor
 			Double fee = 0.1;
-			Order ord = new Order(authCapital.getInvestor(), stock, amount, fee, LocalDateTime.now(), Action.BUY);
+			Order ord = new Order(authCapital.getInvestor(), stock, amount, fee, LocalDateTime.now(), Action.BUY, Status.COMPLETED);
 			Double orderPrice = ord.getOrderPrice();
 			
 			if (orderPrice > authCapital.getAmount()) {
@@ -102,7 +103,7 @@ public class Broker extends User {
 		if (authorizations.contains(authStocks)) {
 			//Make a new ORDER by authstocks.getInvestor
 			Double fee=0.1;
-			Order ord=new Order(authStocks.getInvestor(), authStocks.getStockholding().getStock(), amount, fee, LocalDateTime.now(), Action.SELL);
+			Order ord=new Order(authStocks.getInvestor(), authStocks.getStockholding().getStock(), amount, fee, LocalDateTime.now(), Action.SELL, Status.COMPLETED);
 			Double orderPrice=ord.getOrderPrice();
 			if (!authStocks.getInvestor().getStockHoldings().containsKey(authStocks.getStockholding().getStock())) {
 				return false;
