@@ -1,6 +1,4 @@
 package com.example.app.domain;
-
-
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.*;

@@ -62,6 +62,10 @@ public class User {
 		this.phoneNo = phoneNo;
 	}
 	
+	public Integer getId() {
+		return this.id;
+	}
+	
 	public String getName() {
 		return this.name;
 	}
@@ -118,6 +122,14 @@ public class User {
 		this.balance = balance;
 	}
 	
+	public String toString() {
+		return "ID: " + getId() +
+				"\nName: " + getName() + 
+				"\nSurname: " + getSurname() + 
+				"\nEmail: " + getEmail() + 
+				"\nPhone: " + getPhoneNo();
+	}
+
 	public void addOrder(Order order) {
 		orders.add(order);
 	}
@@ -150,92 +162,20 @@ public class User {
 		return true;
 	}
 	
-	public Boolean buy(Stock stock, Integer amount, Double orderPrice) {
-		if (this.getBalance()<orderPrice) {
-			System.err.println("Not enough Balance");
-			return false;
-		}
-		this.setBalance(this.getBalance()-orderPrice);
-		if (this.stockHoldings.containsKey(stock)) {
-			amount+=this.stockHoldings.get(stock).getAmount();
-			this.stockHoldings.put(stock, new StockHolding(amount, stock, this));
-		}
-		else {
-		this.stockHoldings.put(stock, new StockHolding(amount, stock, this));
-		}
-		return true;
-		
-	}
-	
-	
 	public Boolean buyStock(Stock stock, Integer amount) {
 		Double fee= 0.1;
-		Order order= new Order(this, stock, amount, fee, LocalDateTime.now(), Action.BUY);
-		Double orderPrice=order.getOrderPrice();
+		Order order = new Order(this, stock, amount, fee, LocalDateTime.now(), Action.BUY);
+		Double orderPrice = order.getOrderPrice();
 		if (!buy(stock, amount, orderPrice)) {
 			return false;
 		}
 		this.orders.add(order);
+		
 		return true;
 	}
-	/*public Boolean buyStock(Stock stock, Integer amount) {
-		
-		// Maybe make fee a constant?!
-		Double fee = 0.1; 
-		Order order = new Order(this, stock, amount, fee, LocalDateTime.now(), Action.BUY);
-		Double orderPrice = order.getOrderPrice();
-		
-		// Not enough Balance
-		if (getBalance() < orderPrice) {
-			System.err.println("Not enough Balance");
-			return false;
-		}
+	
 
-		// New Balance (not the brand)
-		setBalance(getBalance() - orderPrice);
-		
-		// Save Order
-		orders.add(order);
-		
-		// Add stock to stock holdings
-		if (this.stockHoldings.containsKey(stock)) {
-			amount += this.stockHoldings.get(stock).getAmount();
-			this.stockHoldings.put(stock, new StockHolding(amount, stock, this));
-			return true;
-		}
-			
-		this.stockHoldings.put(stock, new StockHolding(amount, stock, this));
-		
-		return true;
-	}
-	*/
-	
-	public Boolean sell(Stock stock, Integer amount, Double orderPrice) {
-		if (!this.stockHoldings.containsKey(stock)) {
-			return false;
-		}
-		
-		StockHolding sh = stockHoldings.get(stock);
-		
-		if (sh.getAmount()<amount) {
-			return false;
-		}
-		
-		this.setBalance(this.getBalance()+orderPrice);
-		
-		sh.setAmount(sh.getAmount()-amount);
-		if (sh.getAmount()==0) {
-			this.stockHoldings.remove(stock);
-		}
-		else {
-			this.stockHoldings.put(stock, sh);
-		}
-		return true;
-		
-	}
-	
 	public Boolean sellStock(Stock stock, Integer amount) {
-		
 		Double fee = 0.1;
 		Order order = new Order(this, stock, amount, fee, LocalDateTime.now(),Action.SELL);
 		Double orderPrice = order.getOrderPrice();
@@ -243,10 +183,85 @@ public class User {
 		if (!this.sell(stock,  amount, orderPrice)) {
 			return false;
 		}
-		
 		this.orders.add(order);
+		
 		return true;
 	}
+	
+	public Boolean limitOrder(Double limit, Stock stock, Integer amount, Action action) {
+		Double fee = 0.1;
+		if(action.equals(Action.BUY)) {
+			AutomatedOrder ao = new AutomatedOrder(this, stock, amount, fee, LocalDateTime.now(), action, limit);
+			if (getBalance() < ao.getOrderPrice()) {
+				return false;
+			}
+			orders.add(ao);
+		} else {
+			if (!stockHoldings.containsKey(stock)) {
+				return false;
+			}
+			StockHolding sh = stockHoldings.get(stock);
+			// Check if the user has the amount to sell
+			if (sh.getAmount() < amount) {
+				return false;
+			}
+			AutomatedOrder ao = new AutomatedOrder(this, stock, amount, fee, LocalDateTime.now(), action, limit);
+			orders.add(ao);
+		}
+		return true;
+	}
+	
+//	public Boolean executePendingOrder() {
+//		for (Order o: orders) {				
+//			
+//		}
+//		
+//		return true;
+//	}
+	
+	public Boolean buy(Stock stock, Integer amount, Double orderPrice) {
+		// Check if balance is enough
+		if (this.getBalance() < orderPrice) {
+			//System.err.println("Not enough Balance");
+			return false;
+		}
+		
+		this.setBalance(this.getBalance() - orderPrice);
+		
+		if (this.stockHoldings.containsKey(stock)) {
+			amount += this.stockHoldings.get(stock).getAmount();
+			this.stockHoldings.put(stock, new StockHolding(amount, stock, this));
+		} else {
+			this.stockHoldings.put(stock, new StockHolding(amount, stock, this));
+		}
+		return true;
+	}
+	
+	public Boolean sell(Stock stock, Integer amount, Double orderPrice) {
+		// Check stock holdings for stock
+		if (!this.stockHoldings.containsKey(stock)) {
+			return false;
+		}
+		
+		// Retrieve stock holding
+		StockHolding sh = stockHoldings.get(stock);
+		
+		if (sh.getAmount() < amount) {
+			return false;
+		}
+		
+		this.setBalance(this.getBalance() + orderPrice);
+		sh.setAmount(sh.getAmount() - amount);
+		
+		if (sh.getAmount() == 0) {
+			this.stockHoldings.remove(stock);
+		}
+		else {
+			this.stockHoldings.put(stock, sh);
+		}
+		return true;
+	}
+	
 	
 /*	public Boolean sellStock(Stock stock, Integer amount) {
 		// Maybe make fee a constant?!
@@ -283,27 +298,34 @@ public class User {
 	}
 */
 	
-//	public Boolean limitOrder(Double limit, Stock stock, Integer amount, Action action) {
-//		Double fee = 0.1;
-//		if(action.equals(Action.BUY)) {
-//			AutomatedOrder ao = new AutomatedOrder(this, stock, amount, fee, LocalDateTime.now(), action, limit);
-//			if (getBalance() < ao.getOrderPrice()) {
-//				return false;
-//			}
-//			orders.add(ao);
-//		} else {
-//			if (!stockHoldings.containsKey(stock)) {
-//				return false;
-//			}
-//			StockHolding sh = stockHoldings.get(stock);
-//			// Check if the user has the amount to sell
-//			if (sh.getAmount() < amount) {
-//				return false;
-//			}
-//			AutomatedOrder ao = new AutomatedOrder(this, stock, amount, fee, LocalDateTime.now(), action, limit);
-//			orders.add(ao);
+//	public Boolean buyStock(Stock stock, Integer amount) {
+//		
+//		// Maybe make fee a constant?!
+//		Double fee = 0.1; 
+//		Order order = new Order(this, stock, amount, fee, LocalDateTime.now(), Action.BUY);
+//		Double orderPrice = order.getOrderPrice();
+//		
+//		// Not enough Balance
+//		if (getBalance() < orderPrice) {
+//			System.err.println("Not enough Balance");
+//			return false;
 //		}
+//	
+//		// New Balance (not the brand)
+//		setBalance(getBalance() - orderPrice);
+//		
+//		// Save Order
+//		orders.add(order);
+//		
+//		// Add stock to stock holdings
+//		if (this.stockHoldings.containsKey(stock)) {
+//			amount += this.stockHoldings.get(stock).getAmount();
+//			this.stockHoldings.put(stock, new StockHolding(amount, stock, this));
+//			return true;
+//		}
+//			
+//		this.stockHoldings.put(stock, new StockHolding(amount, stock, this));
+//		
 //		return true;
 //	}
-
 }

@@ -74,21 +74,21 @@ public class InvestorTest {
 
     @Test
     public void giveStocksAuthorizationTest() {
-        boolean flag = investor.giveStocksAuthorization(10,sh,broker,date1);
+        boolean flag = investor.giveStockAuthorization(10,sh,broker,date1);
 
         Assertions.assertTrue(flag & sh.getCommittedAmount() == 10);
     }
 
     @Test
     public void BrokengiveStocksAuthorizationTest() {
-        boolean flag = investor.giveStocksAuthorization(11,sh,broker,date1); //investor has 10 amount of stocks
+        boolean flag = investor.giveStockAuthorization(11,sh,broker,date1); //investor has 10 amount of stocks
 
         Assertions.assertFalse(flag);
     }
 
     @Test
     public void removeStockAuthorizationTest() {
-        boolean flag = investor.giveStocksAuthorization(10,sh,broker,date1);
+        boolean flag = investor.giveStockAuthorization(10,sh,broker,date1);
 
         HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
         AuthStocks ac = (AuthStocks) auths.iterator().next();

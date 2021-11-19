@@ -80,7 +80,7 @@ public class Broker extends User {
 					LocalDateTime.now(), authCapital.getEnddate(), amount);
 			
 			authorizations.add(auths);
-			authCapital.getInvestor().giveStocksAuthorization(amount, authCapital.getInvestor().getStockHoldings().get(stock), 
+			authCapital.getInvestor().giveStockAuthorization(amount, authCapital.getInvestor().getStockHoldings().get(stock), 
 					authCapital.getBroker(), authCapital.getEnddate());
 			
 

@@ -47,7 +47,8 @@ public class Investor extends User {
 		}
 			
 		AuthCapital authCapital = new AuthCapital(this, broker, LocalDateTime.now(), endDate, amount);
-		this.committedBalance += amount;
+		setCommittedBalance(getCommittedBalance() + amount);
+		setBalance(getBalance() - amount);
 		authorizations.add(authCapital);
 		broker.addAuthorization(authCapital);
 		return true;
@@ -57,15 +58,17 @@ public class Investor extends User {
 		if (!authorizations.contains(authCapital)) {
 			return false;
 		}
-		this.committedBalance -= authCapital.getAmount();
+		setCommittedBalance(getCommittedBalance() - authCapital.getAmount());
+		setBalance(getBalance() + authCapital.getAmount());
 		authorizations.remove(authCapital);
 		authCapital.getBroker().removeAuthorization(authCapital);
 		return true;
 	}
 	
-	public Boolean giveStocksAuthorization(Integer amount, StockHolding stockHolding, Broker broker, LocalDateTime endDate) {
-		if (amount > (stockHolding.getAmount() - stockHolding.getCommittedAmount())) //amount > notcommitedAmount
+	public Boolean giveStockAuthorization(Integer amount, StockHolding stockHolding, Broker broker, LocalDateTime endDate) {
+		if (amount > (stockHolding.getAmount() - stockHolding.getCommittedAmount())) { // amount > notcommitedAmount
 			return false;
+		}
 		AuthStocks authStocks = new AuthStocks(this, stockHolding, broker, LocalDateTime.now(), endDate, amount);
 		stockHolding.setCommittedAmount(stockHolding.getCommittedAmount()+amount);
 		authorizations.add(authStocks);

@@ -5,7 +5,7 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>360</x>
+      <x>310</x>
       <y>670</y>
       <w>210</w>
       <h>180</h>
@@ -23,7 +23,7 @@ balance: Double</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>370</x>
+      <x>320</x>
       <y>950</y>
       <w>200</w>
       <h>150</h>
@@ -41,22 +41,22 @@ action: Action
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>660</x>
+      <x>610</x>
       <y>1010</y>
       <w>120</w>
-      <h>70</h>
+      <h>90</h>
     </coordinates>
     <panel_attributes>Αυτοματοποιημένη 
 Εντολή
 --
 limit: Float
-</panel_attributes>
+status: Status</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>460</x>
+      <x>410</x>
       <y>840</y>
       <w>90</w>
       <h>130</h>
@@ -70,7 +70,7 @@ m2=*
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>50</x>
+      <x>0</x>
       <y>950</y>
       <w>180</w>
       <h>160</h>
@@ -90,7 +90,7 @@ vol: Float</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>220</x>
+      <x>170</x>
       <y>1010</y>
       <w>170</w>
       <h>50</h>
@@ -104,7 +104,7 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>560</x>
+      <x>510</x>
       <y>730</y>
       <w>200</w>
       <h>50</h>
@@ -118,7 +118,7 @@ m2=*
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>740</x>
+      <x>690</x>
       <y>700</y>
       <w>130</w>
       <h>100</h>
@@ -133,7 +133,7 @@ date: Date</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>810</x>
+      <x>760</x>
       <y>560</y>
       <w>110</w>
       <h>50</h>
@@ -145,7 +145,7 @@ date: Date</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>690</x>
+      <x>640</x>
       <y>560</y>
       <w>110</w>
       <h>50</h>
@@ -157,21 +157,21 @@ date: Date</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>290</x>
+      <x>240</x>
       <y>430</y>
       <w>180</w>
       <h>100</h>
     </coordinates>
     <panel_attributes>ΠροφίλΕπενδυτή
 --
-committedBalance: Integer
+/committedBalance: Integer
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>510</x>
+      <x>460</x>
       <y>430</y>
       <w>140</w>
       <h>100</h>
@@ -184,7 +184,7 @@ brokerageFee: float</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>410</x>
+      <x>360</x>
       <y>240</y>
       <w>120</w>
       <h>100</h>
@@ -198,7 +198,7 @@ endDate: Date</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>370</x>
+      <x>320</x>
       <y>330</y>
       <w>100</w>
       <h>120</h>
@@ -212,7 +212,7 @@ m2=*
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>500</x>
+      <x>450</x>
       <y>330</y>
       <w>140</w>
       <h>120</h>
@@ -226,7 +226,7 @@ m2=*
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>70</x>
+      <x>20</x>
       <y>690</y>
       <w>150</w>
       <h>100</h>
@@ -234,13 +234,13 @@ m2=*
     <panel_attributes>Ιδιοκτησία Μετοχής
 --
 amount: Integer
-commitedAmount: Integer</panel_attributes>
+/commitedAmount: Integer</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>510</x>
+      <x>460</x>
       <y>70</y>
       <w>150</w>
       <h>80</h>
@@ -253,7 +253,7 @@ amount: Integer</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>320</x>
+      <x>270</x>
       <y>70</y>
       <w>110</w>
       <h>80</h>
@@ -266,7 +266,7 @@ amount: Integer</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>210</x>
+      <x>160</x>
       <y>730</y>
       <w>160</w>
       <h>50</h>
@@ -280,7 +280,7 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>130</x>
+      <x>80</x>
       <y>780</y>
       <w>40</w>
       <h>190</h>
@@ -293,7 +293,7 @@ m2=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>130</x>
+      <x>80</x>
       <y>0</y>
       <w>460</w>
       <h>710</h>
@@ -307,7 +307,7 @@ m2=*
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>560</x>
+      <x>510</x>
       <y>820</y>
       <w>200</w>
       <h>100</h>
@@ -318,7 +318,7 @@ m2=*
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>740</x>
+      <x>690</x>
       <y>870</y>
       <w>110</w>
       <h>90</h>
@@ -334,7 +334,7 @@ zipCode: Integer</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>370</x>
+      <x>320</x>
       <y>140</y>
       <w>100</w>
       <h>120</h>
@@ -345,7 +345,7 @@ zipCode: Integer</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>490</x>
+      <x>440</x>
       <y>140</y>
       <w>100</w>
       <h>120</h>
@@ -356,7 +356,7 @@ zipCode: Integer</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>500</x>
+      <x>450</x>
       <y>520</y>
       <w>100</w>
       <h>170</h>
@@ -367,7 +367,7 @@ zipCode: Integer</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>350</x>
+      <x>300</x>
       <y>520</y>
       <w>90</w>
       <h>170</h>
@@ -378,7 +378,7 @@ zipCode: Integer</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>560</x>
+      <x>510</x>
       <y>1030</y>
       <w>120</w>
       <h>30</h>
@@ -389,7 +389,7 @@ zipCode: Integer</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>820</x>
+      <x>770</x>
       <y>600</y>
       <w>70</w>
       <h>120</h>
@@ -400,7 +400,7 @@ zipCode: Integer</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>740</x>
+      <x>690</x>
       <y>600</y>
       <w>60</w>
       <h>120</h>
@@ -411,7 +411,7 @@ zipCode: Integer</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>390</x>
+      <x>340</x>
       <y>1160</y>
       <w>150</w>
       <h>80</h>
@@ -421,6 +421,21 @@ Action
 --
 Αγορά
 Πώληση</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>610</x>
+      <y>1160</y>
+      <w>150</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+Status
+--
+Εκρεμμής
+Ολοκληρωμένη</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>

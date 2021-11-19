@@ -27,12 +27,21 @@ public class AutomatedOrder extends Order {
 		this.status = Status.PENDING;
 	}
 
+
 	public Double getLimit() {
 		return limit;
+	}
+	
+	public Status getStatus() {
+		return status;
 	}
 
 	public void setLimit(Double limit) {
 		this.limit = limit;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 	
 	public String toString() {
