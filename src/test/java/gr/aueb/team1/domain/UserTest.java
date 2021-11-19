@@ -1,4 +1,4 @@
-package gr.aueb.team1.test;
+package gr.aueb.team1.domain;
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.*;

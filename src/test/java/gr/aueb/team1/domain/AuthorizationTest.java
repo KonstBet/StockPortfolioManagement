@@ -1,4 +1,4 @@
-package gr.aueb.team1.test;
+package gr.aueb.team1.domain;
 
 import java.time.LocalDateTime;
 
