@@ -1,10 +1,16 @@
-package com.example.app.domain;
+package gr.aueb.team1.test;
 
 import java.time.LocalDateTime;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+
+import gr.aueb.team1.domain.AuthCapital;
+import gr.aueb.team1.domain.AuthStocks;
+import gr.aueb.team1.domain.Broker;
+import gr.aueb.team1.domain.Investor;
+import gr.aueb.team1.domain.StockHolding;
 
 public class AuthorizationTest {
 	

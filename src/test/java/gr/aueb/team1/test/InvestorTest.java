@@ -1,8 +1,16 @@
-package com.example.app.domain;
+package gr.aueb.team1.test;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import gr.aueb.team1.domain.AuthCapital;
+import gr.aueb.team1.domain.AuthStocks;
+import gr.aueb.team1.domain.Authorization;
+import gr.aueb.team1.domain.Broker;
+import gr.aueb.team1.domain.Investor;
+import gr.aueb.team1.domain.Stock;
+import gr.aueb.team1.domain.StockHolding;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;

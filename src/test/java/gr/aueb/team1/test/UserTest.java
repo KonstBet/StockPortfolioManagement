@@ -1,7 +1,11 @@
-package com.example.app.domain;
+package gr.aueb.team1.test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.*;
+
+import gr.aueb.team1.domain.Stock;
+import gr.aueb.team1.domain.StockHolding;
+import gr.aueb.team1.domain.User;
 
 public class UserTest {
 

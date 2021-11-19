@@ -1,10 +1,10 @@
-package com.example.app.domain;
+package gr.aueb.team1.domain;
 import java.time.LocalDateTime;
 import java.util.*;
 import javax.persistence.*;
 
-import com.example.app.domain.Order.Action;
-import com.example.app.domain.Order.Status;
+import gr.aueb.team1.domain.Order.Action;
+import gr.aueb.team1.domain.Order.Status;
 
 @Entity
 @DiscriminatorValue("B")

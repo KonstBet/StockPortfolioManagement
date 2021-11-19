@@ -1,4 +1,4 @@
-package com.example.app.domain;
+package gr.aueb.team1.domain;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 

@@ -1,4 +1,4 @@
-package com.example.app.domain;
+package gr.aueb.team1.domain;
 import java.util.*;
 import javax.persistence.*;
 

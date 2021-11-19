@@ -1,9 +1,13 @@
-package com.example.app.domain;
+package gr.aueb.team1.test;
 
 import java.time.LocalDateTime;
 import javax.persistence.*;
 
 import org.junit.jupiter.api.*;
+
+import gr.aueb.team1.domain.Deposit;
+import gr.aueb.team1.domain.User;
+import gr.aueb.team1.domain.Withdrawal;
 
 public class TransactionTest {
 
