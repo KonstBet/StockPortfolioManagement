@@ -105,6 +105,22 @@ public class Order {
 		this.date = date;
 	}
 	
+	public Stock getStock() {
+		return stock;
+	}
+
+	public void setStock(Stock stock) {
+		this.stock = stock;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 	public Action getAction() {
 		return this.action;
 	}
@@ -145,5 +161,55 @@ public class Order {
 				"\nAction: " + getAction() + 
 				"\nOrder Price: " + getOrderPrice() + "€";
 	}
+	
+	public Boolean applyOrder() {
+		if (this.status==Status.COMPLETED) {
+			return false;
+		}
+			User user = this.getUser();
+			// Check if balance is enough
+			if (this.action==Action.BUY) {
+				if (this.getUser().getBalance() < getOrderPrice()) {
+					//System.err.println("Not enough Balance");
+					return false;
+				}
+				
+				user.setBalance(user.getBalance() - getOrderPrice());
+				
+				if (user.getStockHoldings().containsKey(this.stock)) {
+					this.amount += user.getStockHoldings().get(this.stock).getAmount();
+					user.addStockHolding(this.stock, new StockHolding(this.amount, this.stock, user));
+				} else {
+					user.addStockHolding(this.stock, new StockHolding(this.amount, this.stock, user));
+				}
+				return true;
+			}	else {
+				
+			// Check stock holdings for stock
+				if (!user.getStockHoldings().containsKey(this.stock)) {
+					return false;
+				}
+				
+				// Retrieve stock holding
+				StockHolding sh = user.getStockHoldings().get(stock);
+				
+				if (sh.getAmount() < this.amount) {
+					return false;
+				}
+				
+				user.setBalance(user.getBalance() + getOrderPrice());
+				sh.setAmount(sh.getAmount() - amount);
+				
+				if (sh.getAmount() == 0) {
+					user.remStockHolding(stock);
+				}
+				else {
+					user.addStockHolding(this.stock, sh);
+				}
+				return true;
+			}
+	}
+
+
 	
 }

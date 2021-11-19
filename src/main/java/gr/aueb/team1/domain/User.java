@@ -139,6 +139,9 @@ public class User {
 		this.stockHoldings.put(stock, sh);
 	}
 	
+	public void remStockHolding(Stock stock) {
+		this.stockHoldings.remove(stock);
+	}
 
 
 	// Withdrawal to External Source
