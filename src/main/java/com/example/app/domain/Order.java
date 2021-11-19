@@ -31,6 +31,10 @@ public class Order {
     @Enumerated(EnumType.STRING)
     @Column(name="action")
 	private Action action;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name="status")
+	private Status status;
 	
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="stockid")
@@ -44,18 +48,24 @@ public class Order {
 		BUY,
 		SELL
 	}
+		
+    enum Status {
+		PENDING,
+		COMPLETED
+	}
 	
 	public Order() {
 		
 	}
 	
-	public Order(User user, Stock stock, Integer amount, Double fee, LocalDateTime date, Action action) {
+	public Order(User user, Stock stock, Integer amount, Double fee, LocalDateTime date, Action action, Status status) {
 		this.stock=stock;
 		this.user= user;
 		this.amount = amount;
 		this.fee = fee;
 		this.date = date;
 		this.action = action;
+		this.status = status;
 		if (action.equals(Action.BUY)) {
 			this.orderPrice = this.calculatePriceB();
 		} else {
@@ -99,8 +109,16 @@ public class Order {
 		return this.action;
 	}
 	
+	public Status getStatus() {
+		return status;
+	}
+	
 	public void setAction(Action action) {
 		this.action = action;
+	}
+	
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 	
 	public Double getOrderPrice() {

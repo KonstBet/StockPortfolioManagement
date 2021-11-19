@@ -4,6 +4,7 @@ import java.util.*;
 import javax.persistence.*;
 
 import com.example.app.domain.Order.Action;
+import com.example.app.domain.Order.Status;
 
 @Entity
 @Table(name="User")
@@ -164,7 +165,7 @@ public class User {
 	
 	public Boolean buyStock(Stock stock, Integer amount) {
 		Double fee= 0.1;
-		Order order = new Order(this, stock, amount, fee, LocalDateTime.now(), Action.BUY);
+		Order order = new Order(this, stock, amount, fee, LocalDateTime.now(), Action.BUY, Status.PENDING);
 		Double orderPrice = order.getOrderPrice();
 		if (!buy(stock, amount, orderPrice)) {
 			return false;
@@ -177,7 +178,7 @@ public class User {
 
 	public Boolean sellStock(Stock stock, Integer amount) {
 		Double fee = 0.1;
-		Order order = new Order(this, stock, amount, fee, LocalDateTime.now(),Action.SELL);
+		Order order = new Order(this, stock, amount, fee, LocalDateTime.now(),Action.SELL, Status.PENDING);
 		Double orderPrice = order.getOrderPrice();
 		
 		if (!this.sell(stock,  amount, orderPrice)) {
@@ -211,13 +212,6 @@ public class User {
 		return true;
 	}
 	
-//	public Boolean executePendingOrder() {
-//		for (Order o: orders) {				
-//			
-//		}
-//		
-//		return true;
-//	}
 	
 	public Boolean buy(Stock stock, Integer amount, Double orderPrice) {
 		// Check if balance is enough
@@ -262,70 +256,4 @@ public class User {
 		return true;
 	}
 	
-	
-/*	public Boolean sellStock(Stock stock, Integer amount) {
-		// Maybe make fee a constant?!
-		Double fee = 0.1;
-		Order order = new Order(this, stock, amount, fee, LocalDateTime.now(), Action.SELL);
-		Double orderPrice = order.getOrderPrice();
-
-		// Check if the user has the stock holding
-		if (!stockHoldings.containsKey(stock)) {
-			return false;
-		}
-		
-		StockHolding sh = stockHoldings.get(stock);
-		
-		// Check if the user has the amount to sell
-		if (sh.getAmount() < amount) {
-			return false;
-		}
-		sh.setAmount(sh.getAmount() - amount);
-		
-		// Check if the amount became 0
-		if (sh.getAmount() == 0) {
-			stockHoldings.remove(stock);
-			orders.add(order);
-			setBalance(getBalance() + orderPrice);
-		}
-		else {
-			stockHoldings.put(stock, sh);
-			orders.add(order);
-			setBalance(getBalance() + orderPrice);
-		}
-		
-		return true;
-	}
-*/
-	
-//	public Boolean buyStock(Stock stock, Integer amount) {
-//		
-//		// Maybe make fee a constant?!
-//		Double fee = 0.1; 
-//		Order order = new Order(this, stock, amount, fee, LocalDateTime.now(), Action.BUY);
-//		Double orderPrice = order.getOrderPrice();
-//		
-//		// Not enough Balance
-//		if (getBalance() < orderPrice) {
-//			System.err.println("Not enough Balance");
-//			return false;
-//		}
-//	
-//		// New Balance (not the brand)
-//		setBalance(getBalance() - orderPrice);
-//		
-//		// Save Order
-//		orders.add(order);
-//		
-//		// Add stock to stock holdings
-//		if (this.stockHoldings.containsKey(stock)) {
-//			amount += this.stockHoldings.get(stock).getAmount();
-//			this.stockHoldings.put(stock, new StockHolding(amount, stock, this));
-//			return true;
-//		}
-//			
-//		this.stockHoldings.put(stock, new StockHolding(amount, stock, this));
-//		
-//		return true;
-//	}
 }
