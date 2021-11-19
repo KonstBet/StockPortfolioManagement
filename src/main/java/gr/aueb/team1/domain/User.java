@@ -169,8 +169,8 @@ public class User {
 	public Boolean buyStock(Stock stock, Integer amount) {
 		Double fee= 0.1;
 		Order order = new Order(this, stock, amount, fee, LocalDateTime.now(), Action.BUY, Status.PENDING);
-		Double orderPrice = order.getOrderPrice();
-		if (!buy(stock, amount, orderPrice)) {
+
+		if (!order.applyOrder()) {
 			return false;
 		}
 		this.orders.add(order);
@@ -182,9 +182,8 @@ public class User {
 	public Boolean sellStock(Stock stock, Integer amount) {
 		Double fee = 0.1;
 		Order order = new Order(this, stock, amount, fee, LocalDateTime.now(),Action.SELL, Status.PENDING);
-		Double orderPrice = order.getOrderPrice();
 		
-		if (!this.sell(stock,  amount, orderPrice)) {
+		if (!order.applyOrder()) {
 			return false;
 		}
 		this.orders.add(order);
@@ -216,46 +215,46 @@ public class User {
 	}
 	
 	
-	public Boolean buy(Stock stock, Integer amount, Double orderPrice) {
-		// Check if balance is enough
-		if (this.getBalance() < orderPrice) {
-			//System.err.println("Not enough Balance");
-			return false;
-		}
-		
-		this.setBalance(this.getBalance() - orderPrice);
-		
-		if (this.stockHoldings.containsKey(stock)) {
-			amount += this.stockHoldings.get(stock).getAmount();
-			this.stockHoldings.put(stock, new StockHolding(amount, stock, this));
-		} else {
-			this.stockHoldings.put(stock, new StockHolding(amount, stock, this));
-		}
-		return true;
-	}
+//	public Boolean buy(Stock stock, Integer amount, Double orderPrice) {
+//		// Check if balance is enough
+//		if (this.getBalance() < orderPrice) {
+//			//System.err.println("Not enough Balance");
+//			return false;
+//		}
+//		
+//		this.setBalance(this.getBalance() - orderPrice);
+//		
+//		if (this.stockHoldings.containsKey(stock)) {
+//			amount += this.stockHoldings.get(stock).getAmount();
+//			this.stockHoldings.put(stock, new StockHolding(amount, stock, this));
+//		} else {
+//			this.stockHoldings.put(stock, new StockHolding(amount, stock, this));
+//		}
+//		return true;
+//	}
 	
-	public Boolean sell(Stock stock, Integer amount, Double orderPrice) {
-		// Check stock holdings for stock
-		if (!this.stockHoldings.containsKey(stock)) {
-			return false;
-		}
-		
-		// Retrieve stock holding
-		StockHolding sh = stockHoldings.get(stock);
-		
-		if (sh.getAmount() < amount) {
-			return false;
-		}
-		
-		this.setBalance(this.getBalance() + orderPrice);
-		sh.setAmount(sh.getAmount() - amount);
-		
-		if (sh.getAmount() == 0) {
-			this.stockHoldings.remove(stock);
-		}
-		else {
-			this.stockHoldings.put(stock, sh);
-		}
-		return true;
-	}
+//	public Boolean sell(Stock stock, Integer amount, Double orderPrice) {
+//		// Check stock holdings for stock
+//		if (!this.stockHoldings.containsKey(stock)) {
+//			return false;
+//		}
+//		
+//		// Retrieve stock holding
+//		StockHolding sh = stockHoldings.get(stock);
+//		
+//		if (sh.getAmount() < amount) {
+//			return false;
+//		}
+//		
+//		this.setBalance(this.getBalance() + orderPrice);
+//		sh.setAmount(sh.getAmount() - amount);
+//		
+//		if (sh.getAmount() == 0) {
+//			this.stockHoldings.remove(stock);
+//		}
+//		else {
+//			this.stockHoldings.put(stock, sh);
+//		}
+//		return true;
+//	}
 }

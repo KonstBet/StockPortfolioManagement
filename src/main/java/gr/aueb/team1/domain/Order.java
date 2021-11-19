@@ -163,53 +163,59 @@ public class Order {
 	}
 	
 	public Boolean applyOrder() {
+		
 		if (this.status==Status.COMPLETED) {
 			return false;
 		}
-			User user = this.getUser();
-			// Check if balance is enough
-			if (this.action==Action.BUY) {
-				if (this.getUser().getBalance() < getOrderPrice()) {
-					//System.err.println("Not enough Balance");
-					return false;
-				}
 				
-				user.setBalance(user.getBalance() - getOrderPrice());
-				
-				if (user.getStockHoldings().containsKey(this.stock)) {
-					this.amount += user.getStockHoldings().get(this.stock).getAmount();
-					user.addStockHolding(this.stock, new StockHolding(this.amount, this.stock, user));
-				} else {
-					user.addStockHolding(this.stock, new StockHolding(this.amount, this.stock, user));
-				}
-				return true;
-			}	else {
-				
-			// Check stock holdings for stock
-				if (!user.getStockHoldings().containsKey(this.stock)) {
-					return false;
-				}
-				
-				// Retrieve stock holding
-				StockHolding sh = user.getStockHoldings().get(stock);
-				
-				if (sh.getAmount() < this.amount) {
-					return false;
-				}
-				
-				user.setBalance(user.getBalance() + getOrderPrice());
-				sh.setAmount(sh.getAmount() - amount);
-				
-				if (sh.getAmount() == 0) {
-					user.remStockHolding(stock);
-				}
-				else {
-					user.addStockHolding(this.stock, sh);
-				}
-				return true;
+		// Check if balance is enough
+		if (this.action==Action.BUY) {
+			
+			if (user.getBalance() < getOrderPrice()) {
+				//System.err.println("Not enough Balance");
+				return false;
 			}
+			buy();
+			
+		} else {		
+			// Check stock holdings for stock
+			if (!user.getStockHoldings().containsKey(this.stock)) {
+				return false;
+			}
+			
+			// Retrieve stock holding
+			StockHolding sh = user.getStockHoldings().get(stock);
+			
+			if (sh.getAmount() < this.amount) {
+				return false;
+			}
+			sell(sh);
+		}
+		return true;
 	}
 
-
+	protected void buy() {
+		user.setBalance(user.getBalance() - getOrderPrice());
+		if (user.getStockHoldings().containsKey(this.stock)) {
+			this.amount += user.getStockHoldings().get(this.stock).getAmount();
+			user.addStockHolding(this.stock, new StockHolding(this.amount, this.stock, user));
+		} else {
+			user.addStockHolding(this.stock, new StockHolding(this.amount, this.stock, user));
+		}
+	}
+	
+	protected void sell(StockHolding sh) {
+		user.setBalance(user.getBalance() + getOrderPrice());
+		sh.setAmount(sh.getAmount() - amount);
+		
+		if (sh.getAmount() == 0) {
+			user.remStockHolding(stock);
+		}
+		else {
+			user.addStockHolding(this.stock, sh);
+		}
+	}
+	
+	
 	
 }

@@ -2,8 +2,9 @@ package gr.aueb.team1.dao.impl;
 import java.util.List;
 
 import gr.aueb.team1.dao.DAO;
+import gr.aueb.team1.dao.UserDAO;
 
-public class OrderDAO implements DAO{
+public class UserDAOImpl implements DAO, UserDAO{
 
 	@Override
 	public List getAll() {
