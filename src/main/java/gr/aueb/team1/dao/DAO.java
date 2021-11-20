@@ -2,9 +2,10 @@ package gr.aueb.team1.dao;
 
 import java.util.List;
 
+
 public interface DAO<T> {
-	   public List<T> getAll();
-	   public T get(T id);
-	   public void update(T object);
-	   public void delete(T object);
+	   public List<T> findAll();
+	   public T save(T t);
+	   public void update(T t, String[] params);
+	   public void delete(T t);
 }
