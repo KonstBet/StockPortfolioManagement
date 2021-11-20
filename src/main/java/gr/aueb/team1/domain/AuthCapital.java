@@ -11,10 +11,6 @@ public class AuthCapital extends Authorization {
 	@Column(name = "amount", nullable = false)
 	private Double amount;
 
-	public AuthCapital(Investor investor,Broker broker,LocalDateTime startdate,LocalDateTime enddate) {
-		super(investor, broker, startdate, enddate);
-	}
-
 	public AuthCapital(Investor investor, Broker broker, LocalDateTime startdate, LocalDateTime enddate, Double amount) {
 		super(investor, broker, startdate, enddate);
 		this.amount = amount;
@@ -27,7 +23,7 @@ public class AuthCapital extends Authorization {
 		this.amount = amount;
 	}
 
-	public boolean giveNewAuthorization(Investor investor, Double amount, Broker broker,StockHolding sh) {
+	public boolean giveNewAuthorization(Investor investor, Double amount, Broker broker) {
 		if (amount > investor.getBalance()) {
 			return false;
 		}

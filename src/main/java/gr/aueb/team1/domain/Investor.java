@@ -54,7 +54,7 @@ public class Investor extends User {
 				}
 		}
 
-		return authCapital.giveNewAuthorization(this,amount,broker,null);
+		return authCapital.giveNewAuthorization(this,amount,broker);
 	}
 
 	public Boolean giveAuthorization(Integer amount, StockHolding stockHolding, Broker broker, LocalDateTime endDate) {
