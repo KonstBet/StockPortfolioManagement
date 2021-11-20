@@ -45,21 +45,21 @@ public class InvestorTest {
     }
 
     @Test
-    public void giveCapitalAuthorizationTest() {
+    public void giveCapitalAuthorizationTest1() {
         boolean flag = investor.giveCapitalAuthorization(500.00,broker,date1);
 
-        Assertions.assertTrue(flag & investor.getCommittedBalance() == 500);
+        Assertions.assertTrue(flag && investor.getCommittedBalance() == 500);
     }
 
     @Test
-    public void BrokengiveCapitalAuthorizationTest() {
+    public void giveCapitalAuthorizationTest2() {
         boolean flag = investor.giveCapitalAuthorization(501.00,broker,date1);
 
         Assertions.assertFalse(flag);
     }
 
     @Test
-    public void removeCapitalAuthorizationTest() {
+    public void removeCapitalAuthorizationTest1() {
         boolean flag = investor.giveCapitalAuthorization(500.00,broker,date1);
 
         HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
@@ -67,12 +67,12 @@ public class InvestorTest {
 
         boolean flag2 = investor.removeCapitalAuthorization(ac);
 
-        Assertions.assertTrue(flag & flag2 & investor.getCommittedBalance() == 0
-                & investor.getAuthorizations().size() == 0 & broker.getAuthorizations().size() == 0);
+        Assertions.assertTrue(flag && flag2 && investor.getCommittedBalance() == 0
+                && investor.getAuthorizations().size() == 0 && broker.getAuthorizations().size() == 0);
     }
 
     @Test
-    public void BrokenremoveCapitalAuthorizationTest() {
+    public void removeCapitalAuthorizationTest2() {
         AuthCapital ac = new AuthCapital(investor, broker, date1, date2, 10.0);
 
         boolean flag = investor.removeCapitalAuthorization(ac);
@@ -81,21 +81,21 @@ public class InvestorTest {
     }
 
     @Test
-    public void giveStocksAuthorizationTest() {
+    public void giveStocksAuthorizationTest1() {
         boolean flag = investor.giveStockAuthorization(10,sh,broker,date1);
 
-        Assertions.assertTrue(flag & sh.getCommittedAmount() == 10);
+        Assertions.assertTrue(flag && sh.getCommittedAmount() == 10);
     }
 
     @Test
-    public void BrokengiveStocksAuthorizationTest() {
+    public void giveStocksAuthorizationTest2() {
         boolean flag = investor.giveStockAuthorization(11,sh,broker,date1); //investor has 10 amount of stocks
 
         Assertions.assertFalse(flag);
     }
 
     @Test
-    public void removeStockAuthorizationTest() {
+    public void removeStockAuthorizationTest1() {
         boolean flag = investor.giveStockAuthorization(10,sh,broker,date1);
 
         HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
@@ -103,11 +103,11 @@ public class InvestorTest {
 
         boolean flag2 = investor.removeStockAuthorization(ac);
 
-        Assertions.assertTrue(flag & flag2 & sh.getCommittedAmount() == 0);
+        Assertions.assertTrue(flag && flag2 & sh.getCommittedAmount() == 0);
     }
 
     @Test
-    public void BrokenremoveStockAuthorizationTest() {
+    public void removeStockAuthorizationTest2() {
         AuthStocks ac = new AuthStocks(investor, sh, broker, date1, date2, 10);
 
         boolean flag = investor.removeStockAuthorization(ac);

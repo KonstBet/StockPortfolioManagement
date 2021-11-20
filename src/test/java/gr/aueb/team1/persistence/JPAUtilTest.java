@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.Test;
 
-import gr.aueb.team1.persistence.JPAUtil;
 
 class JPAUtilTest {
 
