@@ -67,4 +67,11 @@ public class Authorization {
 	public void setBroker(Broker broker) {
 		this.broker = broker;
 	}
+
+	public boolean giveNewAuthorization(Investor investor, Integer amount, Broker broker, StockHolding stockHolding) {return false;}
+	public boolean giveToExistedAuthorization(AuthStocks ac) {return false;}
+	public boolean existsAuthorizationToEqual(AuthStocks ac) {return false;}
+	public boolean giveToExistedAuthorization(AuthCapital ac) {return false;}
+	public boolean existsAuthorizationToEqual(AuthCapital ac) {return false;}
+	public boolean removeAuth() {return false;}
 }

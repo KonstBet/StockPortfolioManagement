@@ -44,7 +44,7 @@ public class BrokerTest {
 
     @Test
     public void buyStocksForInvestorTest() {
-        investor.giveCapitalAuthorization(500.00,broker,date1);
+        investor.giveAuthorization(500.00,broker,date1);
 
         HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
         AuthCapital ac = (AuthCapital) auths.iterator().next();
@@ -56,7 +56,7 @@ public class BrokerTest {
 
     @Test
     public void BrokenbuyStocksForInvestorTest() {
-        investor.giveCapitalAuthorization(500.00,broker,date1);
+        investor.giveAuthorization(500.00,broker,date1);
 
         HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
         AuthCapital ac = (AuthCapital) auths.iterator().next();

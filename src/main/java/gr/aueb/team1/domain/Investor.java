@@ -40,50 +40,47 @@ public class Investor extends User {
 		this.authorizations = authorizations;
 	}
 
-	
-	public Boolean giveCapitalAuthorization(Double amount, Broker broker, LocalDateTime endDate) {
-		if (amount > this.getBalance()) {
-			return false;
-		}
-			
+
+	public Boolean giveAuthorization(Double amount, Broker broker, LocalDateTime endDate) {
 		AuthCapital authCapital = new AuthCapital(this, broker, LocalDateTime.now(), endDate, amount);
-		setCommittedBalance(getCommittedBalance() + amount);
-		setBalance(getBalance() - amount);
-		authorizations.add(authCapital);
-		broker.addAuthorization(authCapital);
-		return true;
-	}
-	
-	public Boolean removeCapitalAuthorization(AuthCapital authCapital) {
-		if (!authorizations.contains(authCapital)) {
-			return false;
+
+		Iterator<Authorization> iterator = authorizations.iterator();
+		Authorization ac;
+		while (iterator.hasNext()) {
+				ac = iterator.next();
+				if (ac.existsAuthorizationToEqual(authCapital)) {
+
+					return ac.giveToExistedAuthorization(authCapital);
+				}
 		}
-		setCommittedBalance(getCommittedBalance() - authCapital.getAmount());
-		setBalance(getBalance() + authCapital.getAmount());
-		authorizations.remove(authCapital);
-		authCapital.getBroker().removeAuthorization(authCapital);
-		return true;
+
+		return authCapital.giveNewAuthorization(this,amount,broker,null);
 	}
-	
-	public Boolean giveStockAuthorization(Integer amount, StockHolding stockHolding, Broker broker, LocalDateTime endDate) {
-		if (amount > (stockHolding.getAmount() - stockHolding.getCommittedAmount())) { // amount > notcommitedAmount
-			return false;
-		}
+
+	public Boolean giveAuthorization(Integer amount, StockHolding stockHolding, Broker broker, LocalDateTime endDate) {
 		AuthStocks authStocks = new AuthStocks(this, stockHolding, broker, LocalDateTime.now(), endDate, amount);
-		stockHolding.setCommittedAmount(stockHolding.getCommittedAmount()+amount);
-		authorizations.add(authStocks);
-		
-		return true;
+
+		Iterator<Authorization> iterator = authorizations.iterator();
+		Authorization as;
+		while (iterator.hasNext()) {
+				as = iterator.next();
+				if (as.existsAuthorizationToEqual(authStocks)) {
+
+					return as.giveToExistedAuthorization(authStocks);
+				}
+		}
+
+		return authStocks.giveNewAuthorization(this,amount,broker,stockHolding);
 	}
-	
-	public Boolean removeStockAuthorization(AuthStocks authStocks) {
-		if (!authorizations.contains(authStocks)) {
+
+	public Boolean removeAuthorization(Authorization auth) {
+		if (!authorizations.contains(auth)) {
 			return false;
 		}
-		StockHolding stockHolding = authStocks.getStockholding();
-		stockHolding.setCommittedAmount(stockHolding.getCommittedAmount() - authStocks.getAmount());
-		authorizations.remove(authStocks);
-		authStocks.getBroker().removeAuthorization(authStocks);
+
+		auth.removeAuth();
+		authorizations.remove(auth);
+		auth.getBroker().removeAuthorization(auth);
 		return true;
 	}
 }

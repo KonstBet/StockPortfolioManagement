@@ -81,18 +81,14 @@ public class Broker extends User {
 					LocalDateTime.now(), authCapital.getEnddate(), amount);
 			
 			authorizations.add(auths);
-			authCapital.getInvestor().giveStockAuthorization(amount, authCapital.getInvestor().getStockHoldings().get(stock), 
+			authCapital.getInvestor().giveAuthorization(amount, authCapital.getInvestor().getStockHoldings().get(stock),
 					authCapital.getBroker(), authCapital.getEnddate());
 			
 
 			// Delete authCapital
 			Double newMoney = authCapital.getAmount() - orderPrice;
-			if (newMoney != 0) {
-				authCapital.getInvestor().giveCapitalAuthorization(newMoney, authCapital.getBroker(), authCapital.getEnddate());
-				authorizations.remove(authCapital);
-				return true;
-			}
-			authorizations.remove(authCapital);
+			authCapital.getInvestor().removeAuthorization(authCapital);
+			authCapital.getInvestor().giveAuthorization(newMoney, authCapital.getBroker(), authCapital.getEnddate());
 			return true;
 		}
 		return false;
