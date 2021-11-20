@@ -10,7 +10,7 @@ import gr.aueb.team1.domain.Order;
 import gr.aueb.team1.domain.User;
 import gr.aueb.team1.persistence.JPAUtil;
 
-public abstract class OrderDAO implements DAO{
+public abstract class OrderDAO implements DAO<Order>{
 
 	private EntityManager em;
 	
@@ -33,7 +33,7 @@ public abstract class OrderDAO implements DAO{
 		return result;
 	}
 	
-
+	@Override
 	public Order save(Order order) {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();

@@ -10,7 +10,7 @@ import gr.aueb.team1.dao.DAO;
 import gr.aueb.team1.domain.User;
 import gr.aueb.team1.persistence.JPAUtil;
 
-public abstract class UserDAO implements DAO {
+public abstract class UserDAO implements DAO<User> {
 
 	private EntityManager em;
 	
@@ -33,7 +33,7 @@ public abstract class UserDAO implements DAO {
 		return result;
 	}
 	
-	
+	@Override
 	public User save(User user) {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
