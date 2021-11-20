@@ -218,6 +218,28 @@ public class Order {
 		this.status = Status.COMPLETED;
 	}
 	
+	public boolean applyBrokerBuy(AuthCapital auth) {
+		if (this.status == Status.COMPLETED) {
+			return false;
+		}
+		
+		if (auth.getAmount() < this.getOrderPrice()) {
+			return false;
+		}
+		
+		auth.getInvestor().removeAuthorization(auth);
+		auth.setAmount(auth.getAmount()-this.getOrderPrice());
+		auth.getInvestor().giveAuthorization(auth.getAmount(), auth.getBroker(), LocalDateTime.now());
+		if (auth.getInvestor().getStockHoldings().containsKey(this.stock)) {
+			this.amount += user.getStockHoldings().get(this.stock).getAmount();
+			user.addStockHolding(this.stock, new StockHolding(this.amount, this.stock, user));
+		} else {
+			user.addStockHolding(this.stock, new StockHolding(this.amount, this.stock, user));
+		}
+		this.status = Status.COMPLETED;
+		return true;
+
+	}
 	
 	
 }
