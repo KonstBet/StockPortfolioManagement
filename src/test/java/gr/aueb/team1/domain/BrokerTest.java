@@ -8,6 +8,8 @@ import gr.aueb.team1.domain.AuthCapital;
 import gr.aueb.team1.domain.Authorization;
 import gr.aueb.team1.domain.Broker;
 import gr.aueb.team1.domain.Investor;
+import gr.aueb.team1.domain.Order.Action;
+import gr.aueb.team1.domain.Order.Status;
 import gr.aueb.team1.domain.Stock;
 import gr.aueb.team1.domain.StockHolding;
 
@@ -64,6 +66,19 @@ public class BrokerTest {
         boolean flag = broker.buyForInvestor(ac, PeiraiosStock, 500);
 
         Assertions.assertFalse(flag);
+    }
+    
+    @Test
+    public void ApplyOrderBroker() {
+    	investor.giveAuthorization(100.00, broker, date1);
+    	HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
+    	AuthCapital ac = (AuthCapital) auths.iterator().next();
+    	Double fee=0.1;
+    	Order or = new Order(investor, CosmoteStock, 1, fee, date1, Action.BUY, Status.PENDING);
+    	or.applyBrokerBuy(ac);
+    	Assertions.assertTrue(investor.getStockHoldings().containsKey(CosmoteStock));
+    	
+    	
     }
 
 //TODO CANT RUN CAUSE NEED sellStocksForInvestor IMPLEMENTATION
