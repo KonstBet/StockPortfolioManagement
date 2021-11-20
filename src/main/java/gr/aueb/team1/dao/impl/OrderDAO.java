@@ -7,10 +7,9 @@ import javax.persistence.Query;
 
 import gr.aueb.team1.dao.DAO;
 import gr.aueb.team1.domain.Order;
-import gr.aueb.team1.domain.User;
 import gr.aueb.team1.persistence.JPAUtil;
 
-public abstract class OrderDAO implements DAO<Order>{
+public class OrderDAO implements DAO<Order>{
 
 	private EntityManager em;
 	
