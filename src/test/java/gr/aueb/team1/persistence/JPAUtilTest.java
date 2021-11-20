@@ -11,7 +11,7 @@ class JPAUtilTest {
 
 	@Test
 	void test() {
-		
+
 		EntityManager em = JPAUtil.getCurrentEntityManager();
 		assertNotNull(em);
 		
