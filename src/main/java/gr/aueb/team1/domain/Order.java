@@ -202,6 +202,7 @@ public class Order {
 		} else {
 			user.addStockHolding(this.stock, new StockHolding(this.amount, this.stock, user));
 		}
+		this.status = Status.COMPLETED;
 	}
 	
 	protected void sell(StockHolding sh) {
@@ -214,6 +215,7 @@ public class Order {
 		else {
 			user.addStockHolding(this.stock, sh);
 		}
+		this.status = Status.COMPLETED;
 	}
 	
 	
