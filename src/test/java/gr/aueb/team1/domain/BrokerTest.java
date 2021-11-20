@@ -49,7 +49,7 @@ public class BrokerTest {
         HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
         AuthCapital ac = (AuthCapital) auths.iterator().next();
 
-        boolean flag = broker.buyStocksForInvestor(ac, PeiraiosStock, 10);
+        boolean flag = broker.buyForInvestor(ac, PeiraiosStock, 10);
 
         Assertions.assertTrue(flag);
     }
@@ -61,7 +61,7 @@ public class BrokerTest {
         HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
         AuthCapital ac = (AuthCapital) auths.iterator().next();
 
-        boolean flag = broker.buyStocksForInvestor(ac, PeiraiosStock, 500);
+        boolean flag = broker.buyForInvestor(ac, PeiraiosStock, 500);
 
         Assertions.assertFalse(flag);
     }

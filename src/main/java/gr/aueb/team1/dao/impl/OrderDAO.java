@@ -1,32 +1,52 @@
 package gr.aueb.team1.dao.impl;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+
 import gr.aueb.team1.dao.DAO;
+import gr.aueb.team1.domain.Order;
+import gr.aueb.team1.domain.User;
+import gr.aueb.team1.persistence.JPAUtil;
 
-public class OrderDAO implements DAO{
+public abstract class OrderDAO implements DAO{
 
-	@Override
-	public List getAll() {
-		// TODO Auto-generated method stub
-		return null;
+	private EntityManager em;
+	
+	public OrderDAO() {
+		em = JPAUtil.getCurrentEntityManager();
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	@Override
-	public Object get(Object id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void update(Object object) {
-		// TODO Auto-generated method stub
+	public List<Order> findAll() {
 		
-	}
-
-	@Override
-	public void delete(Object object) {
-		// TODO Auto-generated method stub
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
 		
+		Query q = em.createQuery("select o from Order o");
+		List<Order> result = q.getResultList();
+		
+		tx.commit();
+		
+		return result;
 	}
+	
 
+	public Order save(Order order) {
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		
+		Order savedOrder = order;
+		if (order.getId() != null) {
+			savedOrder = em.merge(order);
+		} else {
+			em.persist(order);
+		}
+		
+		tx.commit();
+		
+		return savedOrder;
+	}
 }

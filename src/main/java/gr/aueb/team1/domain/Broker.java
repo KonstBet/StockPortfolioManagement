@@ -52,7 +52,7 @@ public class Broker extends User {
 	
 	
 	
-	public Boolean buyStocksForInvestor(AuthCapital authCapital, Stock stock, Integer amount) {
+	public Boolean buyForInvestor(AuthCapital authCapital, Stock stock, Integer amount) {
 		if (authorizations.contains(authCapital)) {
 			// Make a new ORDER and StockHolding by authCapital.getInvestor
 			Double fee = 0.1;
@@ -80,7 +80,7 @@ public class Broker extends User {
 			AuthStocks auths = new AuthStocks(authCapital.getInvestor(), authCapital.getInvestor().getStockHoldings().get(stock), authCapital.getBroker(), 
 					LocalDateTime.now(), authCapital.getEnddate(), amount);
 			
-			authorizations.add(auths);
+			//authorizations.add(auths);
 			authCapital.getInvestor().giveAuthorization(amount, authCapital.getInvestor().getStockHoldings().get(stock),
 					authCapital.getBroker(), authCapital.getEnddate());
 			
@@ -94,7 +94,7 @@ public class Broker extends User {
 		return false;
 	}
 	
-	public Boolean sellStocksForInvestor(AuthStocks authStocks, Integer amount) {
+	public Boolean sellForInvestor(AuthStocks authStocks, Integer amount) {
 		//TODO IMPLEMENTATION
 		if (authorizations.contains(authStocks)) {
 			//Make a new ORDER by authstocks.getInvestor
