@@ -1,7 +1,5 @@
 package gr.aueb.team1.dao.impl;
 import java.util.List;
-import java.util.Objects;
-
 import javax.persistence.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -10,7 +8,7 @@ import gr.aueb.team1.dao.DAO;
 import gr.aueb.team1.domain.User;
 import gr.aueb.team1.persistence.JPAUtil;
 
-public abstract class UserDAO implements DAO {
+public class UserDAO implements DAO<User> {
 
 	private EntityManager em;
 	
@@ -33,7 +31,7 @@ public abstract class UserDAO implements DAO {
 		return result;
 	}
 	
-	
+	@Override
 	public User save(User user) {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
