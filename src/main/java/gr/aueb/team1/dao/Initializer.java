@@ -19,7 +19,7 @@ public class Initializer {
 
         em.createNativeQuery("delete from Users").executeUpdate();
         em.createNativeQuery("delete from Transactions").executeUpdate();
-        //em.createNativeQuery("delete from orders").executeUpdate();
+        em.createNativeQuery("delete from orders").executeUpdate();
         em.createNativeQuery("delete from stocks").executeUpdate();
         em.createNativeQuery("delete from StockHolding").executeUpdate();
         em.createNativeQuery("delete from Users").executeUpdate();
