@@ -258,7 +258,7 @@ public class Order {
 		
 
 		
-		auth.getInvestor().giveAuthorization(-auth.getAmount(), sh, auth.getBroker(), auth.getEnddate());
+		auth.getInvestor().giveAuthorization(-this.getAmount(), sh, auth.getBroker(), auth.getEnddate());
 		auth.getInvestor().giveAuthorization(this.getOrderPrice(), auth.getBroker(), auth.getEnddate());		
 		if (sh.getAmount() == 0 && sh.getCommittedAmount() == 0) {
 			auth.getInvestor().remStockHolding(stock);

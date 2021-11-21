@@ -101,12 +101,14 @@ public class BrokerTest {
     	System.out.println(investor.getStockHoldings().get(PeiraiosStock).getCommittedAmount());
     	
     	System.out.println(investor.getCommittedBalance());
-    	Order or = new Order(investor, PeiraiosStock, 1, 0.1, date1, Action.BUY, Status.PENDING);
+    	
+    	
+    	Order or = new Order(investor, PeiraiosStock, 1	, 0.1, date1, Action.SELL, Status.PENDING);
     	or.applyBrokerOrder(as);
     	System.out.println(investor.getCommittedBalance());
     	System.out.println(investor.getStockHoldings().get(PeiraiosStock).getCommittedAmount());
     	System.out.println(investor.getStockHoldings().get(PeiraiosStock).getAmount());
-
+    	
    	
     	Assertions.assertFalse(false);
     }
