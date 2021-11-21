@@ -7,7 +7,7 @@ import gr.aueb.team1.domain.Order.Action;
 import gr.aueb.team1.domain.Order.Status;
 
 @Entity
-@Table(name="User")
+@Table(name="Users")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(
 		name="type",
