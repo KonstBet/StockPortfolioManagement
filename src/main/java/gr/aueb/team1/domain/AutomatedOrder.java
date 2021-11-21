@@ -6,7 +6,7 @@ import javax.persistence.*;
 @DiscriminatorValue("AUTO")
 public class AutomatedOrder extends Order {
 	
-	@Column(name="limit", precision = 10, scale = 4)
+	@Column(name="_limit", precision = 10, scale = 4)
 	private Double limit;
 	
 	public AutomatedOrder() {}
