@@ -123,6 +123,14 @@ public class User {
 		this.balance = balance;
 	}
 	
+	public Set<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(Set<Order> orders) {
+		this.orders = orders;
+	}
+	
 	public String toString() {
 		return "ID: " + getId() +
 				"\nName: " + getName() + 

@@ -1,11 +1,15 @@
 package gr.aueb.team1.domain;
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.jupiter.api.*;
 
 import gr.aueb.team1.domain.Stock;
 import gr.aueb.team1.domain.StockHolding;
 import gr.aueb.team1.domain.User;
+import gr.aueb.team1.domain.Order.Action;
 
 public class UserTest {
 
@@ -15,6 +19,7 @@ public class UserTest {
 	private Stock stock3;
 	private Integer amount;
 	private StockHolding sh;
+	private Order order;
 
 	@BeforeEach
 	public void setUpTests() {
@@ -26,11 +31,13 @@ public class UserTest {
 		amount = 10;
 		sh = new StockHolding(amount, stock, user);
 		user.addStockHolding(stock, sh);
+		order = new Order();
+		
 	}
 	
 	@Test // More than current balance
 	public void withdrawTest1() {
-		Boolean expected = user.withdraw(500.01);
+		boolean expected = user.withdraw(500.01);
 		assertFalse(expected);
 	}
 	
@@ -52,18 +59,18 @@ public class UserTest {
 	
 	@Test // Deposit to balance
 	public void depositTest2() {
-		Boolean expected = user.deposit(0.0);
+		boolean expected = user.deposit(0.0);
 		assertFalse(expected);
 	}
 	
 	@Test // Not enough balance
-	public void buyStockCase1() {
-		Boolean balance = user.buyStock(stock2, 6);
+	public void buyStockTest1() {
+		boolean balance = user.buyStock(stock2, 6);
 		assertFalse(balance);
 	}
 	
 	@Test // Buy new asset
-	public void buyStockCase2() {
+	public void buyStockTest2() {
 		user.buyStock(stock3, 15);
 		int actual = user.getStockHoldings().get(stock3).getAmount();
 		int expected = 15;
@@ -71,7 +78,7 @@ public class UserTest {
 	}
 	
 	@Test // Buy more of an asset
-	public void buyStockCase3() {
+	public void buyStockTest3() {
 		user.buyStock(stock, 1);
 		int actual = user.getStockHoldings().get(stock).getAmount();
 		int expected = 11;
@@ -79,20 +86,20 @@ public class UserTest {
 	}
 	
 	@Test // Not having the asset
-	public void sellStockCase1() {
-		Boolean asset = user.sellStock(stock2, 1);
+	public void sellStockTest1() {
+		boolean asset = user.sellStock(stock2, 1);
 		assertFalse(asset);
 	}
 	
 	
 	@Test // Not enough amount of the asset
-	public void sellStockCase2() {
-		Boolean amount = user.sellStock(stock, 11);
+	public void sellStockTest2() {
+		boolean amount = user.sellStock(stock, 11);
 		assertFalse(amount);
 	}
 	
 	@Test // Sell full asset
-	public void sellStockCase3() {
+	public void sellStockTest3() {
 		Assertions.assertThrows(NullPointerException.class, ()-> { 
 				user.sellStock(stock, 10);
 				user.getStockHoldings().get(stock).getAmount();
@@ -100,12 +107,61 @@ public class UserTest {
 	}
 	
 	@Test // Sell partial asset
-	public void sellStockCase4() {
+	public void sellStockTest4() {
 		user.sellStock(stock, 9);
 		int actual = user.getStockHoldings().get(stock).getAmount();
 		int expected = 1;
 		assertEquals(actual, expected);
 	}
 
+	@Test // Limit Order Buy with not enough balance
+	public void limitOrderTest1() {
+		boolean actual = user.limitOrder(0.1, stock2, 100, Action.BUY);
+		assertFalse(actual);
+	}
+	
+	@Test // Limit Order Buy
+	public void limitOrderTest2() {
+		boolean actual = user.limitOrder(0.1, stock, 10, Action.BUY);
+		assertTrue(actual);
+	}
+	
+	@Test // Limit Order Sell without having the stock
+	public void limitOrderTest3() {
+		boolean actual = user.limitOrder(0.1, stock2, 11, Action.SELL);
+		assertFalse(actual);
+	}
+	
+	@Test // Limit Order Sell without enough amount
+	public void limitOrderTest4() {
+		boolean actual = user.limitOrder(0.1, stock, 11, Action.SELL);
+		assertFalse(actual);
+	}
+	
+	@Test // Limit Order Sell 
+	public void limitOrderTest5() {
+		boolean actual = user.limitOrder(0.1, stock, 9, Action.SELL);
+		assertTrue(actual);
+	}
+	
+	@Test 
+	public void addOrderTest() {
+		user.addOrder(order);
+		boolean actual = user.getOrders().contains(order);
+		assertTrue(actual);
+	}
+	
+	@Test 
+	public void toStringTest() {
+		String s = user.toString();
+		assertNotNull(s);
+	}
+	
+	@Test 
+	public void getTransactionTest() {
+		User u = new User();
+		Set<Transaction> s = u.getTransactions();
+		assertNotNull(s);
+	}
 }
 	
