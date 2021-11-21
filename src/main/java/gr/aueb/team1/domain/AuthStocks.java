@@ -38,22 +38,24 @@ public class AuthStocks extends Authorization {
 
 
 	public boolean giveNewAuthorization(Investor investor, Integer amount, Broker broker, StockHolding stockHolding) {
-		if (amount > (stockHolding.getAmount() - stockHolding.getCommittedAmount())) { // amount > notcommitedAmount
+		if (amount > stockHolding.getAmount()) { // amount > notcommitedAmount
 			return false;
 		}
 
 		stockHolding.setCommittedAmount(stockHolding.getCommittedAmount()+amount);
+		stockHolding.setAmount(stockHolding.getAmount()-amount);
 		investor.getAuthorizations().add(this);
 		broker.addAuthorization(this);
 		return true;
 	}
 
 	public boolean giveToExistedAuthorization(AuthStocks ac) {
-		if (ac.getAmount() > (this.getStockholding().getAmount() - this.getStockholding().getCommittedAmount())) {
+		if (ac.getAmount() > this.getStockholding().getAmount()) {
 			return false;
 		}
 
 		this.getStockholding().setCommittedAmount(getStockholding().getCommittedAmount() + ac.getAmount());
+		this.getStockholding().setAmount(this.getStockholding().getAmount()-amount);
 		this.setAmount(this.getAmount() + +ac.getAmount());
 		return true;
 	}

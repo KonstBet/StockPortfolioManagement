@@ -36,12 +36,13 @@ public class AuthCapital extends Authorization {
 	}
 
 	public boolean giveToExistedAuthorization(AuthCapital ac) {
-		if (ac.getAmount() > (this.getInvestor().getCommittedBalance())) {
+		if (ac.getAmount() > (this.getInvestor().getBalance())) {
 			return false;
 		}
 
 		this.getInvestor().setCommittedBalance(this.getInvestor().getCommittedBalance() + ac.getAmount());
-		this.setAmount(this.getAmount() + + ac.getAmount());
+		this.getInvestor().setBalance(this.getInvestor().getBalance() - ac.getAmount());
+		this.setAmount(this.getAmount() + ac.getAmount());
 		return true;
 	}
 
