@@ -218,28 +218,64 @@ public class Order {
 		this.status = Status.COMPLETED;
 	}
 	
-	public boolean applyBrokerBuy(AuthCapital auth) {
+	public boolean applyBrokerOrder(AuthCapital auth) {
 		if (this.status == Status.COMPLETED) {
 			return false;
 		}
 		
-		if (auth.getAmount() < this.getOrderPrice()) {
+			
+			if (auth.getAmount() < this.getOrderPrice()) {
+				return false;
+			}
+			
+
+			auth.getInvestor().giveAuthorization(-this.getOrderPrice(), auth.getBroker(), auth.getEnddate());
+
+			if (auth.getInvestor().getStockHoldings().containsKey(this.stock)) {
+				this.amount += user.getStockHoldings().get(this.stock).getAmount();
+				StockHolding stockHol = auth.getInvestor().getStockHoldings().get(stock);
+				stockHol.setCommittedAmount(this.amount);				
+				user.addStockHolding(this.stock, stockHol);
+			} else {
+				user.addStockHolding(this.stock, new StockHolding(this.amount, this.stock, user));
+			}
+			auth.getInvestor().giveAuthorization(this.amount, auth.getInvestor().getStockHoldings().get(this.stock) , auth.getBroker(), auth.getEnddate());
+			this.status = Status.COMPLETED;
+			return true;
+			
+		
+	}
+	public boolean applyBrokerOrder(AuthStocks auth){
+		
+		if (!user.getStockHoldings().containsKey(this.stock)) {
+			return false;
+		}
+		StockHolding sh = user.getStockHoldings().get(stock);
+		
+		if (sh.getCommittedAmount() < this.amount) {
 			return false;
 		}
 		
-		auth.getInvestor().removeAuthorization(auth);
-		auth.setAmount(auth.getAmount()-this.getOrderPrice());
-		auth.getInvestor().giveAuthorization(auth.getAmount(), auth.getBroker(), LocalDateTime.now());
-		if (auth.getInvestor().getStockHoldings().containsKey(this.stock)) {
-			this.amount += user.getStockHoldings().get(this.stock).getAmount();
-			user.addStockHolding(this.stock, new StockHolding(this.amount, this.stock, user));
+
+		
+		sh.setCommittedAmount(sh.getCommittedAmount()-this.amount);
+		if (sh.getAmount() == 0 && sh.getCommittedAmount() == 0) {
+			auth.getInvestor().remStockHolding(stock);
 		} else {
-			user.addStockHolding(this.stock, new StockHolding(this.amount, this.stock, user));
+			auth.getInvestor().addStockHolding(this.stock, sh);
 		}
+
+		auth.getInvestor().giveAuthorization(-this.amount, sh, auth.getBroker(), auth.getEnddate());
+		auth.getInvestor().giveAuthorization(this.getOrderPrice(), auth.getBroker(), auth.getEnddate());
 		this.status = Status.COMPLETED;
 		return true;
-
+		
 	}
 	
-	
+
 }
+	
+	
+	
+	
+

@@ -15,6 +15,7 @@ import gr.aueb.team1.domain.StockHolding;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class BrokerTest {
     private Investor investor;
@@ -31,7 +32,7 @@ public class BrokerTest {
     public void setUpTests() {
         investor = new Investor("Mitsos", "Charalampidis", "mcharal@gmail.com", "697891030100");
         investor.setBalance(500.00);
-        broker = new Broker("Mitsos", "Charalampidis", "mcharal@gmail.com", "697891030100",0.0);
+        broker = new Broker("Giorgos", "Charalampopoulos", "mcharal@gmail.com", "697891030100",0.0);
 
         PeiraiosStock = new Stock("P200", "PIRAIUS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00);
         AlphaStock = new Stock("P224", "ALPHA", LocalDateTime.now(), 100.00, 200.99, 1000.00, 10.00, 2460.00);
@@ -75,7 +76,7 @@ public class BrokerTest {
     	AuthCapital ac = (AuthCapital) auths.iterator().next();
     	Double fee=0.1;
     	Order or = new Order(investor, CosmoteStock, 1, fee, date1, Action.BUY, Status.PENDING);
-    	or.applyBrokerBuy(ac);
+    	or.applyBrokerOrder(ac);
     	Assertions.assertTrue(investor.getStockHoldings().containsKey(CosmoteStock));
     }
     
@@ -86,11 +87,27 @@ public class BrokerTest {
     	AuthCapital ac = (AuthCapital) auths.iterator().next();
     	Double fee=0.1;
     	Order or = new Order(investor, CosmoteStock, 1, fee, date1, Action.BUY, Status.PENDING);
-    	or.applyBrokerBuy(ac);
-    	Assertions.assertFalse(or.applyBrokerBuy(ac));
+    	or.applyBrokerOrder(ac);
+    	Assertions.assertFalse(or.applyBrokerOrder(ac));
     }
     
-    
+    @Test
+    public void ApplyBrokerOrder3() {
+    	investor.giveAuthorization(5, investor.getStockHoldings().get(PeiraiosStock), broker, date1);
+    	HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
+    	AuthStocks as = (AuthStocks) auths.iterator().next();
+    	
+    	System.out.println(investor.getCommittedBalance());
+    	Order or = new Order(investor, PeiraiosStock, 4, 0.1, date1, Action.BUY, Status.PENDING);
+    	or.applyBrokerOrder(as);
+    	System.out.println(investor.getCommittedBalance());
+    	System.out.println(investor.getStockHoldings().get(PeiraiosStock).getAmount());
+    	System.out.println(investor.getStockHoldings().get(PeiraiosStock).getCommittedAmount());
+   	
+    	Assertions.assertTrue(investor.getStockHoldings().get(PeiraiosStock).getAmount() == 1);
+    }
+
+
 
 //TODO CANT RUN CAUSE NEED sellStocksForInvestor IMPLEMENTATION
 //    @Test
