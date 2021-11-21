@@ -1,21 +1,25 @@
 package gr.aueb.team1.domain;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import java.time.LocalDateTime;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class AuthorizationTest {
 	
-	public static Investor investor;
-	public static StockHolding stockHolding;
-	public static Broker broker;
-	public static LocalDateTime date1;
-	public static LocalDateTime date2;
+	public Investor investor;
+	public StockHolding stockHolding;
+	public Broker broker;
+	public LocalDateTime date1;
+	public LocalDateTime date2;
+	public Authorization auth;
 	
-	@BeforeClass
-	public static void setUpAllTests() {
+	
+	@BeforeEach
+    public void setUpTests() {
 		investor = new Investor();
 		investor.setName("Giannhs");
 		
@@ -25,7 +29,52 @@ public class AuthorizationTest {
 		broker.setName("Kwstas");
 		
 		date1 = LocalDateTime.now();
-		date2 = LocalDateTime.now();
+		date2 = LocalDateTime.of(2021,12,31,0,0,0);
+		
+		auth = new Authorization(investor, broker, date1, date2);
+    }
+	
+	@Test
+	public void giveNewAuthorizationTest1() {
+		boolean actual = auth.giveNewAuthorization(investor, 60.00, broker);
+		assertFalse(actual);
+	}
+	
+	@Test
+	public void giveNewAuthorizationTest2() {
+		boolean actual = auth.giveNewAuthorization(investor, 1, broker, stockHolding);
+		assertFalse(actual);
+	}
+	
+	
+	@Test
+	public void giveToExistedAuthorizationTest1() {
+		boolean actual = auth.giveToExistedAuthorization(1);
+		assertFalse(actual);
+	}
+	
+	@Test
+	public void giveToExistedAuthorizationTest2() {
+		boolean actual = auth.giveToExistedAuthorization(1.0);
+		assertFalse(actual);
+	}
+	
+	@Test
+	public void existsAuthorizationToEqualTest1() {
+		boolean actual = auth.existsAuthorizationToEqual(investor, broker);
+		assertFalse(actual);
+	}
+	
+	@Test
+	public void existsAuthorizationToEqualTest2() {
+		boolean actual = auth.existsAuthorizationToEqual(investor, broker, stockHolding);
+		assertFalse(actual);
+	}
+	
+	@Test
+	public void removeAuthTest() {
+		boolean actual = auth.removeAuth();
+		assertFalse(actual);
 	}
 	
 	@Test
