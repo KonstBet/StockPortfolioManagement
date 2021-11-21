@@ -146,7 +146,7 @@ public class Order {
 	}
 	
 	private Double calculatePriceB() {
-		return stock.getOpen()*getAmount() + Math.max(6, getAmount()*stock.getOpen()*fee);
+		return this.stock.getOpen()*this.getAmount() + Math.max(6, this.getAmount()*this.stock.getOpen()*fee);
 	}
 	
 	private Double calculatePriceS() {
@@ -195,7 +195,7 @@ public class Order {
 	}
 
 	protected void buy() {
-		user.setBalance(user.getBalance() - getOrderPrice());
+		user.setBalance(user.getBalance() - this.getOrderPrice());
 		if (user.getStockHoldings().containsKey(this.stock)) {
 			this.amount += user.getStockHoldings().get(this.stock).getAmount();
 			user.addStockHolding(this.stock, new StockHolding(this.amount, this.stock, user));
