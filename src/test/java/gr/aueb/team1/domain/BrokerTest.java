@@ -99,7 +99,7 @@ public class BrokerTest {
     	HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
     	AuthStocks as = (AuthStocks) auths.iterator().next();
     	System.out.println(investor.getStockHoldings().get(PeiraiosStock).getCommittedAmount());
-    	
+    	System.out.println(investor.getStockHoldings().get(PeiraiosStock).getAmount());
     	System.out.println(investor.getCommittedBalance());
     	
     	

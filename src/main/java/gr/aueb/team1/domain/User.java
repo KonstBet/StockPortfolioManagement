@@ -215,46 +215,5 @@ public class User {
 	}
 	
 	
-//	public Boolean buy(Stock stock, Integer amount, Double orderPrice) {
-//		// Check if balance is enough
-//		if (this.getBalance() < orderPrice) {
-//			//System.err.println("Not enough Balance");
-//			return false;
-//		}
-//		
-//		this.setBalance(this.getBalance() - orderPrice);
-//		
-//		if (this.stockHoldings.containsKey(stock)) {
-//			amount += this.stockHoldings.get(stock).getAmount();
-//			this.stockHoldings.put(stock, new StockHolding(amount, stock, this));
-//		} else {
-//			this.stockHoldings.put(stock, new StockHolding(amount, stock, this));
-//		}
-//		return true;
-//	}
-	
-//	public Boolean sell(Stock stock, Integer amount, Double orderPrice) {
-//		// Check stock holdings for stock
-//		if (!this.stockHoldings.containsKey(stock)) {
-//			return false;
-//		}
-//		
-//		// Retrieve stock holding
-//		StockHolding sh = stockHoldings.get(stock);
-//		
-//		if (sh.getAmount() < amount) {
-//			return false;
-//		}
-//		
-//		this.setBalance(this.getBalance() + orderPrice);
-//		sh.setAmount(sh.getAmount() - amount);
-//		
-//		if (sh.getAmount() == 0) {
-//			this.stockHoldings.remove(stock);
-//		}
-//		else {
-//			this.stockHoldings.put(stock, sh);
-//		}
-//		return true;
-//	}
+
 }

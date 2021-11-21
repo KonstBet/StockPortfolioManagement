@@ -53,64 +53,25 @@ public class Broker extends User {
 	
 	
 	public Boolean buyForInvestor(AuthCapital authCapital, Stock stock, Integer amount) {
-		if (authorizations.contains(authCapital)) {
-			// Make a new ORDER and StockHolding by authCapital.getInvestor
-			Double fee = 0.1;
-			Order ord = new Order(authCapital.getInvestor(), stock, amount, fee, LocalDateTime.now(), Action.BUY, Status.COMPLETED);
-			Double orderPrice = ord.getOrderPrice();
-			
-			if (orderPrice > authCapital.getAmount()) {
-				return false;
-			}
-			authCapital.getInvestor().addOrder(ord);
-			
-			// Add stock to stock holdings
-			if (authCapital.getInvestor().getStockHoldings().containsKey(stock)) 
-			{
-				Integer newAmount = authCapital.getInvestor().getStockHoldings().get(stock).getAmount() + amount;
-				authCapital.getInvestor().addStockHolding(stock, new StockHolding(newAmount, stock, authCapital.getInvestor()));
-			} 
-			else 
-			{
-				authCapital.getInvestor().addStockHolding(stock, new StockHolding(amount, stock, authCapital.getInvestor()));
-			}
-			
-
-			// Make a new AuthStocks by authCapital.getInvestor
-			AuthStocks auths = new AuthStocks(authCapital.getInvestor(), authCapital.getInvestor().getStockHoldings().get(stock), authCapital.getBroker(), 
-					LocalDateTime.now(), authCapital.getEnddate(), amount);
-			
-			//authorizations.add(auths);
-			authCapital.getInvestor().giveAuthorization(amount, authCapital.getInvestor().getStockHoldings().get(stock),
-					authCapital.getBroker(), authCapital.getEnddate());
-			
-
-			// Delete authCapital
-			Double newMoney = authCapital.getAmount() - orderPrice;
-			authCapital.getInvestor().removeAuthorization(authCapital);
-			authCapital.getInvestor().giveAuthorization(newMoney, authCapital.getBroker(), authCapital.getEnddate());
-			return true;
+		Double fee = 0.1;
+		Order order = new Order(authCapital.getInvestor(), stock, amount, fee, LocalDateTime.now(), Action.BUY, Status.PENDING);
+		
+		if (!order.applyBrokerOrder(authCapital)) {
+			return false;
 		}
-		return false;
+		
+		authCapital.getInvestor().addOrder(order);
+		return true;
 	}
 	
 	public Boolean sellForInvestor(AuthStocks authStocks, Integer amount) {
-		//TODO IMPLEMENTATION
-		if (authorizations.contains(authStocks)) {
-			//Make a new ORDER by authstocks.getInvestor
-			Double fee=0.1;
-			Order ord=new Order(authStocks.getInvestor(), authStocks.getStockholding().getStock(), amount, fee, LocalDateTime.now(), Action.SELL, Status.COMPLETED);
-			Double orderPrice=ord.getOrderPrice();
-			if (!authStocks.getInvestor().getStockHoldings().containsKey(authStocks.getStockholding().getStock())) {
-				return false;
-			}
-			
-			//Make a new AuthCapital by authCapital.getInvestor
-			//Delete authstocks
-			return true;			
+		Double fee = 0.1;
+		Order order = new Order(authStocks.getInvestor(), authStocks.getStockholding().getStock(), amount, fee, LocalDateTime.now(), Action.SELL, Status.PENDING);
+		if (!order.applyBrokerOrder(authStocks)) {
+			return false;
 		}
-
-			
-		return false;
+		
+		authStocks.getInvestor().addOrder(order);
+		return true;
 	}
 }
