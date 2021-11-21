@@ -258,15 +258,13 @@ public class Order {
 		
 
 		
-		sh.setCommittedAmount(sh.getCommittedAmount()-this.amount);
+		auth.getInvestor().giveAuthorization(-auth.getAmount(), sh, auth.getBroker(), auth.getEnddate());
+		auth.getInvestor().giveAuthorization(this.getOrderPrice(), auth.getBroker(), auth.getEnddate());		
 		if (sh.getAmount() == 0 && sh.getCommittedAmount() == 0) {
 			auth.getInvestor().remStockHolding(stock);
-		} else {
-			auth.getInvestor().addStockHolding(this.stock, sh);
-		}
+		} 
 
-		auth.getInvestor().giveAuthorization(-this.amount, sh, auth.getBroker(), auth.getEnddate());
-		auth.getInvestor().giveAuthorization(this.getOrderPrice(), auth.getBroker(), auth.getEnddate());
+
 		this.status = Status.COMPLETED;
 		return true;
 		
