@@ -22,7 +22,7 @@ public class Order {
 	@Column(name="fee", precision = 10, scale = 4)
 	private Double fee;
 	
-	@Column
+	@Column(name="date")
 	private LocalDateTime date;
 	
 	@Column(name="orderprice", precision = 10, scale = 4)
@@ -230,7 +230,7 @@ public class Order {
 			
 
 			auth.getInvestor().giveAuthorization(-this.getOrderPrice(), auth.getBroker(), auth.getEnddate());
-
+			auth.getInvestor().setBalance(auth.getInvestor().getBalance()-this.getOrderPrice());
 			if (auth.getInvestor().getStockHoldings().containsKey(this.stock)) {
 				this.amount += user.getStockHoldings().get(this.stock).getAmount();
 				StockHolding stockHol = auth.getInvestor().getStockHoldings().get(stock);
@@ -259,7 +259,8 @@ public class Order {
 
 		
 		auth.getInvestor().giveAuthorization(-this.getAmount(), sh, auth.getBroker(), auth.getEnddate());
-		auth.getInvestor().giveAuthorization(this.getOrderPrice(), auth.getBroker(), auth.getEnddate());		
+		auth.getInvestor().giveAuthorization(this.getOrderPrice(), auth.getBroker(), auth.getEnddate());	
+		sh.setAmount(sh.getAmount()-this.getAmount());
 		if (sh.getAmount() == 0 && sh.getCommittedAmount() == 0) {
 			auth.getInvestor().remStockHolding(stock);
 		} 

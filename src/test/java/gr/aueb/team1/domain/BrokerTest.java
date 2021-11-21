@@ -71,12 +71,14 @@ public class BrokerTest {
     
     @Test
     public void ApplyBrokerOrder() {
-    	investor.giveAuthorization(500.00, broker, date1);
+    	investor.giveAuthorization(300.00, broker, date1);
     	HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
     	AuthCapital ac = (AuthCapital) auths.iterator().next();
     	Double fee=0.1;
     	Order or = new Order(investor, CosmoteStock, 1, fee, date1, Action.BUY, Status.PENDING);
     	or.applyBrokerOrder(ac);
+    	System.out.println(investor.getBalance());
+    	System.out.println(investor.getCommittedBalance());
     	Assertions.assertTrue(investor.getStockHoldings().containsKey(CosmoteStock));
     }
     
@@ -111,5 +113,10 @@ public class BrokerTest {
     	
    	
     	Assertions.assertFalse(false);
+    }
+    
+    @Test
+    public void ApplyBrokerOrder4() {
+    	
     }
 }
