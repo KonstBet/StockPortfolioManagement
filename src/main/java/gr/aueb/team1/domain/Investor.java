@@ -67,7 +67,7 @@ public class Investor extends User {
 				}
 		}
 
-		AuthStocks authStocks = new AuthStocks(this, stockHolding, broker, LocalDateTime.now(), endDate, amount);
+		AuthStock authStocks = new AuthStock(this, stockHolding, broker, LocalDateTime.now(), endDate, amount);
 		return authStocks.giveNewAuthorization(this,amount,broker,stockHolding);
 	}
 

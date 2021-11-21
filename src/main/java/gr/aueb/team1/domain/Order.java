@@ -245,7 +245,7 @@ public class Order {
 			
 		
 	}
-	public boolean applyBrokerOrder(AuthStocks auth){
+	public boolean applyBrokerOrder(AuthStock auth){
 		
 		if (!user.getStockHoldings().containsKey(this.stock)) {
 			return false;

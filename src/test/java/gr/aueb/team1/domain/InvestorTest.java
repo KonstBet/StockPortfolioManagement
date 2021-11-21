@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import gr.aueb.team1.domain.AuthCapital;
-import gr.aueb.team1.domain.AuthStocks;
+import gr.aueb.team1.domain.AuthStock;
 import gr.aueb.team1.domain.Authorization;
 import gr.aueb.team1.domain.Broker;
 import gr.aueb.team1.domain.Investor;
@@ -104,7 +104,7 @@ public class InvestorTest {
         boolean flag = investor.giveAuthorization(10,sh,broker,date1);
 
         HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
-        AuthStocks ac = (AuthStocks) auths.iterator().next();
+        AuthStock ac = (AuthStock) auths.iterator().next();
 
         boolean flag2 = investor.removeAuthorization(ac);
 
@@ -113,7 +113,7 @@ public class InvestorTest {
 
     @Test
     public void removeStockAuthorizationTest2() {
-        AuthStocks ac = new AuthStocks(investor, sh, broker, date1, date2, 10);
+        AuthStock ac = new AuthStock(investor, sh, broker, date1, date2, 10);
 
         boolean flag = investor.removeAuthorization(ac);
 
@@ -126,7 +126,7 @@ public class InvestorTest {
         investor.giveAuthorization(10,sh,broker,date1);
 
         HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
-        AuthStocks ac = (AuthStocks) auths.iterator().next();
+        AuthStock ac = (AuthStock) auths.iterator().next();
 
         Assertions.assertEquals(20, ac.getAmount());
     }
@@ -137,7 +137,7 @@ public class InvestorTest {
         investor.giveAuthorization(11,sh,broker,date1);
 
         HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
-        AuthStocks ac = (AuthStocks) auths.iterator().next();
+        AuthStock ac = (AuthStock) auths.iterator().next();
 
         Assertions.assertNotEquals(21, ac.getAmount());
     }
@@ -182,7 +182,7 @@ public class InvestorTest {
     @Test
     public void expectedFalseFromAuthorizationsFunctions() {
         Authorization auth = new Authorization(investor,broker,date1,date2);
-        AuthStocks as = new AuthStocks(investor, sh, broker, date1, date2, 10);
+        AuthStock as = new AuthStock(investor, sh, broker, date1, date2, 10);
         AuthCapital ac = new AuthCapital(investor, broker, date1, date2, 10.0);
 
         boolean flag1 = auth.giveNewAuthorization(investor,0,broker,sh);

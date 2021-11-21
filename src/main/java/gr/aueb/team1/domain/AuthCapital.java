@@ -60,6 +60,8 @@ public class AuthCapital extends Authorization {
 		}
 		getInvestor().setCommittedBalance(getInvestor().getCommittedBalance() - getAmount());
 		getInvestor().setBalance(getInvestor().getBalance() + getAmount());
+		getInvestor().getAuthorizations().remove(this);
+		getBroker().getAuthorizations().remove(this);
 		return true;
 	}
 }

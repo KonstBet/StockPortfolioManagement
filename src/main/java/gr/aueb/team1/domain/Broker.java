@@ -64,9 +64,9 @@ public class Broker extends User {
 		return true;
 	}
 	
-	public Boolean sellForInvestor(AuthStocks authStocks, Integer amount) {
+	public Boolean sellForInvestor(AuthStock authStocks, Integer amount) {
 		Double fee = 0.1;
-		Order order = new Order(authStocks.getInvestor(), authStocks.getStockholding().getStock(), amount, fee, LocalDateTime.now(), Action.SELL, Status.PENDING);
+		Order order = new Order(authStocks.getInvestor(), authStocks.getStockHolding().getStock(), amount, fee, LocalDateTime.now(), Action.SELL, Status.PENDING);
 		if (!order.applyBrokerOrder(authStocks)) {
 			return false;
 		}

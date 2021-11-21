@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @DiscriminatorValue("AuthStocks")
-public class AuthStocks extends Authorization {
+public class AuthStock extends Authorization {
 
 	@Column(name = "amount", nullable = false)
 	private Integer amount;
@@ -15,7 +15,7 @@ public class AuthStocks extends Authorization {
 	@JoinColumn(name="StockHoldingId", nullable = false)
 	private StockHolding stockholding;
 
-	public AuthStocks(Investor investor, StockHolding stockholding, Broker broker,
+	public AuthStock(Investor investor, StockHolding stockholding, Broker broker,
 					  LocalDateTime startdate, LocalDateTime enddate, Integer amount) {
 		
 		super(investor, broker, startdate, enddate);
@@ -29,7 +29,7 @@ public class AuthStocks extends Authorization {
 	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
-	public StockHolding getStockholding() {
+	public StockHolding getStockHolding() {
 		return this.stockholding;
 	}
 	public void setStockholding(StockHolding stockholding) {
@@ -45,29 +45,35 @@ public class AuthStocks extends Authorization {
 		stockHolding.setCommittedAmount(stockHolding.getCommittedAmount()+amount);
 		stockHolding.setAmount(stockHolding.getAmount()-amount);
 		investor.getAuthorizations().add(this);
-		broker.addAuthorization(this);
+		broker.getAuthorizations().add(this);
 		return true;
 	}
 
 	public boolean giveToExistedAuthorization(Integer amount) {
-		if (amount > this.getStockholding().getAmount()) {
+		if (amount > this.getStockHolding().getAmount()) {
 			return false;
 		}
 
-		this.getStockholding().setCommittedAmount(getStockholding().getCommittedAmount() + amount);
-		this.getStockholding().setAmount(this.getStockholding().getAmount()-amount);
+		this.getStockHolding().setCommittedAmount(getStockHolding().getCommittedAmount() + amount);
+		this.getStockHolding().setAmount(this.getStockHolding().getAmount()-amount);
 		this.setAmount(this.getAmount() + amount);
 		return true;
 	}
 
 	public boolean existsAuthorizationToEqual(Investor investor, Broker broker, StockHolding stockHolding) {
-		if (investor == this.getInvestor() & broker == this.getBroker() & stockHolding == this.stockholding)
+		if (investor == this.getInvestor() && broker == this.getBroker() && stockHolding == this.stockholding)
 			return true;
 		return false;
 	}
 
 	public boolean removeAuth() {
-		getStockholding().setCommittedAmount(getStockholding().getCommittedAmount() - getAmount());
+		if (getStockHolding().getCommittedAmount() == 0) {
+			return false;
+		}
+		getStockHolding().setCommittedAmount(getStockHolding().getCommittedAmount() - getAmount());
+		getStockHolding().setAmount(getStockHolding().getAmount() + getAmount());
+		getInvestor().getAuthorizations().remove(this);
+		getBroker().getAuthorizations().remove(this);
 		return true;
 	}
 }

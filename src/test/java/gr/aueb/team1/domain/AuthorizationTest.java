@@ -43,7 +43,7 @@ public class AuthorizationTest {
 	
 	@Test
 	public void testSetters() {
-		AuthStocks authstocks = new AuthStocks(null, null, null, date1, date2, 10);
+		AuthStock authstocks = new AuthStock(null, null, null, date1, date2, 10);
 		authstocks.setAmount(20);
 		authstocks.setId(7);
 		authstocks.setInvestor(investor);
@@ -57,7 +57,7 @@ public class AuthorizationTest {
 		
 		boolean flag = false;
 		if (authstocks.getAmount() == 20 && authstocks.getStartdate().isEqual(date3)
-				&& authstocks.getEnddate().isEqual(date4) && authstocks.getId() == 7 && authstocks.getStockholding() != null
+				&& authstocks.getEnddate().isEqual(date4) && authstocks.getId() == 7 && authstocks.getStockHolding() != null
 				&& authstocks.getInvestor().getName().equals("Giannhs") && authstocks.getBroker().getName().equals("Kwstas") )
 			flag = true;
 		

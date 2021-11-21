@@ -27,7 +27,7 @@ public class StockHolding {
 	private Stock stock;
 	
 	@OneToMany(mappedBy="stockholding")
-	private Set<AuthStocks> authStock=new HashSet<AuthStocks>();
+	private Set<AuthStock> authStock=new HashSet<AuthStock>();
 
 	
 	public StockHolding() {
@@ -81,11 +81,11 @@ public class StockHolding {
 		this.stock = stock;
 	}
 
-	public Set<AuthStocks> getAuthStock() {
+	public Set<AuthStock> getAuthStock() {
 		return this.authStock;
 	}
 
-	public void setAuthStock(Set<AuthStocks> authStock) {
+	public void setAuthStock(Set<AuthStock> authStock) {
 		this.authStock = authStock;
 	}
 }
