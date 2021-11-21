@@ -186,7 +186,7 @@ public class InvestorTest {
         AuthCapital ac = new AuthCapital(investor, broker, date1, date2, 10.0);
 
         boolean flag1 = auth.giveNewAuthorization(investor,0,broker,sh);
-        boolean flag2 = auth.giveNewAuthorization(investor,0,broker);
+        boolean flag2 = auth.giveNewAuthorization(investor,0.0,broker);
         boolean flag3 = auth.giveToExistedAuthorization(10.0);
         boolean flag4 = auth.existsAuthorizationToEqual(investor, broker);
         boolean flag5 = auth.giveToExistedAuthorization(10);

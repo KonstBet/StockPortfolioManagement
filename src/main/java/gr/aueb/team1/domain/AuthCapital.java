@@ -23,6 +23,7 @@ public class AuthCapital extends Authorization {
 		this.amount = amount;
 	}
 
+
 	public boolean giveNewAuthorization(Investor investor, Double amount, Broker broker) {
 		if (amount > investor.getBalance()) {
 			return false;
@@ -36,7 +37,7 @@ public class AuthCapital extends Authorization {
 	}
 
 	public boolean giveToExistedAuthorization(Double amount) {
-		if (amount > (this.getInvestor().getBalance())) {
+		if (amount > this.getInvestor().getBalance()) {
 			return false;
 		}
 
@@ -47,12 +48,16 @@ public class AuthCapital extends Authorization {
 	}
 
 	public boolean existsAuthorizationToEqual(Investor investor, Broker broker) {
-		if (investor == this.getInvestor() & broker == this.getBroker())
+		if (investor == this.getInvestor() && broker == this.getBroker()) {
 			return true;
+		}
 		return false;
 	}
 
 	public boolean removeAuth() {
+		if(getInvestor().getCommittedBalance() == 0.0) {
+			return false;
+		}
 		getInvestor().setCommittedBalance(getInvestor().getCommittedBalance() - getAmount());
 		getInvestor().setBalance(getInvestor().getBalance() + getAmount());
 		return true;
