@@ -112,31 +112,4 @@ public class BrokerTest {
    	
     	Assertions.assertFalse(false);
     }
-
-
-
-//TODO CANT RUN CAUSE NEED sellStocksForInvestor IMPLEMENTATION
-//    @Test
-//    public void sellStocksForInvestorTest() {
-//        investor.giveStocksAuthorization(10,sh,broker,date1);
-//
-//        HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
-//        AuthStocks ac = (AuthStocks) auths.iterator().next();
-//
-//        boolean flag = broker.sellStocksForInvestor(ac, 10);
-//
-//        Assertions.assertTrue(flag);
-//    }
-//
-//    @Test
-//    public void BrokensellStocksForInvestorTest() {
-//        investor.giveStocksAuthorization(10,sh,broker,date1);
-//
-//        HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
-//        AuthStocks ac = (AuthStocks) auths.iterator().next();
-//
-//        boolean flag = broker.sellStocksForInvestor(ac, 500);
-//
-//        Assertions.assertFalse(flag);
-//    }
 }

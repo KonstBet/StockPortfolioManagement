@@ -39,9 +39,9 @@ public class AuthorizationTest {
 		AuthCapital authcapital = new AuthCapital(investor, broker, date1, date2, 10.0);
 		
 		boolean flag = false;
-		if (authcapital.getAmount() == 10 & authcapital.getStartdate().isEqual(date1)
-				& authcapital.getEnddate().isEqual(date2) & authcapital.getId() == null
-				& authcapital.getInvestor().getName().equals("Giannhs") & authcapital.getBroker().getName().equals("Kwstas"))
+		if (authcapital.getAmount() == 10 && authcapital.getStartdate().isEqual(date1)
+				&& authcapital.getEnddate().isEqual(date2) && authcapital.getId() == null
+				&& authcapital.getInvestor().getName().equals("Giannhs") && authcapital.getBroker().getName().equals("Kwstas"))
 			flag = true;
 		
 		Assertions.assertTrue(flag);
@@ -62,9 +62,9 @@ public class AuthorizationTest {
 		authstocks.setEnddate(date4);
 		
 		boolean flag = false;
-		if (authstocks.getAmount() == 20 & authstocks.getStartdate().isEqual(date3)
-				& authstocks.getEnddate().isEqual(date4) & authstocks.getId() == 7 & authstocks.getStockholding() != null
-				& authstocks.getInvestor().getName().equals("Giannhs") & authstocks.getBroker().getName().equals("Kwstas") )
+		if (authstocks.getAmount() == 20 && authstocks.getStartdate().isEqual(date3)
+				&& authstocks.getEnddate().isEqual(date4) && authstocks.getId() == 7 && authstocks.getStockholding() != null
+				&& authstocks.getInvestor().getName().equals("Giannhs") && authstocks.getBroker().getName().equals("Kwstas") )
 			flag = true;
 		
 		Assertions.assertTrue(flag);

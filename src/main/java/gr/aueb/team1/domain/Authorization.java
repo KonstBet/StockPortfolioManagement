@@ -70,9 +70,9 @@ public class Authorization {
 
 	public boolean giveNewAuthorization(Investor investor, Integer amount, Broker broker, StockHolding stockHolding) {return false;}
 	public boolean giveNewAuthorization(Investor investor, Integer amount, Broker broker ) {return false;}
-	public boolean giveToExistedAuthorization(AuthStocks ac) {return false;}
-	public boolean existsAuthorizationToEqual(AuthStocks ac) {return false;}
-	public boolean giveToExistedAuthorization(AuthCapital ac) {return false;}
-	public boolean existsAuthorizationToEqual(AuthCapital ac) {return false;}
+	public boolean giveToExistedAuthorization(Double amount) {return false;}//AuthCapital
+	public boolean giveToExistedAuthorization(Integer amount) {return false;}//AuthStocks
+	public boolean existsAuthorizationToEqual(Investor investor, Broker broker) {return false;}//AuthCapital
+	public boolean existsAuthorizationToEqual(Investor investor, Broker broker, StockHolding stockHolding) {return false;}//AuthStocks
 	public boolean removeAuth() {return false;}
 }

@@ -35,19 +35,19 @@ public class AuthCapital extends Authorization {
 		return true;
 	}
 
-	public boolean giveToExistedAuthorization(AuthCapital ac) {
-		if (ac.getAmount() > (this.getInvestor().getBalance())) {
+	public boolean giveToExistedAuthorization(Double amount) {
+		if (amount > (this.getInvestor().getBalance())) {
 			return false;
 		}
 
-		this.getInvestor().setCommittedBalance(this.getInvestor().getCommittedBalance() + ac.getAmount());
-		this.getInvestor().setBalance(this.getInvestor().getBalance() - ac.getAmount());
-		this.setAmount(this.getAmount() + ac.getAmount());
+		this.getInvestor().setCommittedBalance(this.getInvestor().getCommittedBalance() + amount);
+		this.getInvestor().setBalance(this.getInvestor().getBalance() - amount);
+		this.setAmount(this.getAmount() + amount);
 		return true;
 	}
 
-	public boolean existsAuthorizationToEqual(AuthCapital ac) {
-		if (ac.getInvestor() == this.getInvestor() & ac.getBroker() == this.getBroker())
+	public boolean existsAuthorizationToEqual(Investor investor, Broker broker) {
+		if (investor == this.getInvestor() & broker == this.getBroker())
 			return true;
 		return false;
 	}

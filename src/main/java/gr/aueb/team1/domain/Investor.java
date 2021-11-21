@@ -42,34 +42,32 @@ public class Investor extends User {
 
 
 	public Boolean giveAuthorization(Double amount, Broker broker, LocalDateTime endDate) {
-		AuthCapital authCapital = new AuthCapital(this, broker, LocalDateTime.now(), endDate, amount);
-
 		Iterator<Authorization> iterator = authorizations.iterator();
 		Authorization ac;
 		while (iterator.hasNext()) {
 				ac = iterator.next();
-				if (ac.existsAuthorizationToEqual(authCapital)) {
+				if (ac.existsAuthorizationToEqual(this,broker)) {
 
-					return ac.giveToExistedAuthorization(authCapital);
+					return ac.giveToExistedAuthorization(amount);
 				}
 		}
 
+		AuthCapital authCapital = new AuthCapital(this, broker, LocalDateTime.now(), endDate, amount);
 		return authCapital.giveNewAuthorization(this,amount,broker);
 	}
 
 	public Boolean giveAuthorization(Integer amount, StockHolding stockHolding, Broker broker, LocalDateTime endDate) {
-		AuthStocks authStocks = new AuthStocks(this, stockHolding, broker, LocalDateTime.now(), endDate, amount);
-
 		Iterator<Authorization> iterator = authorizations.iterator();
 		Authorization as;
 		while (iterator.hasNext()) {
 				as = iterator.next();
-				if (as.existsAuthorizationToEqual(authStocks)) {
+				if (as.existsAuthorizationToEqual(this,broker,stockHolding)) {
 
-					return as.giveToExistedAuthorization(authStocks);
+					return as.giveToExistedAuthorization(amount);
 				}
 		}
 
+		AuthStocks authStocks = new AuthStocks(this, stockHolding, broker, LocalDateTime.now(), endDate, amount);
 		return authStocks.giveNewAuthorization(this,amount,broker,stockHolding);
 	}
 

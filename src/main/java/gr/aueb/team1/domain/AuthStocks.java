@@ -49,19 +49,19 @@ public class AuthStocks extends Authorization {
 		return true;
 	}
 
-	public boolean giveToExistedAuthorization(AuthStocks ac) {
-		if (ac.getAmount() > this.getStockholding().getAmount()) {
+	public boolean giveToExistedAuthorization(Integer amount) {
+		if (amount > this.getStockholding().getAmount()) {
 			return false;
 		}
 
-		this.getStockholding().setCommittedAmount(getStockholding().getCommittedAmount() + ac.getAmount());
+		this.getStockholding().setCommittedAmount(getStockholding().getCommittedAmount() + amount);
 		this.getStockholding().setAmount(this.getStockholding().getAmount()-amount);
-		this.setAmount(this.getAmount() + +ac.getAmount());
+		this.setAmount(this.getAmount() + amount);
 		return true;
 	}
 
-	public boolean existsAuthorizationToEqual(AuthStocks ac) {
-		if (ac.getInvestor() == this.getInvestor() & ac.getBroker() == this.getBroker() & ac.stockholding == this.stockholding)
+	public boolean existsAuthorizationToEqual(Investor investor, Broker broker, StockHolding stockHolding) {
+		if (investor == this.getInvestor() & broker == this.getBroker() & stockHolding == this.stockholding)
 			return true;
 		return false;
 	}

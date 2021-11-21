@@ -108,7 +108,7 @@ public class InvestorTest {
 
         boolean flag2 = investor.removeAuthorization(ac);
 
-        Assertions.assertTrue(flag && flag2 & sh.getCommittedAmount() == 0);
+        Assertions.assertTrue(flag && flag2 && sh.getCommittedAmount() == 0);
     }
 
     @Test
@@ -176,7 +176,7 @@ public class InvestorTest {
         boolean flag6 = investor.giveAuthorization(10,sh2,broker2,date1);
 
 
-        Assertions.assertTrue(flag1&flag2&flag3&flag4&flag5&flag6);
+        Assertions.assertTrue(flag1&&flag2&&flag3&&flag4&&flag5&&flag6);
     }
 
     @Test
@@ -187,14 +187,14 @@ public class InvestorTest {
 
         boolean flag1 = auth.giveNewAuthorization(investor,0,broker,sh);
         boolean flag2 = auth.giveNewAuthorization(investor,0,broker);
-        boolean flag3 = auth.giveToExistedAuthorization(ac);
-        boolean flag4 = auth.existsAuthorizationToEqual(ac);
-        boolean flag5 = auth.giveToExistedAuthorization(as);
-        boolean flag6 = auth.existsAuthorizationToEqual(as);
+        boolean flag3 = auth.giveToExistedAuthorization(10.0);
+        boolean flag4 = auth.existsAuthorizationToEqual(investor, broker);
+        boolean flag5 = auth.giveToExistedAuthorization(10);
+        boolean flag6 = auth.existsAuthorizationToEqual(investor, broker,sh);
         boolean flag7 = auth.removeAuth();
 
 
 
-        Assertions.assertFalse(flag1|flag2|flag3|flag4|flag5|flag6|flag7);
+        Assertions.assertFalse(flag1||flag2||flag3||flag4||flag5||flag6||flag7);
     }
 }
