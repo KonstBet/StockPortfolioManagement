@@ -44,7 +44,7 @@ public class OrderTest {
         date2 = LocalDateTime.of(2021,12,31,0,0,0);
         
         ac1 = new AuthCapital(investor, broker, LocalDateTime.now(), date1, 600.00);
-        as1 = new AuthStock(investor, sh ,broker, LocalDateTime.now(), date1, 10);
+        as1 = new AuthStock(investor, sh ,broker, LocalDateTime.now(), date1, 9);
        
     }
     
@@ -170,4 +170,47 @@ public class OrderTest {
 		String s = o.toString();
 		assertNotNull(s);
 	}
+   
+    @Test //Authorization does not contain the stock
+    public void applyOrderTest7() {
+    	investor.giveAuthorization(9, sh, broker, date1);
+    	Order or = new Order(investor, AlphaStock, 1, fee, date1, Action.SELL, Status.PENDING);
+    	boolean actual = or.applyBrokerOrder(as1);
+    	assertFalse(actual);
+    }
+    
+    @Test //Authorization does not contain enough of the stock
+    public void applyOrderTest8() {
+    	investor.giveAuthorization(9, sh, broker, date1);
+    	Order or = new Order(investor, PeiraiosStock, 11, fee, date1, Action.SELL, Status.PENDING);
+    	boolean actual = or.applyBrokerOrder(as1);
+    	assertFalse(actual);
+    }   
+    
+    @Test //Successfull order
+    public void applyOrderTest9() {
+    	investor.giveAuthorization(9, sh, broker, date1);
+    	Order or = new Order(investor, PeiraiosStock, 6, fee, date1, Action.SELL, Status.PENDING);
+    	boolean actual = or.applyBrokerOrder(as1);
+    	assertTrue(actual);
+    }
+    
+    @Test //Successfull all depleating order
+    public void applyOrderTest10() {
+    	investor.giveAuthorization(9, sh, broker, date1);
+    	Order or = new Order(investor, PeiraiosStock, 9, fee, date1, Action.SELL, Status.PENDING);
+    	Order or1 = new Order(investor, PeiraiosStock, 1, fee, date1, Action.SELL, Status.PENDING);
+    	boolean actual = or.applyBrokerOrder(as1);
+    	or1.applyOrder();
+    	assertTrue(actual);
+    }
+    
+    @Test //Successfull committed depleating order
+    public void applyOrderTest11() {
+    	investor.giveAuthorization(9, sh, broker, date1);
+    	Order or = new Order(investor, PeiraiosStock, 9, fee, date1, Action.SELL, Status.PENDING);
+    	boolean actual = or.applyBrokerOrder(as1);
+    	assertTrue(actual);
+    }
+
 }

@@ -241,7 +241,7 @@ public class User {
 		Iterator<Transaction> trans = transactions.iterator();
 		while (trans.hasNext()) {
 			Transaction tr=trans.next();
-			if (LocalDateTime.now().compareTo(tr.getDate())<31) {
+			if (LocalDateTime.now().getMonthValue() == tr.getDate().getMonthValue() || (tr.getDate().getMonthValue() == LocalDateTime.now().getMonthValue()-1 && LocalDateTime.now().getDayOfMonth() <= tr.getDate().getDayOfMonth())) {
 				String temp= tr.getClass() + " " + tr.getAmount() + " " + tr.getDate() + "\n";
 				res += temp;
 			}
@@ -252,11 +252,10 @@ public class User {
 		Iterator<Order> ords = orders.iterator();
 		while (ords.hasNext()) {
 			Order or = ords.next();
-			if (LocalDateTime.now().compareTo(or.getDate())<31) {
-				System.out.println(LocalDateTime.now().compareTo(or.getDate()));
+			if (LocalDateTime.now().getMonthValue() == or.getDate().getMonthValue() || (or.getDate().getMonthValue() == LocalDateTime.now().getMonthValue()-1 && LocalDateTime.now().getDayOfMonth() <= or.getDate().getDayOfMonth())) {
 				String temp = or.getStock().getCompanyName() + " " + or.getAmount() + " " + or.getOrderPrice() + "\n";
 				res += temp;
-			}			
+			}	
 		}
 		return res;
 	}

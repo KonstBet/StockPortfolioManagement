@@ -184,8 +184,12 @@ public class UserTest {
 	
 	@Test
 	public void orderReportTest2() {
-		Order or = new Order(user, stock, 1, 0.1, LocalDateTime.of(2021, 10, 18, 0, 0), Action.BUY, Status.COMPLETED);
+		Order or = new Order(user, stock, 1, 0.1, LocalDateTime.of(2021, LocalDateTime.now().getMonthValue(), 12, 0, 0), Action.BUY, Status.COMPLETED);
+		Order or1 = new Order(user, stock, 1, 0.1, LocalDateTime.of(2021, LocalDateTime.now().getMonthValue() - 1, LocalDateTime.now().getDayOfMonth(), 0, 0), Action.BUY, Status.COMPLETED);
+		Order or2 = new Order(user, stock, 1, 0.1, LocalDateTime.of(2021, LocalDateTime.now().getMonthValue() - 1, 1, 0, 0), Action.BUY, Status.COMPLETED);
 		user.addOrder(or);
+		user.addOrder(or1);
+		user.addOrder(or2);
 		System.out.println(user.orderReport());
 		Assertions.assertNotNull(user.orderReport());
 	}
