@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class AuthStocksTest {
+public class AuthStockTest {
 	private Investor investor1;
 	private Investor investor2;
     private Broker broker1;
@@ -70,27 +70,27 @@ public class AuthStocksTest {
     @Test // Case 1: Authorization is between Investor and Broker
     public void existsAuthorizationToEqual1() {
     	as2.setAmount(5);
-    	boolean actual = as2.existsAuthorizationToEqual(investor1, broker2, sh1);
+    	boolean actual = as2.isBetween(investor1, broker2, sh1);
     	assertTrue(actual);
     }
     
     @Test // Case 2: Authorization is not between Investor and Broker | Wrong Broker
     public void existsAuthorizationToEqual2() {
-    	boolean actual = as1.existsAuthorizationToEqual(investor1, broker2, sh1);
+    	boolean actual = as1.isBetween(investor1, broker2, sh1);
     	assertFalse(actual);
     }
     
     @Test // Case 3: Authorization is not between Investor and Broker | Wrong Investor
     public void existsAuthorizationToEqual3() {
     	as2.setAmount(5);
-    	boolean actual = as2.existsAuthorizationToEqual(investor2, broker2, sh1);
+    	boolean actual = as2.isBetween(investor2, broker2, sh1);
     	assertFalse(actual);
     }
     
     @Test // Case 4: Authorization is not between Investor and Broker | Wrong StockHolding
     public void existsAuthorizationToEqual4() {
     	as2.setAmount(5);
-    	boolean actual = as2.existsAuthorizationToEqual(investor1, broker2, sh2);
+    	boolean actual = as2.isBetween(investor1, broker2, sh2);
     	assertFalse(actual);
     }
     

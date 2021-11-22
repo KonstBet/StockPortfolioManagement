@@ -146,7 +146,7 @@ public class Order {
 	}
 	
 	private Double calculatePriceB() {
-		return this.stock.getOpen()*this.getAmount() + Math.max(6, this.getAmount()*this.stock.getOpen()*fee);
+		return stock.getOpen()*getAmount() + Math.max(6, getAmount()*stock.getOpen()*fee);
 	}
 	
 	private Double calculatePriceS() {
@@ -224,24 +224,25 @@ public class Order {
 		}
 		
 			
-			if (auth.getAmount() < this.getOrderPrice()) {
-				return false;
-			}
-			
+		if (auth.getAmount() < this.getOrderPrice()) {
+			return false;
+		}
+		
 
-			auth.getInvestor().giveAuthorization(-this.getOrderPrice(), auth.getBroker(), auth.getEnddate());
-			auth.getInvestor().setBalance(auth.getInvestor().getBalance()-this.getOrderPrice());
-			if (auth.getInvestor().getStockHoldings().containsKey(this.stock)) {
-				this.amount += user.getStockHoldings().get(this.stock).getAmount();
-				StockHolding stockHol = auth.getInvestor().getStockHoldings().get(stock);
-				stockHol.setCommittedAmount(this.amount);				
-				user.addStockHolding(this.stock, stockHol);
-			} else {
-				user.addStockHolding(this.stock, new StockHolding(this.amount, this.stock, user));
-			}
-			auth.getInvestor().giveAuthorization(this.amount, auth.getInvestor().getStockHoldings().get(this.stock) , auth.getBroker(), auth.getEnddate());
-			this.status = Status.COMPLETED;
-			return true;
+		auth.getInvestor().giveAuthorization(-this.getOrderPrice(), auth.getBroker(), auth.getEnddate());
+		auth.getInvestor().setBalance(auth.getInvestor().getBalance()-this.getOrderPrice());
+		
+		if (auth.getInvestor().getStockHoldings().containsKey(this.stock)) {
+			this.amount += user.getStockHoldings().get(this.stock).getAmount();
+			StockHolding stockHol = auth.getInvestor().getStockHoldings().get(stock);
+			stockHol.setCommittedAmount(this.amount);				
+			user.addStockHolding(this.stock, stockHol);
+		} else {
+			user.addStockHolding(this.stock, new StockHolding(this.amount, this.stock, user));
+		}
+		auth.getInvestor().giveAuthorization(this.amount, auth.getInvestor().getStockHoldings().get(this.stock) , auth.getBroker(), auth.getEnddate());
+		this.status = Status.COMPLETED;
+		return true;
 			
 		
 	}
@@ -250,13 +251,13 @@ public class Order {
 		if (!user.getStockHoldings().containsKey(this.stock)) {
 			return false;
 		}
+		
 		StockHolding sh = user.getStockHoldings().get(stock);
 		
 		if (sh.getCommittedAmount() < this.amount) {
 			return false;
 		}
 		
-
 		
 		auth.getInvestor().giveAuthorization(-this.getAmount(), sh, auth.getBroker(), auth.getEnddate());
 		auth.getInvestor().giveAuthorization(this.getOrderPrice(), auth.getBroker(), auth.getEnddate());	

@@ -61,13 +61,13 @@ public class AuthorizationTest {
 	
 	@Test
 	public void existsAuthorizationToEqualTest1() {
-		boolean actual = auth.existsAuthorizationToEqual(investor, broker);
+		boolean actual = auth.isBetween(investor, broker);
 		assertFalse(actual);
 	}
 	
 	@Test
 	public void existsAuthorizationToEqualTest2() {
-		boolean actual = auth.existsAuthorizationToEqual(investor, broker, stockHolding);
+		boolean actual = auth.isBetween(investor, broker, stockHolding);
 		assertFalse(actual);
 	}
 	

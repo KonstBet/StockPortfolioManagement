@@ -188,9 +188,9 @@ public class InvestorTest {
         boolean flag1 = auth.giveNewAuthorization(investor,0,broker,sh);
         boolean flag2 = auth.giveNewAuthorization(investor,0.0,broker);
         boolean flag3 = auth.giveToExistedAuthorization(10.0);
-        boolean flag4 = auth.existsAuthorizationToEqual(investor, broker);
+        boolean flag4 = auth.isBetween(investor, broker);
         boolean flag5 = auth.giveToExistedAuthorization(10);
-        boolean flag6 = auth.existsAuthorizationToEqual(investor, broker,sh);
+        boolean flag6 = auth.isBetween(investor, broker,sh);
         boolean flag7 = auth.removeAuth();
 
 

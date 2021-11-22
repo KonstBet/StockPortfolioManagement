@@ -46,7 +46,7 @@ public class Investor extends User {
 		Authorization ac;
 		while (iterator.hasNext()) {
 				ac = iterator.next();
-				if (ac.existsAuthorizationToEqual(this,broker)) {
+				if (ac.isBetween(this,broker)) {
 
 					return ac.giveToExistedAuthorization(amount);
 				}
@@ -61,7 +61,7 @@ public class Investor extends User {
 		Authorization as;
 		while (iterator.hasNext()) {
 				as = iterator.next();
-				if (as.existsAuthorizationToEqual(this,broker,stockHolding)) {
+				if (as.isBetween(this,broker,stockHolding)) {
 
 					return as.giveToExistedAuthorization(amount);
 				}

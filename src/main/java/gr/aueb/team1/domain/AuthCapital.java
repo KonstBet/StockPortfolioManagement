@@ -47,7 +47,7 @@ public class AuthCapital extends Authorization {
 		return true;
 	}
 
-	public boolean existsAuthorizationToEqual(Investor investor, Broker broker) {
+	public boolean isBetween(Investor investor, Broker broker) {
 		if (investor == this.getInvestor() && broker == this.getBroker()) {
 			return true;
 		}

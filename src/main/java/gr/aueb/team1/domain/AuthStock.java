@@ -60,7 +60,7 @@ public class AuthStock extends Authorization {
 		return true;
 	}
 
-	public boolean existsAuthorizationToEqual(Investor investor, Broker broker, StockHolding stockHolding) {
+	public boolean isBetween(Investor investor, Broker broker, StockHolding stockHolding) {
 		if (investor == this.getInvestor() && broker == this.getBroker() && stockHolding == this.stockholding)
 			return true;
 		return false;
