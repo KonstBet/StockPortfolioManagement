@@ -160,7 +160,6 @@ public class User {
 		transactions.add(new Withdrawal(this, amount, LocalDateTime.now()));
 		// Double needs round up
 		setBalance( (double) Math.round((getBalance() - amount)*100)/100 );
-		System.out.print(getBalance());
 		return true;
 	}
 	
@@ -182,7 +181,7 @@ public class User {
 			return false;
 		}
 		this.orders.add(order);
-		
+
 		return true;
 	}
 	
@@ -220,6 +219,46 @@ public class User {
 			orders.add(ao);
 		}
 		return true;
+	}
+	
+	public String portfolioReport() {
+		String bal = getBalance().toString();
+		String res = "";
+		res = "Balance: " + bal + "\n";
+		for (Stock name: this.getStockHoldings().keySet()) {
+		    String st = name.getCompanyName().toString();	
+		    String amt = this.getStockHoldings().get(name).getAmount().toString();
+		    String price = name.getOpen().toString();
+		    res += st + " " + amt + " " + price +"\n";
+		}
+		return res;
+		
+	}
+	
+	public String orderReport() {
+		//Money transactions
+		String res="Money Transaction:\n";
+		Iterator<Transaction> trans = transactions.iterator();
+		while (trans.hasNext()) {
+			Transaction tr=trans.next();
+			if (LocalDateTime.now().compareTo(tr.getDate())<31) {
+				String temp= tr.getClass() + " " + tr.getAmount() + " " + tr.getDate() + "\n";
+				res += temp;
+			}
+		}
+		
+		//Orders
+		res += "Stock Transactions\n";
+		Iterator<Order> ords = orders.iterator();
+		while (ords.hasNext()) {
+			Order or = ords.next();
+			if (LocalDateTime.now().compareTo(or.getDate())<31) {
+				System.out.println(LocalDateTime.now().compareTo(or.getDate()));
+				String temp = or.getStock().getCompanyName() + " " + or.getAmount() + " " + or.getOrderPrice() + "\n";
+				res += temp;
+			}			
+		}
+		return res;
 	}
 	
 	

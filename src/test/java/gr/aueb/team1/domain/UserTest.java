@@ -10,6 +10,7 @@ import gr.aueb.team1.domain.Stock;
 import gr.aueb.team1.domain.StockHolding;
 import gr.aueb.team1.domain.User;
 import gr.aueb.team1.domain.Order.Action;
+import gr.aueb.team1.domain.Order.Status;
 
 public class UserTest {
 
@@ -162,6 +163,31 @@ public class UserTest {
 		User u = new User();
 		Set<Transaction> s = u.getTransactions();
 		assertNotNull(s);
+	}
+	
+	@Test
+	public void portfolioReportTest() {
+		user.buyStock(stock2, 1);
+		System.out.println(user.portfolioReport());
+		Assertions.assertNotNull(user.portfolioReport());
+	}
+	
+	@Test
+	public void orderReportTest() {
+		user.deposit(100.0);
+		user.withdraw(50.0);
+		user.buyStock(stock2, 1);
+		user.buyStock(stock3, 2);
+		System.out.println(user.orderReport());
+		Assertions.assertNotNull(user.orderReport());
+	}
+	
+	@Test
+	public void orderReportTest2() {
+		Order or = new Order(user, stock, 1, 0.1, LocalDateTime.of(2021, 10, 18, 0, 0), Action.BUY, Status.COMPLETED);
+		user.addOrder(or);
+		System.out.println(user.orderReport());
+		Assertions.assertNotNull(user.orderReport());
 	}
 }
 	
