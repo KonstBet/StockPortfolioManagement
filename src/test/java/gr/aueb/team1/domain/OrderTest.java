@@ -46,6 +46,22 @@ public class OrderTest {
         as2 = new AuthStock(investor, sh ,broker, LocalDateTime.now(), date1, 10);
     }
     
+    @Test //Setters & Getters
+    public void setGetTest() {
+    	Order ord = new Order();
+    	ord.setAction(Action.BUY);
+    	ord.setAmount(10);
+    	ord.setDate(date1);
+    	ord.setFee(1.0);
+    	ord.setOrderPrice(100.0);
+    	ord.setStatus(Status.COMPLETED);
+    	ord.setStock(AlphaStock);
+    	ord.setUser(investor);
+    	assertTrue(ord.getAction() == Action.BUY && ord.getAmount() == 10 && ord.getDate() == date1 && ord.getFee() == 1.0 && 
+    			ord.getOrderPrice() == 100.0 && ord.getStatus() == Status.COMPLETED && ord.getStock() == AlphaStock && ord.getUser() == investor);
+    }
+    
+    
     @Test // User already owns the StockHolding
     public void buyTest1() {
     	Double fee = 0.1;

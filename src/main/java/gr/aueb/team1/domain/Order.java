@@ -77,9 +77,6 @@ public class Order {
 		return id;
 	}
 	
-	public void setId(Integer id) {
-		this.id = id;
-	}
 	
 	public Integer getAmount() {
 		return this.amount;
