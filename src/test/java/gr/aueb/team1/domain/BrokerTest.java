@@ -40,9 +40,9 @@ public class BrokerTest {
         HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
         AuthCapital ac = new AuthCapital(investor, broker, LocalDateTime.now(), date1, 100.0);
         auths.add(ac);
-        investor.setAuthorizations(auths);
+        broker.setAuthorizations(auths);
         Boolean flag1 = investor.getAuthorizations().size() == 1;
-        investor.removeAuthorization(ac);
+        broker.removeAuthorization(ac);
         Boolean flag2 = investor.getAuthorizations().size() == 0;
         Assertions.assertTrue(flag1 && flag2);
     }
