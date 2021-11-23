@@ -2,6 +2,7 @@ package gr.aueb.team1.domain;
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDateTime;
 import java.util.Set;
+
 import org.junit.jupiter.api.*;
 import gr.aueb.team1.domain.Order.Action;
 import gr.aueb.team1.domain.Order.Status;
@@ -190,6 +191,27 @@ public class UserTest {
 		user.addOrder(or2);
 		System.out.println(user.orderReport());
 		Assertions.assertNotNull(user.orderReport());
+	}
+
+	@Test
+	void GettersSetters() {
+		User usr = new User();
+		usr.setName("Nikos");
+		usr.setSurname("Papadopoulos");
+		usr.setEmail("nikosme@mailbox.gr");
+		usr.setPhoneNo("3213456879");
+		usr.setStockHoldings(null);
+		usr.setBalance(1.0);
+		usr.setTransactions(null);
+		usr.setOrders(null);
+
+		Assertions.assertTrue(usr.getName().equals("Nikos") && usr.getSurname().equals("Papadopoulos")
+			&& usr.getEmail().equals("nikosme@mailbox.gr") && usr.getPhoneNo().equals("3213456879")
+			&& usr.getBalance() == 1.0);
+
+		Assertions.assertNull(usr.getStockHoldings());
+		Assertions.assertNull(usr.getOrders());
+		Assertions.assertNull(usr.getTransactions());
 	}
 }
 	
