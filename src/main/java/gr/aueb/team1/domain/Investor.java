@@ -11,7 +11,7 @@ public class Investor extends User {
 	private Double committedBalance;
 	
 	@OneToMany(mappedBy="investor")
-	private Set<Authorization> authorizations=new HashSet<Authorization>();
+	private Set<Authorization> authorizations = new HashSet<Authorization>();
 	
 	public Investor() {
 		super();

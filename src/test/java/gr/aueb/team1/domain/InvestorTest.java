@@ -3,8 +3,12 @@ package gr.aueb.team1.domain;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Set;
 
 public class InvestorTest {
     private Investor investor;
@@ -170,8 +174,7 @@ public class InvestorTest {
     @Test
     void expectedFalseFromAuthorizationsFunctions() {
         Authorization auth = new Authorization(investor,broker,date1,date2);
-//        AuthStock as = new AuthStock(investor, sh, broker, date1, date2, 10);
-//        AuthCapital ac = new AuthCapital(investor, broker, date1, date2, 10.0);
+
 
         boolean flag1 = auth.giveNewAuthorization(investor,0,broker,sh);
         boolean flag2 = auth.giveNewAuthorization(investor,0.0,broker);
@@ -184,5 +187,13 @@ public class InvestorTest {
 
 
         Assertions.assertFalse(flag1||flag2||flag3||flag4||flag5||flag6||flag7);
+    }
+    
+    @Test
+    void setAuthorizationTest() {
+    	Investor inv = new Investor();
+    	Set<Authorization> auths = new HashSet<Authorization>();
+    	inv.setAuthorizations(auths);
+    	assertEquals(auths, investor.getAuthorizations());
     }
 }
