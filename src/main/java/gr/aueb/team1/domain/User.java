@@ -54,6 +54,7 @@ public class User {
 		this.surname = null;
 		this.email = null;
 		this.phoneNo = null;
+		this.balance = 0.0;
 	}
 	
 	public User(String name, String surname, String email, String phoneNo) {
@@ -61,6 +62,7 @@ public class User {
 		this.surname = surname;
 		this.email = email;
 		this.phoneNo = phoneNo;
+		this.balance = 0.0;
 	}
 	
 	public Integer getId() {

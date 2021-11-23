@@ -221,7 +221,9 @@ public class Order {
 			return false;
 		}
 		
-			
+		double bfee = auth.getBroker().getBrokerageFee()*this.getOrderPrice();
+		setOrderPrice(bfee + this.getOrderPrice());
+		
 		if (auth.getAmount() < this.getOrderPrice()) {
 			return false;
 		}
@@ -238,11 +240,13 @@ public class Order {
 			user.addStockHolding(this.stock, new StockHolding(0, this.stock, user, this.amount));
 		}
 		auth.getInvestor().giveAuthorization(this.amount, auth.getInvestor().getStockHoldings().get(this.stock) , auth.getBroker(), auth.getEnddate());
+		
+		auth.getBroker().setBalance(auth.getBroker().getBalance() + bfee);
+		
 		this.status = Status.COMPLETED;
 		return true;
-			
-		
 	}
+	
 	public boolean applyBrokerOrder(AuthStock auth){
 		
 		if (!user.getStockHoldings().containsKey(this.stock)) {
@@ -255,6 +259,9 @@ public class Order {
 			return false;
 		}
 		
+		double bfee = auth.getBroker().getBrokerageFee()*this.getOrderPrice();
+		setOrderPrice(this.getOrderPrice() - bfee);
+		
 		
 		auth.getInvestor().giveAuthorization(-this.getAmount(), sh, auth.getBroker(), auth.getEnddate());
 		auth.getInvestor().giveAuthorization(this.getOrderPrice(), auth.getBroker(), auth.getEnddate());	
@@ -266,7 +273,8 @@ public class Order {
 			auth.getInvestor().remStockHolding(stock);
 		} 
 
-
+		auth.getBroker().setBalance(auth.getBroker().getBalance() + bfee);
+		
 		this.status = Status.COMPLETED;
 		return true;
 		

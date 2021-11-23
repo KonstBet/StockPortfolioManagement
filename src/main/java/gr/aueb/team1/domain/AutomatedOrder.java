@@ -39,7 +39,7 @@ public class AutomatedOrder extends Order {
 	}
 	
 	private Double calculateLimit(Double limit) {
-		return limit*stock.getOpen();
+		return stock.getOpen() + (limit*stock.getOpen())/100.00;
 	}
 	
 	@Override
