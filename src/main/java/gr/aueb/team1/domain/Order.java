@@ -198,9 +198,10 @@ public class Order {
 		user.setBalance(user.getBalance() - this.getOrderPrice());
 		if (user.getStockHoldings().containsKey(this.stock)) {
 			this.amount += user.getStockHoldings().get(this.stock).getAmount();
-			user.addStockHolding(this.stock, new StockHolding(this.amount, this.stock, user));
+			Integer temp = user.getStockHoldings().get(this.stock).getCommittedAmount();
+			user.addStockHolding(this.stock, new StockHolding(this.amount, this.stock, user, temp));
 		} else {
-			user.addStockHolding(this.stock, new StockHolding(this.amount, this.stock, user));
+			user.addStockHolding(this.stock, new StockHolding(this.amount, this.stock, user, 0));
 		}
 		this.status = Status.COMPLETED;
 	}
@@ -209,7 +210,7 @@ public class Order {
 		user.setBalance(user.getBalance() + getOrderPrice());
 		sh.setAmount(sh.getAmount() - amount);
 		
-		if (sh.getAmount() == 0) {
+		if (sh.getAmount() == 0 && sh.getCommittedAmount() == 0) {
 			user.remStockHolding(stock);
 		}
 		else {
@@ -233,12 +234,11 @@ public class Order {
 		auth.getInvestor().setBalance(auth.getInvestor().getBalance()-this.getOrderPrice());
 		
 		if (auth.getInvestor().getStockHoldings().containsKey(this.stock)) {
-			this.amount += user.getStockHoldings().get(this.stock).getAmount();
-			StockHolding stockHol = auth.getInvestor().getStockHoldings().get(stock);
-			stockHol.setCommittedAmount(this.amount);				
+			StockHolding stockHol = auth.getInvestor().getStockHoldings().get(stock);			
+			stockHol.setCommittedAmount(stockHol.getCommittedAmount()+this.amount);				
 			user.addStockHolding(this.stock, stockHol);
 		} else {
-			user.addStockHolding(this.stock, new StockHolding(this.amount, this.stock, user));
+			user.addStockHolding(this.stock, new StockHolding(0, this.stock, user, this.amount));
 		}
 		auth.getInvestor().giveAuthorization(this.amount, auth.getInvestor().getStockHoldings().get(this.stock) , auth.getBroker(), auth.getEnddate());
 		this.status = Status.COMPLETED;
@@ -262,10 +262,10 @@ public class Order {
 		auth.getInvestor().giveAuthorization(-this.getAmount(), sh, auth.getBroker(), auth.getEnddate());
 		auth.getInvestor().giveAuthorization(this.getOrderPrice(), auth.getBroker(), auth.getEnddate());	
 		sh.setAmount(sh.getAmount()-this.getAmount());
-		System.out.println(sh.getAmount());
-		System.out.println(sh.getCommittedAmount());
+
 
 		if (sh.getAmount() == 0 && sh.getCommittedAmount() == 0) {
+			System.out.println("done");
 			auth.getInvestor().remStockHolding(stock);
 		} 
 
