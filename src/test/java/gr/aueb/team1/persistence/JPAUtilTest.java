@@ -32,11 +32,7 @@ class JPAUtilTest {
 		JPAUtil.transactional(new Runnable() {
 		    public void run() {
 		    	User user = new User("Mitsos", "Charalampidis", "mcharal@gmail.com", "697891030100");
-				if (user.getId() != null) {
-					user = em.merge(user);
-				} else {
-					em.persist(user);
-				}
+		    	em.persist(user);
 		    }
 		});
 	}
