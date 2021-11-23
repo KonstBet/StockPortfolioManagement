@@ -221,7 +221,7 @@ public class Order {
 			return false;
 		}
 		
-		double bfee = auth.getBroker().getBrokerageFee()*this.getOrderPrice();
+		double bfee = auth.getBroker().getBrokerageFee()*this.getOrderPrice()/100;
 		setOrderPrice(bfee + this.getOrderPrice());
 		
 		if (auth.getAmount() < this.getOrderPrice()) {
@@ -259,7 +259,7 @@ public class Order {
 			return false;
 		}
 		
-		double bfee = auth.getBroker().getBrokerageFee()*this.getOrderPrice();
+		double bfee = auth.getBroker().getBrokerageFee()*this.getOrderPrice()/100;
 		setOrderPrice(this.getOrderPrice() - bfee);
 		
 		

@@ -11,6 +11,7 @@ import java.util.HashSet;
 public class BrokerTest {
     private Investor investor;
     private Broker broker;
+    private Broker broker1;
     private Stock PeiraiosStock;
     private Stock CosmoteStock;
     private Integer amount;
@@ -22,6 +23,8 @@ public class BrokerTest {
         investor = new Investor("Mitsos", "Charalampidis", "mcharal@gmail.com", "697891030100");
         investor.setBalance(500.00);
         broker = new Broker("Giorgos", "Charalampopoulos", "mcharal@gmail.com", "697891030100",0.0);
+        broker1 = new Broker();
+        
 
         PeiraiosStock = new Stock("P200", "PIRAIUS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00);
         CosmoteStock = new Stock("P104", "COSMOTE", LocalDateTime.now(), 29.00, 200.99, 1000.00, 10.00, 2460.00);
@@ -32,78 +35,74 @@ public class BrokerTest {
         date1 = LocalDateTime.of(2021,12,31,0,0,0);
     }
 
-    @Test
-    void buyStocksForInvestorTest() {
+    @Test //set Authorization, remove Authorization
+    void setRemoveAuthorization() {     
+        HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
+        AuthCapital ac = new AuthCapital(investor, broker, LocalDateTime.now(), date1, 100.0);
+        auths.add(ac);
+        investor.setAuthorizations(auths);
+        Boolean flag1 = investor.getAuthorizations().size() == 1;
+        investor.removeAuthorization(ac);
+        Boolean flag2 = investor.getAuthorizations().size() == 0;
+        Assertions.assertTrue(flag1 && flag2);
+    }
+    
+    
+    @Test //Valid order
+    void BuyStocksForInvestorTest() {
         investor.giveAuthorization(500.00,broker,date1);
 
         HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
         AuthCapital ac = (AuthCapital) auths.iterator().next();
 
         boolean flag = broker.buyForInvestor(ac, PeiraiosStock, 10);
-
+       
         Assertions.assertTrue(flag);
     }
 
-    @Test
-    void BrokenbuyStocksForInvestorTest() {
-        investor.giveAuthorization(500.00,broker,date1);
+    @Test //Not enough committed balance
+    void BuyStocksForInvestorTest2() {
+        investor.giveAuthorization(100.00,broker,date1);
 
         HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
         AuthCapital ac = (AuthCapital) auths.iterator().next();
 
-        boolean flag = broker.buyForInvestor(ac, PeiraiosStock, 500);
+        boolean flag = broker.buyForInvestor(ac, PeiraiosStock, 10);
 
         Assertions.assertFalse(flag);
     }
     
-    @Test
-    void ApplyBrokerOrder() {
-    	investor.giveAuthorization(300.00, broker, date1);
-    	HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
-    	AuthCapital ac = (AuthCapital) auths.iterator().next();
-    	Double fee=0.1;
-    	Order or = new Order(investor, CosmoteStock, 1, fee, date1, Action.BUY, Status.PENDING);
-    	or.applyBrokerOrder(ac);
-    	System.out.println(investor.getBalance());
-    	System.out.println(investor.getCommittedBalance());
-    	Assertions.assertTrue(investor.getStockHoldings().containsKey(CosmoteStock));
-    }
-    
-    @Test
-    void ApplyBrokerOrder2() {
-    	investor.giveAuthorization(100.00, broker, date1);
-    	HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
-    	AuthCapital ac = (AuthCapital) auths.iterator().next();
-    	Double fee=0.1;
-    	Order or = new Order(investor, CosmoteStock, 1, fee, date1, Action.BUY, Status.PENDING);
-    	or.applyBrokerOrder(ac);
-    	Assertions.assertFalse(or.applyBrokerOrder(ac));
-    }
-    
-    @Test
-    void ApplyBrokerOrder3() {
-    	System.out.println(investor.getStockHoldings().get(PeiraiosStock).getCommittedAmount());
-
-    	investor.giveAuthorization(5, investor.getStockHoldings().get(PeiraiosStock), broker, date1);
+    @Test //Valid sell order
+    void SellStockForInvestorTest() {
+    	investor.giveAuthorization(5, sh, broker, date1);
     	HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
     	AuthStock as = (AuthStock) auths.iterator().next();
-    	System.out.println(investor.getStockHoldings().get(PeiraiosStock).getCommittedAmount());
-    	System.out.println(investor.getStockHoldings().get(PeiraiosStock).getAmount());
-    	System.out.println(investor.getCommittedBalance());
     	
-    	
-    	Order or = new Order(investor, PeiraiosStock, 1	, 0.1, date1, Action.SELL, Status.PENDING);
-    	or.applyBrokerOrder(as);
-    	System.out.println(investor.getCommittedBalance());
-    	System.out.println(investor.getStockHoldings().get(PeiraiosStock).getCommittedAmount());
-    	System.out.println(investor.getStockHoldings().get(PeiraiosStock).getAmount());
-    	
-   	
-    	Assertions.assertFalse(false);
+    	boolean flag = broker.sellForInvestor(as, 4);
+    	Assertions.assertTrue(flag);    	
     }
     
-    @Test
-    void ApplyBrokerOrder4() {
+    @Test //Not enough committed stock amount
+    void SellStockForInvestorTest2() {
+    	investor.giveAuthorization(5, sh, broker, date1);
+    	HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
+    	AuthStock as = (AuthStock) auths.iterator().next();
     	
+    	boolean flag = broker.sellForInvestor(as, 6);
+    	Assertions.assertFalse(flag);    	
     }
+    
+    @Test //Check brokerage fee
+    void SellStockForInvestorTest3() {
+    	investor.giveAuthorization(5, sh, broker, date1);
+    	broker.setBrokerageFee(5.0);
+    	HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
+    	AuthStock as = (AuthStock) auths.iterator().next();
+    	broker.sellForInvestor(as, 1);
+    	boolean flag = broker.getBalance() == 0.2;
+    	Assertions.assertTrue(flag);    	
+
+    }
+    
+
 }
