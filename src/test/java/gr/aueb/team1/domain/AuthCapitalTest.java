@@ -27,7 +27,7 @@ public class AuthCapitalTest {
 
 	
     @BeforeEach
-    public void setUpTests() {
+    void setUpTests() {
         investor1 = new Investor("Mitsos", "Charalampidis", "mcharal@gmail.com", "697891030100");
         investor1.setBalance(500.00);
         investor2 = new Investor("Akakios", "Charalampidis", "mcharal@gmail.com", "697891030100");
@@ -47,45 +47,45 @@ public class AuthCapitalTest {
     
     
     @Test // Case 1: Not enough balance
-    public void giveNewAuthorizationTest1() {
+    void giveNewAuthorizationTest1() {
     	boolean actual = ac1.giveNewAuthorization(investor1, 500.99, broker1);
     	assertFalse(actual);
     }
     
     @Test // Case 2: Enough Balance
-    public void giveNewAuthorizationTest2() {
+    void giveNewAuthorizationTest2() {
     	boolean actual = ac1.giveNewAuthorization(investor1, 499.99, broker1);
     	assertTrue(actual);
     }
     
     @Test // Case 1: Not enough balance
-    public void giveToExistedAuthorizationTest1() {
+    void giveToExistedAuthorizationTest1() {
     	boolean actual = ac1.giveToExistedAuthorization(500.01);
     	assertFalse(actual);
     }
     
     @Test // Case 2: Enough Balance
-    public void giveToExistedAuthorizationTest2() {
+    void giveToExistedAuthorizationTest2() {
     	boolean actual = ac1.giveToExistedAuthorization(499.99);
     	assertTrue(actual);
     }
     
     
     @Test // Case 1: Authorization is between Investor and Broker
-    public void isBetweenTest1() {
+    void isBetweenTest1() {
     	ac2.setAmount(400.00);
     	boolean actual = ac2.isBetween(investor1, broker2);
     	assertTrue(actual);
     }
     
     @Test // Case 2: Authorization is not between Investor and Broker | Wrong Broker
-    public void isBetweenTest2() {
+    void isBetweenTest2() {
     	boolean actual = ac1.isBetween(investor1, broker2);
     	assertFalse(actual);
     }
     
     @Test // Case 2: Authorization is not between Investor and Broker | Wrong Investor
-    public void isBetweenTest3() {
+    void isBetweenTest3() {
     	boolean actual = ac1.isBetween(investor2, broker2);
     	assertFalse(actual);
     }
@@ -93,13 +93,13 @@ public class AuthCapitalTest {
 
     
     @Test // Case 1: Zero Committed Balance
-    public void removeAuthTest1() {
+    void removeAuthTest1() {
     	boolean actual = ac1.removeAuth();
     	assertFalse(actual);
     }
     
     @Test // Case 2: Committed Balance returns to Investor
-    public void removeAuthTest2() {
+    void removeAuthTest2() {
 
     	investor1.setCommittedBalance(600.00);
     	ac1.removeAuth();
@@ -109,13 +109,13 @@ public class AuthCapitalTest {
     }
     
     @Test // Case 3: Authorization gets deleted for investor
-    public void removeAuthTest3() {
+    void removeAuthTest3() {
     	boolean actual = investor1.getAuthorizations().contains(ac1);
     	assertFalse(actual);
     }
     
     @Test // Case 4: Authorization gets deleted for broker
-    public void removeAuthTest4() {
+    void removeAuthTest4() {
     	boolean actual = broker1.getAuthorizations().contains(ac1);
     	assertFalse(actual);
     }

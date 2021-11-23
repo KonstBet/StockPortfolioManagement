@@ -12,7 +12,7 @@ public class StockTest {
 	
 	
 	@Test
-	public void testGettersAndSetters() {
+	void testGettersAndSetters() {
 		d = LocalDateTime.of(2021,12,31,0,0,0);
 		s = new Stock("P200", "PIRAEUS", d, 10.00, 200.99, 1000.00, 10.00, 3000.00);
 		s = new Stock();
@@ -36,7 +36,7 @@ public class StockTest {
 	}
 	
 	@Test
-	public void toStringTest() {
+	void toStringTest() {
 		d = LocalDateTime.of(2021,12,31,0,0,0);
 		s = new Stock("P200", "PIRAEUS", d, 10.00, 200.99, 1000.00, 10.00, 3000.00);
 		String st = s.toString();

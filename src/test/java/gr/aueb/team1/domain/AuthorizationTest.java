@@ -19,7 +19,7 @@ public class AuthorizationTest {
 	
 	
 	@BeforeEach
-    public void setUpTests() {
+    void setUpTests() {
 		investor = new Investor();
 		investor.setName("Giannhs");
 		
@@ -35,50 +35,50 @@ public class AuthorizationTest {
     }
 	
 	@Test
-	public void giveNewAuthorizationTest1() {
+	void giveNewAuthorizationTest1() {
 		boolean actual = auth.giveNewAuthorization(investor, 60.00, broker);
 		assertFalse(actual);
 	}
 	
 	@Test
-	public void giveNewAuthorizationTest2() {
+	void giveNewAuthorizationTest2() {
 		boolean actual = auth.giveNewAuthorization(investor, 1, broker, stockHolding);
 		assertFalse(actual);
 	}
 	
 	
 	@Test
-	public void giveToExistedAuthorizationTest1() {
+	void giveToExistedAuthorizationTest1() {
 		boolean actual = auth.giveToExistedAuthorization(1);
 		assertFalse(actual);
 	}
 	
 	@Test
-	public void giveToExistedAuthorizationTest2() {
+	void giveToExistedAuthorizationTest2() {
 		boolean actual = auth.giveToExistedAuthorization(1.0);
 		assertFalse(actual);
 	}
 	
 	@Test
-	public void existsAuthorizationToEqualTest1() {
+	void existsAuthorizationToEqualTest1() {
 		boolean actual = auth.isBetween(investor, broker);
 		assertFalse(actual);
 	}
 	
 	@Test
-	public void existsAuthorizationToEqualTest2() {
+	void existsAuthorizationToEqualTest2() {
 		boolean actual = auth.isBetween(investor, broker, stockHolding);
 		assertFalse(actual);
 	}
 	
 	@Test
-	public void removeAuthTest() {
+	void removeAuthTest() {
 		boolean actual = auth.removeAuth();
 		assertFalse(actual);
 	}
 	
 	@Test
-	public void testGetters() {
+	void testGetters() {
 		AuthCapital authcapital = new AuthCapital(investor, broker, date1, date2, 10.0);
 		
 		boolean flag = false;
@@ -91,7 +91,7 @@ public class AuthorizationTest {
 	}
 	
 	@Test
-	public void testSetters() {
+	void testSetters() {
 		AuthStock authstocks = new AuthStock(null, null, null, date1, date2, 10);
 		authstocks.setAmount(20);
 		authstocks.setId(7);

@@ -17,7 +17,7 @@ public class UserTest {
 	private Order order;
 
 	@BeforeEach
-	public void setUpTests() {
+	void setUpTests() {
 		user = new User("Mitsos", "Charalampidis", "mcharal@gmail.com", "697891030100");
 		user.setBalance(500.00);
 		stock = new Stock("P200", "PIRAIUS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00);
@@ -31,13 +31,13 @@ public class UserTest {
 	}
 	
 	@Test // More than current balance
-	public void withdrawTest1() {
+	void withdrawTest1() {
 		boolean expected = user.withdraw(500.01);
 		assertFalse(expected);
 	}
 	
 	@Test // Less than current balance
-	public void withdrawTest2() {
+	void withdrawTest2() {
 		user.withdraw(499.99);
 		double actual = user.getBalance();
 		double expected = 0.01;
@@ -45,7 +45,7 @@ public class UserTest {
 	}
 	
 	@Test // Deposit to balance
-	public void depositTest1() {
+	void depositTest1() {
 		user.deposit(0.01);
 		double actual = user.getBalance();
 		double expected = 500.01;
@@ -53,19 +53,19 @@ public class UserTest {
 	}
 	
 	@Test // Deposit to balance
-	public void depositTest2() {
+	void depositTest2() {
 		boolean expected = user.deposit(0.0);
 		assertFalse(expected);
 	}
 	
 	@Test // Not enough balance
-	public void buyStockTest1() {
+	void buyStockTest1() {
 		boolean balance = user.buyStock(stock2, 6);
 		assertFalse(balance);
 	}
 	
 	@Test // Buy new asset
-	public void buyStockTest2() {
+	void buyStockTest2() {
 		user.buyStock(stock3, 15);
 		int actual = user.getStockHoldings().get(stock3).getAmount();
 		int expected = 15;
@@ -73,7 +73,7 @@ public class UserTest {
 	}
 	
 	@Test // Buy more of an asset
-	public void buyStockTest3() {
+	void buyStockTest3() {
 		user.buyStock(stock, 1);
 		int actual = user.getStockHoldings().get(stock).getAmount();
 		int expected = 11;
@@ -81,20 +81,20 @@ public class UserTest {
 	}
 	
 	@Test // Not having the asset
-	public void sellStockTest1() {
+	void sellStockTest1() {
 		boolean asset = user.sellStock(stock2, 1);
 		assertFalse(asset);
 	}
 	
 	
 	@Test // Not enough amount of the asset
-	public void sellStockTest2() {
+	void sellStockTest2() {
 		boolean amount = user.sellStock(stock, 11);
 		assertFalse(amount);
 	}
 	
 	@Test // Sell full asset
-	public void sellStockTest3() {
+	void sellStockTest3() {
 		Assertions.assertThrows(NullPointerException.class, ()-> { 
 				user.sellStock(stock, 10);
 				user.getStockHoldings().get(stock).getAmount();
@@ -102,7 +102,7 @@ public class UserTest {
 	}
 	
 	@Test // Sell partial asset
-	public void sellStockTest4() {
+	void sellStockTest4() {
 		user.sellStock(stock, 9);
 		int actual = user.getStockHoldings().get(stock).getAmount();
 		int expected = 1;
@@ -110,44 +110,44 @@ public class UserTest {
 	}
 
 	@Test // Limit Order Buy with not enough balance
-	public void limitOrderTest1() {
+	void limitOrderTest1() {
 		boolean actual = user.limitOrder(0.1, stock2, 100, Action.BUY);
 		assertFalse(actual);
 	}
 	
 	@Test // Limit Order Buy
-	public void limitOrderTest2() {
+	void limitOrderTest2() {
 		boolean actual = user.limitOrder(0.1, stock, 10, Action.BUY);
 		assertTrue(actual);
 	}
 	
 	@Test // Limit Order Sell without having the stock
-	public void limitOrderTest3() {
+	void limitOrderTest3() {
 		boolean actual = user.limitOrder(0.1, stock2, 11, Action.SELL);
 		assertFalse(actual);
 	}
 	
 	@Test // Limit Order Sell without enough amount
-	public void limitOrderTest4() {
+	void limitOrderTest4() {
 		boolean actual = user.limitOrder(0.1, stock, 11, Action.SELL);
 		assertFalse(actual);
 	}
 	
 	@Test // Limit Order Sell 
-	public void limitOrderTest5() {
+	void limitOrderTest5() {
 		boolean actual = user.limitOrder(0.1, stock, 9, Action.SELL);
 		assertTrue(actual);
 	}
 	
 	@Test 
-	public void addOrderTest() {
+	void addOrderTest() {
 		user.addOrder(order);
 		boolean actual = user.getOrders().contains(order);
 		assertTrue(actual);
 	}
 	
 	@Test 
-	public void toStringTest() {
+	void toStringTest() {
 		String s = user.toString();
 		assertEquals("ID: " + user.getId() +
 				"\nName: " + user.getName() + 
@@ -157,21 +157,21 @@ public class UserTest {
 	}
 	
 	@Test 
-	public void getTransactionTest() {
+	void getTransactionTest() {
 		User u = new User();
 		Set<Transaction> s = u.getTransactions();
 		assertNotNull(s);
 	}
 	
 	@Test
-	public void portfolioReportTest() {
+	void portfolioReportTest() {
 		user.buyStock(stock2, 1);
 		System.out.println(user.portfolioReport());
 		Assertions.assertNotNull(user.portfolioReport());
 	}
 	
 	@Test
-	public void orderReportTest() {
+	void orderReportTest() {
 		user.deposit(100.0);
 		user.withdraw(50.0);
 		user.buyStock(stock2, 1);
@@ -181,7 +181,7 @@ public class UserTest {
 	}
 	
 	@Test
-	public void orderReportTest2() {
+	void orderReportTest2() {
 		Order or = new Order(user, stock, 1, 0.1, LocalDateTime.of(2021, LocalDateTime.now().getMonthValue(), 12, 0, 0), Action.BUY, Status.COMPLETED);
 		Order or1 = new Order(user, stock, 1, 0.1, LocalDateTime.of(2021, LocalDateTime.now().getMonthValue() - 1, LocalDateTime.now().getDayOfMonth(), 0, 0), Action.BUY, Status.COMPLETED);
 		Order or2 = new Order(user, stock, 1, 0.1, LocalDateTime.of(2021, LocalDateTime.now().getMonthValue() - 1, 1, 0, 0), Action.BUY, Status.COMPLETED);

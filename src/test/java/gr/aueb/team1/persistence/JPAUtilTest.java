@@ -6,15 +6,35 @@ import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.Test;
 
+import gr.aueb.team1.domain.User;
+
 
 class JPAUtilTest {
 
 	@Test
-	void test() {
+	void test1() {
 
 		EntityManager em = JPAUtil.getCurrentEntityManager();
 		assertNotNull(em);
 		
+	}
+	
+	@Test
+	void test2() {
+		EntityManager em = JPAUtil.createEntityManager();
+		assertNotNull(em);
+	}
+	
+	@Test
+	void test3() {
+		EntityManager em = JPAUtil.getCurrentEntityManager();
+		
+		JPAUtil.transactional(new Runnable() {
+		    public void run() {
+		    	User user = new User("Mitsos", "Charalampidis", "mcharal@gmail.com", "697891030100");
+		    	em.persist(user);
+		    }
+		});
 	}
 
 }
