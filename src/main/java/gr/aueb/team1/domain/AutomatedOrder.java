@@ -13,7 +13,7 @@ public class AutomatedOrder extends Order {
 	
 	public AutomatedOrder(User user, Stock stock, Integer amount, Double fee, LocalDateTime date, Action action, Double limit) {
 		super(user, stock, amount, fee, date, action, Status.PENDING);
-		this.limit = limit;
+		this.limit = calculateLimit(limit);
 	}
 
 
@@ -27,7 +27,7 @@ public class AutomatedOrder extends Order {
 	
 	public String toString() {
 		return super.toString() +
-				"\nLimit: " + this.getLimit();
+				"\nLimit: " + this.getLimit() + "€";
 	}
 	
 	private Double calculatePriceB() {
@@ -36,6 +36,10 @@ public class AutomatedOrder extends Order {
 	
 	private Double calculatePriceS() {
 		return stock.getClose()*getAmount() - Math.max(6, getAmount()*stock.getOpen()*getFee());
+	}
+	
+	private Double calculateLimit(Double limit) {
+		return limit*stock.getOpen();
 	}
 	
 	@Override
@@ -53,12 +57,12 @@ public class AutomatedOrder extends Order {
 				return false;
 			}
 			
-			// ????????????????????????????????????? Me vasi ti 8a agorazei?
 			if (stock.getClose() <= limit) {
 				super.buy();
+				return true;
 			}
 			
-			return true;
+			return false;
 		} else {
 			
 			setOrderPrice(this.calculatePriceS());
@@ -74,12 +78,12 @@ public class AutomatedOrder extends Order {
 				return false;
 			}
 			
-			// ????????????????????????????????????? Me vasi ti 8a poulaei?
 			if (stock.getClose() >= limit) {
 				super.sell(sh);
+				return true;
 			}
 
 		}
-		return true;
+		return false;
 	}	
 }

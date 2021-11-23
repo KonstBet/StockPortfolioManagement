@@ -1,14 +1,13 @@
 package gr.aueb.team1.domain;
 
 import java.time.LocalDateTime;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name="Transactions")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
-public abstract class Transaction {
+public class Transaction {
 	
 	@Id
 	@Column(name = "id", nullable = false)

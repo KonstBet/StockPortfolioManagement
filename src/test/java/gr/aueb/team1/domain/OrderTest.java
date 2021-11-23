@@ -2,7 +2,6 @@ package gr.aueb.team1.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
@@ -18,11 +17,10 @@ public class OrderTest {
     private Broker broker;
     private Stock PeiraiosStock;
     private Stock AlphaStock;
-    private Stock CosmoteStock;
+
     private Integer amount;
     private StockHolding sh;
     private LocalDateTime date1;
-    private LocalDateTime date2;
     private final Double fee = 0.1;
     private AuthCapital ac1;
     private AuthStock as1;
@@ -35,13 +33,11 @@ public class OrderTest {
 
         PeiraiosStock = new Stock("P200", "PIRAIUS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00);
         AlphaStock = new Stock("P224", "ALPHA", LocalDateTime.now(), 100.00, 200.99, 1000.00, 10.00, 2460.00);
-        CosmoteStock = new Stock("P104", "COSMOTE", LocalDateTime.now(), 29.00, 200.99, 1000.00, 10.00, 2460.00);
         amount = 10;
         sh = new StockHolding(amount, PeiraiosStock, investor);
         investor.addStockHolding(PeiraiosStock, sh);
 
         date1 = LocalDateTime.of(2021,12,31,0,0,0);
-        date2 = LocalDateTime.of(2021,12,31,0,0,0);
         
         ac1 = new AuthCapital(investor, broker, LocalDateTime.now(), date1, 600.00);
         as1 = new AuthStock(investor, sh ,broker, LocalDateTime.now(), date1, 9);
@@ -162,16 +158,8 @@ public class OrderTest {
     	assertFalse(actual);
     }
 
-    
-    @Test 
-	public void toStringTest() {
-    	Order o = new Order();
-    	o.setDate(date1);
-		String s = o.toString();
-		assertNotNull(s);
-	}
    
-    @Test //Authorization does not contain the stock
+    @Test // Authorization does not contain the stock
     public void applyOrderTest7() {
     	investor.giveAuthorization(9, sh, broker, date1);
     	Order or = new Order(investor, AlphaStock, 1, fee, date1, Action.SELL, Status.PENDING);
@@ -179,7 +167,7 @@ public class OrderTest {
     	assertFalse(actual);
     }
     
-    @Test //Authorization does not contain enough of the stock
+    @Test // Authorization does not contain enough of the stock
     public void applyOrderTest8() {
     	investor.giveAuthorization(9, sh, broker, date1);
     	Order or = new Order(investor, PeiraiosStock, 11, fee, date1, Action.SELL, Status.PENDING);
@@ -187,7 +175,7 @@ public class OrderTest {
     	assertFalse(actual);
     }   
     
-    @Test //Successfull order
+    @Test // Successful order
     public void applyOrderTest9() {
     	investor.giveAuthorization(9, sh, broker, date1);
     	Order or = new Order(investor, PeiraiosStock, 6, fee, date1, Action.SELL, Status.PENDING);
@@ -195,7 +183,7 @@ public class OrderTest {
     	assertTrue(actual);
     }
     
-    @Test //Successfull all depleating order
+    @Test // Successful all depleting order
     public void applyOrderTest10() {
     	investor.giveAuthorization(9, sh, broker, date1);
     	Order or = new Order(investor, PeiraiosStock, 9, fee, date1, Action.SELL, Status.PENDING);
@@ -205,12 +193,33 @@ public class OrderTest {
     	assertTrue(actual);
     }
     
-    @Test //Successfull committed depleating order
+    @Test // Successful committed depleting order
     public void applyOrderTest11() {
     	investor.giveAuthorization(9, sh, broker, date1);
     	Order or = new Order(investor, PeiraiosStock, 9, fee, date1, Action.SELL, Status.PENDING);
     	boolean actual = or.applyBrokerOrder(as1);
     	assertTrue(actual);
     }
+    
+    @Test // Remaining amount of stock is 0
+    public void applyOrderTest12() {
+    	investor.giveAuthorization(10, sh, broker, date1);
+    	Order or = new Order(investor, PeiraiosStock, 10, fee, date1, Action.SELL, Status.PENDING);
+    	or.applyBrokerOrder(as1);
+    	boolean actual = investor.getStockHoldings().containsKey(PeiraiosStock);
+    	assertFalse(actual);
+    }
 
+    @Test 
+	public void toStringTest() {
+    	Order o = new Order();
+    	o.setDate(date1);
+		String s = o.toString();
+		assertEquals("ID: " + o.getId() +
+				"\nAmount: " + o.getAmount() + 
+				"\nFee: " + o.getFee() + "%" +
+				"\nDate: " + o.getDate().toString() + 
+				"\nAction: " + o.getAction() + 
+				"\nOrder Price: " + o.getOrderPrice() + "€", s);
+	}
 }

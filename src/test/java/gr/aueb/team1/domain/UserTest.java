@@ -1,14 +1,8 @@
 package gr.aueb.team1.domain;
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
-
 import org.junit.jupiter.api.*;
-
-import gr.aueb.team1.domain.Stock;
-import gr.aueb.team1.domain.StockHolding;
-import gr.aueb.team1.domain.User;
 import gr.aueb.team1.domain.Order.Action;
 import gr.aueb.team1.domain.Order.Status;
 
@@ -155,7 +149,11 @@ public class UserTest {
 	@Test 
 	public void toStringTest() {
 		String s = user.toString();
-		assertNotNull(s);
+		assertEquals("ID: " + user.getId() +
+				"\nName: " + user.getName() + 
+				"\nSurname: " + user.getSurname() + 
+				"\nEmail: " + user.getEmail() + 
+				"\nPhone: " + user.getPhoneNo(),s);
 	}
 	
 	@Test 

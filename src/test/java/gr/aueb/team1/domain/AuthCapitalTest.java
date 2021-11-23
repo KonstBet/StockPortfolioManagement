@@ -72,20 +72,20 @@ public class AuthCapitalTest {
     
     
     @Test // Case 1: Authorization is between Investor and Broker
-    public void existsAuthorizationToEqual1() {
+    public void isBetweenTest1() {
     	ac2.setAmount(400.00);
     	boolean actual = ac2.isBetween(investor1, broker2);
     	assertTrue(actual);
     }
     
     @Test // Case 2: Authorization is not between Investor and Broker | Wrong Broker
-    public void existsAuthorizationToEqual2() {
+    public void isBetweenTest2() {
     	boolean actual = ac1.isBetween(investor1, broker2);
     	assertFalse(actual);
     }
     
     @Test // Case 2: Authorization is not between Investor and Broker | Wrong Investor
-    public void existsAuthorizationToEqual3() {
+    public void isBetweenTest3() {
     	boolean actual = ac1.isBetween(investor2, broker2);
     	assertFalse(actual);
     }
