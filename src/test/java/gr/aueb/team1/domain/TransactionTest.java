@@ -1,13 +1,7 @@
 package gr.aueb.team1.domain;
 
 import java.time.LocalDateTime;
-import javax.persistence.*;
-
 import org.junit.jupiter.api.*;
-
-import gr.aueb.team1.domain.Deposit;
-import gr.aueb.team1.domain.User;
-import gr.aueb.team1.domain.Withdrawal;
 
 public class TransactionTest {
 
@@ -17,7 +11,7 @@ public class TransactionTest {
 	public LocalDateTime date2;
 	
 	@BeforeEach
-	public void setUpTests() {
+	void setUpTests() {
 		user = new User();
 		user.setName("Giannhs");
 
@@ -29,7 +23,7 @@ public class TransactionTest {
 	}
 	
 	@Test
-	public void testGetters() {
+	void testGetters() {
 		Withdrawal withdrawal = new Withdrawal(user, 10.00, date1);
 		
 		boolean flag = false;
@@ -41,7 +35,7 @@ public class TransactionTest {
 	}
 	
 	@Test
-	public void testSetters() {
+	void testSetters() {
 		Deposit deposit = new Deposit(user, 10.00, date1);
 		
 		deposit.setAmount(20.00);

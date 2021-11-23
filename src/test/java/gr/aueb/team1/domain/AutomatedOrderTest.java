@@ -26,7 +26,7 @@ public class AutomatedOrderTest {
 
 	
     @BeforeEach
-    public void setUpTests() {
+    void setUpTests() {
         investor1 = new Investor("Mitsos", "Charalampidis", "mcharal@gmail.com", "697891030100");
         investor1.setBalance(500.00);
         PeiraiosStock = new Stock("P200", "PIRAIUS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00);
@@ -38,7 +38,7 @@ public class AutomatedOrderTest {
     }
     
     @Test // Already Completed
-    public void applyOrderTest1() {
+    void applyOrderTest1() {
     	ao = new AutomatedOrder(investor1, PeiraiosStock, 9, fee, date1, Action.SELL, 0.1);
     	ao.setStatus(Status.COMPLETED);
     	boolean actual = ao.applyOrder();
@@ -46,56 +46,56 @@ public class AutomatedOrderTest {
     }
     
     @Test // Apply buy order with not enough balance
-    public void applyOrderTest2() {
+    void applyOrderTest2() {
     	ao = new AutomatedOrder(investor1, PeiraiosStock, 1000, fee, date1, Action.BUY, 0.1);
     	boolean actual = ao.applyOrder();
     	assertFalse(actual);
     }
     
     @Test // Apply buy order with with enough balance
-    public void applyOrderTest3() {
+    void applyOrderTest3() {
     	ao = new AutomatedOrder(investor1, PeiraiosStock, 1, fee, date1, Action.BUY, 0.1);
     	boolean actual = ao.applyOrder();
     	assertFalse(actual);
     }
     
     @Test // Close price is less than limit
-    public void applyOrderTest4() {
+    void applyOrderTest4() {
     	ao = new AutomatedOrder(investor1, PeiraiosStock, 1, fee, date1, Action.BUY, 100.00);
     	boolean actual = ao.applyOrder();
     	assertTrue(actual);
     }
     
     @Test // Apply sell order without the stock
-    public void applyOrderTest5() {
+    void applyOrderTest5() {
     	ao = new AutomatedOrder(investor1, AlphaStock, 1, fee, date1, Action.SELL, 0.1);
     	boolean actual = ao.applyOrder();
     	assertFalse(actual);
     }
     
     @Test // Apply sell order without enough amount
-    public void applyOrderTest6() {
+    void applyOrderTest6() {
     	ao = new AutomatedOrder(investor1, PeiraiosStock, 11, fee, date1, Action.SELL, 0.1);
     	boolean actual = ao.applyOrder();
     	assertFalse(actual);
     }
     
     @Test // Close price more than limit
-    public void applyOrderTest7() {
+    void applyOrderTest7() {
     	ao = new AutomatedOrder(investor1, PeiraiosStock, 9, fee, date1, Action.SELL, 101.00);
     	boolean actual = ao.applyOrder();
     	assertFalse(actual);
     }
     
     @Test // Close price less than limit
-    public void applyOrderTest8() {
+    void applyOrderTest8() {
     	ao = new AutomatedOrder(investor1, PeiraiosStock, 9, fee, date1, Action.SELL, 0.1);
     	boolean actual = ao.applyOrder();
     	assertTrue(actual);
     }
     
     @Test // Setter Getter 
-    public void test() {
+    void test() {
     	ao = new AutomatedOrder();
     	ao.setLimit(15.0);
     	double actual = ao.getLimit();
@@ -103,7 +103,7 @@ public class AutomatedOrderTest {
     }
     
     @Test
-    public void toStringTest() {
+    void toStringTest() {
     	ao = new AutomatedOrder(investor1, PeiraiosStock, 9, fee, date1, Action.SELL, 0.1);
 		String s = ao.toString();
 		assertEquals("ID: " + ao.getId() +

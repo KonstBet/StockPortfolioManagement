@@ -1,6 +1,5 @@
 package gr.aueb.team1.domain;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -28,7 +27,7 @@ public class OrderTest {
     private AuthStock as2;
 
     @BeforeEach
-    public void setUpTests() {
+    void setUpTests() {
         investor = new Investor("Mitsos", "Charalampidis", "mcharal@gmail.com", "697891030100");
         investor.setBalance(500.00);
         broker = new Broker("Giorgos", "Charalampopoulos", "mcharal@gmail.com", "697891030100",0.0);
@@ -47,7 +46,7 @@ public class OrderTest {
     }
     
     @Test //Setters & Getters
-    public void setGetTest() {
+    void setGetTest() {
     	Order ord = new Order();
     	ord.setAction(Action.BUY);
     	ord.setAmount(10);
@@ -63,7 +62,7 @@ public class OrderTest {
     
     
     @Test // User already owns the StockHolding
-    public void buyTest1() {
+    void buyTest1() {
     	Double fee = 0.1;
     	Order or = new Order(investor, PeiraiosStock, 1	, fee, date1, Action.BUY, Status.PENDING);
     	investor.addStockHolding(PeiraiosStock, sh);
@@ -73,7 +72,7 @@ public class OrderTest {
     }
     
     @Test // User doesn't own the StockHolding
-    public void buyTest2() {
+    void buyTest2() {
     	Order or = new Order(investor, AlphaStock, 1, fee, date1, Action.BUY, Status.PENDING);
     	or.buy();
     	int actual = investor.getStockHoldings().get(AlphaStock).getAmount();
@@ -81,7 +80,7 @@ public class OrderTest {
     }
     
     @Test // User sells all of his stock
-    public void sellTest1() {
+    void sellTest1() {
     	Order or = new Order(investor, PeiraiosStock, 10, fee, date1, Action.SELL, Status.PENDING);
     	or.sell(sh);
     	boolean actual = investor.getStockHoldings().containsKey(PeiraiosStock);
@@ -89,7 +88,7 @@ public class OrderTest {
     }
     
     @Test // User sells part of his stock
-    public void sellTest2() {
+    void sellTest2() {
     	Order or = new Order(investor, PeiraiosStock, 9, fee, date1, Action.SELL, Status.PENDING);
     	or.sell(sh);
     	int actual = investor.getStockHoldings().get(PeiraiosStock).getAmount();
@@ -97,42 +96,42 @@ public class OrderTest {
     }
     
     @Test // Apply Completed order
-    public void applyOrderTest1() {
+    void applyOrderTest1() {
     	Order or = new Order(investor, PeiraiosStock, 9, fee, date1, Action.BUY, Status.COMPLETED);
     	boolean actual = or.applyOrder();
     	assertFalse(actual);
     }
     
     @Test // Apply buy order with not enough balance
-    public void applyOrderTest2() {
+    void applyOrderTest2() {
     	Order or = new Order(investor, AlphaStock, 100, fee, date1, Action.BUY, Status.PENDING);
     	boolean actual = or.applyOrder();
     	assertFalse(actual);
     }
     
     @Test // Apply buy order with enough balance
-    public void applyOrderTest3() {
+    void applyOrderTest3() {
     	Order or = new Order(investor, PeiraiosStock, 1, fee, date1, Action.BUY, Status.PENDING);
     	boolean actual = or.applyOrder();
     	assertTrue(actual);
     }
     
     @Test // Apply sell order without the stock
-    public void applyOrderTest4() {
+    void applyOrderTest4() {
     	Order or = new Order(investor, AlphaStock, 1, fee, date1, Action.SELL, Status.PENDING);
     	boolean actual = or.applyOrder();
     	assertFalse(actual);
     }
     
     @Test // Apply sell order without enough amount
-    public void applyOrderTest5() {
+    void applyOrderTest5() {
     	Order or = new Order(investor, PeiraiosStock, 11, fee, date1, Action.SELL, Status.PENDING);
     	boolean actual = or.applyOrder();
     	assertFalse(actual);
     }
     
     @Test // Apply sell order
-    public void applyOrderTest6() {
+    void applyOrderTest6() {
     	Order or = new Order(investor, PeiraiosStock, 10, fee, date1, Action.SELL, Status.PENDING);
     	boolean actual = or.applyOrder();
     	assertTrue(actual);
@@ -140,28 +139,28 @@ public class OrderTest {
     
     // CAPITAL AUTHORIZATION ORDER
     @Test // Apply Completed Order
-    public void applyBrokerOrderTest1() {
+    void applyBrokerOrderTest1() {
     	Order or = new Order(investor, PeiraiosStock, 10, fee, date1, Action.BUY, Status.COMPLETED);
     	boolean actual = or.applyBrokerOrder(ac1);
     	assertFalse(actual);
     }
     
     @Test // Apply order, not enough capital
-    public void applyBrokerOrderTest2() {
+    void applyBrokerOrderTest2() {
     	Order or = new Order(investor, AlphaStock, 10, fee, date1, Action.BUY, Status.PENDING);
     	boolean actual = or.applyBrokerOrder(ac1);
     	assertFalse(actual);
     }
     
     @Test // Apply order, Investor already owns the stock
-    public void applyBrokerOrderTest3() {
+    void applyBrokerOrderTest3() {
     	Order or = new Order(investor, PeiraiosStock, 10, fee, date1, Action.BUY, Status.PENDING);
     	boolean actual = or.applyBrokerOrder(ac1);
     	assertTrue(actual);
     }
     
     @Test // Apply order, Investor doesn't own the stock
-    public void applyBrokerOrderTest4() {
+    void applyBrokerOrderTest4() {
     	Order or = new Order(investor, AlphaStock, 1, fee, date1, Action.BUY, Status.PENDING);
     	boolean actual = or.applyBrokerOrder(ac1);
     	assertTrue(actual);
@@ -170,7 +169,7 @@ public class OrderTest {
     
     // STOCK AUTHORIZATION ORDER
     @Test // Apply Completed Order
-    public void applyBrokerOrderTest5() {
+    void applyBrokerOrderTest5() {
     	Order or = new Order(investor, PeiraiosStock, 10, fee, date1, Action.SELL, Status.COMPLETED);
     	boolean actual = or.applyBrokerOrder(as1);
     	assertFalse(actual);
@@ -178,7 +177,7 @@ public class OrderTest {
 
    
     @Test // Authorization does not contain the stock
-    public void applyBrokerOrderTest6() {
+    void applyBrokerOrderTest6() {
     	investor.giveAuthorization(9, sh, broker, date1);
     	Order or = new Order(investor, AlphaStock, 1, fee, date1, Action.SELL, Status.PENDING);
     	boolean actual = or.applyBrokerOrder(as1);
@@ -186,7 +185,7 @@ public class OrderTest {
     }
     
     @Test // Authorization does not contain enough of the stock
-    public void applyBrokerOrderTest7() {
+    void applyBrokerOrderTest7() {
     	investor.giveAuthorization(9, sh, broker, date1);
     	Order or = new Order(investor, PeiraiosStock, 11, fee, date1, Action.SELL, Status.PENDING);
     	boolean actual = or.applyBrokerOrder(as1);
@@ -194,7 +193,7 @@ public class OrderTest {
     }   
     
     @Test // Successful order
-    public void applyBrokerOrderTest8() {
+    void applyBrokerOrderTest8() {
     	investor.giveAuthorization(9, sh, broker, date1);
     	Order or = new Order(investor, PeiraiosStock, 6, fee, date1, Action.SELL, Status.PENDING);
     	boolean actual = or.applyBrokerOrder(as1);
@@ -202,7 +201,7 @@ public class OrderTest {
     }
     
     @Test // Successful all depleting order
-    public void applyBrokerOrderTest9() {
+    void applyBrokerOrderTest9() {
     	investor.giveAuthorization(9, sh, broker, date1);
     	Order or = new Order(investor, PeiraiosStock, 9, fee, date1, Action.SELL, Status.PENDING);
     	Order or1 = new Order(investor, PeiraiosStock, 1, fee, date1, Action.SELL, Status.PENDING);
@@ -218,7 +217,7 @@ public class OrderTest {
     }
     
     @Test // Successful committed depleting order
-    public void applyBrokerOrderTest10() {
+    void applyBrokerOrderTest10() {
     	investor.giveAuthorization(9, sh, broker, date1);
     	Order or = new Order(investor, PeiraiosStock, 9, fee, date1, Action.SELL, Status.PENDING);
     	or.applyBrokerOrder(as1);
@@ -226,7 +225,7 @@ public class OrderTest {
     }
     
     @Test // Successful amount depleting order
-    public void applyBrokerOrderTest11() {
+    void applyBrokerOrderTest11() {
     	investor.giveAuthorization(10, sh, broker, date1);
     	Order or = new Order(investor, PeiraiosStock, 8, fee, date1, Action.SELL, Status.PENDING);
     	or.applyBrokerOrder(as2);
@@ -234,7 +233,7 @@ public class OrderTest {
     }
 
     @Test 
-	public void toStringTest() {
+	void toStringTest() {
     	Order o = new Order();
     	o.setDate(date1);
 		String s = o.toString();
