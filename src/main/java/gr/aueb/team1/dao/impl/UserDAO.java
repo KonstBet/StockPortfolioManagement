@@ -1,5 +1,6 @@
 package gr.aueb.team1.dao.impl;
 import java.util.List;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -46,6 +47,26 @@ public class UserDAO implements DAO<User> {
 		tx.commit();
 		
 		return savedUser;
+	}
+
+	public User findByEmail(String email) {
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+
+		Query query = em.createQuery("select u from User u where email = :email");
+		query.setParameter("email",email);
+
+		User user = null;
+
+		try {
+			user = (User) query.getSingleResult();
+		} catch(NoResultException e) {
+			tx.rollback();
+			return null;
+		}
+
+		tx.commit();
+		return user;
 	}
 	
 	public void update(User user, String[] params) {
