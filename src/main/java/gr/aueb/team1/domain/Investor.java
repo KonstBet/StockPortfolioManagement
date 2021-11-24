@@ -48,7 +48,7 @@ public class Investor extends User {
 				ac = iterator.next();
 				if (ac.isBetween(this,broker)) {
 
-					return ac.giveToExistedAuthorization(amount);
+					return ac.updateAuthorization(amount);
 				}
 		}
 
@@ -63,7 +63,7 @@ public class Investor extends User {
 				as = iterator.next();
 				if (as.isBetween(this,broker,stockHolding)) {
 
-					return as.giveToExistedAuthorization(amount);
+					return as.updateAuthorization(amount);
 				}
 		}
 

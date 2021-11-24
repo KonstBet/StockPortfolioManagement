@@ -57,13 +57,13 @@ public class AuthStockTest {
     
     @Test // Case 1: Not enough amount
     void giveToExistedAuthorizationTest1() {
-    	Boolean actual = as1.giveToExistedAuthorization(11);
+    	Boolean actual = as1.updateAuthorization(11);
     	assertFalse(actual);
     }
     
     @Test // Case 2: Enough amount
     void giveToExistedAuthorizationTest2() {
-    	boolean actual = as2.giveToExistedAuthorization(9);
+    	boolean actual = as2.updateAuthorization(9);
     	assertTrue(actual);
     }
     

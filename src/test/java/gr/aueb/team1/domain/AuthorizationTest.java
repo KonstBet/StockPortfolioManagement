@@ -49,13 +49,13 @@ public class AuthorizationTest {
 	
 	@Test
 	void giveToExistedAuthorizationTest1() {
-		boolean actual = auth.giveToExistedAuthorization(1);
+		boolean actual = auth.updateAuthorization(1);
 		assertFalse(actual);
 	}
 	
 	@Test
 	void giveToExistedAuthorizationTest2() {
-		boolean actual = auth.giveToExistedAuthorization(1.0);
+		boolean actual = auth.updateAuthorization(1.0);
 		assertFalse(actual);
 	}
 	

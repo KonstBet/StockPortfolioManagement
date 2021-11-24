@@ -37,6 +37,7 @@ public class AuthStock extends Authorization {
 	}
 
 
+	@Override
 	public boolean giveNewAuthorization(Investor investor, Integer amount, Broker broker, StockHolding stockHolding) {
 		if (amount > stockHolding.getAmount()) { // amount > notcommitedAmount
 			return false;
@@ -49,7 +50,8 @@ public class AuthStock extends Authorization {
 		return true;
 	}
 
-	public boolean giveToExistedAuthorization(Integer amount) {
+	@Override
+	public boolean updateAuthorization(Integer amount) {
 		if (amount > this.getStockHolding().getAmount()) {
 			return false;
 		}
@@ -60,12 +62,14 @@ public class AuthStock extends Authorization {
 		return true;
 	}
 
+	@Override
 	public boolean isBetween(Investor investor, Broker broker, StockHolding stockHolding) {
 		if (investor == this.getInvestor() && broker == this.getBroker() && stockHolding == this.stockholding)
 			return true;
 		return false;
 	}
 
+	@Override
 	public boolean removeAuth() {
 		if (getStockHolding().getCommittedAmount() == 0) {
 			return false;

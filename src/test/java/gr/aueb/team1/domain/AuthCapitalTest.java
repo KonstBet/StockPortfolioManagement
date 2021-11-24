@@ -60,13 +60,13 @@ public class AuthCapitalTest {
     
     @Test // Case 1: Not enough balance
     void giveToExistedAuthorizationTest1() {
-    	boolean actual = ac1.giveToExistedAuthorization(500.01);
+    	boolean actual = ac1.updateAuthorization(500.01);
     	assertFalse(actual);
     }
     
     @Test // Case 2: Enough Balance
     void giveToExistedAuthorizationTest2() {
-    	boolean actual = ac1.giveToExistedAuthorization(499.99);
+    	boolean actual = ac1.updateAuthorization(499.99);
     	assertTrue(actual);
     }
     

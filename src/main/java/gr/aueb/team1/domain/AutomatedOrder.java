@@ -25,6 +25,7 @@ public class AutomatedOrder extends Order {
 		this.limit = limit;
 	}
 	
+	@Override
 	public String toString() {
 		return super.toString() +
 				"\nLimit: " + this.getLimit() + "€";
