@@ -68,6 +68,26 @@ public class UserDAO implements DAO<User> {
 		tx.commit();
 		return user;
 	}
+
+	public User findByID(Integer id) {
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+
+		Query query = em.createQuery("select u from User u where id = :id");
+		query.setParameter("id",id);
+
+		User user = null;
+
+		try {
+			user = (User) query.getSingleResult();
+		} catch(NoResultException e) {
+			tx.rollback();
+			return null;
+		}
+
+		tx.commit();
+		return user;
+	}
 	
 	public void update(User user, String[] params) {
 //		EntityTransaction tx = em.getTransaction();
