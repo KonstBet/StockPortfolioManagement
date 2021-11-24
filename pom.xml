@@ -80,8 +80,6 @@
 			<scope>test</scope>
 		</dependency>
 
-
-
 		<dependency>
 			<groupId>org.glassfish.jersey.test-framework.providers</groupId>
 			<artifactId>jersey-test-framework-provider-grizzly2</artifactId>
@@ -94,6 +92,13 @@
 			<version>3.3.3</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- Fixing the: Hibernate mapping exception: Could not get constructor for org.hibernate.entity.SingleTableEntityPersister -->
+		<dependency> 
+		    <groupId>javassist</groupId>
+		    <artifactId>javassist</artifactId>
+		    <version>3.12.1.GA</version>
+		</dependency>
+		
 
 
 		<!-- Migration to Java 11 -->

@@ -18,7 +18,8 @@ public class AuthorizationDAO implements DAO<Authorization> {
         em = JPAUtil.getCurrentEntityManager();
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Authorization> findAll() {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
