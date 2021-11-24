@@ -45,6 +45,14 @@ public class UserTest {
 		assertEquals(actual, expected);
 	}
 	
+	@Test // Withdraw 0
+	void withdrawTest3() {
+		boolean actual = user.withdraw(0.0);
+		assertFalse(actual);
+	}
+	
+
+	
 	@Test // Deposit to balance
 	void depositTest1() {
 		user.deposit(0.01);
