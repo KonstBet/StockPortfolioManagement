@@ -32,6 +32,10 @@ public class AuthorizationDAOImpl implements DAO<Authorization> {
         return result;
     }
 
+    public Authorization findById(Integer id) {
+        return null;
+    }
+
     @Override
     public Authorization save(Authorization auth) {
         EntityTransaction tx = em.getTransaction();

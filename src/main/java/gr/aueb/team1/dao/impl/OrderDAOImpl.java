@@ -6,6 +6,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import gr.aueb.team1.dao.DAO;
+import gr.aueb.team1.domain.Authorization;
 import gr.aueb.team1.domain.Order;
 import gr.aueb.team1.persistence.JPAUtil;
 
@@ -31,7 +32,11 @@ public class OrderDAOImpl implements DAO<Order>{
 		
 		return result;
 	}
-	
+
+	public Order findById(Integer id) {
+		return null;
+	}
+
 	@Override
 	public Order save(Order order) {
 		EntityTransaction tx = em.getTransaction();

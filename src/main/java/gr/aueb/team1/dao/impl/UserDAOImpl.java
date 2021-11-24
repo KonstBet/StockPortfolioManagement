@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import gr.aueb.team1.dao.DAO;
+import gr.aueb.team1.domain.Order;
 import gr.aueb.team1.domain.User;
 import gr.aueb.team1.persistence.JPAUtil;
 
@@ -30,6 +31,10 @@ public class UserDAOImpl implements DAO<User> {
 		tx.commit();
 		
 		return result;
+	}
+
+	public User findById(Integer id) {
+		return null;
 	}
 	
 	@Override
