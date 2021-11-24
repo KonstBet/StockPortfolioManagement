@@ -9,11 +9,11 @@ import gr.aueb.team1.dao.DAO;
 import gr.aueb.team1.domain.Order;
 import gr.aueb.team1.persistence.JPAUtil;
 
-public class OrderDAO implements DAO<Order>{
+public class OrderDAOImpl implements DAO<Order>{
 
 	private EntityManager em;
 	
-	public OrderDAO() {
+	public OrderDAOImpl() {
 		em = JPAUtil.getCurrentEntityManager();
 	}
 	
@@ -47,5 +47,20 @@ public class OrderDAO implements DAO<Order>{
 		tx.commit();
 		
 		return savedOrder;
+	}
+	
+	@Override
+	public Order delete(Order order) {
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		
+		
+		int id = order.getId();
+		Query q = em.createQuery("delete from User u where u.id = :id");
+		q.setParameter("id", id);
+		q.executeUpdate();
+
+		tx.commit();
+		return order;
 	}
 }

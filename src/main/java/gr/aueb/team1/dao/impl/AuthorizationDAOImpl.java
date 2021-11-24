@@ -10,11 +10,11 @@ import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AuthorizationDAO implements DAO<Authorization> {
+public class AuthorizationDAOImpl implements DAO<Authorization> {
 
     private EntityManager em;
 
-    public AuthorizationDAO() {
+    public AuthorizationDAOImpl() {
         em = JPAUtil.getCurrentEntityManager();
     }
 
@@ -48,9 +48,24 @@ public class AuthorizationDAO implements DAO<Authorization> {
 
         return savedAuth;
     }
+    
+	@Override
+	public Authorization delete(Authorization auth) {
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		
+		
+		int id = auth.getId();
+		Query q = em.createQuery("delete from User u where u.id = :id");
+		q.setParameter("id", id);
+		q.executeUpdate();
+
+		tx.commit();
+		return auth;
+	}
 
     public List<Authorization> findAllByBrokerID(Integer id) {
-        UserDAO userDAO = new UserDAO();
+        UserDAOImpl userDAO = new UserDAOImpl();
         User user = userDAO.findByID(id);
 
         if (user instanceof Broker) {
@@ -63,7 +78,7 @@ public class AuthorizationDAO implements DAO<Authorization> {
     }
 
     public List<Authorization> findAllByInvestorID(Integer id) {
-        UserDAO userDAO = new UserDAO();
+        UserDAOImpl userDAO = new UserDAOImpl();
         User user = userDAO.findByID(id);
 
         if (user instanceof Investor) {

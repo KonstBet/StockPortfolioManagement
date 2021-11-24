@@ -9,11 +9,11 @@ import gr.aueb.team1.dao.DAO;
 import gr.aueb.team1.domain.User;
 import gr.aueb.team1.persistence.JPAUtil;
 
-public class UserDAO implements DAO<User> {
+public class UserDAOImpl implements DAO<User> {
 
 	private EntityManager em;
 	
-	public UserDAO() {
+	public UserDAOImpl() {
 		em = JPAUtil.getCurrentEntityManager();
 	}
 	
@@ -48,6 +48,22 @@ public class UserDAO implements DAO<User> {
 		
 		return savedUser;
 	}
+	
+	@Override
+	public User delete(User user) {
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		
+		
+		int id = user.getId();
+		Query q = em.createQuery("delete from User u where u.id = :id");
+		q.setParameter("id", id);
+		q.executeUpdate();
+
+		tx.commit();
+		return user;
+	}
+
 
 	public User findByEmail(String email) {
 		EntityTransaction tx = em.getTransaction();
@@ -87,36 +103,5 @@ public class UserDAO implements DAO<User> {
 
 		tx.commit();
 		return user;
-	}
-	
-	public void update(User user, String[] params) {
-//		EntityTransaction tx = em.getTransaction();
-//		tx.begin();
-//		
-//		User savedUser = user;
-//		if (user.getId() != null) {
-//			
-//		} else {
-//			user.setName(Objects.requireNonNull(params[0], "Name cannot be null"));
-//			user.setSurname(params[1]);
-//			user.
-//			savedUser = em.merge(user);
-//		}
-//		
-//		tx.commit();
-//		
-//		return savedUser;
-	}
-	
-	public void delete(User user) {
-//		EntityTransaction tx = em.getTransaction();
-//		tx.begin();
-//		
-//		int id = user.getId();
-//		Query q = em.createQuery("delete from User u where u.id = :id");
-//		q.executeUpdate();
-//
-//		tx.commit();
-//		
 	}
 }
