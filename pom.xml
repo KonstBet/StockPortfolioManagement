@@ -129,12 +129,6 @@
 			<artifactId>jaxb-impl</artifactId>
 			<version>${jaxb.api.version}</version>
 		</dependency>
-		
-		<dependency> <!-- Fixing the: Could not get constructor for org.hibernate.persister.entity.SingleTableEntityPersister -->
-		    <groupId>org.javassist</groupId>
-		    <artifactId>javassist</artifactId>
-		    <version>3.25.0-GA</version>
-		</dependency>
 
 	</dependencies>
 
