@@ -10,7 +10,7 @@ import gr.aueb.team1.domain.Order.Status;
 @DiscriminatorValue("B")
 public class Broker extends User {
 	
-	@Column(name="brokerageFee", length=20, nullable=false)
+	@Column(name="brokerageFee", length=20, nullable=false, columnDefinition = "double default 0.0")
 	private Double brokerageFee;
 	
 	@OneToMany(mappedBy="broker")

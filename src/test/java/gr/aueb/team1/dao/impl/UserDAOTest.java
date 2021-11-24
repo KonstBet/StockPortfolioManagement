@@ -1,8 +1,8 @@
 package gr.aueb.team1.dao.impl;
 
 import gr.aueb.team1.dao.Initializer;
+import gr.aueb.team1.domain.Investor;
 import gr.aueb.team1.domain.User;
-import gr.aueb.team1.persistence.JPAUtil;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -18,10 +18,13 @@ class UserDAOTest {
     }
 
     @Test
-    void findAll() {
+    void saveTest() {
     	UserDAO ud = new UserDAO();
-    	User user = new User("Mitsos", "Charalampidis", "mcharal@gmail.com", "697891030100");
+    	User user = new Investor("Mitsos", "Charalampidis", "mcharal@gmail.com", "697891030100");
     	User u = ud.save(user);
+    	System.out.println(u.toString());
+    	u.setName("Sakis");
+    	u = ud.save(user);
     	System.out.println(u.toString());
     	assertNotNull(u);
     }

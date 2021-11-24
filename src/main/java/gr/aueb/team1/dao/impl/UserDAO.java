@@ -35,7 +35,6 @@ public class UserDAO implements DAO<User> {
 	@Override
 	public User save(User user) {
 		EntityTransaction tx = em.getTransaction();
-		System.out.println(user.getId());
 		tx.begin();
 		
 		User savedUser = user;
