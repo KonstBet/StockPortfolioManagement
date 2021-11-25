@@ -2,7 +2,6 @@ package gr.aueb.team1.dao.impl;
 
 import gr.aueb.team1.dao.TransactionDAO;
 import gr.aueb.team1.domain.Transaction;
-import gr.aueb.team1.domain.User;
 import gr.aueb.team1.persistence.JPAUtil;
 
 import javax.persistence.EntityManager;
@@ -68,7 +67,7 @@ public class TransactionDAOImpl implements TransactionDAO {
         tx.begin();
 
         int id = t.getId();
-        Query q = em.createQuery("delete from User u where u.id = :id");
+        Query q = em.createQuery("delete from Transaction u where u.id = :id");
         q.setParameter("id", id);
         q.executeUpdate();
 

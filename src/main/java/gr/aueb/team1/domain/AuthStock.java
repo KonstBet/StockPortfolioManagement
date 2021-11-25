@@ -12,7 +12,7 @@ public class AuthStock extends Authorization {
 	private Integer amount;
 
 	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.PERSIST)
-	@JoinColumn(name="StockHoldingId", nullable = false)
+	@JoinColumn(name="StockHoldingId")
 	private StockHolding stockholding;
 
 	public AuthStock(Investor investor, StockHolding stockholding, Broker broker,

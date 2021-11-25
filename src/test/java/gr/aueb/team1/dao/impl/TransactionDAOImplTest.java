@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,10 +18,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class TransactionDAOImplTest {
 
     private TransactionDAO transactionDAO;
+    Initializer init;
 
     @BeforeEach
     void Initialize() {
-        Initializer init = new Initializer();
+        init = new Initializer();
         init.prepareData();
 
         transactionDAO = new TransactionDAOImpl();
@@ -34,13 +36,27 @@ class TransactionDAOImplTest {
 
     @Test
     void findById() {
+        Transaction transaction = transactionDAO.findById(init.investor.getTransactions().iterator().next().getId());
+        Assertions.assertNotNull(transaction);
     }
 
     @Test
     void save() {
+        Transaction transaction = transactionDAO.findById(init.investor.getTransactions().iterator().next().getId());
+        LocalDateTime date = LocalDateTime.now();
+        transaction.setDate(date);
+
+        transactionDAO.save(transaction);
+        transaction = transactionDAO.findById(init.investor.getTransactions().iterator().next().getId());
+
+        Assertions.assertTrue(transaction.getDate().isEqual(date));
     }
 
     @Test
     void delete() {
+        Transaction transaction = transactionDAO.findById(init.investor.getTransactions().iterator().next().getId());
+        transactionDAO.delete(transaction);
+        List<Transaction> transactions = transactionDAO.findAll();
+        Assertions.assertEquals(0,transactions.size());
     }
 }
