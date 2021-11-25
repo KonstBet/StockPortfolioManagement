@@ -1,5 +1,6 @@
 package gr.aueb.team1.dao.impl;
 
+import gr.aueb.team1.dao.AuthorizationDAO;
 import gr.aueb.team1.dao.DAO;
 import gr.aueb.team1.domain.*;
 import gr.aueb.team1.persistence.JPAUtil;
@@ -10,7 +11,7 @@ import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AuthorizationDAOImpl implements DAO<Authorization> {
+public class AuthorizationDAOImpl implements AuthorizationDAO {
 
     private EntityManager em;
 

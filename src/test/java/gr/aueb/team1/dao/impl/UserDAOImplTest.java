@@ -1,6 +1,7 @@
 package gr.aueb.team1.dao.impl;
 
 import gr.aueb.team1.dao.Initializer;
+import gr.aueb.team1.dao.UserDAO;
 import gr.aueb.team1.domain.Broker;
 import gr.aueb.team1.domain.Investor;
 import gr.aueb.team1.domain.User;
@@ -14,7 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class UserDAOImplTest {
-	private UserDAOImpl ud;
+	private UserDAO ud;
 	private User user;
 	private User user1;
 

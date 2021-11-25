@@ -6,11 +6,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import gr.aueb.team1.dao.DAO;
+import gr.aueb.team1.dao.UserDAO;
 import gr.aueb.team1.domain.Order;
 import gr.aueb.team1.domain.User;
 import gr.aueb.team1.persistence.JPAUtil;
 
-public class UserDAOImpl implements DAO<User> {
+public class UserDAOImpl implements UserDAO {
 
 	private EntityManager em;
 	
