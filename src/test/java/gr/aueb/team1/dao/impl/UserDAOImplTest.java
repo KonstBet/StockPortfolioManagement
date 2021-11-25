@@ -33,7 +33,7 @@ class UserDAOImplTest {
     	ud.save(user);
     	ud.save(user1);
     	List<User> res = ud.findAll();
-    	assertEquals(2, res.size());
+    	assertEquals(5, res.size());
     }
     
     @Test
@@ -51,7 +51,7 @@ class UserDAOImplTest {
     	ud.save(user);
     	ud.delete(user);
     	List<User> res = ud.findAll();
-    	assertEquals(0, res.size());
+    	assertEquals(3, res.size());
     }
     
     

@@ -49,12 +49,16 @@ public class Initializer {
         LocalDateTime date1 = LocalDateTime.of(2021,12,31,0,0,0);
         LocalDateTime date2 = LocalDateTime.of(2021,12,31,0,0,0);
 
-//        StockDAO stockDAO = getStockDAO();
-//        stockDAO.save(PeiraiosStock);
-//        stockDAO.save(AlphaStock);
-//        stockDAO.save(CosmoteStock);
-//        UserDAO userDAO = getUserDAO();
-//        userDAO.save(investor);
+        investor.deposit(10.0);
+
+        StockDAO stockDAO = getStockDAO();
+        stockDAO.save(PeiraiosStock);
+        stockDAO.save(AlphaStock);
+        stockDAO.save(CosmoteStock);
+        UserDAO userDAO = getUserDAO();
+        userDAO.save(investor);
+        userDAO.save(broker);
+        userDAO.save(broker2);
     }
 
     private UserDAO getUserDAO() {

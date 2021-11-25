@@ -7,6 +7,7 @@ import gr.aueb.team1.persistence.JPAUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -23,7 +24,14 @@ public class TransactionDAOImpl implements TransactionDAO {
         tx.begin();
 
         Query q = em.createQuery("select a from Transaction a");
-        List<Transaction> result = q.getResultList();
+
+        List<Transaction> result;
+        try {
+            result = q.getResultList();
+        } catch(NoResultException e) {
+            tx.rollback();
+            return null;
+        }
 
         tx.commit();
 
