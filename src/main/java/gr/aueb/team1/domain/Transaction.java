@@ -20,7 +20,7 @@ public class Transaction {
 	@Column(name = "date", nullable = false)
 	private LocalDateTime date;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.PERSIST)
 	@JoinColumn(name="Userid", nullable = false)
 	private User user;
 

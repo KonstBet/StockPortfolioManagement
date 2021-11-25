@@ -31,10 +31,10 @@ public class AuthStockTest {
         broker1 = new Broker("Giorgos", "Charalampopoulos", "mcharal@gmail.com", "697891030100",0.0);
         broker2 = new Broker("Nikolaos", "Charalampous", "mcharal@gmail.com", "697891030100",0.0);
 
-        PeiraiosStock = new Stock("P200", "PIRAIUS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00);
+        PeiraiosStock = new Stock( "PIRAIUS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00);
         amount = 10;
         sh1 = new StockHolding(amount, PeiraiosStock, investor1);
-        sh2 = new StockHolding(amount, new Stock("P210", "VASILOPOULOS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00), investor1);
+        sh2 = new StockHolding(amount, new Stock("VASILOPOULOS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00), investor1);
         investor1.addStockHolding(PeiraiosStock, sh1);
 
         date1 = LocalDateTime.of(2021,12,31,0,0,0);

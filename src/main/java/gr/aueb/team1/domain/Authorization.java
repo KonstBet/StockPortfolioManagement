@@ -20,11 +20,11 @@ public class Authorization {
 	@Column(name = "enddate", nullable = false)
 	private LocalDateTime enddate;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.PERSIST)
 	@JoinColumn(name="Investorid", nullable = false)
 	private Investor investor;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.PERSIST)
 	@JoinColumn(name="Brokerid", nullable = false)
 	private Broker broker;
 	

@@ -18,12 +18,12 @@ public class Initializer {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
-        em.createNativeQuery("delete from Users").executeUpdate();
         em.createNativeQuery("delete from Transactions").executeUpdate();
         em.createNativeQuery("delete from orders").executeUpdate();
-        em.createNativeQuery("delete from stocks").executeUpdate();
         em.createNativeQuery("delete from StockHolding").executeUpdate();
+        em.createNativeQuery("delete from Authorizations").executeUpdate();
         em.createNativeQuery("delete from Users").executeUpdate();
+        em.createNativeQuery("delete from stocks").executeUpdate();
 
         tx.commit();
         em.close();
@@ -37,9 +37,9 @@ public class Initializer {
         Broker broker = new Broker("Mitsos", "Charalampidis", "mcharal@gmail.com", "697891030100",0.0);
         Broker broker2 = new Broker("Mitsos", "Charalampidis", "mcharal@gmail.com", "697891030100",0.0);
 
-        Stock PeiraiosStock = new Stock("P200", "PIRAIUS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00);
-        Stock AlphaStock = new Stock("P224", "ALPHA", LocalDateTime.now(), 100.00, 200.99, 1000.00, 10.00, 2460.00);
-        Stock CosmoteStock = new Stock("P104", "COSMOTE", LocalDateTime.now(), 29.00, 200.99, 1000.00, 10.00, 2460.00);
+        Stock PeiraiosStock = new Stock("PIRAIUS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00);
+        Stock AlphaStock = new Stock("ALPHA", LocalDateTime.now(), 100.00, 200.99, 1000.00, 10.00, 2460.00);
+        Stock CosmoteStock = new Stock("COSMOTE", LocalDateTime.now(), 29.00, 200.99, 1000.00, 10.00, 2460.00);
         Integer amount = 20;
         StockHolding sh = new StockHolding(amount, PeiraiosStock, investor);
         investor.addStockHolding(PeiraiosStock, sh);
@@ -49,7 +49,12 @@ public class Initializer {
         LocalDateTime date1 = LocalDateTime.of(2021,12,31,0,0,0);
         LocalDateTime date2 = LocalDateTime.of(2021,12,31,0,0,0);
 
-
+//        StockDAO stockDAO = getStockDAO();
+//        stockDAO.save(PeiraiosStock);
+//        stockDAO.save(AlphaStock);
+//        stockDAO.save(CosmoteStock);
+//        UserDAO userDAO = getUserDAO();
+//        userDAO.save(investor);
     }
 
     private UserDAO getUserDAO() {

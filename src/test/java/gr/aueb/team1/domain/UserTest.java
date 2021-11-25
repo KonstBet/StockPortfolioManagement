@@ -21,9 +21,9 @@ public class UserTest {
 	void setUpTests() {
 		user = new User("Mitsos", "Charalampidis", "mcharal@gmail.com", "697891030100");
 		user.setBalance(500.00);
-		stock = new Stock("P200", "PIRAIUS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00);
-		stock2 = new Stock("P224", "ALPHA", LocalDateTime.now(), 100.00, 200.99, 1000.00, 10.00, 2460.00);
-		stock3 = new Stock("P104", "COSMOTE", LocalDateTime.now(), 29.00, 200.99, 1000.00, 10.00, 2460.00);
+		stock = new Stock("PIRAIUS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00);
+		stock2 = new Stock( "ALPHA", LocalDateTime.now(), 100.00, 200.99, 1000.00, 10.00, 2460.00);
+		stock3 = new Stock( "COSMOTE", LocalDateTime.now(), 29.00, 200.99, 1000.00, 10.00, 2460.00);
 		amount = 10;
 		sh = new StockHolding(amount, stock, user);
 		user.addStockHolding(stock, sh);

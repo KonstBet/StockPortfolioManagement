@@ -13,7 +13,7 @@ public class Broker extends User {
 	@Column(name="brokerageFee", length=20, nullable=false, columnDefinition = "double default 0.0")
 	private Double brokerageFee;
 	
-	@OneToMany(mappedBy="broker")
+	@OneToMany(mappedBy="broker",cascade = CascadeType.PERSIST)
 	private Set<Authorization> authorizations = new HashSet<Authorization>();
 	
 	public Broker() {

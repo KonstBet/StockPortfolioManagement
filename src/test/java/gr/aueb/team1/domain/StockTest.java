@@ -14,9 +14,8 @@ public class StockTest {
 	@Test
 	void testGettersAndSetters() {
 		d = LocalDateTime.of(2021,12,31,0,0,0);
-		s = new Stock("P200", "PIRAEUS", d, 10.00, 200.99, 1000.00, 10.00, 3000.00);
+		s = new Stock("PIRAEUS", d, 10.00, 200.99, 1000.00, 10.00, 3000.00);
 		s = new Stock();
-		s.setId("P200");
 		s.setCompanyName("PIRAEUS");
 		s.setDate(d);
 		s.setOpen(10.00);
@@ -26,7 +25,7 @@ public class StockTest {
 		s.setVol(3000.00);
 		
 		boolean flag = false;
-		if (s.getId().equals("P200") && s.getCompanyName().equals("PIRAEUS")
+		if (s.getId() == null && s.getCompanyName().equals("PIRAEUS")
 				&& s.getDate().equals(d) && s.getOpen() == 10.00
 				&& s.getClose() == 200.99 && s.getHigh() == 1000.00 && s.getLow() == 10.00 && s.getVol() == 3000.00) {
 			flag = true;
@@ -38,7 +37,7 @@ public class StockTest {
 	@Test
 	void toStringTest() {
 		d = LocalDateTime.of(2021,12,31,0,0,0);
-		s = new Stock("P200", "PIRAEUS", d, 10.00, 200.99, 1000.00, 10.00, 3000.00);
+		s = new Stock("PIRAEUS", d, 10.00, 200.99, 1000.00, 10.00, 3000.00);
 		String st = s.toString();
 		assertEquals("ID: " + s.getId() + 
 				   "\nCompany Name: " + s.getCompanyName() + 

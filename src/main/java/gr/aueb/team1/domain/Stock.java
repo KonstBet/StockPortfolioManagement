@@ -10,8 +10,9 @@ import javax.persistence.*;
 public class Stock 
 {
 	@Id
-	@Column(name="id", length=6, unique = true, nullable = false)
-	private String id;
+	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
 	
 	@Column(name="company", length=40, nullable=false)
 	private String companyName;
@@ -34,20 +35,19 @@ public class Stock
 	@Column(name="vol", precision = 10, scale = 4)
 	private Double vol;
 	
-	@OneToMany(mappedBy="stock", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="stock", fetch=FetchType.LAZY,cascade = CascadeType.PERSIST)
 	private Set<Order> orders = new HashSet<Order>();
 	
-	@OneToMany(mappedBy="stock", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="stock", fetch=FetchType.LAZY,cascade = CascadeType.PERSIST)
 	private Set<StockHolding> holdings = new HashSet<StockHolding>();
 	
 	public Stock() {
 		
 	}
 	
-	public Stock(String id, String companyName, LocalDateTime date,
+	public Stock(String companyName, LocalDateTime date,
 			Double open, Double close, Double high, Double low, Double vol) 
 	{
-		this.id = id;
 		this.companyName = companyName;
 		this.date = date;
 		this.open = open;
@@ -57,11 +57,11 @@ public class Stock
 		this.vol = vol;
 	}
 	
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

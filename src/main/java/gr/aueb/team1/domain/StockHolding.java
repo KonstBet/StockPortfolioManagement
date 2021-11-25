@@ -18,15 +18,15 @@ public class StockHolding {
 	@Column(name="committedAmount", length=100, nullable=false)
 	private Integer committedAmount;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="UserId", nullable=false)
 	private User user;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="StockId", nullable=false)
 	private Stock stock;
 	
-	@OneToMany(mappedBy="stockholding")
+	@OneToMany(mappedBy="stockholding",cascade = CascadeType.PERSIST)
 	private Set<AuthStock> authStock=new HashSet<AuthStock>();
 
 	

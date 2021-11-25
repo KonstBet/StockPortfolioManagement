@@ -10,7 +10,7 @@ public class Investor extends User {
 	@Column(name="committedBalance", length=100, nullable=false, columnDefinition = "double default 0.0")
 	private Double committedBalance;
 	
-	@OneToMany(mappedBy="investor")
+	@OneToMany(mappedBy="investor",cascade = CascadeType.PERSIST)
 	private Set<Authorization> authorizations = new HashSet<Authorization>();
 	
 	public Investor() {

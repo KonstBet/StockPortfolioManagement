@@ -29,8 +29,8 @@ public class AutomatedOrderTest {
     void setUpTests() {
         investor1 = new Investor("Mitsos", "Charalampidis", "mcharal@gmail.com", "697891030100");
         investor1.setBalance(500.00);
-        PeiraiosStock = new Stock("P200", "PIRAIUS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00);
-        AlphaStock = new Stock("P224", "ALPHA", LocalDateTime.now(), 100.00, 80.00, 1000.00, 10.00, 2460.00);
+        PeiraiosStock = new Stock("PIRAIUS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00);
+        AlphaStock = new Stock( "ALPHA", LocalDateTime.now(), 100.00, 80.00, 1000.00, 10.00, 2460.00);
         amount = 10;
         sh = new StockHolding(amount, PeiraiosStock, investor1);
         investor1.addStockHolding(PeiraiosStock, sh);

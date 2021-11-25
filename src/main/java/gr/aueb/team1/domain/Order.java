@@ -36,11 +36,11 @@ public class Order {
     @Column(name="status")
 	private Status status;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(name="stockid")
     protected Stock stock;
     
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.PERSIST)
     @JoinColumn(name="userid")
     protected User user;
     
