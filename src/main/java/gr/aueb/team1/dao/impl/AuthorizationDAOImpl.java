@@ -61,7 +61,7 @@ public class AuthorizationDAOImpl implements AuthorizationDAO {
 		
 		
 		int id = auth.getId();
-		Query q = em.createQuery("delete from User u where u.id = :id");
+		Query q = em.createQuery("delete from Authorization a where a.id = :id");
 		q.setParameter("id", id);
 		q.executeUpdate();
 

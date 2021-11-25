@@ -54,17 +54,4 @@ class UserDAOImplTest {
     	assertEquals(3, res.size());
     }
     
-    
-
-//    @Test
-//    void save() {
-//    }
-//
-//    @Test
-//    void update() {
-//    }
-//
-//    @Test
-//    void delete() {
-//    }
 }

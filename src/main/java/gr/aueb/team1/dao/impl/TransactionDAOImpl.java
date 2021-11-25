@@ -19,11 +19,13 @@ public class TransactionDAOImpl implements TransactionDAO {
         em = JPAUtil.getCurrentEntityManager();
     }
 
+	@SuppressWarnings("unchecked")
+	@Override
     public List<Transaction> findAll() {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
-        Query q = em.createQuery("select a from Transaction a");
+        Query q = em.createQuery("select t from Transaction t");
 
         List<Transaction> result;
         try {
@@ -37,6 +39,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 
         return result;
     }
+	
     public Transaction findById(Integer id) {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
@@ -68,7 +71,7 @@ public class TransactionDAOImpl implements TransactionDAO {
         tx.begin();
 
         int id = t.getId();
-        Query q = em.createQuery("delete from User u where u.id = :id");
+        Query q = em.createQuery("delete from Transaction t where t.id = :id");
         q.setParameter("id", id);
         q.executeUpdate();
 

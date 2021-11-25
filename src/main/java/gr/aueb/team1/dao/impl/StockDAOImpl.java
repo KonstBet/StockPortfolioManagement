@@ -3,10 +3,13 @@ package gr.aueb.team1.dao.impl;
 import gr.aueb.team1.dao.StockDAO;
 import gr.aueb.team1.domain.Stock;
 import gr.aueb.team1.domain.Transaction;
+import gr.aueb.team1.domain.User;
 import gr.aueb.team1.persistence.JPAUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+
 import java.util.List;
 
 public class StockDAOImpl implements StockDAO {
@@ -17,12 +20,26 @@ public class StockDAOImpl implements StockDAO {
         em = JPAUtil.getCurrentEntityManager();
     }
 
-    public List<Stock>  findAll() {
-        return null;
-    }
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Stock> findAll() {
+		
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		
+		Query q = em.createQuery("select s from Stock s");
+		List<Stock> result = q.getResultList();
+		
+		tx.commit();
+		
+		return result;
+	}
+	
     public Stock findById(Integer id) {
         return null;
     }
+    
+    @Override
     public Stock save(Stock t) {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
@@ -38,7 +55,20 @@ public class StockDAOImpl implements StockDAO {
 
         return savedStock;
     }
-    public Stock delete(Stock t) {
-        return null;
-    }
+    
+	@Override
+	public Stock delete(Stock stock) {
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		
+		
+		int id = stock.getId();
+		Query q = em.createQuery("delete from Stock s where s.id = :id");
+		q.setParameter("id", id);
+		q.executeUpdate();
+
+		tx.commit();
+		return stock;
+	}
+
 }
