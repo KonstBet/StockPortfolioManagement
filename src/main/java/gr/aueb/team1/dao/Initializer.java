@@ -1,5 +1,6 @@
 package gr.aueb.team1.dao;
 
+import gr.aueb.team1.dao.impl.*;
 import gr.aueb.team1.domain.Broker;
 import gr.aueb.team1.domain.Investor;
 import gr.aueb.team1.domain.Stock;
@@ -47,5 +48,26 @@ public class Initializer {
 
         LocalDateTime date1 = LocalDateTime.of(2021,12,31,0,0,0);
         LocalDateTime date2 = LocalDateTime.of(2021,12,31,0,0,0);
+
+
+    }
+
+    private UserDAO getUserDAO() {
+        return new UserDAOImpl();
+    }
+    private TransactionDAO getTransactionDAO() {
+        return new TransactionDAOImpl();
+    }
+    private AuthorizationDAO getAuthorizationDAO() {
+        return new AuthorizationDAOImpl();
+    }
+    private OrderDAO getOrderDAO() {
+        return new OrderDAOImpl();
+    }
+    private StockHoldingDAO getStockHoldingDAO() {
+        return new StockHoldingDAOImpl();
+    }
+    private StockDAO getStockDAO() {
+        return new StockDAOImpl();
     }
 }
