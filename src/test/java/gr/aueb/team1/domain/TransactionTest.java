@@ -1,9 +1,9 @@
 package gr.aueb.team1.domain;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.*;
-
-import javax.validation.constraints.AssertTrue;
 
 public class TransactionTest {
 
@@ -51,6 +51,16 @@ public class TransactionTest {
 			flag = true;
 		
 		Assertions.assertTrue(flag);
+	}
+	
+	@Test
+	void toStringTest() {
+		Transaction t = new Transaction(user, 12.00, date1);
+		String s = t.toString();
+		assertEquals("ID: " + t.getId() +
+				"\nAmount: " + t.getAmount() +  "€"
+				+ "\nDate: " + t.getDate().toString()
+				+ "\nUser: " + t.getUser().toString(),s);
 	}
 
 	@Test

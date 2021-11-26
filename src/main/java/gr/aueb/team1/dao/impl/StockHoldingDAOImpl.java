@@ -1,13 +1,10 @@
 package gr.aueb.team1.dao.impl;
 
-import gr.aueb.team1.dao.StockHoldingDAO;
-import gr.aueb.team1.domain.Stock;
-import gr.aueb.team1.domain.StockHolding;
-import gr.aueb.team1.domain.Transaction;
-import gr.aueb.team1.persistence.JPAUtil;
-
 import java.util.List;
-
+import gr.aueb.team1.dao.StockHoldingDAO;
+import gr.aueb.team1.domain.StockHolding;
+import gr.aueb.team1.domain.User;
+import gr.aueb.team1.persistence.JPAUtil;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
@@ -74,5 +71,19 @@ public class StockHoldingDAOImpl implements StockHoldingDAO {
 		tx.commit();
 		
 		return sh;
+	}
+	
+    @SuppressWarnings("unchecked")
+	@Override
+	public List<StockHolding> findByUser(User user) {
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		
+		Query q = em.createQuery("select sh from StockHolding sh where Userid = :id");
+        q.setParameter("id",user.getId());
+		List<StockHolding> result = q.getResultList();
+		
+		tx.commit();
+		return result;
 	}
 }

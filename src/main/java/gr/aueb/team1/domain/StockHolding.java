@@ -103,8 +103,7 @@ public class StockHolding {
 		user = null;
 		stock = null;
 
-		for(Object it : authStock.toArray()) { /* Create a copy */
-			AuthStock element = (AuthStock) it;
+		for(Object it : authStock.toArray()) {
 			((AuthStock) it).removeAuth();
 		}
 

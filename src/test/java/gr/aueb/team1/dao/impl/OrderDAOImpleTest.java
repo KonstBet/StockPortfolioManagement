@@ -7,7 +7,7 @@ import gr.aueb.team1.domain.Order;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -55,5 +55,11 @@ public class OrderDAOImpleTest {
         orderDAO.delete(order);
         List<Order> orders = orderDAO.findAll();
         Assertions.assertEquals(3,orders.size());
+    }
+    
+    @Test
+    void findByUser() {
+    	List<Order> s = orderDAO.findByUser(init.investor);
+    	assertEquals(init.investor.getOrders().size(),s.size());
     }
 }

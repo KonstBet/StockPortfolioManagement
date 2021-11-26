@@ -11,7 +11,7 @@ public class AuthStock extends Authorization {
 	@Column(name = "amount", nullable = false)
 	private Integer amount;
 
-	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.PERSIST)
+	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinColumn(name="StockHoldingId")
 	private StockHolding stockholding;
 

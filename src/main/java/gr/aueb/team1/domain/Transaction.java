@@ -56,6 +56,13 @@ public class Transaction {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	public String toString() {
+		return "ID: " + getId() +
+				"\nAmount: " + getAmount() +  "€"
+				+ "\nDate: " + getDate().toString()
+				+ "\nUser: " + getUser().toString(); 
+	}
 
 	public void remove() {
 		getUser().getTransactions().remove(this);

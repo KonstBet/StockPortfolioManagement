@@ -19,7 +19,7 @@ public class UserTest {
 
 	@BeforeEach
 	void setUpTests() {
-		user = new User("Mitsos", "Charalampidis", "mcharal@gmail.com", "697891030100");
+		user = new User("Mitsos", "Charalampidis", "mcharal@gmail.com", "6912345678");
 		user.setBalance(500.00);
 		stock = new Stock("PIRAIUS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00);
 		stock2 = new Stock( "ALPHA", LocalDateTime.now(), 100.00, 200.99, 1000.00, 10.00, 2460.00);
@@ -207,14 +207,14 @@ public class UserTest {
 		usr.setName("Nikos");
 		usr.setSurname("Papadopoulos");
 		usr.setEmail("nikosme@mailbox.gr");
-		usr.setPhoneNo("3213456879");
+		usr.setPhoneNo("6987654321");
 		usr.setStockHoldings(null);
 		usr.setBalance(1.0);
 		usr.setTransactions(null);
 		usr.setOrders(null);
 
 		Assertions.assertTrue(usr.getName().equals("Nikos") && usr.getSurname().equals("Papadopoulos")
-			&& usr.getEmail().equals("nikosme@mailbox.gr") && usr.getPhoneNo().equals("3213456879")
+			&& usr.getEmail().equals("nikosme@mailbox.gr") && usr.getPhoneNo().equals("6987654321")
 			&& usr.getBalance() == 1.0);
 
 		Assertions.assertNull(usr.getStockHoldings());

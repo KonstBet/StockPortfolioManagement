@@ -1,6 +1,9 @@
 package gr.aueb.team1.domain;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.persistence.*;
 
 import gr.aueb.team1.domain.Order.Action;
@@ -47,6 +50,9 @@ public class User {
 	@Column(name="balance", precision = 10, scale = 4)
 	private Double balance;
 	
+	private final Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$", Pattern.CASE_INSENSITIVE);
+	private final Pattern phonePattern = Pattern.compile("^69[0-9]{8}$");
+	
 	public User() {
 		this.name = null;
 		this.surname = null;
@@ -58,8 +64,8 @@ public class User {
 	public User(String name, String surname, String email, String phoneNo) {
 		this.name = name;
 		this.surname = surname;
-		this.email = email;
-		this.phoneNo = phoneNo;
+		this.setEmail(email);
+		this.setPhoneNo(phoneNo);
 		this.balance = 0.0;
 	}
 	
@@ -92,11 +98,18 @@ public class User {
 	}
 	
 	public void setEmail(String email) {
-		this.email = email;
+		Matcher m = emailPattern.matcher(email);
+		if(m.matches()) {
+			this.email = email;
+		}
 	}
 	
 	public void setPhoneNo(String phoneNo) {
-		this.phoneNo = phoneNo;
+		Matcher m = phonePattern.matcher(phoneNo);
+		if(m.matches()) {
+			this.phoneNo = phoneNo;
+		}
+
 	}
 	
 	public Set<Transaction> getTransactions() {
@@ -272,15 +285,12 @@ public class User {
 			stockHoldings.get(element).remove();
 		}
 		for(Object it : getAuthorizations().toArray()) {
-			Authorization element = (Authorization) it;
 			((Authorization) it).removeAuth();
 		}
 		for(Object it : orders.toArray()) {
-			Order element = (Order) it;
 			((Order) it).remove();
 		}
 		for(Object it : transactions.toArray()) {
-			Transaction element = (Transaction) it;
 			((Transaction) it).remove();
 		}
 	}

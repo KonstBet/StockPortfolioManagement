@@ -7,10 +7,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class StockHoldingDAOImplTest {
 
@@ -55,5 +55,11 @@ class StockHoldingDAOImplTest {
         stockHoldingDAO.delete(stockHolding);
         List<StockHolding> stockHoldings = stockHoldingDAO.findAll();
         Assertions.assertEquals(1,stockHoldings.size());
+    }
+    
+    @Test
+    void findByUser() {
+    	List<StockHolding> s = stockHoldingDAO.findByUser(init.investor);
+    	assertEquals(init.investor.getStockHoldings().size(),s.size());
     }
 }

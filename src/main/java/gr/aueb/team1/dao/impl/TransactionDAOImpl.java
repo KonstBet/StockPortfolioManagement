@@ -2,6 +2,7 @@ package gr.aueb.team1.dao.impl;
 
 import gr.aueb.team1.dao.TransactionDAO;
 import gr.aueb.team1.domain.Transaction;
+import gr.aueb.team1.domain.User;
 import gr.aueb.team1.persistence.JPAUtil;
 
 import javax.persistence.EntityManager;
@@ -76,4 +77,18 @@ public class TransactionDAOImpl implements TransactionDAO {
         tx.commit();
         return t;
     }
+    
+    @SuppressWarnings("unchecked")
+	@Override
+	public List<Transaction> findByUser(User user) {
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		
+		Query q = em.createQuery("select t from Transaction t where Userid = :id");
+        q.setParameter("id",user.getId());
+		List<Transaction> result = q.getResultList();
+		
+		tx.commit();
+		return result;
+	}
 }

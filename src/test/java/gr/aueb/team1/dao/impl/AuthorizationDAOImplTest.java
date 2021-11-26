@@ -3,15 +3,12 @@ package gr.aueb.team1.dao.impl;
 import gr.aueb.team1.dao.AuthorizationDAO;
 import gr.aueb.team1.dao.Initializer;
 import gr.aueb.team1.domain.Authorization;
-import gr.aueb.team1.domain.Transaction;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class AuthorizationDAOImplTest {
 

@@ -31,7 +31,7 @@ class JPAUtilTest {
 		
 		JPAUtil.transactional(new Runnable() {
 		    public void run() {
-		    	User user = new User("Mitsos", "Charalampidis", "mcharal@gmail.com", "697891030100");
+		    	User user = new User("Mitsos", "Charalampidis", "mcharal@gmail.com", "6978910301");
 		    	em.persist(user);
 		    }
 		});

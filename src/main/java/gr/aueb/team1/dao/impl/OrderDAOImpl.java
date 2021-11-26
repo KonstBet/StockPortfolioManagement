@@ -4,12 +4,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
-
-import gr.aueb.team1.dao.DAO;
 import gr.aueb.team1.dao.OrderDAO;
-import gr.aueb.team1.domain.Authorization;
 import gr.aueb.team1.domain.Order;
-import gr.aueb.team1.domain.Transaction;
+import gr.aueb.team1.domain.User;
 import gr.aueb.team1.persistence.JPAUtil;
 
 public class OrderDAOImpl implements OrderDAO {
@@ -20,6 +17,7 @@ public class OrderDAOImpl implements OrderDAO {
 		em = JPAUtil.getCurrentEntityManager();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Order> findAll() {
 		
@@ -34,11 +32,12 @@ public class OrderDAOImpl implements OrderDAO {
 		return result;
 	}
 
+	@Override
 	public Order findById(Integer id) {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 
-		Order t = em.find(Order.class,id);
+		Order t = em.find(Order.class, id);
 
 		tx.commit();
 		return t;
@@ -72,5 +71,19 @@ public class OrderDAOImpl implements OrderDAO {
 
 		tx.commit();
 		return order;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Order> findByUser(User user) {
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		
+		Query q = em.createQuery("select o from Order o where Userid = :id");
+        q.setParameter("id",user.getId());
+		List<Order> result = q.getResultList();
+		
+		tx.commit();
+		return result;
 	}
 }

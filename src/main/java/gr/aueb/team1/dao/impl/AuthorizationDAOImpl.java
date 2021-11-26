@@ -1,14 +1,11 @@
 package gr.aueb.team1.dao.impl;
 
 import gr.aueb.team1.dao.AuthorizationDAO;
-import gr.aueb.team1.dao.DAO;
 import gr.aueb.team1.domain.*;
 import gr.aueb.team1.persistence.JPAUtil;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AuthorizationDAOImpl implements AuthorizationDAO {
@@ -19,6 +16,7 @@ public class AuthorizationDAOImpl implements AuthorizationDAO {
         em = JPAUtil.getCurrentEntityManager();
     }
 
+	@SuppressWarnings("unchecked")
 	@Override
     public List<Authorization> findAll() {
         EntityTransaction tx = em.getTransaction();
@@ -32,6 +30,7 @@ public class AuthorizationDAOImpl implements AuthorizationDAO {
         return result;
     }
 
+	@Override
     public Authorization findById(Integer id) {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
@@ -72,7 +71,9 @@ public class AuthorizationDAOImpl implements AuthorizationDAO {
 		return auth;
 	}
 
-    public List<Authorization> findAllByBrokerID(Integer id) {
+    @SuppressWarnings("unchecked")
+    @Override
+	public List<Authorization> findAllByBrokerID(Integer id) {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
@@ -85,7 +86,8 @@ public class AuthorizationDAOImpl implements AuthorizationDAO {
         return result;
     }
 
-    public List<Authorization> findAllByInvestorID(Integer id) {
+    @SuppressWarnings("unchecked")
+	public List<Authorization> findAllByInvestorID(Integer id) {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 

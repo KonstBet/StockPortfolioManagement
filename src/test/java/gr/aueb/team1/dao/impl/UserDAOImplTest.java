@@ -2,16 +2,8 @@ package gr.aueb.team1.dao.impl;
 
 import gr.aueb.team1.dao.Initializer;
 import gr.aueb.team1.dao.UserDAO;
-import gr.aueb.team1.dao.UserDAO;
-import gr.aueb.team1.domain.Broker;
-import gr.aueb.team1.domain.Investor;
 import gr.aueb.team1.domain.User;
-import gr.aueb.team1.domain.User;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
@@ -45,12 +37,12 @@ class UserDAOImplTest {
 	@Test
 	void save() {
 		User user = userDAO.findById(init.investor.getId());
-		user.setPhoneNo("4532435467");
+		user.setPhoneNo("6901234567");
 
 		userDAO.save(user);
 		user = userDAO.findById(init.investor.getId());
 
-		Assertions.assertTrue(user.getPhoneNo().equals("4532435467"));
+		Assertions.assertTrue(user.getPhoneNo().equals("6901234567"));
 	}
 
 	@Test
