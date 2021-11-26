@@ -49,19 +49,12 @@ public class Initializer {
         Integer amount = 20;
         investor.buyStock(PeiraiosStock,amount);
         investor.buyStock(AlphaStock,amount);
-//        StockHolding sh = new StockHolding(amount, PeiraiosStock, investor);
-//        investor.addStockHolding(PeiraiosStock, sh);
-//        StockHolding sh2 = new StockHolding(amount, AlphaStock, investor);
-//        investor.addStockHolding(AlphaStock, sh);
-
-//        LocalDateTime date1 = LocalDateTime.of(2021,12,31,0,0,0);
-//        LocalDateTime date2 = LocalDateTime.of(2021,12,31,0,0,0);
 
         investor.giveAuthorization(20,investor.getStockHoldings().get(PeiraiosStock),broker,LocalDateTime.now());
         investor.giveAuthorization(5000.0,broker2, LocalDateTime.now());
 
-//        broker2.buyForInvestor((AuthCapital) broker2.getAuthorizations().iterator().next(),PeiraiosStock,10);
         broker.sellForInvestor((AuthStock) broker.getAuthorizations().iterator().next(),10);
+        broker2.buyForInvestor((AuthCapital) broker2.getAuthorizations().iterator().next(),PeiraiosStock,10);
 
 
         StockDAO stockDAO = getStockDAO();

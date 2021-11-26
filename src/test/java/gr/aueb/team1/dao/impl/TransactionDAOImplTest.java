@@ -55,7 +55,6 @@ class TransactionDAOImplTest {
     @Test
     void delete() {
         Transaction transaction = transactionDAO.findById(init.investor.getTransactions().iterator().next().getId());
-        transaction.remove();
 
         transactionDAO.delete(transaction);
         List<Transaction> transactions = transactionDAO.findAll();

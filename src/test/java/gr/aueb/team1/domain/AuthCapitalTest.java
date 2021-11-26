@@ -103,7 +103,7 @@ public class AuthCapitalTest {
 
     	investor1.setCommittedBalance(600.00);
     	ac1.removeAuth();
-    	double actual = ac1.getInvestor().getBalance();
+    	double actual = investor1.getBalance();
     	
     	assertEquals(1100.00, actual);
     }

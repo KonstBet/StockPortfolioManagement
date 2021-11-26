@@ -19,7 +19,6 @@ public class AuthorizationDAOImpl implements AuthorizationDAO {
         em = JPAUtil.getCurrentEntityManager();
     }
 
-    @SuppressWarnings("unchecked")
 	@Override
     public List<Authorization> findAll() {
         EntityTransaction tx = em.getTransaction();
@@ -34,7 +33,13 @@ public class AuthorizationDAOImpl implements AuthorizationDAO {
     }
 
     public Authorization findById(Integer id) {
-        return null;
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+
+        Authorization t = em.find(Authorization.class,id);
+
+        tx.commit();
+        return t;
     }
 
     @Override
@@ -58,40 +63,37 @@ public class AuthorizationDAOImpl implements AuthorizationDAO {
 	public Authorization delete(Authorization auth) {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
-		
-		
-		int id = auth.getId();
-		Query q = em.createQuery("delete from Authorization a where a.id = :id");
-		q.setParameter("id", id);
-		q.executeUpdate();
+
+        auth.removeAuth();
+		em.remove(auth);
 
 		tx.commit();
 		return auth;
 	}
 
     public List<Authorization> findAllByBrokerID(Integer id) {
-        UserDAOImpl userDAO = new UserDAOImpl();
-        User user = userDAO.findByID(id);
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
 
-        if (user instanceof Broker) {
-            List<Authorization> list = new ArrayList<Authorization>();
-            list.addAll(((Broker) user).getAuthorizations());
-            return list;
-        }
+        Query q = em.createQuery("select a from Authorization a where Brokerid = :brokerid");
+        q.setParameter("brokerid",id);
+        List<Authorization> result = q.getResultList();
 
-        return null;
+
+        tx.commit();
+        return result;
     }
 
     public List<Authorization> findAllByInvestorID(Integer id) {
-        UserDAOImpl userDAO = new UserDAOImpl();
-        User user = userDAO.findByID(id);
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
 
-        if (user instanceof Investor) {
-            List<Authorization> list = new ArrayList<Authorization>();
-            list.addAll(((Investor) user).getAuthorizations());
-            return list;
-        }
+        Query q = em.createQuery("select a from Authorization a where Investorid = :investorid");
+        q.setParameter("investorid",id);
+        List<Authorization> result = q.getResultList();
 
-        return null;
+
+        tx.commit();
+        return result;
     }
 }

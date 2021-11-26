@@ -234,7 +234,7 @@ public class Order {
 		
 		if (auth.getInvestor().getStockHoldings().containsKey(this.stock)) {
 			StockHolding stockHol = auth.getInvestor().getStockHoldings().get(stock);			
-			stockHol.setCommittedAmount(stockHol.getCommittedAmount()+this.amount);				
+			stockHol.setAmount(stockHol.getAmount()+this.amount);
 			user.addStockHolding(this.stock, stockHol);
 		} else {
 			user.addStockHolding(this.stock, new StockHolding(0, this.stock, user, this.amount));

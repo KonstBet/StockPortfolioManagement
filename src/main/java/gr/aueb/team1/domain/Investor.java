@@ -77,8 +77,6 @@ public class Investor extends User {
 		}
 
 		auth.removeAuth();
-		authorizations.remove(auth);
-		auth.getBroker().removeAuthorization(auth);
 		return true;
 	}
 }

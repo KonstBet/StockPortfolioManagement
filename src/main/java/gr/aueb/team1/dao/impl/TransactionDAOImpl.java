@@ -69,8 +69,7 @@ public class TransactionDAOImpl implements TransactionDAO {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
-        int id = t.getId();
-
+        t.remove();
         em.remove(t);
 
         tx.commit();
