@@ -286,7 +286,12 @@ public class Order {
 		
 	}
 	
-
+	public void remove() {
+		stock.getOrders().remove(this);
+		user.getOrders().remove(this);
+		stock = null;
+		user = null;
+	}
 }
 	
 	

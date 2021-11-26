@@ -263,4 +263,25 @@ public class User {
 		}
 		return res;
 	}
+
+
+	public void remove() {
+		Set<Stock> stockskeys = stockHoldings.keySet();
+		for(Object it : stockskeys.toArray()) {
+			Stock element = (Stock) it;
+			stockHoldings.get(element).remove();
+		}
+		for(Object it : getAuthorizations().toArray()) {
+			Authorization element = (Authorization) it;
+			((Authorization) it).removeAuth();
+		}
+		for(Object it : orders.toArray()) {
+			Order element = (Order) it;
+			((Order) it).remove();
+		}
+		for(Object it : transactions.toArray()) {
+			Transaction element = (Transaction) it;
+			((Transaction) it).remove();
+		}
+	}
 }

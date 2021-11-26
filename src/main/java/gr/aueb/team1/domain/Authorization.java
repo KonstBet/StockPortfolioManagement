@@ -21,11 +21,11 @@ public class Authorization {
 	private LocalDateTime enddate;
 	
 	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.PERSIST)
-	@JoinColumn(name="Investorid", nullable = false)
+	@JoinColumn(name="Investorid")
 	private Investor investor;
 	
 	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.PERSIST)
-	@JoinColumn(name="Brokerid", nullable = false)
+	@JoinColumn(name="Brokerid")
 	private Broker broker;
 	
 	public Authorization(Investor investor, Broker broker,LocalDateTime startdate, LocalDateTime enddate) {

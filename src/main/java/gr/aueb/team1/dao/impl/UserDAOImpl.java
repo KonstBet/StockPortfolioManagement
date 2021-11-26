@@ -15,7 +15,7 @@ public class UserDAOImpl implements UserDAO {
 	public UserDAOImpl() {
 		em = JPAUtil.getCurrentEntityManager();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findAll() {
@@ -31,8 +31,15 @@ public class UserDAOImpl implements UserDAO {
 		return result;
 	}
 
+	@Override
 	public User findById(Integer id) {
-		return null;
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+
+		User user = em.find(User.class, id);
+
+		tx.commit();
+		return user;
 	}
 	
 	@Override
@@ -56,11 +63,8 @@ public class UserDAOImpl implements UserDAO {
 	public User delete(User user) {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
-		
-		if (user.getStockHoldings().size() > 0 || user.getAuthorizations().size() > 0) {
-			tx.commit();
-			return null;
-		}
+
+		user.remove();
 		em.remove(user);
 
 		tx.commit();
@@ -88,13 +92,5 @@ public class UserDAOImpl implements UserDAO {
 		return user;
 	}
 
-	public User findByID(Integer id) {
-		EntityTransaction tx = em.getTransaction();
-		tx.begin();
 
-		User user = em.find(User.class, id);
-		
-		tx.commit();
-		return user;
-	}
 }

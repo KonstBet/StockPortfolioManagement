@@ -2,61 +2,69 @@ package gr.aueb.team1.dao.impl;
 
 import gr.aueb.team1.dao.Initializer;
 import gr.aueb.team1.dao.UserDAO;
+import gr.aueb.team1.dao.UserDAO;
 import gr.aueb.team1.domain.Broker;
 import gr.aueb.team1.domain.Investor;
+import gr.aueb.team1.domain.User;
 import gr.aueb.team1.domain.User;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class UserDAOImplTest {
-	private UserDAO ud;
-	private User user;
-	private User user1;
+	private UserDAO userDAO;
+	Initializer init;
 
-    @BeforeEach
-    void Initialize() {
-        Initializer init = new Initializer();
-        init.prepareData();
-    	ud = new UserDAOImpl();
-    	user = new Investor("Sakis", "Kanavopoulos", "skan@gmail.com", "697891030100");
-    	user1 = new Broker("Aleksandros","Lamprineros", "alamp@gmail.com", "697891030100", 1.0);
-    }
+	@BeforeEach
+	void Initialize() {
+		init = new Initializer();
+		init.prepareData();
 
-    @Test
-    void findAllTest() {
-    	ud.save(user);
-    	ud.save(user1);
-    	List<User> res = ud.findAll();
-    	assertEquals(5, res.size());
-    }
-    
-    @Test
-    void saveTest() {
-    	User u = ud.save(user);
-    	System.out.println(u.toString());
-    	u.setName("Sakis");
-    	u = ud.save(user);
-    	System.out.println(u.toString());
-    	assertNotNull(u);
-    }
-    
-    @Test
-    void deleteTest() {
-    	ud.save(user);
-    	ud.delete(user);
-    	List<User> res = ud.findAll();
-    	assertEquals(3, res.size());
-    }
+		userDAO = new UserDAOImpl();
+	}
+
+	@Test
+	void findAll() {
+		List<User> users = userDAO.findAll();
+		Assertions.assertEquals(3,users.size());
+	}
+
+	@Test
+	void findById() {
+		User user = userDAO.findById(init.investor.getId());
+		Assertions.assertNotNull(user);
+	}
+
+	@Test
+	void save() {
+		User user = userDAO.findById(init.investor.getId());
+		user.setPhoneNo("4532435467");
+
+		userDAO.save(user);
+		user = userDAO.findById(init.investor.getId());
+
+		Assertions.assertTrue(user.getPhoneNo().equals("4532435467"));
+	}
+
+	@Test
+	void delete() {
+		User user = userDAO.findById(init.investor.getId());
+
+		userDAO.delete(user);
+		List<User> users = userDAO.findAll();
+		Assertions.assertEquals(2,users.size());
+	}
     
     @Test
     void findByEmailTest() {
-    	User u = ud.findByEmail("mitcharal@gmail.com");
+    	User u = userDAO.findByEmail("mitcharal@gmail.com");
     	assertEquals(u.getName(), "Mitsos");
     }
     

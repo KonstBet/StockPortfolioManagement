@@ -21,7 +21,7 @@ public class Transaction {
 	private LocalDateTime date;
 	
 	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.PERSIST)
-	@JoinColumn(name="Userid", nullable = false)
+	@JoinColumn(name="Userid")
 	private User user;
 
 	

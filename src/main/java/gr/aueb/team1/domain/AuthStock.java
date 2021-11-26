@@ -45,6 +45,7 @@ public class AuthStock extends Authorization {
 
 		stockHolding.setCommittedAmount(stockHolding.getCommittedAmount()+amount);
 		stockHolding.setAmount(stockHolding.getAmount()-amount);
+		stockHolding.getAuthStock().add(this);
 		investor.getAuthorizations().add(this);
 		broker.getAuthorizations().add(this);
 		return true;
@@ -79,7 +80,7 @@ public class AuthStock extends Authorization {
 
 		getInvestor().getAuthorizations().remove(this);
 		getBroker().getAuthorizations().remove(this);
-		getStockHolding().setAuthStock(null);
+		getStockHolding().getAuthStock().remove(this);
 		setStockholding(null);
 		setBroker(null);
 		setInvestor(null);

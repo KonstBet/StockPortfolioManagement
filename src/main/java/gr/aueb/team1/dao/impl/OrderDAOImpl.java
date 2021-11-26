@@ -66,7 +66,7 @@ public class OrderDAOImpl implements OrderDAO {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		
-		//TODO REMOVE relations
+		order.remove();
 		em.remove(order);
 
 		tx.commit();

@@ -19,11 +19,11 @@ public class StockHolding {
 	private Integer committedAmount;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name="UserId", nullable=false)
+	@JoinColumn(name="UserId")
 	private User user;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name="StockId", nullable=false)
+	@JoinColumn(name="StockId")
 	private Stock stock;
 	
 	@OneToMany(mappedBy="stockholding",cascade = CascadeType.PERSIST)
@@ -98,17 +98,17 @@ public class StockHolding {
 	}
 
 	public void remove() {
-//		user.getStockHoldings().remove(stock);
-//		stock.getHoldings().remove(this);
-//		user = null;
-//		stock = null;
-//
-//		AuthStock as;
-//		Iterator<AuthStock> ass = authStock.iterator();
-//		while(ass.hasNext()) {
-//			as = ass.next();
-//			as.setStockholding(null);
-//			authStock.remove(as);
-//		}
+		user.getStockHoldings().remove(stock);
+		stock.getHoldings().remove(stock);
+		user = null;
+		stock = null;
+
+		for(Object it : authStock.toArray()) { /* Create a copy */
+			AuthStock element = (AuthStock) it;
+			((AuthStock) it).removeAuth();
+		}
+
+		authStock.clear();
+		authStock = null;
 	}
 }
