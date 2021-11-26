@@ -71,9 +71,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 
         int id = t.getId();
 
-        Query q = em.createQuery("delete from Transaction t where t.id = :id");
-        q.setParameter("id", id);
-        q.executeUpdate();
+        em.remove(t);
 
         tx.commit();
         return t;

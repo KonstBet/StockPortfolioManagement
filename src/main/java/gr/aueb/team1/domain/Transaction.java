@@ -56,4 +56,9 @@ public class Transaction {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public void remove() {
+		getUser().getTransactions().remove(this);
+		setUser(null);
+	}
 }

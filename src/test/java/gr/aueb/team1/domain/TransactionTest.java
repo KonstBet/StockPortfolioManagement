@@ -3,6 +3,8 @@ package gr.aueb.team1.domain;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.*;
 
+import javax.validation.constraints.AssertTrue;
+
 public class TransactionTest {
 
 	public User user;
@@ -49,5 +51,18 @@ public class TransactionTest {
 			flag = true;
 		
 		Assertions.assertTrue(flag);
+	}
+
+	@Test
+	void removeTest() {
+		Deposit deposit = new Deposit(user, 10.00, date1);
+
+		deposit.setAmount(20.00);
+		deposit.setId(7);
+		deposit.setUser(user2);
+		deposit.setDate(date2);
+
+		deposit.remove();
+		Assertions.assertTrue(deposit.getUser() == null);
 	}
 }
