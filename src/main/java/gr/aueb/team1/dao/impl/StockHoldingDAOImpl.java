@@ -3,6 +3,7 @@ package gr.aueb.team1.dao.impl;
 import gr.aueb.team1.dao.StockHoldingDAO;
 import gr.aueb.team1.domain.Stock;
 import gr.aueb.team1.domain.StockHolding;
+import gr.aueb.team1.domain.Transaction;
 import gr.aueb.team1.persistence.JPAUtil;
 
 import java.util.List;
@@ -35,7 +36,13 @@ public class StockHoldingDAOImpl implements StockHoldingDAO {
 	}
 	
     public StockHolding findById(Integer id) {
-        return null;
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+
+		StockHolding t = em.find(StockHolding.class,id);
+
+		tx.commit();
+		return t;
     }
     
     @Override
@@ -60,11 +67,8 @@ public class StockHoldingDAOImpl implements StockHoldingDAO {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		
-		
-		int id = sh.getId();
-		Query q = em.createQuery("delete from StockHolding sh where sh.id = :id");
-		q.setParameter("id", id);
-		q.executeUpdate();
+		sh.remove();
+		em.remove(sh);
 
 		tx.commit();
 		

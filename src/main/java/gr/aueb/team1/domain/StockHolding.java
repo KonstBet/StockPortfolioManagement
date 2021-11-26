@@ -95,4 +95,19 @@ public class StockHolding {
 	public void setAuthStock(Set<AuthStock> authStock) {
 		this.authStock = authStock;
 	}
+
+	public void remove() {
+//		user.getStockHoldings().remove(stock);
+//		stock.getHoldings().remove(this);
+//		user = null;
+//		stock = null;
+//
+//		AuthStock as;
+//		Iterator<AuthStock> ass = authStock.iterator();
+//		while(ass.hasNext()) {
+//			as = ass.next();
+//			as.setStockholding(null);
+//			authStock.remove(as);
+//		}
+	}
 }

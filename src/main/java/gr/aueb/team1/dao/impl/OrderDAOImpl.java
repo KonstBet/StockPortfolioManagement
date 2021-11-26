@@ -9,6 +9,7 @@ import gr.aueb.team1.dao.DAO;
 import gr.aueb.team1.dao.OrderDAO;
 import gr.aueb.team1.domain.Authorization;
 import gr.aueb.team1.domain.Order;
+import gr.aueb.team1.domain.Transaction;
 import gr.aueb.team1.persistence.JPAUtil;
 
 public class OrderDAOImpl implements OrderDAO {
@@ -18,8 +19,7 @@ public class OrderDAOImpl implements OrderDAO {
 	public OrderDAOImpl() {
 		em = JPAUtil.getCurrentEntityManager();
 	}
-	
-	@SuppressWarnings("unchecked")
+
 	@Override
 	public List<Order> findAll() {
 		
@@ -35,7 +35,13 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	public Order findById(Integer id) {
-		return null;
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+
+		Order t = em.find(Order.class,id);
+
+		tx.commit();
+		return t;
 	}
 
 	@Override
@@ -60,11 +66,8 @@ public class OrderDAOImpl implements OrderDAO {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		
-		
-		int id = order.getId();
-		Query q = em.createQuery("delete from User u where u.id = :id");
-		q.setParameter("id", id);
-		q.executeUpdate();
+		//TODO REMOVE relations
+		em.remove(order);
 
 		tx.commit();
 		return order;
