@@ -1,6 +1,7 @@
 package gr.aueb.team1.dao.impl;
 
 import gr.aueb.team1.dao.StockDAO;
+import gr.aueb.team1.domain.Authorization;
 import gr.aueb.team1.domain.Stock;
 import gr.aueb.team1.domain.Transaction;
 import gr.aueb.team1.domain.User;
@@ -36,7 +37,13 @@ public class StockDAOImpl implements StockDAO {
 	}
 	
     public Stock findById(Integer id) {
-        return null;
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+
+		Stock t = em.find(Stock.class,id);
+
+		tx.commit();
+		return t;
     }
     
     @Override
@@ -61,11 +68,8 @@ public class StockDAOImpl implements StockDAO {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		
-		
-		int id = stock.getId();
-		Query q = em.createQuery("delete from Stock s where s.id = :id");
-		q.setParameter("id", id);
-		q.executeUpdate();
+		stock.remove();
+		em.remove(stock);
 
 		tx.commit();
 		return stock;

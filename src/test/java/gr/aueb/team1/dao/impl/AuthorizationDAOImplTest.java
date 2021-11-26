@@ -61,10 +61,13 @@ class AuthorizationDAOImplTest {
 
     @Test
     void findAllByBrokerID() {
-        authorizationDAO.findAllByBrokerID(init.broker.getId());
+        List<Authorization> authorizations = authorizationDAO.findAllByBrokerID(init.broker.getId());
+        Assertions.assertEquals(2,authorizations.size());
     }
 
     @Test
     void findAllByInvestorID() {
+        List<Authorization> authorizations = authorizationDAO.findAllByInvestorID(init.investor.getId());
+        Assertions.assertEquals(4,authorizations.size());
     }
 }

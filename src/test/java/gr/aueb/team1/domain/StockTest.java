@@ -48,4 +48,13 @@ public class StockTest {
 				   "\nLow: " + s.getLow() + "€" +
 				   "\nVol: " + s.getVol() + "€", st);
 	}
+
+	@Test
+	void removeTest() {
+		d = LocalDateTime.of(2021,12,31,0,0,0);
+		s = new Stock("PIRAEUS", d, 10.00, 200.99, 1000.00, 10.00, 3000.00);
+
+		s.remove();
+		Assertions.assertTrue(true);
+	}
 }
