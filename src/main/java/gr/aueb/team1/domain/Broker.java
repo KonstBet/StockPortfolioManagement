@@ -34,6 +34,7 @@ public class Broker extends User {
 		this.brokerageFee = brokerageFee;
 	}
 
+	@Override
 	public Set<Authorization> getAuthorizations() {
 		return authorizations;
 	}

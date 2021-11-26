@@ -63,10 +63,6 @@ public class Stock
 		return id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	public String getCompanyName() {
 		return companyName;
 	}
@@ -150,30 +146,5 @@ public class Stock
 			   "\nLow: " + getLow() + "€" +
 			   "\nVol: " + getVol() + "€";
 	}
-
-//	public void remove() {
-//		Order o;
-//		Iterator<Order> order = orders.iterator();
-//		while(order.hasNext()) {
-//			o = order.next();
-//			o.setStock(null);
-//		}
-//
-//		StockHolding sh;
-//		Iterator<StockHolding> shs = holdings.iterator();
-//		while(shs.hasNext()) {
-//			sh = shs.next();
-//			sh.setStock(null);
-//		}
-//		
-//		for (Stock stock: this.getHoldings().keySet()) {
-//		   this.getHoldings().remove(stock);
-//		}
-//
-//		orders.clear();
-//		holdings.clear();
-//		orders = null;
-//		holdings = null;
-//	}
 }
 

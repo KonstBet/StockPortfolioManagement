@@ -31,7 +31,7 @@ public class Investor extends User {
 		this.committedBalance = committedBalance;
 	}
 	
-	
+	@Override
 	public Set<Authorization> getAuthorizations() {
 		return authorizations;
 	}

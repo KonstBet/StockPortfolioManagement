@@ -4,10 +4,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-
-import gr.aueb.team1.dao.DAO;
 import gr.aueb.team1.dao.UserDAO;
-import gr.aueb.team1.domain.Order;
 import gr.aueb.team1.domain.User;
 import gr.aueb.team1.persistence.JPAUtil;
 
@@ -60,11 +57,11 @@ public class UserDAOImpl implements UserDAO {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		
-		
-		int id = user.getId();
-		Query q = em.createQuery("delete from User u where u.id = :id");
-		q.setParameter("id", id);
-		q.executeUpdate();
+		if (user.getStockHoldings().size() > 0 || user.getAuthorizations().size() > 0) {
+			tx.commit();
+			return null;
+		}
+		em.remove(user);
 
 		tx.commit();
 		return user;
@@ -95,18 +92,8 @@ public class UserDAOImpl implements UserDAO {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 
-		Query query = em.createQuery("select u from User u where id = :id");
-		query.setParameter("id",id);
-
-		User user = null;
-
-		try {
-			user = (User) query.getSingleResult();
-		} catch(NoResultException e) {
-			tx.rollback();
-			return null;
-		}
-
+		User user = em.find(User.class, id);
+		
 		tx.commit();
 		return user;
 	}

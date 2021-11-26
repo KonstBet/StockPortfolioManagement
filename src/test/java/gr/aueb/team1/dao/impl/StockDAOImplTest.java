@@ -6,11 +6,8 @@ import gr.aueb.team1.domain.Stock;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.time.LocalDateTime;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class StockDAOImplTest {
 
@@ -50,11 +47,17 @@ class StockDAOImplTest {
     }
 
     @Test
-    void delete() {
+    void deleteTest1() {
         Stock stock = stockDAO.findById(init.PeiraiosStock.getId());
-
+        Assertions.assertNull(stockDAO.delete(stock));
+    }
+    
+    @Test
+    void deleteTest2() {
+        Stock stock = stockDAO.findById(init.CosmoteStock.getId());
         stockDAO.delete(stock);
         List<Stock> stocks = stockDAO.findAll();
-        Assertions.assertEquals(2,stocks.size());
+        
+        Assertions.assertEquals(2, stocks.size());
     }
 }

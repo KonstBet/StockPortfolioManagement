@@ -46,8 +46,6 @@ public class User {
 	
 	@Column(name="balance", precision = 10, scale = 4)
 	private Double balance;
-		
-//	List<Transaction> Transactions=new ArrayList<Transaction>();
 	
 	public User() {
 		this.name = null;
@@ -131,6 +129,10 @@ public class User {
 
 	public void setOrders(Set<Order> orders) {
 		this.orders = orders;
+	}
+	
+	public Set<Authorization> getAuthorizations() {
+		return null;
 	}
 	
 	public String toString() {
@@ -261,7 +263,4 @@ public class User {
 		}
 		return res;
 	}
-	
-	
-
 }

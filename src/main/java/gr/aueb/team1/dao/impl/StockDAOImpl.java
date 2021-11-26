@@ -1,10 +1,7 @@
 package gr.aueb.team1.dao.impl;
 
 import gr.aueb.team1.dao.StockDAO;
-import gr.aueb.team1.domain.Authorization;
 import gr.aueb.team1.domain.Stock;
-import gr.aueb.team1.domain.Transaction;
-import gr.aueb.team1.domain.User;
 import gr.aueb.team1.persistence.JPAUtil;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -67,7 +64,10 @@ public class StockDAOImpl implements StockDAO {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		
-		//stock.remove();
+		if (stock.getHoldings().size() > 0 || stock.getOrders().size() > 0) {
+			tx.commit();
+			return null;
+		}
 		em.remove(stock);
 
 		tx.commit();
