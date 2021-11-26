@@ -6,7 +6,6 @@ import gr.aueb.team1.domain.Stock;
 import gr.aueb.team1.domain.Transaction;
 import gr.aueb.team1.domain.User;
 import gr.aueb.team1.persistence.JPAUtil;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
@@ -68,7 +67,7 @@ public class StockDAOImpl implements StockDAO {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		
-		stock.remove();
+		//stock.remove();
 		em.remove(stock);
 
 		tx.commit();

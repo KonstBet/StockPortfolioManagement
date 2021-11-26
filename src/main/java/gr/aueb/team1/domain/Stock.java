@@ -1,8 +1,9 @@
 package gr.aueb.team1.domain;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -40,8 +41,8 @@ public class Stock
 	private Set<Order> orders = new HashSet<Order>();
 	
 	@OneToMany(mappedBy="stock", fetch=FetchType.LAZY,cascade = CascadeType.PERSIST)
-	private Set<StockHolding> holdings = new HashSet<StockHolding>();
-	
+	private Map<Stock,StockHolding> holdings = new HashMap<Stock,StockHolding>();
+
 	public Stock() {
 		
 	}
@@ -121,6 +122,23 @@ public class Stock
 	public void setVol(Double vol) {
 		this.vol = vol;
 	}
+	
+	public Set<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(Set<Order> orders) {
+		this.orders = orders;
+	}
+
+	public Map<Stock, StockHolding> getHoldings() {
+		return holdings;
+	}
+
+	public void setHoldings(Map<Stock, StockHolding> holdings) {
+		this.holdings = holdings;
+	}
+
 
 	public String toString() {
 		return "ID: " + getId() + 
@@ -133,25 +151,29 @@ public class Stock
 			   "\nVol: " + getVol() + "€";
 	}
 
-	public void remove() {
-		Order o;
-		Iterator<Order> order = orders.iterator();
-		while(order.hasNext()) {
-			o = order.next();
-			o.setStock(null);
-		}
-
-		StockHolding sh;
-		Iterator<StockHolding> shs = holdings.iterator();
-		while(shs.hasNext()) {
-			sh = shs.next();
-			sh.setStock(null);
-		}
-
-		orders.clear();
-		holdings.clear();
-		orders = null;
-		holdings = null;
-	}
+//	public void remove() {
+//		Order o;
+//		Iterator<Order> order = orders.iterator();
+//		while(order.hasNext()) {
+//			o = order.next();
+//			o.setStock(null);
+//		}
+//
+//		StockHolding sh;
+//		Iterator<StockHolding> shs = holdings.iterator();
+//		while(shs.hasNext()) {
+//			sh = shs.next();
+//			sh.setStock(null);
+//		}
+//		
+//		for (Stock stock: this.getHoldings().keySet()) {
+//		   this.getHoldings().remove(stock);
+//		}
+//
+//		orders.clear();
+//		holdings.clear();
+//		orders = null;
+//		holdings = null;
+//	}
 }
 

@@ -46,6 +46,7 @@ public class StockHolding {
 		this.stock = stock;
 		this.user = user;
 		this.committedAmount = committedAmount;
+		stock.getHoldings().put(stock, this);
 	}
 
 	public Integer getId() {
