@@ -70,19 +70,19 @@ public class Initializer {
     private UserDAO getUserDAO() {
         return new UserDAOImpl();
     }
-    private TransactionDAO getTransactionDAO() {
-        return new TransactionDAOImpl();
-    }
-    private AuthorizationDAO getAuthorizationDAO() {
-        return new AuthorizationDAOImpl();
-    }
-    private OrderDAO getOrderDAO() {
-        return new OrderDAOImpl();
-    }
-    private StockHoldingDAO getStockHoldingDAO() {
-        return new StockHoldingDAOImpl();
-    }
     private StockDAO getStockDAO() {
         return new StockDAOImpl();
     }
+//    private TransactionDAO getTransactionDAO() {
+//        return new TransactionDAOImpl();
+//    }
+//    private AuthorizationDAO getAuthorizationDAO() {
+//        return new AuthorizationDAOImpl();
+//    }
+//    private OrderDAO getOrderDAO() {
+//        return new OrderDAOImpl();
+//    }
+//    private StockHoldingDAO getStockHoldingDAO() {
+//        return new StockHoldingDAOImpl();
+//    }
 }

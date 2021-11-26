@@ -50,9 +50,10 @@ public class UserDAOImpl implements UserDAO {
 		User savedUser = user;
 		if (user.getId() != null) {
 			savedUser = em.merge(user);
-		} else {
-			em.persist(user);
 		}
+//		else {
+//			em.persist(user);
+//		}
 		
 		tx.commit();
 		

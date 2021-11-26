@@ -220,6 +220,7 @@ public class UserTest {
 		Assertions.assertNull(usr.getStockHoldings());
 		Assertions.assertNull(usr.getOrders());
 		Assertions.assertNull(usr.getTransactions());
+		Assertions.assertNull(usr.getAuthorizations());
 	}
 }
 	

@@ -52,9 +52,10 @@ public class OrderDAOImpl implements OrderDAO {
 		Order savedOrder = order;
 		if (order.getId() != null) {
 			savedOrder = em.merge(order);
-		} else {
-			em.persist(order);
 		}
+//		else {
+//			em.persist(order);
+//		}
 		
 		tx.commit();
 		

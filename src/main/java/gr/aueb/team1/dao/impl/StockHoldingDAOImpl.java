@@ -53,9 +53,10 @@ public class StockHoldingDAOImpl implements StockHoldingDAO {
         StockHolding savedStockHolding = sh;
         if (sh.getId() != null) {
         	savedStockHolding = em.merge(sh);
-        } else {
-            em.persist(sh);
         }
+//		else {
+//            em.persist(sh);
+//        }
 
         tx.commit();
 

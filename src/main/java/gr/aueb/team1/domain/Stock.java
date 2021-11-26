@@ -123,16 +123,8 @@ public class Stock
 		return orders;
 	}
 
-	public void setOrders(Set<Order> orders) {
-		this.orders = orders;
-	}
-
 	public Map<Stock, StockHolding> getHoldings() {
 		return holdings;
-	}
-
-	public void setHoldings(Map<Stock, StockHolding> holdings) {
-		this.holdings = holdings;
 	}
 
 
