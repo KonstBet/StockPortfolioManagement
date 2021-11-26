@@ -70,7 +70,7 @@ public class UserDAOImpl implements UserDAO {
 		return user;
 	}
 
-
+	@Override
 	public User findByEmail(String email) {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();

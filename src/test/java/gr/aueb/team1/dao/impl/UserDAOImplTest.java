@@ -24,8 +24,8 @@ class UserDAOImplTest {
         Initializer init = new Initializer();
         init.prepareData();
     	ud = new UserDAOImpl();
-    	user = new Investor("Mitsos", "Charalampidis", "mcharal@gmail.com", "697891030100");
-    	user1 = new Broker("Mitsos", "Charalampidis", "mcharal@gmail.com", "697891030100", 1.0);
+    	user = new Investor("Sakis", "Kanavopoulos", "skan@gmail.com", "697891030100");
+    	user1 = new Broker("Aleksandros","Lamprineros", "alamp@gmail.com", "697891030100", 1.0);
     }
 
     @Test
@@ -53,5 +53,13 @@ class UserDAOImplTest {
     	List<User> res = ud.findAll();
     	assertEquals(3, res.size());
     }
+    
+    @Test
+    void findByEmailTest() {
+    	User u = ud.findByEmail("mitcharal@gmail.com");
+    	assertEquals(u.getName(), "Mitsos");
+    }
+    
+
     
 }
