@@ -6,8 +6,8 @@ import gr.aueb.team1.domain.Transaction;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,11 +26,11 @@ class TransactionDAOImplTest {
     }
 
     @Test
-    void findAll() {
+    void findAllTest1() {
         List<Transaction> transactions = transactionDAO.findAll();
         Assertions.assertEquals(1,transactions.size());
     }
-
+    
     @Test
     void findById() {
         Transaction transaction = transactionDAO.findById(init.investor.getTransactions().iterator().next().getId());

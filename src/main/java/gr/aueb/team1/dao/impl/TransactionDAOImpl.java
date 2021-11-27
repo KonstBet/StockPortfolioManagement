@@ -4,10 +4,8 @@ import gr.aueb.team1.dao.TransactionDAO;
 import gr.aueb.team1.domain.Transaction;
 import gr.aueb.team1.domain.User;
 import gr.aueb.team1.persistence.JPAUtil;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -28,12 +26,8 @@ public class TransactionDAOImpl implements TransactionDAO {
         Query q = em.createQuery("select t from Transaction t");
 
         List<Transaction> result;
-        try {
-            result = q.getResultList();
-        } catch(NoResultException e) {
-            tx.rollback();
-            return null;
-        }
+        result = q.getResultList();
+     
 
         tx.commit();
 

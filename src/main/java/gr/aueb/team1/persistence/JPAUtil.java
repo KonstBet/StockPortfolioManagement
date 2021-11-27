@@ -9,7 +9,6 @@ public class JPAUtil {
 
     private static EntityManagerFactory emf;
     private static final ThreadLocal<EntityManager> currentEntityManager = new ThreadLocal<EntityManager>();
-
     
     public static EntityManagerFactory getEntityManagerFactory() {
         if (emf == null) {
@@ -45,5 +44,4 @@ public class JPAUtil {
     	em.close();
     	
     }
-    
 }

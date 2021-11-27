@@ -283,19 +283,28 @@ public class User {
 
 
 	public void remove() {
-		Set<Stock> stockskeys = stockHoldings.keySet();
-		for(Object it : stockskeys.toArray()) {
-			Stock element = (Stock) it;
-			stockHoldings.get(element).remove();
+		if(!stockHoldings.equals(null)) {
+			Set<Stock> stockskeys = stockHoldings.keySet();
+			for(Object it : stockskeys.toArray()) {
+				Stock element = (Stock) it;
+				stockHoldings.get(element).remove();
+			}
 		}
-		for(Object it : getAuthorizations().toArray()) {
-			((Authorization) it).removeAuth();
+		if(getAuthorizations() != null) {
+			for(Object it : getAuthorizations().toArray()) {
+				((Authorization) it).removeAuth();
+			}
 		}
-		for(Object it : orders.toArray()) {
-			((Order) it).remove();
+		if(!orders.equals(null)) {
+			for(Object it : orders.toArray()) {
+				((Order) it).remove();
+			}
 		}
-		for(Object it : transactions.toArray()) {
-			((Transaction) it).remove();
+		if(!transactions.equals(null)) {
+			for(Object it : transactions.toArray()) {
+				((Transaction) it).remove();
+			}
 		}
+	
 	}
 }

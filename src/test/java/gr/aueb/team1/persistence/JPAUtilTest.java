@@ -13,10 +13,8 @@ class JPAUtilTest {
 
 	@Test
 	void test1() {
-
 		EntityManager em = JPAUtil.getCurrentEntityManager();
-		assertNotNull(em);
-		
+		assertNotNull(em);	
 	}
 	
 	@Test
@@ -37,4 +35,9 @@ class JPAUtilTest {
 		});
 	}
 
+	@Test
+	void test4() {
+		JPAUtil ju = new JPAUtil();
+		assertNotNull(ju);
+	}
 }

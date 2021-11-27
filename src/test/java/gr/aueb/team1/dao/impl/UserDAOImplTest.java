@@ -4,6 +4,8 @@ import gr.aueb.team1.dao.Initializer;
 import gr.aueb.team1.dao.UserDAO;
 import gr.aueb.team1.domain.User;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
@@ -55,9 +57,15 @@ class UserDAOImplTest {
 	}
     
     @Test
-    void findByEmailTest() {
+    void findByEmailTest1() {
     	User u = userDAO.findByEmail("mitcharal@gmail.com");
     	assertEquals(u.getName(), "Mitsos");
+    }
+    
+    @Test
+    void findByEmailTest2() {
+    	User u = userDAO.findByEmail("justanemail@okay.io");
+    	assertNull(u);
     }
     
 

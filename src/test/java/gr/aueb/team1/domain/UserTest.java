@@ -55,11 +55,16 @@ public class UserTest {
 		Assertions.assertEquals(user.getPhoneNo(), "6956709726");
 	}
 	
-//	@Test //
-//	void removeTest() {
-//		user.remove();
-//		Assertions.assertNull(user);
-//	}
+	@Test //
+	void removeTest() {
+		Investor i = new Investor("Mitsos", "Charalampidis", "mitcharal@gmail.com", "6978910301", "b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b");
+		i.deposit(1000.00);
+		Broker b= new Broker("Stefanos", "Daglis", "macharal@gmail.com", "6978910301", 0.0, "b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b");
+		i.buyStock(stock, 30);
+		i.giveAuthorization(10.00, b, LocalDateTime.now());
+		i.remove();
+		Assertions.assertEquals(0, i.getAuthorizations().size());
+	}
 	
 	@Test //30 day report branch test
 	void reportTest() {
