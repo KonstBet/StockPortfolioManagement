@@ -1,7 +1,7 @@
 package gr.aueb.team1.domain;
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.*;
 
 import org.junit.jupiter.api.*;
 import gr.aueb.team1.domain.Order.Action;
@@ -29,6 +29,53 @@ public class UserTest {
 		user.addStockHolding(stock, sh);
 		order = new Order();
 		
+	}
+	
+	@Test
+	void setCorrectEmail() {
+		user.setEmail("mitsoschar@gmail.com");
+		assertEquals(user.getEmail(), "mitsoschar@gmail.com");
+	}
+	
+	@Test
+	void setWrongEmail() {
+		user.setEmail("this_is_no_email");
+		Assertions.assertNotEquals(user.getEmail(), "this_is_no_email");
+	}
+	
+	@Test
+	void setWrongNumber() {
+		user.setPhoneNo("695670972623");
+		Assertions.assertNotEquals(user.getPhoneNo(), "695670972623");
+	}
+	
+	@Test
+	void setCorrectNumber() {
+		user.setPhoneNo("6956709726");
+		Assertions.assertEquals(user.getPhoneNo(), "6956709726");
+	}
+	
+//	@Test //
+//	void removeTest() {
+//		user.remove();
+//		Assertions.assertNull(user);
+//	}
+	
+	@Test //30 day report branch test
+	void reportTest() {
+		LocalDateTime date1= LocalDateTime.of(2021, 11, 26, 0, 0, 0);
+		LocalDateTime date2= LocalDateTime.of(2021, 10, 29, 0, 0, 0);
+		LocalDateTime date3= LocalDateTime.of(2021, 10, 1, 0, 0, 0);
+		Deposit dep = new Deposit(user, 100.0, date1);
+		Deposit dep1 = new Deposit(user, 100.0, date2);
+		Deposit dep2 = new Deposit(user, 100.0, date3);
+		Set<Transaction> trans = new HashSet<Transaction>();
+		trans.add(dep);
+		trans.add(dep1);
+		trans.add(dep2);
+		user.setTransactions(trans);
+		System.out.println(user.orderReport());
+		assertTrue(true);
 	}
 	
 	@Test // More than current balance
