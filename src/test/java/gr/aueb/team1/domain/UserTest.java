@@ -19,7 +19,7 @@ public class UserTest {
 
 	@BeforeEach
 	void setUpTests() {
-		user = new User("Mitsos", "Charalampidis", "mcharal@gmail.com", "6912345678");
+		user = new User("Mitsos", "Charalampidis", "mcharal@gmail.com", "6912345678", "b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b");
 		user.setBalance(500.00);
 		stock = new Stock("PIRAIUS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00);
 		stock2 = new Stock( "ALPHA", LocalDateTime.now(), 100.00, 200.99, 1000.00, 10.00, 2460.00);

@@ -29,6 +29,9 @@ public class User {
 	@Column(name="surname", length=30, nullable=false)
 	private String surname;
 	
+	@Column(name="password", length=64, nullable=false)
+	private String password;
+	
 	@Column(name="email", length=200, nullable=false)
 	private String email;
 	
@@ -61,9 +64,10 @@ public class User {
 		this.balance = 0.0;
 	}
 	
-	public User(String name, String surname, String email, String phoneNo) {
+	public User(String name, String surname, String email, String phoneNo, String password) {
 		this.name = name;
 		this.surname = surname;
+		this.password = password;
 		this.setEmail(email);
 		this.setPhoneNo(phoneNo);
 		this.balance = 0.0;

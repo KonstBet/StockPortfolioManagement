@@ -21,8 +21,8 @@ public class Broker extends User {
 		this.brokerageFee = 0.0;
 	}
 	
-	public Broker(String name, String surname, String email, String phoneNo, Double brokerageFee) {
-		super(name, surname, email, phoneNo);
+	public Broker(String name, String surname, String email, String phoneNo, Double brokerageFee, String password) {
+		super(name, surname, email, phoneNo, password);
 		this.brokerageFee = 1.0;
 	}
 	

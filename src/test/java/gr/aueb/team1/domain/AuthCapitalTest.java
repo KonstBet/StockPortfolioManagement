@@ -28,11 +28,11 @@ public class AuthCapitalTest {
 	
     @BeforeEach
     void setUpTests() {
-        investor1 = new Investor("Mitsos", "Charalampidis", "mcharal@gmail.com", "697891030100");
+        investor1 = new Investor("Mitsos", "Charalampidis", "mcharal@gmail.com", "697891030100", "b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b");
         investor1.setBalance(500.00);
-        investor2 = new Investor("Akakios", "Charalampidis", "mcharal@gmail.com", "697891030100");
-        broker1 = new Broker("Giorgos", "Charalampopoulos", "mcharal@gmail.com", "697891030100",0.0);
-        broker2 = new Broker("Nikolaos", "Charalampous", "mcharal@gmail.com", "697891030100",0.0);
+        investor2 = new Investor("Akakios", "Charalampidis", "mcharal@gmail.com", "697891030100", "b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b");
+        broker1 = new Broker("Giorgos", "Charalampopoulos", "mcharal@gmail.com", "697891030100", 0.0, "b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b");
+        broker2 = new Broker("Nikolaos", "Charalampous", "mcharal@gmail.com", "697891030100", 0.0, "b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b");
 
         PeiraiosStock = new Stock("PIRAIUS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00);
         amount = 10;

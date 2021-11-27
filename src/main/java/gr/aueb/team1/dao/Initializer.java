@@ -40,11 +40,11 @@ public class Initializer {
         AlphaStock = new Stock("ALPHA", LocalDateTime.now(), 100.00, 200.99, 1000.00, 10.00, 2460.00);
         CosmoteStock = new Stock("COSMOTE", LocalDateTime.now(), 29.00, 200.99, 1000.00, 10.00, 2460.00);
 
-        investor = new Investor("Mitsos", "Charalampidis", "mitcharal@gmail.com", "6978910301");
+        investor = new Investor("Mitsos", "Charalampidis", "mitcharal@gmail.com", "6978910301", "b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b");
         investor.deposit(10000.00);
 
-        broker = new Broker("Manos", "Charalampidis", "macharal@gmail.com", "6978910301",0.0);
-        broker2 = new Broker("Minos", "Charalampidis", "mincharal@gmail.com", "6978910301",0.0);
+        broker = new Broker("Stefanos", "Daglis", "macharal@gmail.com", "6978910301", 0.0, "b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b");
+        broker2 = new Broker("John", "Charalampous", "mincharal@gmail.com", "6978910301", 0.0, "b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b");
 
         Integer amount = 20;
         investor.buyStock(PeiraiosStock,amount);

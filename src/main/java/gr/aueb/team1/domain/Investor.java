@@ -18,8 +18,8 @@ public class Investor extends User {
 		this.committedBalance = 0.0;
 	}
 	
-	public Investor(String name, String surname, String email, String phoneNo) {
-		super(name, surname, email, phoneNo);
+	public Investor(String name, String surname, String email, String phoneNo, String password) {
+		super(name, surname, email, phoneNo, password);
 		this.committedBalance = 0.0;
 	}
 	
