@@ -28,7 +28,7 @@ public class Authorization {
 	@JoinColumn(name="Brokerid")
 	private Broker broker;
 	
-	public Authorization(Investor investor, Broker broker,LocalDateTime startdate, LocalDateTime enddate) {
+	public Authorization(Investor investor, Broker broker, LocalDateTime startdate, LocalDateTime enddate) {
 		super();
 		this.investor = investor;
 		this.broker = broker;
@@ -65,6 +65,12 @@ public class Authorization {
 	}
 	public void setBroker(Broker broker) {
 		this.broker = broker;
+	}
+	public String toString() {
+		return "Investor: " + getInvestor().getEmail() +
+				"\nBroker: " + getBroker().getEmail() +
+				"\nStart: " + getStartdate().toString() +
+				"\nEnd: " + getEnddate().toString();
 	}
 
 	public boolean giveNewAuthorization(Investor investor, Double amount, Broker broker ) {return false;}

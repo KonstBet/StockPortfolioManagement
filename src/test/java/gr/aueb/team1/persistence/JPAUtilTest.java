@@ -35,7 +35,7 @@ class JPAUtilTest {
 		});
 	}
 
-	@Test
+	@Test // for full coverage
 	void test4() {
 		JPAUtil ju = new JPAUtil();
 		assertNotNull(ju);

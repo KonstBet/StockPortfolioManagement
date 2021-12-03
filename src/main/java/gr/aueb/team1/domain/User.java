@@ -41,13 +41,13 @@ public class User {
 	@Embedded
 	private Address address;
 	
-	@OneToMany(mappedBy="user",cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy="user", cascade = CascadeType.PERSIST)
 	private Set<Transaction> transactions = new HashSet<Transaction>();
 	
-	@OneToMany(mappedBy="user",cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy="user", cascade = CascadeType.PERSIST)
 	private Map<Stock, StockHolding> stockHoldings = new HashMap<Stock, StockHolding>();
 	
-	@OneToMany(mappedBy="user",cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy="user", cascade = CascadeType.PERSIST)
 	private Set<Order> orders= new HashSet<Order>();
 	
 	@Column(name="balance", precision = 10, scale = 4)

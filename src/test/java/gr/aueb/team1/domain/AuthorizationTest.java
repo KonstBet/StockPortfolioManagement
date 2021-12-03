@@ -1,9 +1,8 @@
 package gr.aueb.team1.domain;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-
 import java.time.LocalDateTime;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,7 +28,7 @@ public class AuthorizationTest {
 		broker.setName("Kwstas");
 		
 		date1 = LocalDateTime.now();
-		date2 = LocalDateTime.of(2021,12,31,0,0,0);
+		date2 = LocalDateTime.now().plusMonths(2);
 		
 		auth = new Authorization(investor, broker, date1, date2);
     }
@@ -111,5 +110,14 @@ public class AuthorizationTest {
 			flag = true;
 		
 		Assertions.assertTrue(flag);
+	}
+	
+	@Test
+	void toStringTest() {
+		Authorization a = new Authorization(investor,broker, date1, date2);
+		assertEquals("Investor: " + a.getInvestor().getEmail() +
+				"\nBroker: " + a.getBroker().getEmail() +
+				"\nStart: " + a.getStartdate().toString() +
+				"\nEnd: " + a.getEnddate().toString(), a.toString());
 	}
 }
