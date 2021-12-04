@@ -244,8 +244,8 @@ public class UserTest {
 	@Test
 	void orderReportTest2() {
 		Order or = new Order(user, stock, 1, 0.1, LocalDateTime.of(2021, LocalDateTime.now().getMonthValue(), 12, 0, 0), Action.BUY, Status.COMPLETED);
-		Order or1 = new Order(user, stock, 1, 0.1, LocalDateTime.of(2021, LocalDateTime.now().getMonthValue() - 1, LocalDateTime.now().getDayOfMonth(), 0, 0), Action.BUY, Status.COMPLETED);
-		Order or2 = new Order(user, stock, 1, 0.1, LocalDateTime.of(2021, LocalDateTime.now().getMonthValue() - 1, 1, 0, 0), Action.BUY, Status.COMPLETED);
+		Order or1 = new Order(user, stock, 1, 0.1, LocalDateTime.of(2021, LocalDateTime.now().minusMonths(1).getMonthValue(), LocalDateTime.now().getDayOfMonth(), 0, 0), Action.BUY, Status.COMPLETED);
+		Order or2 = new Order(user, stock, 1, 0.1, LocalDateTime.of(2021, LocalDateTime.now().minusMonths(1).getMonthValue(), 1, 0, 0), Action.BUY, Status.COMPLETED);
 		user.addOrder(or);
 		user.addOrder(or1);
 		user.addOrder(or2);
