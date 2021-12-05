@@ -53,6 +53,7 @@ public class User {
 	@Column(name="balance", precision = 10, scale = 4)
 	private Double balance;
 	
+	// For temporary use, will be integrated to part 3
 	private final Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$", Pattern.CASE_INSENSITIVE);
 	private final Pattern phonePattern = Pattern.compile("^69[0-9]{8}$");
 	
@@ -282,6 +283,7 @@ public class User {
 	}
 
 
+	// Remove all relations
 	public void remove() {
 		if(!stockHoldings.equals(null)) {
 			Set<Stock> stockskeys = stockHoldings.keySet();
