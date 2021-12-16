@@ -24,7 +24,6 @@ public class UserResource {
 		User u = us.findUserByEmail(email);
 
 		return u;
-	
 	}
 }
 
