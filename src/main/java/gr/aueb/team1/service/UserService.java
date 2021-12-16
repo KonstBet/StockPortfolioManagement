@@ -1,6 +1,5 @@
 package gr.aueb.team1.service;
 
-import java.util.List;
 import gr.aueb.team1.dao.UserDAO;
 import gr.aueb.team1.domain.User;
 
@@ -13,11 +12,11 @@ public class UserService {
 	}
 
 
-	public List<User> showUserInfo() {
+	public User findUserByEmail(String email) {
 
-		List<User> results = null;
-		results = ud.findAll(); ; 
+		User u = null;
+		u = ud.findByEmail(email) ; 
 				
-		return results;
+		return u;
 	}
 }
