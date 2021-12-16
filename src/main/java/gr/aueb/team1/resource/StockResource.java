@@ -20,7 +20,7 @@ public class StockResource {
 		StockDAO sd = new StockDAOImpl();
 		StockService stockService = new StockService(sd);
 		
-		List<Stock> stocks = stockService.getStocks();
+		List<Stock> stocks = stockService.showStocks();
 		List<StockInfo> stockInfo = StockInfo.wrap(stocks);
 
 		return stockInfo;

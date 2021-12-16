@@ -13,7 +13,7 @@ public class StockService {
 	}
 
 
-	public List<Stock> getStocks() {
+	public List<Stock> showStocks() {
 
 		List<Stock> results = null;
 		results = sd.findAll(); ; 
