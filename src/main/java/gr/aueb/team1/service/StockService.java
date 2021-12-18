@@ -20,4 +20,12 @@ public class StockService {
 				
 		return results;
 	}
+
+	public Stock getStock(Integer id) {
+
+		Stock result = null;
+		result = sd.findById(id); ;
+
+		return result;
+	}
 }

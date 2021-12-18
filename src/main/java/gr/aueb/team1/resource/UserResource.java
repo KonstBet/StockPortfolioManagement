@@ -19,6 +19,8 @@ public class UserResource {
 		UserService us = new UserService(ud);
 
 		User u = us.findUserByEmail(email);
+		if (!password.equals(u.getPassword()))
+			return null;
 
 		UserInfo ui = new UserInfo(u);
 

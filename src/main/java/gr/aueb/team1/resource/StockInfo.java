@@ -47,6 +47,7 @@ public class StockInfo {
 	}
 	
 	public StockInfo(Stock stock) {
+		this.id = stock.getId();
 		this.companyName = stock.getCompanyName();
 		this.date = stock.getDate();
 		this.open = stock.getOpen();
