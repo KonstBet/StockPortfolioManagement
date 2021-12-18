@@ -21,6 +21,7 @@ public class StockResource {
 		StockService stockService = new StockService(sd);
 		
 		List<Stock> stocks = stockService.showStocks();
+
 		List<StockInfo> stockInfo = StockInfo.wrap(stocks);
 
 		return stockInfo;

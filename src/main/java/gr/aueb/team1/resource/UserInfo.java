@@ -44,6 +44,7 @@ public class UserInfo {
 	}
 	
 	public UserInfo(User u) {
+		this.id = u.getId();
 		this.name = u.getName();
 		this.surname = u.getSurname();
 		this.setEmail(u.getEmail());
