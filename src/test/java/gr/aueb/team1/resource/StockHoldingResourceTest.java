@@ -32,11 +32,44 @@ public class StockHoldingResourceTest extends JerseyTest {
     }
 
     @Test
-    public void listStockHoldingsTest() {
-        List<StockHoldingInfo> shList = target("user/"+init.investor.getId()+"/holding").request(MediaType.APPLICATION_JSON)
+    public void listStockHoldings2Test() {
+        Integer userid = init.investor.getId();
+        List<StockHoldingInfo> shList = target("user/"+userid+"/holding").request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<StockHoldingInfo>>() {});
 
         assertEquals(2,shList.size());
     }
 
+    @Test
+    public void listStockHoldings0Test() {
+        Integer userid = init.broker.getId();
+        List<StockHoldingInfo> shList = target("user/"+userid+"/holding").request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<StockHoldingInfo>>() {});
+
+        assertEquals(0,shList.size());
+    }
+
+    @Test
+    public void getStockHoldingPeiraiosTest() {
+        Integer userid = init.investor.getId();
+        Integer shid = init.investor.getStockHoldings().get(init.PeiraiosStock).getId();
+
+        StockHoldingInfo sh = target("user/"+userid+"/holding/"+shid).request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<StockHoldingInfo>() {});
+
+        assertEquals(sh.getId(),shid);
+        assertEquals(sh.getCommittedAmount(),20);
+    }
+
+    @Test
+    public void getStockHoldingAlphaTest() {
+        Integer userid = init.investor.getId();
+        Integer shid = init.investor.getStockHoldings().get(init.AlphaStock).getId();
+
+        StockHoldingInfo sh = target("user/"+userid+"/holding/"+shid).request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<StockHoldingInfo>() {});
+
+        assertEquals(sh.getId(),shid);
+        assertEquals(sh.getAmount(),20);
+    }
 }

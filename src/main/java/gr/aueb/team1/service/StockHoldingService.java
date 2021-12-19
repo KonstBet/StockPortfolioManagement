@@ -21,7 +21,7 @@ public class StockHoldingService {
 
         User u = getUser(userid);
 
-        List<StockHolding> results = new ArrayList<StockHolding>();
+        List<StockHolding> results = new ArrayList<>();
         for (StockHolding sh : u.getStockHoldings().values()) {
             results.add(shd.findById(sh.getId()));
         }
@@ -29,12 +29,17 @@ public class StockHoldingService {
         return results;
     }
 
-    public StockHolding getStock(Integer id) {
+    public StockHolding getStockHolding(Integer userid,Integer shid) {
+
+        User u = getUser(userid);
 
         StockHolding result = null;
-        result = shd.findById(id); ;
+        result = shd.findById(shid);
 
-        return result;
+        if (result.getUser().equals(u))
+            return result;
+
+        return null;
     }
 
     private User getUser(Integer userid) {

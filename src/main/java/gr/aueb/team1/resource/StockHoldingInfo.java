@@ -15,6 +15,9 @@ public class StockHoldingInfo {
 
     private Integer committedAmount;
 
+    public StockHoldingInfo() {
+    }
+
     public StockHoldingInfo(Integer id, Integer amount, Integer committedAmount) {
         this.id = id;
         this.amount = amount;

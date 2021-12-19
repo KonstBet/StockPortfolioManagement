@@ -7,10 +7,7 @@ import gr.aueb.team1.domain.StockHolding;
 import gr.aueb.team1.service.StockHoldingService;
 import gr.aueb.team1.service.StockService;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
@@ -28,5 +25,22 @@ public class StockHoldingResource {
         List<StockHoldingInfo> shList = StockHoldingInfo.wrap(holdings);
 
         return shList;
+    }
+
+    @GET
+    @Path("{stockholdingid}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public StockHoldingInfo getStockHolding(
+            @PathParam("userid") Integer userid,
+            @PathParam("stockholdingid") Integer shid) {
+
+        StockHoldingDAO shd = new StockHoldingDAOImpl();
+
+        StockHoldingService shService = new StockHoldingService(shd);
+        StockHolding holding = shService.getStockHolding(userid,shid);
+
+        StockHoldingInfo sh = new StockHoldingInfo(holding);
+
+        return sh;
     }
 }
