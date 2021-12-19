@@ -43,13 +43,38 @@ public class TransactionResource {
     }
 
     @POST
+    @Path("deposit")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Consumes("application/x-www-form-urlencoded")
     public TransactionInfo doDeposit(
             @PathParam("userid") Integer userid,
             @FormParam("amount") Double amount) {
 
+        TransactionDAO td = new TransactionDAOImpl();
 
+        TransactionService tService = new TransactionService(td);
+        Transaction t = tService.doDeposit(userid, amount);
 
-        return null;
+        TransactionInfo ti = new TransactionInfo(t);
+
+        return ti;
+    }
+
+    @POST
+    @Path("withdraw")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Consumes("application/x-www-form-urlencoded")
+    public TransactionInfo doWithdraw(
+            @PathParam("userid") Integer userid,
+            @FormParam("amount") Double amount) {
+
+        TransactionDAO td = new TransactionDAOImpl();
+
+        TransactionService tService = new TransactionService(td);
+        Transaction t = tService.doWithdraw(userid, amount);
+
+        TransactionInfo ti = new TransactionInfo(t);
+
+        return ti;
     }
 }

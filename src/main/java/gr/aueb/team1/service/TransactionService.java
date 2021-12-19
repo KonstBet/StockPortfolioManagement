@@ -3,9 +3,12 @@ package gr.aueb.team1.service;
 import gr.aueb.team1.dao.TransactionDAO;
 import gr.aueb.team1.dao.UserDAO;
 import gr.aueb.team1.dao.impl.UserDAOImpl;
+import gr.aueb.team1.domain.Deposit;
 import gr.aueb.team1.domain.Transaction;
 import gr.aueb.team1.domain.User;
+import gr.aueb.team1.domain.Withdrawal;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,9 +42,29 @@ public class TransactionService {
         return null;
     }
 
+    public Transaction doDeposit(Integer userid, Double amount) {
+
+        User u = getUser(userid);
+
+        Transaction t = u.deposit(amount);
+
+        return td.save(t);
+    }
+
+    public Transaction doWithdraw(Integer userid, Double amount) {
+
+        User u = getUser(userid);
+
+        Transaction t = u.withdraw(amount);
+
+        return td.save(t);
+    }
+
     private User getUser(Integer userid) {
         UserDAO ud = new UserDAOImpl();
         User u = ud.findById(userid);
         return u;
     }
+
+
 }

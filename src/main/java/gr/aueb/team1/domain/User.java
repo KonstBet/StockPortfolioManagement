@@ -183,24 +183,26 @@ public class User {
 
 
 	// Withdrawal to External Source
-	public Boolean withdraw(Double amount) {
+	public Withdrawal withdraw(Double amount) {
 		if (getBalance() < amount || amount == 0) {
-			return false;
+			return null;
 		}
-		transactions.add(new Withdrawal(this, amount, LocalDateTime.now()));
+		Withdrawal withdrawal = new Withdrawal(this, amount, LocalDateTime.now());
+		transactions.add(withdrawal);
 		// Double needs round up
 		setBalance( (double) Math.round((getBalance() - amount)*100)/100 );
-		return true;
+		return withdrawal;
 	}
 	
 	// Deposit from External Source
-	public Boolean deposit(Double amount) {
+	public Deposit deposit(Double amount) {
 		if(amount == 0) {
-			return false;
+			return null;
 		}
-		transactions.add(new Deposit(this, amount, LocalDateTime.now()));
+		Deposit deposit = new Deposit(this, amount, LocalDateTime.now());
+		transactions.add(deposit);
 		setBalance(getBalance() + amount);
-		return true;
+		return deposit;
 	}
 	
 	public Boolean buyStock(Stock stock, Integer amount) {

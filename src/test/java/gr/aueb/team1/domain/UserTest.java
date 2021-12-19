@@ -85,8 +85,8 @@ public class UserTest {
 	
 	@Test // More than current balance
 	void withdrawTest1() {
-		boolean expected = user.withdraw(500.01);
-		assertFalse(expected);
+		Withdrawal expected = user.withdraw(500.01);
+		assertNull(expected);
 	}
 	
 	@Test // Less than current balance
@@ -99,8 +99,8 @@ public class UserTest {
 	
 	@Test // Withdraw 0
 	void withdrawTest3() {
-		boolean actual = user.withdraw(0.0);
-		assertFalse(actual);
+		Withdrawal actual = user.withdraw(0.0);
+		assertNull(actual);
 	}
 	
 
@@ -115,8 +115,8 @@ public class UserTest {
 	
 	@Test // Deposit to balance
 	void depositTest2() {
-		boolean expected = user.deposit(0.0);
-		assertFalse(expected);
+		Deposit expected = user.deposit(0.0);
+		assertNull(expected);
 	}
 	
 	@Test // Not enough balance
