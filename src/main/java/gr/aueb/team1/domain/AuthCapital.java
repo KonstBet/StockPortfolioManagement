@@ -11,6 +11,7 @@ public class AuthCapital extends Authorization {
 	@Column(name = "amount", nullable = false)
 	private Double amount;
 
+	public AuthCapital() {super();}
 	public AuthCapital(Investor investor, Broker broker, LocalDateTime startdate, LocalDateTime enddate, Double amount) {
 		super(investor, broker, startdate, enddate);
 		this.amount = amount;

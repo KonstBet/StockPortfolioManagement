@@ -20,7 +20,7 @@ public class StockHoldingResource {
         StockHoldingDAO shd = new StockHoldingDAOImpl();
 
         StockHoldingService shService = new StockHoldingService(shd);
-        List<StockHolding> holdings = shService.showStocks(userid);
+        List<StockHolding> holdings = shService.showStockHoldings(userid);
 
         List<StockHoldingInfo> shList = StockHoldingInfo.wrap(holdings);
 

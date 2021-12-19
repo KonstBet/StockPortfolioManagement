@@ -24,7 +24,7 @@ public class Transaction {
 	@JoinColumn(name="Userid")
 	private User user;
 
-	
+	public Transaction() {}
 	public Transaction(User user, Double amount, LocalDateTime date) {
 		super();
 		this.user = user;

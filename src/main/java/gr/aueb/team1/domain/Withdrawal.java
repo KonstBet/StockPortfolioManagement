@@ -8,6 +8,7 @@ import javax.persistence.*;
 @DiscriminatorValue("transaction")
 public class Withdrawal extends Transaction {
 
+	public Withdrawal() {}
 	public Withdrawal(User user, Double amount, LocalDateTime date) {
 		super(user, amount, date);
 	}

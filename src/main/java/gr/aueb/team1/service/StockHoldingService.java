@@ -17,7 +17,7 @@ public class StockHoldingService {
         this.shd = shd;
     }
 
-    public List<StockHolding> showStocks(Integer userid) {
+    public List<StockHolding> showStockHoldings(Integer userid) {
 
         User u = getUser(userid);
 

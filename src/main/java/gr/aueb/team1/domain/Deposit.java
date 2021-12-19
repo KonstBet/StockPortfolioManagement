@@ -8,6 +8,7 @@ import javax.persistence.*;
 @DiscriminatorValue("deposit")
 public class Deposit extends Transaction {
 
+	public Deposit() {super();}
 	public Deposit(User user, Double amount, LocalDateTime date) {
 		super(user, amount, date);
 	}

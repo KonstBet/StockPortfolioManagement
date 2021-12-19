@@ -15,6 +15,7 @@ public class AuthStock extends Authorization {
 	@JoinColumn(name="StockHoldingId")
 	private StockHolding stockholding;
 
+	public AuthStock() {super();}
 	public AuthStock(Investor investor, StockHolding stockholding, Broker broker,
 					  LocalDateTime startdate, LocalDateTime enddate, Integer amount) {
 		

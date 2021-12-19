@@ -27,7 +27,8 @@ public class Authorization {
 	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.PERSIST)
 	@JoinColumn(name="Brokerid")
 	private Broker broker;
-	
+
+	public Authorization() {}
 	public Authorization(Investor investor, Broker broker, LocalDateTime startdate, LocalDateTime enddate) {
 		super();
 		this.investor = investor;
