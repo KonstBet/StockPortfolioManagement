@@ -32,6 +32,34 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
+	public List<User> findAllBrokers() {
+
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+
+		Query q = em.createQuery("select u from User u where type='B'");
+		List<User> result = q.getResultList();
+
+		tx.commit();
+
+		return result;
+	}
+
+	@Override
+	public List<User> findAllInvestors() {
+
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+
+		Query q = em.createQuery("select u from User u where type='I'");
+		List<User> result = q.getResultList();
+
+		tx.commit();
+
+		return result;
+	}
+
+	@Override
 	public User findById(Integer id) {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
@@ -41,6 +69,7 @@ public class UserDAOImpl implements UserDAO {
 		tx.commit();
 		return user;
 	}
+
 	
 	@Override
 	public User save(User user) {
