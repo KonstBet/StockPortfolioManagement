@@ -2,11 +2,8 @@ package gr.aueb.team1.resource;
 
 import gr.aueb.team1.dao.StockHoldingDAO;
 import gr.aueb.team1.dao.impl.StockHoldingDAOImpl;
-import gr.aueb.team1.domain.Stock;
 import gr.aueb.team1.domain.StockHolding;
 import gr.aueb.team1.service.StockHoldingService;
-import gr.aueb.team1.service.StockService;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
