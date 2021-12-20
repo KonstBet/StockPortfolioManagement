@@ -14,17 +14,22 @@ public class UserResource {
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Consumes("application/x-www-form-urlencoded")
 	public UserInfo getUserInfo(@FormParam("email") String email, @FormParam("password") String password) {
-		
-		UserDAO ud = new UserDAOImpl();
-		UserService us = new UserService(ud);
 
-		User u = us.findUserByEmail(email);
-		if (!password.equals(u.getPassword()))
+		try {
+			UserDAO ud = new UserDAOImpl();
+			UserService us = new UserService(ud);
+
+			User u = us.findUserByEmail(email);
+			if (!password.equals(u.getPassword()))
+				return null;
+
+			UserInfo ui = new UserInfo(u);
+
+			return ui;
+		}
+		catch(NullPointerException e) {
 			return null;
-
-		UserInfo ui = new UserInfo(u);
-
-		return ui;
+		}
 	}
 }
 

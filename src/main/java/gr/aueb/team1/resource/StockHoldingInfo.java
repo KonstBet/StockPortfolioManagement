@@ -15,19 +15,27 @@ public class StockHoldingInfo {
 
     private Integer committedAmount;
 
+    private Integer userid;
+
+    private String stockName;
+
     public StockHoldingInfo() {
     }
 
-    public StockHoldingInfo(Integer id, Integer amount, Integer committedAmount) {
+    public StockHoldingInfo(Integer id, Integer amount, Integer committedAmount, Integer userid, String stockName) {
         this.id = id;
         this.amount = amount;
         this.committedAmount = committedAmount;
+        this.userid = userid;
+        this.stockName = stockName;
     }
 
     public StockHoldingInfo(StockHolding sh) {
         this.id = sh.getId();
         this.amount = sh.getAmount();
         this.committedAmount = sh.getCommittedAmount();
+        this.userid = sh.getUser().getId();
+        this.stockName = sh.getStock().getCompanyName();
     }
 
     public Integer getId() {
@@ -52,6 +60,22 @@ public class StockHoldingInfo {
 
     public void setCommittedAmount(Integer committedAmount) {
         this.committedAmount = committedAmount;
+    }
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
+
+    public String getStockName() {
+        return stockName;
+    }
+
+    public void setStockName(String stockName) {
+        this.stockName = stockName;
     }
 
     public static List<StockHoldingInfo> wrap(List<StockHolding> holdings) {

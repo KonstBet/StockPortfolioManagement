@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import javax.persistence.*;
 
 @Entity
-@DiscriminatorValue("transaction")
+@DiscriminatorValue("withdraw")
 public class Withdrawal extends Transaction {
 
 	public Withdrawal() {}

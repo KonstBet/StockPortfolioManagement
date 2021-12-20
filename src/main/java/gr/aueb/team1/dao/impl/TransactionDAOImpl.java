@@ -33,6 +33,40 @@ public class TransactionDAOImpl implements TransactionDAO {
 
         return result;
     }
+
+    @Override
+    public List<Transaction> findAllDepositsByUser(User user) {
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+
+        Query q = em.createQuery("select t from Transaction t where type='deposit' AND Userid = :id");
+        q.setParameter("id",user.getId());
+
+        List<Transaction> result;
+        result = q.getResultList();
+
+
+        tx.commit();
+
+        return result;
+    }
+
+    @Override
+    public List<Transaction> findAllWithdrawsByUser(User user) {
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+
+        Query q = em.createQuery("select t from Transaction t where type='withdraw' AND Userid = :id");
+        q.setParameter("id",user.getId());
+
+        List<Transaction> result;
+        result = q.getResultList();
+
+
+        tx.commit();
+
+        return result;
+    }
 	
     public Transaction findById(Integer id) {
         EntityTransaction tx = em.getTransaction();

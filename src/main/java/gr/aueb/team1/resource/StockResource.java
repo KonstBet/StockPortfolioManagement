@@ -18,27 +18,39 @@ public class StockResource {
 	@GET
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public List<StockInfo> listStocks() {
-		StockDAO sd = new StockDAOImpl();
-		StockService stockService = new StockService(sd);
-		
-		List<Stock> stocks = stockService.showStocks();
 
-		List<StockInfo> stockInfo = StockInfo.wrap(stocks);
+		try {
+			StockDAO sd = new StockDAOImpl();
+			StockService stockService = new StockService(sd);
 
-		return stockInfo;
+			List<Stock> stocks = stockService.showStocks();
+
+			List<StockInfo> stockInfo = StockInfo.wrap(stocks);
+
+			return stockInfo;
+		}
+		catch(NullPointerException e) {
+			return null;
+		}
 	}
 
 	@GET
 	@Path("{stockid}")
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public StockInfo fetchStock(@PathParam("stockid") Integer id) {
-		StockDAO sd = new StockDAOImpl();
-		StockService stockService = new StockService(sd);
 
-		Stock stock = stockService.getStock(id);
+		try {
+			StockDAO sd = new StockDAOImpl();
+			StockService stockService = new StockService(sd);
 
-		StockInfo stockInfo = new StockInfo(stock);
+			Stock stock = stockService.getStock(id);
 
-		return stockInfo;
+			StockInfo stockInfo = new StockInfo(stock);
+
+			return stockInfo;
+		}
+		catch(NullPointerException e) {
+			return null;
+		}
 	}
 }

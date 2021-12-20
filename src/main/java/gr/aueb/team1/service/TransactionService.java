@@ -19,12 +19,22 @@ public class TransactionService {
         this.td = td;
     }
 
-    public List<Transaction> showTransactions(Integer userid) {
+    public List<Transaction> showDeposits(Integer userid) {
 
         User u = getUser(userid);
 
         List<Transaction> results = null;
-        results = td.findByUser(u);
+        results = td.findAllDepositsByUser(u);
+
+        return results;
+    }
+
+    public List<Transaction> showWithdraws(Integer userid) {
+
+        User u = getUser(userid);
+
+        List<Transaction> results = null;
+        results = td.findAllWithdrawsByUser(u);
 
         return results;
     }

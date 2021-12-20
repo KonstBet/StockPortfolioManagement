@@ -14,14 +14,20 @@ public class StockHoldingResource {
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<StockHoldingInfo> listStockHoldings(@PathParam("userid") Integer userid) {
-        StockHoldingDAO shd = new StockHoldingDAOImpl();
 
-        StockHoldingService shService = new StockHoldingService(shd);
-        List<StockHolding> holdings = shService.showStockHoldings(userid);
+        try {
+            StockHoldingDAO shd = new StockHoldingDAOImpl();
 
-        List<StockHoldingInfo> shList = StockHoldingInfo.wrap(holdings);
+            StockHoldingService shService = new StockHoldingService(shd);
+            List<StockHolding> holdings = shService.showStockHoldings(userid);
 
-        return shList;
+            List<StockHoldingInfo> shList = StockHoldingInfo.wrap(holdings);
+
+            return shList;
+        }
+        catch(NullPointerException e) {
+            return null;
+        }
     }
 
     @GET
@@ -31,13 +37,18 @@ public class StockHoldingResource {
             @PathParam("userid") Integer userid,
             @PathParam("stockholdingid") Integer shid) {
 
-        StockHoldingDAO shd = new StockHoldingDAOImpl();
+        try {
+            StockHoldingDAO shd = new StockHoldingDAOImpl();
 
-        StockHoldingService shService = new StockHoldingService(shd);
-        StockHolding holding = shService.getStockHolding(userid,shid);
+            StockHoldingService shService = new StockHoldingService(shd);
+            StockHolding holding = shService.getStockHolding(userid,shid);
 
-        StockHoldingInfo sh = new StockHoldingInfo(holding);
+            StockHoldingInfo sh = new StockHoldingInfo(holding);
 
-        return sh;
+            return sh;
+        }
+        catch(NullPointerException e) {
+            return null;
+        }
     }
 }

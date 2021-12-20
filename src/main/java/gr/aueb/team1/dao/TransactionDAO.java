@@ -6,4 +6,6 @@ import gr.aueb.team1.domain.User;
 
 public interface TransactionDAO extends DAO<Transaction> {
 	public List<Transaction> findByUser(User user);
+	public List<Transaction> findAllDepositsByUser(User user);
+	public List<Transaction> findAllWithdrawsByUser(User user);
 }
