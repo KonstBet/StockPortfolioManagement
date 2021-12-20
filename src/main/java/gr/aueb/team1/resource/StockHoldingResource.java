@@ -11,7 +11,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-@Path("user/{userid}/holding")
+@Path("stockholding/{userid}")
 public class StockHoldingResource {
 
     @GET

@@ -34,7 +34,7 @@ public class StockHoldingResourceTest extends JerseyTest {
     @Test
     public void listStockHoldings2Test() {
         Integer userid = init.investor.getId();
-        List<StockHoldingInfo> shList = target("user/"+userid+"/holding").request(MediaType.APPLICATION_JSON)
+        List<StockHoldingInfo> shList = target("stockholding/"+userid).request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<StockHoldingInfo>>() {});
 
         assertEquals(2,shList.size());
@@ -43,7 +43,7 @@ public class StockHoldingResourceTest extends JerseyTest {
     @Test
     public void listStockHoldings0Test() {
         Integer userid = init.broker.getId();
-        List<StockHoldingInfo> shList = target("user/"+userid+"/holding").request(MediaType.APPLICATION_JSON)
+        List<StockHoldingInfo> shList = target("stockholding/"+userid).request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<StockHoldingInfo>>() {});
 
         assertEquals(0,shList.size());
@@ -54,7 +54,7 @@ public class StockHoldingResourceTest extends JerseyTest {
         Integer userid = init.investor.getId();
         Integer shid = init.investor.getStockHoldings().get(init.PeiraiosStock).getId();
 
-        StockHoldingInfo sh = target("user/"+userid+"/holding/"+shid).request(MediaType.APPLICATION_JSON)
+        StockHoldingInfo sh = target("stockholding/"+userid+"/"+shid).request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<StockHoldingInfo>() {});
 
         assertEquals(sh.getId(),shid);
@@ -66,7 +66,7 @@ public class StockHoldingResourceTest extends JerseyTest {
         Integer userid = init.investor.getId();
         Integer shid = init.investor.getStockHoldings().get(init.AlphaStock).getId();
 
-        StockHoldingInfo sh = target("user/"+userid+"/holding/"+shid).request(MediaType.APPLICATION_JSON)
+        StockHoldingInfo sh = target("stockholding/"+userid+"/"+shid).request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<StockHoldingInfo>() {});
 
         assertEquals(sh.getId(),shid);
