@@ -26,7 +26,7 @@ public class StockHoldingTest {
     @Test
     void removeStockHolding() {
     	User u = new User("Alejandro", "Lamprineiro", "alamp@gmail.com", "6947307032", "pass");
-        Stock PeiraiosStock = new Stock("PIRAIUS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00);
+        Stock PeiraiosStock = new Stock("PIRAEUS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00);
     	StockHolding sh = new StockHolding(5, PeiraiosStock, u);
     	sh.remove();
     	Assertions.assertEquals(u.getStockHoldings().size(), 0);

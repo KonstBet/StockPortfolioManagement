@@ -29,7 +29,7 @@ public class AuthStockTest {
         broker1 = new Broker("Giorgos", "Charalampopoulos", "mcharal@gmail.com", "697891030100", 0.0, "b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b");
         broker2 = new Broker("Nikolaos", "Charalampous", "mcharal@gmail.com", "697891030100", 0.0, "b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b");
 
-        PeiraiosStock = new Stock( "PIRAIUS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00);
+        PeiraiosStock = new Stock( "PIRAEUS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00);
         amount = 10;
         sh1 = new StockHolding(amount, PeiraiosStock, investor1);
         sh2 = new StockHolding(amount, new Stock("VASILOPOULOS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00), investor1);

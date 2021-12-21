@@ -29,7 +29,7 @@ public class AutomatedOrderTest {
     void setUpTests() {
         investor1 = new Investor("Mitsos", "Charalampidis", "mcharal@gmail.com", "697891030100", "b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b");
         investor1.setBalance(500.00);
-        PeiraiosStock = new Stock("PIRAIUS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00);
+        PeiraiosStock = new Stock("PIRAEUS", LocalDateTime.now(), 10.00, 200.99, 1000.00, 10.00, 2460.00);
         AlphaStock = new Stock( "ALPHA", LocalDateTime.now(), 100.00, 80.00, 1000.00, 10.00, 2460.00);
         amount = 10;
         sh = new StockHolding(amount, PeiraiosStock, investor1);
