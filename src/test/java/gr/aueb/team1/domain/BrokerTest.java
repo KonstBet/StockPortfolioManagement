@@ -49,9 +49,8 @@ public class BrokerTest {
         HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
         AuthCapital ac = (AuthCapital) auths.iterator().next();
 
-        boolean flag = broker.buyForInvestor(ac, PeiraiosStock, 10);
-       
-        Assertions.assertTrue(flag);
+        broker.buyForInvestor(ac, PeiraiosStock, 10);       
+        Assertions.assertEquals(388.9, ac.getAmount());
     }
 
     @Test //Not enough committed balance
@@ -61,9 +60,9 @@ public class BrokerTest {
         HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
         AuthCapital ac = (AuthCapital) auths.iterator().next();
 
-        boolean flag = broker.buyForInvestor(ac, PeiraiosStock, 10);
+        Order o = broker.buyForInvestor(ac, PeiraiosStock, 10);
 
-        Assertions.assertFalse(flag);
+        Assertions.assertNull(o);
     }
     
     @Test //Valid sell order
@@ -72,8 +71,8 @@ public class BrokerTest {
     	HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
     	AuthStock as = (AuthStock) auths.iterator().next();
     	
-    	boolean flag = broker.sellForInvestor(as, 4);
-    	Assertions.assertTrue(flag);    	
+    	broker.sellForInvestor(as, 4);
+    	Assertions.assertEquals(1, as.getAmount());    	
     }
     
     @Test //Not enough committed stock amount
@@ -82,8 +81,8 @@ public class BrokerTest {
     	HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
     	AuthStock as = (AuthStock) auths.iterator().next();
     	
-    	boolean flag = broker.sellForInvestor(as, 6);
-    	Assertions.assertFalse(flag);    	
+    	Order o = broker.sellForInvestor(as, 6);
+    	Assertions.assertNull(o);    	
     }
     
     @Test //Check brokerage fee
