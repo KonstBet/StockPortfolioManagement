@@ -3,13 +3,8 @@ package gr.aueb.team1.service;
 import gr.aueb.team1.dao.TransactionDAO;
 import gr.aueb.team1.dao.UserDAO;
 import gr.aueb.team1.dao.impl.UserDAOImpl;
-import gr.aueb.team1.domain.Deposit;
 import gr.aueb.team1.domain.Transaction;
 import gr.aueb.team1.domain.User;
-import gr.aueb.team1.domain.Withdrawal;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionService {

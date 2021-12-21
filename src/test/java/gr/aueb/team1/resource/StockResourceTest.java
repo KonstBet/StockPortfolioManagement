@@ -44,6 +44,6 @@ public class StockResourceTest extends JerseyTest {
         StockInfo stock = target("stock/"+init.PeiraiosStock.getId()).request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<StockInfo>() {});
 
-        assertEquals("PIRAIUS",stock.getCompanyName());
+        assertEquals("PIRAEUS",stock.getCompanyName());
     }
 }

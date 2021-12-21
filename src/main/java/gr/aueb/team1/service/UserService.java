@@ -19,4 +19,11 @@ public class UserService {
 				
 		return u;
 	}
+	
+	public User findUserById(Integer id) {
+		User u = null;
+		u = ud.findById(id) ; 
+				
+		return u;
+	}
 }

@@ -121,8 +121,8 @@ public class UserTest {
 	
 	@Test // Not enough balance
 	void buyStockTest1() {
-		boolean balance = user.buyStock(stock2, 6);
-		assertFalse(balance);
+		Order balance = user.buyStock(stock2, 6);
+		assertNull(balance);
 	}
 	
 	@Test // Buy new asset
@@ -143,15 +143,15 @@ public class UserTest {
 	
 	@Test // Not having the asset
 	void sellStockTest1() {
-		boolean asset = user.sellStock(stock2, 1);
-		assertFalse(asset);
+		Order asset = user.sellStock(stock2, 1);
+		assertNull(asset);
 	}
 	
 	
 	@Test // Not enough amount of the asset
 	void sellStockTest2() {
-		boolean amount = user.sellStock(stock, 11);
-		assertFalse(amount);
+		Order amount = user.sellStock(stock, 11);
+		assertNull(amount);
 	}
 	
 	@Test // Sell full asset
@@ -172,32 +172,32 @@ public class UserTest {
 
 	@Test // Limit Order Buy with not enough balance
 	void limitOrderTest1() {
-		boolean actual = user.limitOrder(0.1, stock2, 100, Action.BUY);
-		assertFalse(actual);
+		Order actual = user.limitOrder(0.1, stock2, 100, Action.BUY);
+		assertNull(actual);
 	}
 	
 	@Test // Limit Order Buy
 	void limitOrderTest2() {
-		boolean actual = user.limitOrder(0.1, stock, 10, Action.BUY);
-		assertTrue(actual);
+		Order actual = user.limitOrder(0.1, stock, 10, Action.BUY);
+		assertEquals(stock, actual.getStock());
 	}
 	
 	@Test // Limit Order Sell without having the stock
 	void limitOrderTest3() {
-		boolean actual = user.limitOrder(0.1, stock2, 11, Action.SELL);
-		assertFalse(actual);
+		Order actual = user.limitOrder(0.1, stock2, 11, Action.SELL);
+		assertNull(actual);
 	}
 	
 	@Test // Limit Order Sell without enough amount
 	void limitOrderTest4() {
-		boolean actual = user.limitOrder(0.1, stock, 11, Action.SELL);
-		assertFalse(actual);
+		Order actual = user.limitOrder(0.1, stock, 11, Action.SELL);
+		assertNull(actual);
 	}
 	
 	@Test // Limit Order Sell 
 	void limitOrderTest5() {
-		boolean actual = user.limitOrder(0.1, stock, 9, Action.SELL);
-		assertTrue(actual);
+		Order actual = user.limitOrder(0.1, stock, 9, Action.SELL);
+		assertEquals(stock, actual.getStock());
 	}
 	
 	@Test 

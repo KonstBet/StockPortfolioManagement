@@ -41,7 +41,7 @@ public class TransactionResourceTest extends JerseyTest {
 
 
     @Test
-    public void doDepositTest() {
+    public void depositTest() {
         Integer userid = init.investor.getId();
 
         Form form = new Form();
@@ -58,9 +58,28 @@ public class TransactionResourceTest extends JerseyTest {
 
         assertEquals(2,tList.size());
     }
+    
+    @Test
+    public void depositNonExistentUserTest() {
+        Integer userid = 5;
+
+        Form form = new Form();
+        form.param("amount","100");
+
+        Response res = target("transaction/"+userid+"/deposit").request(MediaType.TEXT_PLAIN)
+                .post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED));
+
+        assertEquals(res.getStatus(),204);
+
+
+        List<TransactionInfo> tList = target("transaction/"+userid).request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<TransactionInfo>>() {});
+
+        assertNull(tList);
+    }
 
     @Test
-    public void doWithdrawTest() {
+    public void withdrawTest() {
         Integer userid = init.investor.getId();
 
         Form form = new Form();
@@ -75,5 +94,23 @@ public class TransactionResourceTest extends JerseyTest {
                 .get(new GenericType<List<TransactionInfo>>() {});
 
         assertEquals(2,tList.size());
+    }
+    
+    @Test
+    public void withdrawNonExistentUserTest() {
+        Integer userid = 5;
+
+        Form form = new Form();
+        form.param("amount","100");
+
+        Response res = target("transaction/"+userid+"/withdraw").request(MediaType.TEXT_PLAIN)
+                .post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED));
+
+        assertEquals(res.getStatus(),204);
+
+        List<TransactionInfo> tList = target("transaction/"+userid).request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<TransactionInfo>>() {});
+
+        assertNull(tList);
     }
 }

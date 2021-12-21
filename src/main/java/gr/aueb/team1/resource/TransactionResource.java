@@ -51,7 +51,7 @@ public class TransactionResource {
             TransactionDAO td = new TransactionDAOImpl();
 
             TransactionService tService = new TransactionService(td);
-            Transaction t = tService.doDeposit(userid, amount);
+            tService.doDeposit(userid, amount);
 
             UriBuilder ub = uriInfo.getBaseUriBuilder().path("transaction/"+userid);
             URI transactionsUri = ub.build();

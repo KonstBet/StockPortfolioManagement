@@ -205,52 +205,53 @@ public class User {
 		return deposit;
 	}
 	
-	public Boolean buyStock(Stock stock, Integer amount) {
+	public Order buyStock(Stock stock, Integer amount) {
 		Double fee= 0.1;
 		Order order = new Order(this, stock, amount, fee, LocalDateTime.now(), Action.BUY, Status.PENDING);
 
 		if (!order.applyOrder()) {
-			return false;
+			return null;
 		}
 		this.orders.add(order);
 
-		return true;
+		return order;
 	}
 	
 
-	public Boolean sellStock(Stock stock, Integer amount) {
+	public Order sellStock(Stock stock, Integer amount) {
 		Double fee = 0.1;
 		Order order = new Order(this, stock, amount, fee, LocalDateTime.now(),Action.SELL, Status.PENDING);
 		
 		if (!order.applyOrder()) {
-			return false;
+			return null;
 		}
 		this.orders.add(order);
 		
-		return true;
+		return order;
 	}
 	
-	public Boolean limitOrder(Double limit, Stock stock, Integer amount, Action action) {
+	public AutomatedOrder limitOrder(Double limit, Stock stock, Integer amount, Action action) {
 		Double fee = 0.1;
 		if(action.equals(Action.BUY)) {
 			AutomatedOrder ao = new AutomatedOrder(this, stock, amount, fee, LocalDateTime.now(), action, limit);
 			if (getBalance() < ao.getOrderPrice()) {
-				return false;
+				return null;
 			}
 			orders.add(ao);
+			return ao;
 		} else {
 			if (!stockHoldings.containsKey(stock)) {
-				return false;
+				return null;
 			}
 			StockHolding sh = stockHoldings.get(stock);
 			// Check if the user has the amount to sell
 			if (sh.getAmount() < amount) {
-				return false;
+				return null;
 			}
 			AutomatedOrder ao = new AutomatedOrder(this, stock, amount, fee, LocalDateTime.now(), action, limit);
 			orders.add(ao);
+			return ao;
 		}
-		return true;
 	}
 	
 	public String portfolioReport() {

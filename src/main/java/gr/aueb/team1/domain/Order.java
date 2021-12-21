@@ -44,7 +44,7 @@ public class Order {
     @JoinColumn(name="userid")
     protected User user;
     
-	enum Action {
+	public enum Action {
 		BUY,
 		SELL
 	}
@@ -159,6 +159,14 @@ public class Order {
 				"\nOrder Price: " + getOrderPrice() + "€";
 	}
 	
+	public String statusToString() {
+		return this.getStatus().toString();
+	}
+	
+	public String actionToString() {
+		return this.getAction().toString();
+	}
+		
 	public Boolean applyOrder() {
 		
 		if (this.status==Status.COMPLETED) {
