@@ -42,6 +42,28 @@ public class AuthorizationDAOImpl implements AuthorizationDAO {
     }
 
     @Override
+    public AuthStock findStockAuthById(Integer id) {
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+
+        AuthStock t = em.find(AuthStock.class,id);
+
+        tx.commit();
+        return t;
+    }
+
+    @Override
+    public AuthCapital findCapitalAuthById(Integer id) {
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+
+        AuthCapital t = em.find(AuthCapital.class,id);
+
+        tx.commit();
+        return t;
+    }
+
+    @Override
     public Authorization save(Authorization auth) {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
@@ -87,6 +109,7 @@ public class AuthorizationDAOImpl implements AuthorizationDAO {
     }
 
     @SuppressWarnings("unchecked")
+    @Override
 	public List<Authorization> findAllByInvestorID(Integer id) {
         EntityTransaction tx = em.getTransaction();
         tx.begin();

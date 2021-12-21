@@ -43,28 +43,28 @@ public class InvestorTest {
 
     @Test
     void giveCapitalAuthorizationTest() {
-        boolean flag = investor.giveAuthorization(500.00,broker,date1);
+        AuthCapital flag = investor.giveAuthorization(500.00,broker,date1);
 
-        Assertions.assertTrue(flag && investor.getCommittedBalance() == 500);
+        Assertions.assertTrue(flag!=null && investor.getCommittedBalance() == 500);
     }
 
     @Test
     void BrokengiveCapitalAuthorizationTest() {
-        boolean flag = investor.giveAuthorization(501.00,broker,date1);
+        AuthCapital flag = investor.giveAuthorization(501.00,broker,date1);
 
-        Assertions.assertFalse(flag);
+        Assertions.assertNull(flag);
     }
 
     @Test
     void removeCapitalAuthorizationTest() {
-        boolean flag = investor.giveAuthorization(500.00,broker,date1);
+        AuthCapital flag = investor.giveAuthorization(500.00,broker,date1);
 
         HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
         AuthCapital ac = (AuthCapital) auths.iterator().next();
 
         boolean flag2 = investor.removeAuthorization(ac);
 
-        Assertions.assertTrue(flag && flag2 && investor.getCommittedBalance() == 0
+        Assertions.assertTrue(flag!=null && flag2 && investor.getCommittedBalance() == 0
                 && investor.getAuthorizations().size() == 0 && broker.getAuthorizations().size() == 0);
     }
 
@@ -79,28 +79,28 @@ public class InvestorTest {
 
     @Test
     void giveStocksAuthorizationTest() {
-        boolean flag = investor.giveAuthorization(10,sh,broker,date1);
+        AuthStock flag = investor.giveAuthorization(10,sh,broker,date1);
 
-        Assertions.assertTrue(flag && sh.getCommittedAmount() == 10);
+        Assertions.assertTrue(flag!=null && sh.getCommittedAmount() == 10);
     }
 
     @Test
     void BrokengiveStocksAuthorizationTest() {
-        boolean flag = investor.giveAuthorization(21,sh,broker,date1); //investor has 10 amount of stocks
+        AuthStock flag = investor.giveAuthorization(21,sh,broker,date1); //investor has 10 amount of stocks
 
-        Assertions.assertFalse(flag);
+        Assertions.assertNull(flag);
     }
 
     @Test
     void removeStockAuthorizationTest() {
-        boolean flag = investor.giveAuthorization(10,sh,broker,date1);
+        AuthStock flag = investor.giveAuthorization(10,sh,broker,date1);
 
         HashSet<Authorization> auths = (HashSet<Authorization>) investor.getAuthorizations();
         AuthStock ac = (AuthStock) auths.iterator().next();
 
         boolean flag2 = investor.removeAuthorization(ac);
 
-        Assertions.assertTrue(flag && flag2 && sh.getCommittedAmount() == 0);
+        Assertions.assertTrue(flag!=null && flag2 && sh.getCommittedAmount() == 0);
     }
 
     @Test
@@ -158,17 +158,17 @@ public class InvestorTest {
 
     @Test
     void addDifferentBalanceAndStocks() {
-        boolean flag1 = investor.giveAuthorization(250.00,broker,date1);
-        boolean flag2 = investor.giveAuthorization(100.00,broker,date1);
-        boolean flag3 = investor.giveAuthorization(150.00,broker2,date1);
+        AuthCapital flag1 = investor.giveAuthorization(250.00,broker,date1);
+        AuthCapital flag2 = investor.giveAuthorization(100.00,broker,date1);
+        AuthCapital flag3 = investor.giveAuthorization(150.00,broker2,date1);
 
 
-        boolean flag4 = investor.giveAuthorization(10,sh,broker,date1);
-        boolean flag5 = investor.giveAuthorization(10,sh,broker,date1);
-        boolean flag6 = investor.giveAuthorization(10,sh2,broker2,date1);
+        AuthStock flag4 = investor.giveAuthorization(10,sh,broker,date1);
+        AuthStock flag5 = investor.giveAuthorization(10,sh,broker,date1);
+        AuthStock flag6 = investor.giveAuthorization(10,sh2,broker2,date1);
 
 
-        Assertions.assertTrue(flag1&&flag2&&flag3&&flag4&&flag5&&flag6);
+        Assertions.assertTrue(flag1!=null&&flag2!=null&&flag3!=null&&flag4!=null&&flag5!=null&&flag6!=null);
     }
 
     @Test
@@ -176,17 +176,17 @@ public class InvestorTest {
         Authorization auth = new Authorization(investor,broker,date1,date2);
 
 
-        boolean flag1 = auth.giveNewAuthorization(investor,0,broker,sh);
-        boolean flag2 = auth.giveNewAuthorization(investor,0.0,broker);
-        boolean flag3 = auth.updateAuthorization(10.0);
+        AuthStock flag1 = auth.giveNewAuthorization(investor,0,broker,sh);
+        AuthCapital flag2 = auth.giveNewAuthorization(investor,0.0,broker);
+        AuthCapital flag3 = auth.updateAuthorization(10.0);
         boolean flag4 = auth.isBetween(investor, broker);
-        boolean flag5 = auth.updateAuthorization(10);
+        AuthStock flag5 = auth.updateAuthorization(10);
         boolean flag6 = auth.isBetween(investor, broker,sh);
         boolean flag7 = auth.removeAuth();
 
 
 
-        Assertions.assertFalse(flag1||flag2||flag3||flag4||flag5||flag6||flag7);
+        Assertions.assertFalse(flag1!=null||flag2!=null||flag3!=null||flag4||flag5!=null||flag6||flag7);
     }
     
     @Test

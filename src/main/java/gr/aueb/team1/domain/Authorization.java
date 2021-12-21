@@ -74,10 +74,10 @@ public class Authorization {
 				"\nEnd: " + getEnddate().toString();
 	}
 
-	public boolean giveNewAuthorization(Investor investor, Double amount, Broker broker ) {return false;}
-	public boolean giveNewAuthorization(Investor investor, Integer amount, Broker broker, StockHolding stockHolding) {return false;}
-	public boolean updateAuthorization(Double amount) {return false;}//Update auth committed balance
-	public boolean updateAuthorization(Integer amount) {return false;}//Update auth committed stock amount
+	public AuthCapital giveNewAuthorization(Investor investor, Double amount, Broker broker ) {return null;}
+	public AuthStock giveNewAuthorization(Investor investor, Integer amount, Broker broker, StockHolding stockHolding) {return null;}
+	public AuthCapital updateAuthorization(Double amount) {return null;}//Update auth committed balance
+	public AuthStock updateAuthorization(Integer amount) {return null;}//Update auth committed stock amount
 	public boolean isBetween(Investor investor, Broker broker) {return false;}//AuthCapital
 	public boolean isBetween(Investor investor, Broker broker, StockHolding stockHolding) {return false;}//AuthStocks
 	public boolean removeAuth() {return false;}

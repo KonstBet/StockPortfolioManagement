@@ -2,14 +2,12 @@ package gr.aueb.team1.domain;
 
 
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AuthCapitalTest {
 
@@ -48,26 +46,26 @@ public class AuthCapitalTest {
     
     @Test // Case 1: Not enough balance
     void giveNewAuthorizationTest1() {
-    	boolean actual = ac1.giveNewAuthorization(investor1, 500.99, broker1);
-    	assertFalse(actual);
+        AuthCapital actual = ac1.giveNewAuthorization(investor1, 500.99, broker1);
+    	assertNull(actual);
     }
     
     @Test // Case 2: Enough Balance
     void giveNewAuthorizationTest2() {
-    	boolean actual = ac1.giveNewAuthorization(investor1, 499.99, broker1);
-    	assertTrue(actual);
+        AuthCapital actual = ac1.giveNewAuthorization(investor1, 499.99, broker1);
+    	assertNotNull(actual);
     }
     
     @Test // Case 1: Not enough balance
     void giveToExistedAuthorizationTest1() {
-    	boolean actual = ac1.updateAuthorization(500.01);
-    	assertFalse(actual);
+        AuthCapital actual = ac1.updateAuthorization(500.01);
+    	assertNull(actual);
     }
-    
+
     @Test // Case 2: Enough Balance
     void giveToExistedAuthorizationTest2() {
-    	boolean actual = ac1.updateAuthorization(499.99);
-    	assertTrue(actual);
+        AuthCapital actual = ac1.updateAuthorization(499.99);
+    	assertNotNull(actual);
     }
     
     

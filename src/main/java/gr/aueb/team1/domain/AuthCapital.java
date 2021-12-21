@@ -25,28 +25,28 @@ public class AuthCapital extends Authorization {
 	}
 
 	@Override
-	public boolean giveNewAuthorization(Investor investor, Double amount, Broker broker) {
+	public AuthCapital giveNewAuthorization(Investor investor, Double amount, Broker broker) {
 		if (amount > investor.getBalance()) {
-			return false;
+			return null;
 		}
 
 		investor.setCommittedBalance(investor.getCommittedBalance() + amount);
 		investor.setBalance(investor.getBalance() - amount);
 		investor.getAuthorizations().add(this);
 		broker.addAuthorization(this);
-		return true;
+		return this;
 	}
 	
 	@Override
-	public boolean updateAuthorization(Double amount) {
+	public AuthCapital updateAuthorization(Double amount) {
 		if (amount > this.getInvestor().getBalance()) {
-			return false;
+			return null;
 		}
 
 		this.getInvestor().setCommittedBalance(this.getInvestor().getCommittedBalance() + amount);
 		this.getInvestor().setBalance(this.getInvestor().getBalance() - amount);
 		this.setAmount(this.getAmount() + amount);
-		return true;
+		return this;
 	}
 
 	@Override

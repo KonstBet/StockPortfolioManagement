@@ -41,7 +41,7 @@ public class Investor extends User {
 	}
 
 
-	public Boolean giveAuthorization(Double amount, Broker broker, LocalDateTime endDate) {
+	public AuthCapital giveAuthorization(Double amount, Broker broker, LocalDateTime endDate) {
 		Iterator<Authorization> iterator = authorizations.iterator();
 		Authorization ac;
 		while (iterator.hasNext()) {
@@ -56,7 +56,7 @@ public class Investor extends User {
 		return authCapital.giveNewAuthorization(this,amount,broker);
 	}
 
-	public Boolean giveAuthorization(Integer amount, StockHolding stockHolding, Broker broker, LocalDateTime endDate) {
+	public AuthStock giveAuthorization(Integer amount, StockHolding stockHolding, Broker broker, LocalDateTime endDate) {
 		Iterator<Authorization> iterator = authorizations.iterator();
 		Authorization as;
 		while (iterator.hasNext()) {

@@ -53,7 +53,7 @@ public class OrderService {
     
     public Order buyForInvestor(Integer brokerid, Integer investorid, Stock stock, Integer amount) {
     	Broker b = us.findBrokerById(brokerid);
-    	
+    	return null;
     }
     
 }

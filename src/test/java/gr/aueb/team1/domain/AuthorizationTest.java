@@ -1,11 +1,11 @@
 package gr.aueb.team1.domain;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AuthorizationTest {
 	
@@ -35,27 +35,27 @@ public class AuthorizationTest {
 	
 	@Test
 	void giveNewAuthorizationTest1() {
-		boolean actual = auth.giveNewAuthorization(investor, 60.00, broker);
-		assertFalse(actual);
+		AuthCapital actual = auth.giveNewAuthorization(investor, 60.00, broker);
+		assertNull(actual);
 	}
 	
 	@Test
 	void giveNewAuthorizationTest2() {
-		boolean actual = auth.giveNewAuthorization(investor, 1, broker, stockHolding);
-		assertFalse(actual);
+		AuthStock actual = auth.giveNewAuthorization(investor, 1, broker, stockHolding);
+		assertNull(actual);
 	}
 	
 	
 	@Test
 	void giveToExistedAuthorizationTest1() {
-		boolean actual = auth.updateAuthorization(1);
-		assertFalse(actual);
+		AuthStock actual = auth.updateAuthorization(1);
+		assertNull(actual);
 	}
 	
 	@Test
 	void giveToExistedAuthorizationTest2() {
-		boolean actual = auth.updateAuthorization(1.0);
-		assertFalse(actual);
+		AuthCapital actual = auth.updateAuthorization(1.0);
+		assertNull(actual);
 	}
 	
 	@Test
