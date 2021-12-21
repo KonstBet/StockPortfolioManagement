@@ -7,6 +7,8 @@ import gr.aueb.team1.service.TransactionService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import javax.ws.rs.core.Response.Status;
+
 import java.net.URI;
 import java.util.List;
 
@@ -35,7 +37,7 @@ public class TransactionResource {
             return DepositsList;
         }
         catch(NullPointerException e) {
-            return null;
+        	return null;
         }
     }
 
@@ -48,6 +50,10 @@ public class TransactionResource {
             @FormParam("amount") Double amount) {
         try {
 
+        	if(amount <= 0) {
+        		return Response.status(Status.CONFLICT).build();
+        	}
+        	
             TransactionDAO td = new TransactionDAOImpl();
 
             TransactionService tService = new TransactionService(td);
@@ -59,7 +65,7 @@ public class TransactionResource {
             return Response.created(transactionsUri).build();
         }
             catch(NullPointerException e) {
-            return null;
+            	return Response.status(Status.NOT_FOUND).build();
         }
     }
 
@@ -71,6 +77,11 @@ public class TransactionResource {
             @FormParam("amount") Double amount) {
 
         try {
+        	
+        	if(amount <= 0) {
+        		return Response.status(Status.CONFLICT).build();
+        	}
+        	
             TransactionDAO td = new TransactionDAOImpl();
 
             TransactionService tService = new TransactionService(td);
@@ -82,7 +93,7 @@ public class TransactionResource {
             return Response.created(transactionsUri).build();
         }
             catch(NullPointerException e) {
-            return null;
+            	return Response.status(Status.NOT_FOUND).build();
         }
     }
 }
