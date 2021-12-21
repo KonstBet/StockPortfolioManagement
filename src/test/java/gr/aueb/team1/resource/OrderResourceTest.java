@@ -14,6 +14,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Before;
 import org.junit.Test;
+import gr.aueb.team1.domain.Stock;
 
 import gr.aueb.team1.dao.Initializer;
 import gr.aueb.team1.domain.Order;
@@ -175,5 +176,30 @@ public class OrderResourceTest extends JerseyTest {
                 .get(new GenericType<List<OrderInfo>>() {});
         
         assertEquals(4, oList.size());
+    }
+    
+    @Test
+    public void buyFroInvestorTest() {
+    	Integer brokerid = init.broker2.getId();
+    	Integer authid = init.ac.getId();
+    	Stock s = init.AlphaStock;
+        Integer userid = init.investor.getId();
+        Integer stockid = init.AlphaStock.getId();
+
+        Form form = new Form();
+        form.param("amount","1");
+        
+        Response res = target("order/"+userid+"/buy/"+stockid).request(MediaType.TEXT_PLAIN)
+                .post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED));
+
+        assertEquals(res.getStatus(),201);
+
+
+        List<OrderInfo> oList = target("order/"+userid).request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<OrderInfo>>() {});
+
+        assertEquals(5, oList.size());
+
+    	
     }
 }

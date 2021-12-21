@@ -129,7 +129,7 @@ public class OrderResource {
     public Response buyForInvestor(
             @PathParam("userid") Integer userid,
             @PathParam("stockid") Integer stockid,
-            @PathParam("authid") Integer authid,
+            @FormParam("authid") Integer authid,
     		@FormParam("amount") Integer amount) {
         
 		try {
