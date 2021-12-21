@@ -244,4 +244,20 @@ public class OrderTest {
 				"\nAction: " + o.getAction() + 
 				"\nOrder Price: " + o.getOrderPrice() + "€", s);
 	}
+    
+    @Test 
+	void actionToStringTest() {
+    	Order o = new Order();
+    	o.setAction(Action.BUY);
+		String s = o.actionToString();
+		assertEquals("BUY", s);
+	}
+    
+    @Test 
+	void statusToStringTest() {
+    	Order o = new Order();
+    	o.setStatus(Status.COMPLETED);
+		String s = o.statusToString();
+		assertEquals("COMPLETED", s);
+	}
 }
