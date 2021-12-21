@@ -116,9 +116,9 @@ public class UserInfo {
 		this.balance = balance;
 	}
 	
-	public static UserInfo wrap(User user) {
+	public static User getUser(UserInfo ui) {
 
-		UserInfo u = new UserInfo(user);
+		User u = new User(ui.getName(), ui.getSurname(), ui.getEmail(), ui.getPhoneNo(), ui.getPassword());
 
 		return u;
 	}	

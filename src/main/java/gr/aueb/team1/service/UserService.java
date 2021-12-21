@@ -12,6 +12,10 @@ public class UserService {
 	public UserService(UserDAO ud) {
 		this.ud = ud;
 	}
+	
+	public User createUser(User u) {
+		return ud.save(u);
+	}
 
 
 	public User findUserByEmail(String email) {
