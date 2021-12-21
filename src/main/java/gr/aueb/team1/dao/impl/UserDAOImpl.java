@@ -6,6 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import gr.aueb.team1.dao.UserDAO;
 import gr.aueb.team1.domain.User;
+import gr.aueb.team1.domain.Broker;
+import gr.aueb.team1.domain.Investor;
 import gr.aueb.team1.persistence.JPAUtil;
 
 public class UserDAOImpl implements UserDAO {
@@ -70,6 +72,28 @@ public class UserDAOImpl implements UserDAO {
 
 		tx.commit();
 		return user;
+	}
+	
+	@Override
+	public Broker findBrokerById(Integer id) {
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		Broker broker = em.find(Broker.class, id);
+		
+		tx.commit();
+		return broker;
+		
+	}
+	
+	@Override
+	public Investor findInvestorById(Integer id) {
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		Investor investor = em.find(Investor.class, id);
+		
+		tx.commit();
+		return investor;
+		
 	}
 
 	

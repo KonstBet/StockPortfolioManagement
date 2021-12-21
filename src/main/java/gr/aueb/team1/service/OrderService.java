@@ -7,6 +7,7 @@ import gr.aueb.team1.dao.impl.UserDAOImpl;
 import gr.aueb.team1.domain.Order;
 import gr.aueb.team1.domain.Stock;
 import gr.aueb.team1.domain.User;
+import gr.aueb.team1.domain.Broker;
 
 public class OrderService {
 	
@@ -48,6 +49,11 @@ public class OrderService {
         Order o = u.limitOrder(limit, stock, amount, action);
         
     	return od.save(o);
+    }
+    
+    public Order buyForInvestor(Integer brokerid, Integer investorid, Stock stock, Integer amount) {
+    	Broker b = us.findBrokerById(brokerid);
+    	
     }
     
 }
