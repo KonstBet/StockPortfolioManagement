@@ -6,10 +6,10 @@ import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.ws.rs.core.Application;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -61,5 +61,50 @@ public class AuthorizationResourceTest extends JerseyTest {
         assertEquals("PIRAEUS",ai.getStockName());
     }
 
+    @Test
+    public void giveCapitalAuthorizationTest() {
+        Integer userid = init.investor.getId();
+        Integer brokerid = init.broker.getId();
 
+        Form form = new Form();
+        form.param("amount","100");
+        form.param("brokerid", brokerid.toString());
+
+        Response res = target("authorization/"+userid+"/givecapitalauthorization").request(MediaType.TEXT_PLAIN)
+                .post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED));
+
+        assertEquals(res.getStatus(),201);
+
+
+        AuthorizationInfo auth = target(res.getLocation().getPath()).request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<AuthorizationInfo>() {});
+
+        assertEquals(init.broker.getId(),auth.getBrokerid());
+        assertNotNull(auth);
+    }
+
+    @Test
+    public void giveStockAuthorizationTest() {
+        Integer userid = init.investor.getId();
+        Integer brokerid = init.broker.getId();
+
+        Form form = new Form();
+        form.param("amount","10");
+        form.param("stockholdingid",init.investor.getStockHoldings().get(init.AlphaStock).getId().toString());
+        form.param("brokerid", brokerid.toString());
+
+        Response res = target("authorization/"+userid+"/givestockauthorization").request(MediaType.TEXT_PLAIN)
+                .post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED));
+
+        assertEquals(res.getStatus(),201);
+
+
+        AuthorizationInfo auth = target(res.getLocation().getPath()).request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<AuthorizationInfo>() {});
+
+        assertEquals("ALPHA",auth.getStockName());
+        assertEquals(10.0,auth.getAmount());
+        assertEquals(init.broker.getId(),auth.getBrokerid());
+        assertNotNull(auth);
+    }
 }

@@ -1,10 +1,13 @@
 package gr.aueb.team1.service;
 
 import gr.aueb.team1.dao.AuthorizationDAO;
+import gr.aueb.team1.dao.StockHoldingDAO;
 import gr.aueb.team1.dao.UserDAO;
+import gr.aueb.team1.dao.impl.StockHoldingDAOImpl;
 import gr.aueb.team1.dao.impl.UserDAOImpl;
 import gr.aueb.team1.domain.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +38,8 @@ public class AuthorizationService {
         AuthStock result = null;
         result = ad.findStockAuthById(aid);
 
+        if (result == null) return null;
+
         if (result.getInvestor().getId().equals(u.getId()) || result.getBroker().getId().equals(u.getId()))
             return result;
 
@@ -48,12 +53,34 @@ public class AuthorizationService {
         AuthCapital result = null;
         result = ad.findCapitalAuthById(aid);
 
+        if (result == null) return null;
+
         if (result.getInvestor().getId().equals(u.getId()) || result.getBroker().getId().equals(u.getId()))
             return result;
 
         return null;
     }
 
+    public Authorization giveCapitalAuthorization(Integer investorid, Double amount, Integer brokerid, LocalDateTime endDate) {
+
+        Investor investor = getInvestor(investorid);
+        Broker broker = getBroker(brokerid);
+
+        AuthCapital authCapital = investor.giveAuthorization(amount,broker,endDate);
+
+        return ad.save(authCapital);
+    }
+
+    public Authorization giveStockAuthorization(Integer investorid, Integer amount, Integer stockholdingid, Integer brokerid, LocalDateTime endDate) {
+
+        Investor investor = getInvestor(investorid);
+        Broker broker = getBroker(brokerid);
+        StockHolding sh = getStockHolding(stockholdingid);
+
+        AuthStock authStock = investor.giveAuthorization(amount,sh,broker,endDate);
+
+        return ad.save(authStock);
+    }
 
 
     private User getUser(Integer userid) {
@@ -74,16 +101,9 @@ public class AuthorizationService {
         return u;
     }
 
-//    Broker broker = getBroker(userid);
-//        if (broker != null) {
-//        List<Authorization> results = new ArrayList<>();
-//        for (Authorization sh : broker.getAuthorizations()) {
-//            results.add(ad.findById(sh.getId()));
-//        }
-//
-//        return results;
-//    }
-//        else {
-//
-//    }
+    private StockHolding getStockHolding(Integer stockholdingid) {
+        StockHoldingDAO shd = new StockHoldingDAOImpl();
+        StockHolding sh = shd.findById(stockholdingid);
+        return sh;
+    }
 }

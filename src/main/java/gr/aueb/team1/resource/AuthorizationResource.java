@@ -12,6 +12,7 @@ import gr.aueb.team1.service.AuthorizationService;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Path("authorization/{userid}")
@@ -71,50 +72,57 @@ public class AuthorizationResource {
     }
 
 
-//    @POST
-//    @Path("givecapitalauthorization")
-//    @Consumes("application/x-www-form-urlencoded")
-//    public Response doDeposit(
-//            @PathParam("userid") Integer userid,
-//            @FormParam("amount") Double amount,
-//            @FormParam("brokerid") Integer brokerid) {
-//        try {
-//
-//            AuthorizationDAO td = new AuthorizationDAOImpl();
-//
-//            AuthorizationService authService = new AuthorizationService(td);
-//            authService.doDeposit(userid, amount);
-//
-//            UriBuilder ub = uriInfo.getBaseUriBuilder().path("Auth/"+userid);
-//            URI AuthsUri = ub.build();
-//
-//            return Response.created(AuthsUri).build();
-//        }
-//        catch(NullPointerException e) {
-//            return null;
-//        }
-//    }
-//
-//    @POST
-//    @Path("withdraw")
-//    @Consumes("application/x-www-form-urlencoded")
-//    public Response doWithdraw(
-//            @PathParam("userid") Integer userid,
-//            @FormParam("amount") Double amount) {
-//
-//        try {
-//            AuthorizationDAO td = new AuthorizationDAOImpl();
-//
-//            AuthorizationService authService = new AuthorizationService(td);
-//            Auth t = authService.doWithdraw(userid, amount);
-//
-//            UriBuilder ub = uriInfo.getBaseUriBuilder().path("Auth/"+userid);
-//            URI AuthsUri = ub.path(Integer.toString(t.getId())).build();
-//
-//            return Response.created(AuthsUri).build();
-//        }
-//        catch(NullPointerException e) {
-//            return null;
-//        }
-//    }
+    @POST
+    @Path("givecapitalauthorization")
+    @Consumes("application/x-www-form-urlencoded")
+    public Response giveCapitalAuthorization(
+            @PathParam("userid") Integer userid,
+            @FormParam("amount") Double amount,
+            @FormParam("brokerid") Integer brokerid)
+            //@FormParam("enddate") LocalDateTime endDate)
+    {
+
+        try {
+
+            AuthorizationDAO td = new AuthorizationDAOImpl();
+
+            AuthorizationService authService = new AuthorizationService(td);
+            Authorization auth =  authService.giveCapitalAuthorization(userid, amount, brokerid, LocalDateTime.now());
+
+            UriBuilder ub = uriInfo.getBaseUriBuilder().path("authorization/"+userid+"/"+auth.getId());
+            URI AuthUri = ub.build();
+
+            return Response.created(AuthUri).build();
+        }
+        catch(NullPointerException e) {
+            return null;
+        }
+    }
+
+    @POST
+    @Path("givestockauthorization")
+    @Consumes("application/x-www-form-urlencoded")
+    public Response giveStockAuthorization(
+            @PathParam("userid") Integer userid,
+            @FormParam("amount") Integer amount,
+            @FormParam("stockholdingid") Integer stockholdingid,
+            @FormParam("brokerid") Integer brokerid)
+            //@FormParam("enddate") LocalDateTime endDate)
+    {
+        try {
+
+            AuthorizationDAO td = new AuthorizationDAOImpl();
+
+            AuthorizationService authService = new AuthorizationService(td);
+            Authorization auth =  authService.giveStockAuthorization(userid, amount, stockholdingid, brokerid, LocalDateTime.now());
+
+            UriBuilder ub = uriInfo.getBaseUriBuilder().path("authorization/"+userid+"/"+auth.getId());
+            URI AuthUri = ub.build();
+
+            return Response.created(AuthUri).build();
+        }
+        catch(NullPointerException e) {
+            return null;
+        }
+    }
 }
