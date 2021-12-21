@@ -4,15 +4,20 @@ import java.util.List;
 
 import gr.aueb.team1.dao.OrderDAO;
 import gr.aueb.team1.dao.impl.UserDAOImpl;
+import gr.aueb.team1.dao.impl.AuthorizationDAOImpl;
 import gr.aueb.team1.domain.Order;
 import gr.aueb.team1.domain.Stock;
 import gr.aueb.team1.domain.User;
 import gr.aueb.team1.domain.Broker;
+import gr.aueb.team1.domain.Investor;
+import gr.aueb.team1.domain.AuthCapital;
+import gr.aueb.team1.domain.AuthStock;
 
 public class OrderService {
 	
     private OrderDAO od;
-    private UserService us = new UserService(new UserDAOImpl());;
+    private UserService us = new UserService(new UserDAOImpl());
+    private AuthorizationService as = new AuthorizationService(new AuthorizationDAOImpl());
     
     public OrderService(OrderDAO od) {
         this.od = od;
@@ -51,9 +56,23 @@ public class OrderService {
     	return od.save(o);
     }
     
-    public Order buyForInvestor(Integer brokerid, Integer investorid, Stock stock, Integer amount) {
+    public Order buyForInvestor(Integer brokerid, Integer investorid, Integer authid, Stock stock, Integer amount) {
     	Broker b = us.findBrokerById(brokerid);
-    	return null;
+    	Investor i = us.findInvestorById(investorid);
+    	AuthCapital ac = as.getAuthCapital(brokerid, authid);
+    	Order o = b.buyForInvestor(ac, stock, amount);
+    	
+    	return od.save(o);
     }
+    
+    public Order sellForInvestor(Integer brokerid, Integer investorid, Integer authid, Integer amount) {
+    	Broker b = us.findBrokerById(brokerid);
+    	Investor i = us.findInvestorById(investorid);
+    	AuthStock ast = as.getAuthStock(brokerid, authid);
+    	Order o = b.sellForInvestor(ast, amount);
+    	
+    	return od.save(o);
+    }
+
     
 }
