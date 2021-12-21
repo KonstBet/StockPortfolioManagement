@@ -123,5 +123,55 @@ public class OrderResource {
             return null;
         }
     }
+	
+	@POST
+    @Path("buyforinv/{stockid}")
+    @Consumes("application/x-www-form-urlencoded")
+    public Response buyForInvestor(
+            @PathParam("userid") Integer userid,
+            @PathParam("stockid") Integer stockid,
+            @PathParam("authid") Integer authid,
+    		@FormParam("amount") Integer amount) {
+        
+		try {
+            OrderDAO od = new OrderDAOImpl();
+            StockService ss = new StockService(new StockDAOImpl());
+            
+            OrderService os = new OrderService(od);
+            os.buyForInvestor(userid, authid, ss.getStock(stockid), amount);
+
+            UriBuilder ub = uriInfo.getBaseUriBuilder().path("order/"+ userid);
+            URI orderUri = ub.build();
+
+            return Response.created(orderUri).build();
+        }
+            catch(NullPointerException e) {
+            return null;
+        }
+    }
+	
+	@POST
+    @Path("sellforinv/")
+    @Consumes("application/x-www-form-urlencoded")
+    public Response sellForInvestor(
+            @PathParam("userid") Integer userid,
+            @FormParam("authid") Integer authid,
+    		@FormParam("amount") Integer amount) {
+        
+		try {
+            OrderDAO od = new OrderDAOImpl();
+            
+            OrderService os = new OrderService(od);
+            os.sellForInvestor(userid, authid, amount);
+
+            UriBuilder ub = uriInfo.getBaseUriBuilder().path("order/"+ userid);
+            URI orderUri = ub.build();
+
+            return Response.created(orderUri).build();
+        }
+            catch(NullPointerException e) {
+            return null;
+        }
+    }
 
 }

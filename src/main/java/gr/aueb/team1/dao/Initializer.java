@@ -16,6 +16,8 @@ public class Initializer {
     public Investor investor;
     public Broker broker;
     public Broker broker2;
+    public AuthCapital ac;
+    public AuthStock as;
 
     private void eraseData() {
         EntityManager em = JPAUtil.getCurrentEntityManager();
@@ -50,8 +52,8 @@ public class Initializer {
         investor.buyStock(PeiraiosStock,amount);
         investor.buyStock(AlphaStock,amount);
 
-        investor.giveAuthorization(20,investor.getStockHoldings().get(PeiraiosStock),broker,LocalDateTime.now());
-        investor.giveAuthorization(5000.0,broker2, LocalDateTime.now());
+        as = investor.giveAuthorization(20,investor.getStockHoldings().get(PeiraiosStock),broker,LocalDateTime.now());
+        ac = investor.giveAuthorization(5000.0,broker2, LocalDateTime.now());
 
         broker.sellForInvestor((AuthStock) broker.getAuthorizations().iterator().next(),10);
         broker2.buyForInvestor((AuthCapital) broker2.getAuthorizations().iterator().next(),PeiraiosStock,10);

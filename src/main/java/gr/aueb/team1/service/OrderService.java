@@ -56,18 +56,16 @@ public class OrderService {
     	return od.save(o);
     }
     
-    public Order buyForInvestor(Integer brokerid, Integer investorid, Integer authid, Stock stock, Integer amount) {
+    public Order buyForInvestor(Integer brokerid, Integer authid, Stock stock, Integer amount) {
     	Broker b = us.findBrokerById(brokerid);
-    	Investor i = us.findInvestorById(investorid);
     	AuthCapital ac = as.getAuthCapital(brokerid, authid);
     	Order o = b.buyForInvestor(ac, stock, amount);
     	
     	return od.save(o);
     }
     
-    public Order sellForInvestor(Integer brokerid, Integer investorid, Integer authid, Integer amount) {
+    public Order sellForInvestor(Integer brokerid, Integer authid, Integer amount) {
     	Broker b = us.findBrokerById(brokerid);
-    	Investor i = us.findInvestorById(investorid);
     	AuthStock ast = as.getAuthStock(brokerid, authid);
     	Order o = b.sellForInvestor(ast, amount);
     	
