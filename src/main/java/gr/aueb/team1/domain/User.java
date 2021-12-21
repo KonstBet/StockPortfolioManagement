@@ -1,11 +1,10 @@
 package gr.aueb.team1.domain;
+
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.persistence.*;
 
+import gr.aueb.team1.constants.CONSTANTS;
 import gr.aueb.team1.domain.Order.Action;
 import gr.aueb.team1.domain.Order.Status;
 
@@ -53,10 +52,6 @@ public class User {
 	@Column(name="balance", precision = 10, scale = 4)
 	private Double balance;
 	
-	// For temporary use, will be integrated to part 3
-	private final Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$", Pattern.CASE_INSENSITIVE);
-	private final Pattern phonePattern = Pattern.compile("^69[0-9]{8}$");
-	
 	public User() {
 		this.name = null;
 		this.surname = null;
@@ -69,8 +64,8 @@ public class User {
 		this.name = name;
 		this.surname = surname;
 		this.password = password;
-		this.setEmail(email);
-		this.setPhoneNo(phoneNo);
+		this.email = email;
+		this.phoneNo = phoneNo;
 		this.balance = 0.0;
 	}
 	
@@ -111,18 +106,11 @@ public class User {
 	}
 	
 	public void setEmail(String email) {
-		Matcher m = emailPattern.matcher(email);
-		if(m.matches()) {
-			this.email = email;
-		}
+		this.email = email;
 	}
 	
 	public void setPhoneNo(String phoneNo) {
-		Matcher m = phonePattern.matcher(phoneNo);
-		if(m.matches()) {
-			this.phoneNo = phoneNo;
-		}
-
+		this.phoneNo = phoneNo;
 	}
 	
 	public Set<Transaction> getTransactions() {
@@ -206,8 +194,7 @@ public class User {
 	}
 	
 	public Order buyStock(Stock stock, Integer amount) {
-		Double fee= 0.1;
-		Order order = new Order(this, stock, amount, fee, LocalDateTime.now(), Action.BUY, Status.PENDING);
+		Order order = new Order(this, stock, amount, CONSTANTS.fee, LocalDateTime.now(), Action.BUY, Status.PENDING);
 
 		if (!order.applyOrder()) {
 			return null;
@@ -219,8 +206,7 @@ public class User {
 	
 
 	public Order sellStock(Stock stock, Integer amount) {
-		Double fee = 0.1;
-		Order order = new Order(this, stock, amount, fee, LocalDateTime.now(),Action.SELL, Status.PENDING);
+		Order order = new Order(this, stock, amount, CONSTANTS.fee, LocalDateTime.now(),Action.SELL, Status.PENDING);
 		
 		if (!order.applyOrder()) {
 			return null;
@@ -231,9 +217,8 @@ public class User {
 	}
 	
 	public AutomatedOrder limitOrder(Double limit, Stock stock, Integer amount, Action action) {
-		Double fee = 0.1;
 		if(action.equals(Action.BUY)) {
-			AutomatedOrder ao = new AutomatedOrder(this, stock, amount, fee, LocalDateTime.now(), action, limit);
+			AutomatedOrder ao = new AutomatedOrder(this, stock, amount, CONSTANTS.fee, LocalDateTime.now(), action, limit);
 			if (getBalance() < ao.getOrderPrice()) {
 				return null;
 			}
@@ -248,7 +233,7 @@ public class User {
 			if (sh.getAmount() < amount) {
 				return null;
 			}
-			AutomatedOrder ao = new AutomatedOrder(this, stock, amount, fee, LocalDateTime.now(), action, limit);
+			AutomatedOrder ao = new AutomatedOrder(this, stock, amount, CONSTANTS.fee, LocalDateTime.now(), action, limit);
 			orders.add(ao);
 			return ao;
 		}

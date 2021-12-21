@@ -66,8 +66,7 @@ public class OrderResource {
             URI orderUri = ub.build();
 
             return Response.created(orderUri).build();
-        }
-            catch(NullPointerException e) {
+        } catch(NullPointerException e) {
             return null;
         }
     }
