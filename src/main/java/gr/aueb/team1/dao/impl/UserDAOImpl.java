@@ -31,6 +31,7 @@ public class UserDAOImpl implements UserDAO {
 		return result;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findAllBrokers() {
 
@@ -45,6 +46,7 @@ public class UserDAOImpl implements UserDAO {
 		return result;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findAllInvestors() {
 

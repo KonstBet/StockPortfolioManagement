@@ -34,7 +34,8 @@ public class TransactionDAOImpl implements TransactionDAO {
         return result;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Transaction> findAllDepositsByUser(User user) {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
@@ -51,7 +52,8 @@ public class TransactionDAOImpl implements TransactionDAO {
         return result;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Transaction> findAllWithdrawsByUser(User user) {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
