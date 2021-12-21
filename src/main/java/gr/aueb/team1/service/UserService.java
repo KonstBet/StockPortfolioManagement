@@ -26,4 +26,10 @@ public class UserService {
 				
 		return u;
 	}
+	
+	public String portfolioReport(Integer id) {
+		User u = findUserById(id);
+		
+		return u.portfolioReport();
+	}
 }

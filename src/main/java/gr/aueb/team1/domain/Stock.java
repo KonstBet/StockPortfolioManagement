@@ -41,7 +41,7 @@ public class Stock
 	private Set<Order> orders = new HashSet<Order>();
 	
 	@OneToMany(mappedBy="stock", fetch=FetchType.LAZY,cascade = CascadeType.PERSIST)
-	private Map<Stock,StockHolding> holdings = new HashMap<Stock,StockHolding>();
+	private Map<Stock,StockHolding> holdings = new HashMap<Stock, StockHolding>();
 
 	public Stock() {
 		

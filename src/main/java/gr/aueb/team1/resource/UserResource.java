@@ -9,7 +9,9 @@ import gr.aueb.team1.service.UserService;
 
 @Path("user")
 public class UserResource {
-
+	
+	private UserInfo ui;
+	
 	@POST
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Consumes("application/x-www-form-urlencoded")
@@ -23,13 +25,21 @@ public class UserResource {
 			if (!password.equals(u.getPassword()))
 				return null;
 
-			UserInfo ui = new UserInfo(u);
+			ui = new UserInfo(u);
 
 			return ui;
 		}
 		catch(NullPointerException e) {
 			return null;
 		}
+	}
+	
+	@GET
+	@Path("portfolio")
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public String portfolioReport() {
+		UserService us = new UserService(new UserDAOImpl());
+		return us.portfolioReport(ui.getId());
 	}
 }
 
