@@ -183,12 +183,11 @@ public class OrderResourceTest extends JerseyTest {
     	Integer brokerid = init.broker2.getId();
     	Integer authid = init.ac.getId();
     	Integer investorid = init.ac.getInvestor().getId();
-    	Stock s = init.AlphaStock;
         Integer stockid = init.AlphaStock.getId();
 
         Form form = new Form();
         form.param("amount","1")
-        .param("authid","authid");
+        .param("authid",authid.toString());
         
         Response res = target("order/"+brokerid+"/buyforinv/"+stockid).request(MediaType.TEXT_PLAIN)
                 .post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED));
@@ -200,7 +199,29 @@ public class OrderResourceTest extends JerseyTest {
                 .get(new GenericType<List<OrderInfo>>() {});
 
         assertEquals(5, oList.size());
-
-    	
     }
+    
+    @Test
+    public void buyFroInvestorNonExistentStockTest() {
+    	Integer brokerid = init.broker2.getId();
+    	Integer authid = init.ac.getId();
+    	Integer investorid = init.ac.getInvestor().getId();
+        Integer stockid = 12345;
+
+        Form form = new Form();
+        form.param("amount","1")
+        .param("authid",authid.toString());
+        
+        Response res = target("order/"+brokerid+"/buyforinv/"+stockid).request(MediaType.TEXT_PLAIN)
+                .post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED));
+
+        assertEquals(res.getStatus(),204);
+
+
+        List<OrderInfo> oList = target("order/"+investorid).request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<OrderInfo>>() {});
+
+        assertEquals(4, oList.size());
+    }
+
 }
