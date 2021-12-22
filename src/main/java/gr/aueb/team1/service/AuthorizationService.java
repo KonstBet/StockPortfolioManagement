@@ -19,13 +19,13 @@ public class AuthorizationService {
         this.ad = ad;
     }
 
-    public List<Authorization> showAuthorizations(Integer userid) {
+    public List<Integer> showAuthorizations(Integer userid) {
 
         User u = getUser(userid);
 
-        List<Authorization> results = new ArrayList<>();
+        List<Integer> results = new ArrayList<>();
         for (Authorization a : u.getAuthorizations()) {
-            results.add(ad.findById(a.getId()));
+            results.add(ad.findById(a.getId()).getId());
         }
 
         return results;
