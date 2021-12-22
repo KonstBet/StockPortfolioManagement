@@ -182,20 +182,20 @@ public class OrderResourceTest extends JerseyTest {
     public void buyFroInvestorTest() {
     	Integer brokerid = init.broker2.getId();
     	Integer authid = init.ac.getId();
+    	Integer investorid = init.ac.getInvestor().getId();
     	Stock s = init.AlphaStock;
-        Integer userid = init.investor.getId();
         Integer stockid = init.AlphaStock.getId();
 
         Form form = new Form();
         form.param("amount","1");
         
-        Response res = target("order/"+userid+"/buy/"+stockid).request(MediaType.TEXT_PLAIN)
+        Response res = target("order/"+brokerid+"/buyforinv/"+stockid).request(MediaType.TEXT_PLAIN)
                 .post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED));
 
         assertEquals(res.getStatus(),201);
 
 
-        List<OrderInfo> oList = target("order/"+userid).request(MediaType.APPLICATION_JSON)
+        List<OrderInfo> oList = target("order/"+investorid).request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<OrderInfo>>() {});
 
         assertEquals(5, oList.size());
