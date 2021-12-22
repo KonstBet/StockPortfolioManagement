@@ -2,7 +2,6 @@ package gr.aueb.team1.resource;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.List;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
@@ -14,8 +13,6 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Before;
 import org.junit.Test;
-import gr.aueb.team1.domain.Stock;
-
 import gr.aueb.team1.dao.Initializer;
 import gr.aueb.team1.domain.Order;
 

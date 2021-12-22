@@ -10,6 +10,6 @@ public interface UserDAO extends DAO<User> {
 	public User findByEmail(String mail);
 	public Broker findBrokerById(Integer id);
 	public Investor findInvestorById(Integer id);
-	public List<User> findAllBrokers();
-	public List<User> findAllInvestors();
+	public List<Broker> findAllBrokers();
+	public List<Investor> findAllInvestors();
 }

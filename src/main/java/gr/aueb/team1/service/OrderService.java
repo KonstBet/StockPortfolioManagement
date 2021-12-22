@@ -9,7 +9,6 @@ import gr.aueb.team1.domain.Order;
 import gr.aueb.team1.domain.Stock;
 import gr.aueb.team1.domain.User;
 import gr.aueb.team1.domain.Broker;
-import gr.aueb.team1.domain.Investor;
 import gr.aueb.team1.domain.AuthCapital;
 import gr.aueb.team1.domain.AuthStock;
 

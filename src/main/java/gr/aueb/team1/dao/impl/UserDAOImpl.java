@@ -35,13 +35,13 @@ public class UserDAOImpl implements UserDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<User> findAllBrokers() {
+	public List<Broker> findAllBrokers() {
 
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 
 		Query q = em.createQuery("select u from User u where type='B'");
-		List<User> result = q.getResultList();
+		List<Broker> result = q.getResultList();
 
 		tx.commit();
 
@@ -50,13 +50,13 @@ public class UserDAOImpl implements UserDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<User> findAllInvestors() {
+	public List<Investor> findAllInvestors() {
 
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 
 		Query q = em.createQuery("select u from User u where type='I'");
-		List<User> result = q.getResultList();
+		List<Investor> result = q.getResultList();
 
 		tx.commit();
 

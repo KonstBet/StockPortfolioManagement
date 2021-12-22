@@ -1,5 +1,7 @@
 package gr.aueb.team1.service;
 
+import java.util.List;
+
 import gr.aueb.team1.dao.UserDAO;
 import gr.aueb.team1.domain.User;
 import gr.aueb.team1.domain.Broker;
@@ -31,6 +33,20 @@ public class UserService {
 		u = ud.findById(id) ; 
 				
 		return u;
+	}
+	
+	public List<Broker> showBrokers(){
+		List<Broker> results = null;
+		results = ud.findAllBrokers();
+				
+		return results;
+	}
+	
+	public List<Investor> showInvestors(){
+		List<Investor> results = null;
+		results = ud.findAllInvestors();
+				
+		return results;
 	}
 	
 	public Broker findBrokerById(Integer id) {
