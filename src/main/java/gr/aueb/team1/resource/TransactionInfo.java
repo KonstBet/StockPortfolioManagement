@@ -20,12 +20,6 @@ public class TransactionInfo {
     public TransactionInfo() {
     }
 
-    public TransactionInfo(Integer id, Double amount, String date, String type) {
-        this.id = id;
-        this.amount = amount;
-        this.date = date;
-        this.type = type;
-    }
 
     public TransactionInfo(Transaction t,String type) {
         this.id = t.getId();

@@ -36,11 +36,6 @@ public class UserInfo {
 
 	}
 	
-	public UserInfo(Integer id, String name, String surname, String email, String phoneNo, String password, Double balance) {
-		this(name, surname, email, phoneNo, password, balance);
-		this.id = id;
-	}
-	
 	public UserInfo(String name, String surname, String email, String phoneNo, String password, Double balance) {
 		this.name = name;
 		this.surname = surname;
@@ -122,14 +117,7 @@ public class UserInfo {
 	public void setBalance(Double balance) {
 		this.balance = balance;
 	}
-	
-	public static User infoToUser(UserInfo ui) {
 
-		User u = new User(ui.getName(), ui.getSurname(), ui.getEmail(), ui.getPhoneNo(), ui.getPassword());
-		u.setAddress(ui.getAddress());
-
-		return u;
-	}
 	
 	public static Investor infoToInvestor(UserInfo ui) {
 

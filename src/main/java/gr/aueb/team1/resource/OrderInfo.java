@@ -27,19 +27,7 @@ public class OrderInfo {
 	OrderInfo(){
 		
 	}
-	
-	OrderInfo(Integer id, Integer amount, String date, Double orderPrice, Order.Action action, String status){
-		this(amount, date, orderPrice, action, status);
-		this.id = id;
-	}
-	
-	OrderInfo(Integer amount, String date, Double orderPrice, Order.Action action, String status){
-		this.amount = amount;
-		this.date = date;
-		this.orderPrice = orderPrice;
-		this.action = action;
-		this.status = status;
-	}
+
 	
 	OrderInfo(Order o) {
 		this.id = o.getId();

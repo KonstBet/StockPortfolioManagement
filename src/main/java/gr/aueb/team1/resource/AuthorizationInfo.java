@@ -32,15 +32,6 @@ public class AuthorizationInfo {
     public AuthorizationInfo() {
     }
 
-    public AuthorizationInfo(Integer id, String startdate, String enddate, Integer investorid, Integer brokerid, Double amount, String stockName) {
-        this.id = id;
-        this.startdate = startdate;
-        this.enddate = enddate;
-        this.investorid = investorid;
-        this.brokerid = brokerid;
-        this.amount = amount;
-        this.stockName = stockName;
-    }
 
     public AuthorizationInfo(Authorization auth) {
         this.id = auth.getId();

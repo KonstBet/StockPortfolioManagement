@@ -22,13 +22,6 @@ public class StockHoldingInfo {
     public StockHoldingInfo() {
     }
 
-    public StockHoldingInfo(Integer id, Integer amount, Integer committedAmount, Integer userid, String stockName) {
-        this.id = id;
-        this.amount = amount;
-        this.committedAmount = committedAmount;
-        this.userid = userid;
-        this.stockName = stockName;
-    }
 
     public StockHoldingInfo(StockHolding sh) {
         this.id = sh.getId();

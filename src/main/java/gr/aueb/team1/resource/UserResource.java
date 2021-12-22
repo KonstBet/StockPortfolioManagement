@@ -159,7 +159,7 @@ public class UserResource {
 		try {
 			UserService us = new UserService(new UserDAOImpl());
 			
-			Broker u = (Broker) UserInfo.infoToUser(ui);
+			Broker u = UserInfo.infoToBroker(ui);
 			
 			if(!validateUserInfo(ui)) {
 				System.err.println("Invalid Info");

@@ -29,22 +29,6 @@ public class StockInfo {
 
 	}
 	
-	public StockInfo(Integer id, String companyName, String date, Double open, Double close, Double high, Double low, Double vol) {
-		this(companyName, date, open, close, high, low, vol);
-		this.id = id;
-	}
-	
-	public StockInfo(String companyName, String date, Double open, Double close, Double high, Double low, Double vol)
-	{
-		this.companyName = companyName;
-		this.date = date;
-		this.open = open;
-		this.close = close;
-		this.high = high;
-		this.low = low;
-		this.vol = vol;
-	}
-	
 	public StockInfo(Stock stock) {
 		this.id = stock.getId();
 		this.companyName = stock.getCompanyName();
