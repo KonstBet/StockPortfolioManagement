@@ -25,44 +25,6 @@ public class UserResource {
 	@Context
 	UriInfo uriInfo;
 	
-	@GET
-	@Path("investors")
-	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public List<UserInfo> listInvestors() {
-
-		try {
-			UserService us = new UserService(new UserDAOImpl());
-
-			List<Investor> investors = us.showInvestors();
-
-			List<UserInfo> list = UserInfo.wrapI(investors);
-
-			return list;
-		}
-		catch(NullPointerException e) {
-			return null;
-		}
-	}
-
-	@GET
-	@Path("brokers")
-	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public List<UserInfo> listBrokers() {
-
-		try {
-			UserService us = new UserService(new UserDAOImpl());
-
-			List<Broker> brokers = us.showBrokers();
-
-			List<UserInfo> list = UserInfo.wrapB(brokers);
-
-			return list;
-		}
-		catch(NullPointerException e) {
-			return null;
-		}
-	}
-	
 	@POST
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Consumes("application/x-www-form-urlencoded")
@@ -73,18 +35,85 @@ public class UserResource {
 			UserService us = new UserService(ud);
 
 			User u = us.findUserByEmail(email);
-			if (!password.equals(u.getPassword()))
+			if (!password.equals(u.getPassword())) {
+				System.err.println("Wrong credentials");
 				return null;
+			}
 
 			UserInfo ui = new UserInfo(u);
 
 			return ui;
 		}
 		catch(NullPointerException e) {
+			System.err.println("Wrong credentials");
 			return null;
 		}
 	}
 	
+	@GET
+	@Path("investor/{userid}")
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public UserInfo getInvestor(@PathParam("userid") Integer id) {
+
+		try {
+			UserService us = new UserService(new UserDAOImpl());
+
+			Investor i = us.findInvestorById(id);
+
+			UserInfo ii = new UserInfo(i);
+
+			return ii;
+		}
+		catch(NullPointerException e) {
+			return null;
+		}
+	}
+	
+	@GET
+	@Path("investors")
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public List<UserInfo> listInvestors() {
+		UserService us = new UserService(new UserDAOImpl());
+
+		List<Investor> investors = us.showInvestors();
+
+		List<UserInfo> list = UserInfo.wrapI(investors);
+
+		return list;
+	}
+
+	@GET
+	@Path("brokers")
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public List<UserInfo> listBrokers() {
+			UserService us = new UserService(new UserDAOImpl());
+
+			List<Broker> brokers = us.showBrokers();
+
+			List<UserInfo> list = UserInfo.wrapB(brokers);
+
+			return list;
+	}
+	
+	@GET
+	@Path("broker/{userid}")
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public UserInfo getBroker(@PathParam("userid") Integer id) {
+
+		try {
+			UserService us = new UserService(new UserDAOImpl());
+
+			Broker b = us.findBrokerById(id);
+
+			UserInfo bi = new UserInfo(b);
+
+			return bi;
+		}
+		catch(NullPointerException e) {
+			return null;
+		}
+	}
+		
 //	@GET
 //	@Path("portfolio")
 //	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -94,14 +123,43 @@ public class UserResource {
 //	}
 	
 	@POST
-	@Path("create")
+	@Path("createi")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createUser(UserInfo ui) {
+	public Response createInvestor(UserInfo ui) {
 
 		try {
 			UserService us = new UserService(new UserDAOImpl());
 			
-			User u = UserInfo.getUser(ui);
+			User u = UserInfo.infoToUser(ui);
+			
+			if(!validateUserInfo(ui)) {
+				System.err.println("Invalid Info");
+				return null;
+			}
+			
+			us.createUser(u);
+
+			UriBuilder ub = uriInfo.getBaseUriBuilder().path("user");
+			URI userUri = ub.build();
+
+			return Response.created(userUri).build();
+			
+		} catch(NullPointerException e) {
+			e.printStackTrace();
+            return null;
+		}
+		
+	}
+	
+	@POST
+	@Path("createb")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response createBroker(UserInfo ui) {
+
+		try {
+			UserService us = new UserService(new UserDAOImpl());
+			
+			User u = UserInfo.infoToUser(ui);
 			
 			if(!validateUserInfo(ui)) {
 				System.err.println("Invalid Info");

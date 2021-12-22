@@ -121,7 +121,7 @@ public class UserInfo {
 		this.balance = balance;
 	}
 	
-	public static User getUser(UserInfo ui) {
+	public static User infoToUser(UserInfo ui) {
 
 		User u = new User(ui.getName(), ui.getSurname(), ui.getEmail(), ui.getPhoneNo(), ui.getPassword());
 		u.setAddress(ui.getAddress());
