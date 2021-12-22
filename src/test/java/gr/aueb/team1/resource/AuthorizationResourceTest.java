@@ -12,6 +12,7 @@ import javax.ws.rs.core.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static gr.aueb.team1.constants.CONSTANTS.dateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AuthorizationResourceTest extends JerseyTest {
@@ -69,6 +70,7 @@ public class AuthorizationResourceTest extends JerseyTest {
         Form form = new Form();
         form.param("amount","100");
         form.param("brokerid", brokerid.toString());
+        form.param("enddate", LocalDateTime.of(1,1,1,1,1).format(dateTimeFormatter));
 
         Response res = target("authorization/"+userid+"/givecapitalauthorization").request(MediaType.TEXT_PLAIN)
                 .post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED));
@@ -92,6 +94,7 @@ public class AuthorizationResourceTest extends JerseyTest {
         form.param("amount","10");
         form.param("stockholdingid",init.investor.getStockHoldings().get(init.AlphaStock).getId().toString());
         form.param("brokerid", brokerid.toString());
+        form.param("enddate", LocalDateTime.of(1,1,1,1,1).format(dateTimeFormatter));
 
         Response res = target("authorization/"+userid+"/givestockauthorization").request(MediaType.TEXT_PLAIN)
                 .post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED));

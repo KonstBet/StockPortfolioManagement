@@ -13,7 +13,10 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import static gr.aueb.team1.constants.CONSTANTS.dateTimeFormatter;
 
 @Path("authorization/{userid}")
 public class AuthorizationResource {
@@ -78,8 +81,8 @@ public class AuthorizationResource {
     public Response giveCapitalAuthorization(
             @PathParam("userid") Integer userid,
             @FormParam("amount") Double amount,
-            @FormParam("brokerid") Integer brokerid)
-            //@FormParam("enddate") LocalDateTime endDate)
+            @FormParam("brokerid") Integer brokerid,
+            @FormParam("enddate") String endDate)
     {
 
         try {
@@ -87,7 +90,7 @@ public class AuthorizationResource {
             AuthorizationDAO td = new AuthorizationDAOImpl();
 
             AuthorizationService authService = new AuthorizationService(td);
-            Authorization auth =  authService.giveCapitalAuthorization(userid, amount, brokerid, LocalDateTime.now());
+            Authorization auth =  authService.giveCapitalAuthorization(userid, amount, brokerid, LocalDateTime.parse(endDate,dateTimeFormatter));
 
             UriBuilder ub = uriInfo.getBaseUriBuilder().path("authorization/"+userid+"/"+auth.getId());
             URI AuthUri = ub.build();
@@ -106,15 +109,15 @@ public class AuthorizationResource {
             @PathParam("userid") Integer userid,
             @FormParam("amount") Integer amount,
             @FormParam("stockholdingid") Integer stockholdingid,
-            @FormParam("brokerid") Integer brokerid)
-            //@FormParam("enddate") LocalDateTime endDate)
+            @FormParam("brokerid") Integer brokerid,
+            @FormParam("enddate") String endDate)
     {
         try {
 
             AuthorizationDAO td = new AuthorizationDAOImpl();
 
             AuthorizationService authService = new AuthorizationService(td);
-            Authorization auth =  authService.giveStockAuthorization(userid, amount, stockholdingid, brokerid, LocalDateTime.now());
+            Authorization auth =  authService.giveStockAuthorization(userid, amount, stockholdingid, brokerid, LocalDateTime.parse(endDate,dateTimeFormatter));
 
             UriBuilder ub = uriInfo.getBaseUriBuilder().path("authorization/"+userid+"/"+auth.getId());
             URI AuthUri = ub.build();

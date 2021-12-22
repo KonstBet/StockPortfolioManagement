@@ -138,7 +138,7 @@ public class OrderResource {
             OrderService os = new OrderService(od);
             os.buyForInvestor(userid, authid, ss.getStock(stockid), amount);
 
-            UriBuilder ub = uriInfo.getBaseUriBuilder().path("order/"+ userid);
+            UriBuilder ub = uriInfo.getBaseUriBuilder().path("authorization/"+ userid);
             URI orderUri = ub.build();
 
             return Response.created(orderUri).build();
@@ -162,7 +162,7 @@ public class OrderResource {
             OrderService os = new OrderService(od);
             os.sellForInvestor(userid, authid, amount);
 
-            UriBuilder ub = uriInfo.getBaseUriBuilder().path("order/"+ userid);
+            UriBuilder ub = uriInfo.getBaseUriBuilder().path("authorization/"+ userid);
             URI orderUri = ub.build();
 
             return Response.created(orderUri).build();
