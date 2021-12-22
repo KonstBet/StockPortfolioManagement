@@ -10,14 +10,16 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static gr.aueb.team1.constants.CONSTANTS.dateTimeFormatter;
+
 @XmlRootElement
 public class AuthorizationInfo {
 
     private Integer id;
 
-    private LocalDateTime startdate;
+    private String startdate;
 
-    private LocalDateTime enddate;
+    private String enddate;
 
     private Integer investorid;
 
@@ -30,7 +32,7 @@ public class AuthorizationInfo {
     public AuthorizationInfo() {
     }
 
-    public AuthorizationInfo(Integer id, LocalDateTime startdate, LocalDateTime enddate, Integer investorid, Integer brokerid, Double amount, String stockName) {
+    public AuthorizationInfo(Integer id, String startdate, String enddate, Integer investorid, Integer brokerid, Double amount, String stockName) {
         this.id = id;
         this.startdate = startdate;
         this.enddate = enddate;
@@ -42,16 +44,16 @@ public class AuthorizationInfo {
 
     public AuthorizationInfo(Authorization auth) {
         this.id = auth.getId();
-        this.startdate = auth.getStartdate();
-        this.enddate = auth.getEnddate();
+        this.startdate = auth.getStartdate().format(dateTimeFormatter);
+        this.enddate = auth.getEnddate().format(dateTimeFormatter);
         this.investorid = auth.getInvestor().getId();
         this.brokerid = auth.getBroker().getId();
     }
 
     public AuthorizationInfo(AuthStock auth) {
         this.id = auth.getId();
-        this.startdate = auth.getStartdate();
-        this.enddate = auth.getEnddate();
+        this.startdate = auth.getStartdate().format(dateTimeFormatter);
+        this.enddate = auth.getEnddate().format(dateTimeFormatter);
         this.investorid = auth.getInvestor().getId();
         this.brokerid = auth.getBroker().getId();
         this.amount = auth.getAmount().doubleValue();
@@ -60,8 +62,8 @@ public class AuthorizationInfo {
 
     public AuthorizationInfo(AuthCapital auth) {
         this.id = auth.getId();
-        this.startdate = auth.getStartdate();
-        this.enddate = auth.getEnddate();
+        this.startdate = auth.getStartdate().format(dateTimeFormatter);
+        this.enddate = auth.getEnddate().format(dateTimeFormatter);
         this.investorid = auth.getInvestor().getId();
         this.brokerid = auth.getBroker().getId();
         this.amount = auth.getAmount();
@@ -75,19 +77,19 @@ public class AuthorizationInfo {
         this.id = id;
     }
 
-    public LocalDateTime getStartdate() {
+    public String getStartdate() {
         return startdate;
     }
 
-    public void setStartdate(LocalDateTime startdate) {
+    public void setStartdate(String startdate) {
         this.startdate = startdate;
     }
 
-    public LocalDateTime getEnddate() {
+    public String getEnddate() {
         return enddate;
     }
 
-    public void setEnddate(LocalDateTime enddate) {
+    public void setEnddate(String enddate) {
         this.enddate = enddate;
     }
 

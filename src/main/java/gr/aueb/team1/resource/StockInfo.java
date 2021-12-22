@@ -7,6 +7,8 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 import gr.aueb.team1.domain.Stock;
 
+import static gr.aueb.team1.constants.CONSTANTS.dateTimeFormatter;
+
 @XmlRootElement
 public class StockInfo {
 
@@ -14,7 +16,7 @@ public class StockInfo {
 
 	private String companyName;
 	
-	private LocalDateTime date;
+	private String date;
 	
 	private Double open;
 	
@@ -30,12 +32,12 @@ public class StockInfo {
 
 	}
 	
-	public StockInfo(Integer id, String companyName, LocalDateTime date, Double open, Double close, Double high, Double low, Double vol) {
+	public StockInfo(Integer id, String companyName, String date, Double open, Double close, Double high, Double low, Double vol) {
 		this(companyName, date, open, close, high, low, vol);
 		this.id = id;
 	}
 	
-	public StockInfo(String companyName, LocalDateTime date, Double open, Double close, Double high, Double low, Double vol) 
+	public StockInfo(String companyName, String date, Double open, Double close, Double high, Double low, Double vol)
 	{
 		this.companyName = companyName;
 		this.date = date;
@@ -49,7 +51,7 @@ public class StockInfo {
 	public StockInfo(Stock stock) {
 		this.id = stock.getId();
 		this.companyName = stock.getCompanyName();
-		this.date = stock.getDate();
+		this.date = stock.getDate().format(dateTimeFormatter);;
 		this.open = stock.getOpen();
 		this.close = stock.getClose();
 		this.high = stock.getHigh();
@@ -73,11 +75,11 @@ public class StockInfo {
 		this.companyName = companyName;
 	}
 
-	public LocalDateTime getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

@@ -1,5 +1,6 @@
 package gr.aueb.team1.constants;
 
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
 public final class CONSTANTS {
@@ -11,5 +12,6 @@ public final class CONSTANTS {
 	
 	// Values
 	public static final Double fee = 0.1;
-	
+
+	public static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 }

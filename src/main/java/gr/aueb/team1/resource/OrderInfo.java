@@ -6,6 +6,8 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 import gr.aueb.team1.domain.Order;
 
+import static gr.aueb.team1.constants.CONSTANTS.dateTimeFormatter;
+
 
 @XmlRootElement
 public class OrderInfo {
@@ -14,7 +16,7 @@ public class OrderInfo {
 	
 	private Integer amount;
 	
-	private LocalDateTime date;
+	private String date;
 	
 	private Double orderPrice;
 
@@ -26,12 +28,12 @@ public class OrderInfo {
 		
 	}
 	
-	OrderInfo(Integer id, Integer amount, LocalDateTime date, Double orderPrice, Order.Action action, String status){
+	OrderInfo(Integer id, Integer amount, String date, Double orderPrice, Order.Action action, String status){
 		this(amount, date, orderPrice, action, status);
 		this.id = id;
 	}
 	
-	OrderInfo(Integer amount, LocalDateTime date, Double orderPrice, Order.Action action, String status){
+	OrderInfo(Integer amount, String date, Double orderPrice, Order.Action action, String status){
 		this.amount = amount;
 		this.date = date;
 		this.orderPrice = orderPrice;
@@ -40,8 +42,9 @@ public class OrderInfo {
 	}
 	
 	OrderInfo(Order o) {
+		this.id = o.getId();
 		this.amount = o.getAmount();
-		this.date = o.getDate();
+		this.date = o.getDate().format(dateTimeFormatter);;
 		this.orderPrice = o.getOrderPrice();
 		this.action = o.getAction();
 		this.status = o.statusToString();
@@ -63,11 +66,11 @@ public class OrderInfo {
 		this.amount = amount;
 	}
 
-	public LocalDateTime getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDateTime date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

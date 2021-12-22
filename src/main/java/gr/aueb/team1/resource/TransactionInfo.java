@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static gr.aueb.team1.constants.CONSTANTS.dateTimeFormatter;
+
 @XmlRootElement
 public class TransactionInfo {
 
@@ -13,14 +15,14 @@ public class TransactionInfo {
 
     private Double amount;
 
-    private LocalDateTime date;
+    private String date;
 
     private String type;
 
     public TransactionInfo() {
     }
 
-    public TransactionInfo(Integer id, Double amount, LocalDateTime date, String type) {
+    public TransactionInfo(Integer id, Double amount, String date, String type) {
         this.id = id;
         this.amount = amount;
         this.date = date;
@@ -30,7 +32,7 @@ public class TransactionInfo {
     public TransactionInfo(Transaction t,String type) {
         this.id = t.getId();
         this.amount = t.getAmount();
-        this.date = t.getDate();
+        this.date = t.getDate().format(dateTimeFormatter);
         this.type = type;
     }
 
@@ -50,11 +52,11 @@ public class TransactionInfo {
         this.amount = amount;
     }
 
-    public LocalDateTime getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
