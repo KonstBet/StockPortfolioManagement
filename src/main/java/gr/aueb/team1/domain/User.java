@@ -113,6 +113,14 @@ public class User {
 		this.phoneNo = phoneNo;
 	}
 	
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+	
 	public Set<Transaction> getTransactions() {
 		return transactions;
 	}

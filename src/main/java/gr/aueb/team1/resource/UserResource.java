@@ -2,14 +2,12 @@ package gr.aueb.team1.resource;
 
 import java.net.URI;
 import java.util.regex.Matcher;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
-
 import gr.aueb.team1.constants.CONSTANTS;
 import gr.aueb.team1.dao.UserDAO;
 import gr.aueb.team1.dao.impl.UserDAOImpl;
