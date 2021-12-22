@@ -1,6 +1,5 @@
 package gr.aueb.team1.resource;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;

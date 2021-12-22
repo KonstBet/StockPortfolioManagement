@@ -1,21 +1,16 @@
 package gr.aueb.team1.resource;
 
 import gr.aueb.team1.dao.AuthorizationDAO;
-import gr.aueb.team1.dao.AuthorizationDAO;
 import gr.aueb.team1.dao.impl.AuthorizationDAOImpl;
 import gr.aueb.team1.domain.AuthCapital;
 import gr.aueb.team1.domain.AuthStock;
 import gr.aueb.team1.domain.Authorization;
 import gr.aueb.team1.service.AuthorizationService;
-import gr.aueb.team1.service.AuthorizationService;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
-
 import static gr.aueb.team1.constants.CONSTANTS.dateTimeFormatter;
 
 @Path("authorization/{userid}")
@@ -60,28 +55,23 @@ public class AuthorizationResource {
             @PathParam("userid") Integer userid,
             @PathParam("authorizationid") Integer authid) {
 
-        try {
-            AuthorizationDAO ad = new AuthorizationDAOImpl();
+        AuthorizationDAO ad = new AuthorizationDAOImpl();
 
-            AuthorizationService authService = new AuthorizationService(ad);
+        AuthorizationService authService = new AuthorizationService(ad);
 
-            AuthStock as = authService.getAuthStock(userid,authid);
-            if (as != null) {
-                AuthorizationInfo ai = new AuthorizationInfo(as);
-                return ai;
-            }
-
-            AuthCapital ac = authService.getAuthCapital(userid,authid);
-            if (ac != null) {
-                AuthorizationInfo ai = new AuthorizationInfo(ac);
-                return ai;
-            }
-
-            return null;
+        AuthStock as = authService.getAuthStock(userid,authid);
+        if (as != null) {
+            AuthorizationInfo ai = new AuthorizationInfo(as);
+            return ai;
         }
-        catch(NullPointerException e) {
-            return null;
+
+        AuthCapital ac = authService.getAuthCapital(userid,authid);
+        if (ac != null) {
+            AuthorizationInfo ai = new AuthorizationInfo(ac);
+            return ai;
         }
+
+        return null;
     }
 
 

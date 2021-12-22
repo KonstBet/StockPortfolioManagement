@@ -2,10 +2,8 @@ package gr.aueb.team1.resource;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
 import gr.aueb.team1.constants.CONSTANTS;
 import gr.aueb.team1.domain.Address;
 import gr.aueb.team1.domain.Broker;
@@ -119,17 +117,27 @@ public class UserInfo {
 	}
 
 	
-	public static Investor infoToInvestor(UserInfo ui) {
-
-		Investor u = new Investor(ui.getName(), ui.getSurname(), ui.getEmail(), ui.getPhoneNo(), ui.getPassword());
+	public static User unwrapU(UserInfo ui) {
+		User u = new User(ui.getName(), ui.getSurname(), ui.getEmail(), ui.getPhoneNo(), ui.getPassword());
+		u.setId(ui.getId());
 		u.setAddress(ui.getAddress());
 
 		return u;
 	}
 	
-	public static Broker infoToBroker(UserInfo ui) {
+	public static Investor unwrapI(UserInfo ui) {
+
+		Investor u = new Investor(ui.getName(), ui.getSurname(), ui.getEmail(), ui.getPhoneNo(), ui.getPassword());
+		u.setId(ui.getId());
+		u.setAddress(ui.getAddress());
+
+		return u;
+	}
+	
+	public static Broker unwrapB(UserInfo ui) {
 
 		Broker u = new Broker(ui.getName(), ui.getSurname(), ui.getEmail(), ui.getPhoneNo(), CONSTANTS.fee, ui.getPassword());
+		u.setId(ui.getId());
 		u.setAddress(ui.getAddress());
 
 		return u;

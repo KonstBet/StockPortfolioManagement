@@ -18,20 +18,14 @@ public class StockResource {
 	@GET
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public List<StockInfo> listStocks() {
+		StockDAO sd = new StockDAOImpl();
+		StockService stockService = new StockService(sd);
 
-		try {
-			StockDAO sd = new StockDAOImpl();
-			StockService stockService = new StockService(sd);
+		List<Stock> stocks = stockService.showStocks();
 
-			List<Stock> stocks = stockService.showStocks();
+		List<StockInfo> stockInfo = StockInfo.wrap(stocks);
 
-			List<StockInfo> stockInfo = StockInfo.wrap(stocks);
-
-			return stockInfo;
-		}
-		catch(NullPointerException e) {
-			return null;
-		}
+		return stockInfo;
 	}
 
 	@GET

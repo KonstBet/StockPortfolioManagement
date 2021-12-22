@@ -2,14 +2,7 @@ package gr.aueb.team1.resource;
 
 import gr.aueb.team1.domain.AuthCapital;
 import gr.aueb.team1.domain.AuthStock;
-import gr.aueb.team1.domain.Authorization;
-import gr.aueb.team1.domain.Transaction;
-
 import javax.xml.bind.annotation.XmlRootElement;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 import static gr.aueb.team1.constants.CONSTANTS.dateTimeFormatter;
 
 @XmlRootElement
