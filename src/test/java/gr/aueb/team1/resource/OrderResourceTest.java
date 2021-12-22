@@ -187,7 +187,8 @@ public class OrderResourceTest extends JerseyTest {
         Integer stockid = init.AlphaStock.getId();
 
         Form form = new Form();
-        form.param("amount","1");
+        form.param("amount","1")
+        .param("authid","authid");
         
         Response res = target("order/"+brokerid+"/buyforinv/"+stockid).request(MediaType.TEXT_PLAIN)
                 .post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED));
