@@ -223,5 +223,53 @@ public class OrderResourceTest extends JerseyTest {
 
         assertEquals(4, oList.size());
     }
+    
+    @Test
+    public void sellForInvTest() {
+    	Integer brokerid = init.broker.getId();
+        Integer authid = init.as.getId();
+        Integer investorid = init.as.getInvestor().getId();
+        
+
+        Form form = new Form();
+        form.param("amount","1")
+        .param("authid", authid.toString());
+        
+        Response res = target("order/"+brokerid+"/sellforinv/").request(MediaType.TEXT_PLAIN)
+                .post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED));
+
+        assertEquals(res.getStatus(),201);
+
+
+        List<OrderInfo> oList = target("order/"+investorid).request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<OrderInfo>>() {});
+
+        assertEquals(5, oList.size());
+    }
+    
+    @Test
+    public void sellForInvMoreThanOwnedTest() {
+    	Integer brokerid = init.broker.getId();
+        Integer authid = init.as.getId();
+        Integer investorid = init.as.getInvestor().getId();
+        
+
+        Form form = new Form();
+        form.param("amount","21")
+        .param("authid", authid.toString());
+        
+        Response res = target("order/"+brokerid+"/sellforinv/").request(MediaType.TEXT_PLAIN)
+                .post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED));
+
+        assertEquals(res.getStatus(),204);
+
+
+        List<OrderInfo> oList = target("order/"+investorid).request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<OrderInfo>>() {});
+
+        assertEquals(4, oList.size());
+    }
+
+
 
 }
