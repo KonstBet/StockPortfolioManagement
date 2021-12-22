@@ -1,8 +1,13 @@
 package gr.aueb.team1.resource;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import gr.aueb.team1.domain.Address;
+import gr.aueb.team1.domain.Broker;
+import gr.aueb.team1.domain.Investor;
 import gr.aueb.team1.domain.User;
 
 @XmlRootElement
@@ -122,5 +127,27 @@ public class UserInfo {
 		u.setAddress(ui.getAddress());
 
 		return u;
+	}
+	
+	public static List<UserInfo> wrapB(List<Broker> users) {
+
+		List<UserInfo> userInfoList = new ArrayList<>();
+
+		for (User u : users) {
+			userInfoList.add(new UserInfo(u));
+		}
+
+		return userInfoList;
+	}
+	
+	public static List<UserInfo> wrapI(List<Investor> users) {
+
+		List<UserInfo> userInfoList = new ArrayList<>();
+
+		for (User u : users) {
+			userInfoList.add(new UserInfo(u));
+		}
+
+		return userInfoList;
 	}	
 }
