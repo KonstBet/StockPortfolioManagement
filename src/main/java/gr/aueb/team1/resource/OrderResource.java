@@ -22,7 +22,6 @@ import gr.aueb.team1.service.OrderService;
 import gr.aueb.team1.service.StockService;
 
 
-
 @Path("order/{userid}")
 public class OrderResource {
 	
