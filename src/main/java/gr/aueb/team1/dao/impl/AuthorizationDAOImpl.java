@@ -64,35 +64,6 @@ public class AuthorizationDAOImpl implements AuthorizationDAO {
     }
 
     @Override
-    public AuthStock findStockAuth(Investor investor,Broker broker, Stock stock) {
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-
-        Query q = em.createQuery("select a from Authorization a,Stockholding s" +
-                                         "where a.stockholding.stockid= s.stockid AND Brokerid = :brokerid AND Investorid =:investorid");
-        q.setParameter("brokerid",broker.getId());
-        q.setParameter("investorid",investor.getId());
-        AuthStock result = (AuthStock) q.getSingleResult();
-
-        tx.commit();
-        return result;
-    }
-
-    @Override
-    public AuthStock findCapitalAuth(Investor investor,Broker broker) {
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-
-        Query q = em.createQuery("select a from Authorization a where Brokerid = :brokerid AND Investorid =:investorid AND type='AuthCapital'");
-        q.setParameter("brokerid",broker.getId());
-        q.setParameter("investorid",investor.getId());
-        AuthStock result = (AuthStock) q.getSingleResult();
-
-        tx.commit();
-        return result;
-    }
-
-    @Override
     public Authorization save(Authorization auth) {
         EntityTransaction tx = em.getTransaction();
         tx.begin();

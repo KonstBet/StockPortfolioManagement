@@ -38,18 +38,6 @@ public class UserTest {
 	}
 	
 	@Test
-	void setWrongEmail() {
-		user.setEmail("this_is_no_email");
-		Assertions.assertNotEquals(user.getEmail(), "this_is_no_email");
-	}
-	
-	@Test
-	void setWrongNumber() {
-		user.setPhoneNo("695670972623");
-		Assertions.assertNotEquals(user.getPhoneNo(), "695670972623");
-	}
-	
-	@Test
 	void setCorrectNumber() {
 		user.setPhoneNo("6956709726");
 		Assertions.assertEquals(user.getPhoneNo(), "6956709726");

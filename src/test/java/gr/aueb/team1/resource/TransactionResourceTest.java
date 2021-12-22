@@ -69,7 +69,7 @@ public class TransactionResourceTest extends JerseyTest {
         Response res = target("transaction/"+userid+"/deposit").request(MediaType.TEXT_PLAIN)
                 .post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED));
 
-        assertEquals(res.getStatus(),204);
+        assertEquals(res.getStatus(),404);
 
 
         List<TransactionInfo> tList = target("transaction/"+userid).request(MediaType.APPLICATION_JSON)
@@ -106,7 +106,7 @@ public class TransactionResourceTest extends JerseyTest {
         Response res = target("transaction/"+userid+"/withdraw").request(MediaType.TEXT_PLAIN)
                 .post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED));
 
-        assertEquals(res.getStatus(),204);
+        assertEquals(res.getStatus(),404);
 
         List<TransactionInfo> tList = target("transaction/"+userid).request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<TransactionInfo>>() {});
