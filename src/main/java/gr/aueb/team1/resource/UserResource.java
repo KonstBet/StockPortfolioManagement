@@ -130,7 +130,7 @@ public class UserResource {
 		try {
 			UserService us = new UserService(new UserDAOImpl());
 			
-			User u = UserInfo.infoToUser(ui);
+			Investor u = UserInfo.infoToInvestor(ui);
 			
 			if(!validateUserInfo(ui)) {
 				System.err.println("Invalid Info");
@@ -159,7 +159,7 @@ public class UserResource {
 		try {
 			UserService us = new UserService(new UserDAOImpl());
 			
-			User u = UserInfo.infoToUser(ui);
+			Broker u = (Broker) UserInfo.infoToUser(ui);
 			
 			if(!validateUserInfo(ui)) {
 				System.err.println("Invalid Info");
@@ -199,9 +199,9 @@ public class UserResource {
 		Matcher m2 = CONSTANTS.phonePattern.matcher(ui.getPhoneNo());
 		Matcher m3 = CONSTANTS.namePattern.matcher(ui.getName());
 		Matcher m4 = CONSTANTS.namePattern.matcher(ui.getSurname());
-		Boolean m5 = validateAddress(ui);
+		//Boolean m5 = validateAddress(ui);
 		
-		return m1.matches() && m2.matches() && m3.matches() && m4.matches() && m5;
+		return m1.matches() && m2.matches() && m3.matches() && m4.matches(); //&& m5;
 	}
 	
 	private Boolean validateAddress(UserInfo ui) {

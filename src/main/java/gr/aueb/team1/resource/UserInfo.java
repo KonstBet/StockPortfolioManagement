@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import gr.aueb.team1.constants.CONSTANTS;
 import gr.aueb.team1.domain.Address;
 import gr.aueb.team1.domain.Broker;
 import gr.aueb.team1.domain.Investor;
@@ -124,6 +126,22 @@ public class UserInfo {
 	public static User infoToUser(UserInfo ui) {
 
 		User u = new User(ui.getName(), ui.getSurname(), ui.getEmail(), ui.getPhoneNo(), ui.getPassword());
+		u.setAddress(ui.getAddress());
+
+		return u;
+	}
+	
+	public static Investor infoToInvestor(UserInfo ui) {
+
+		Investor u = new Investor(ui.getName(), ui.getSurname(), ui.getEmail(), ui.getPhoneNo(), ui.getPassword());
+		u.setAddress(ui.getAddress());
+
+		return u;
+	}
+	
+	public static Broker infoToBroker(UserInfo ui) {
+
+		Broker u = new Broker(ui.getName(), ui.getSurname(), ui.getEmail(), ui.getPhoneNo(), CONSTANTS.fee, ui.getPassword());
 		u.setAddress(ui.getAddress());
 
 		return u;
