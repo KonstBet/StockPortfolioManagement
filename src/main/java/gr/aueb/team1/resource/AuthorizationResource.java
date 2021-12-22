@@ -14,7 +14,7 @@ import javax.ws.rs.core.*;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.util.*;
 
 import static gr.aueb.team1.constants.CONSTANTS.dateTimeFormatter;
 
@@ -32,10 +32,20 @@ public class AuthorizationResource {
             AuthorizationDAO ad = new AuthorizationDAOImpl();
 
             AuthorizationService authService = new AuthorizationService(ad);
-            List<Authorization> Auths = authService.showAuthorizations(userid);
+            List<Integer> Auths = authService.showAuthorizations(userid);
 
-            List<AuthorizationInfo> AuthsList = AuthorizationInfo.wrap(Auths);
+            List<AuthorizationInfo> AuthsList = new ArrayList<>();
 
+            for (Integer i : Auths) {
+                AuthStock as;
+                AuthCapital ac;
+                if ((as = authService.getAuthStock(userid,i)) != null) {
+                    AuthsList.add(new AuthorizationInfo(as));
+                }
+                else if ((ac = authService.getAuthCapital(userid,i)) != null) {
+                    AuthsList.add(new AuthorizationInfo(ac));
+                }
+            }
             return AuthsList;
         }
         catch(NullPointerException e) {
