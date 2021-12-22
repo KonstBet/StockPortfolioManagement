@@ -88,9 +88,9 @@ public class TransactionDAOImpl implements TransactionDAO {
         if (t.getId() != null) {
             savedTransaction = em.merge(t);
         }
-//        else {
-//            em.persist(t);
-//        }
+        else {
+            em.persist(t);
+        }
 
         tx.commit();
 

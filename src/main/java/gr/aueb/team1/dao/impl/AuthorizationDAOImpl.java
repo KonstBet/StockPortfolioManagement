@@ -72,9 +72,9 @@ public class AuthorizationDAOImpl implements AuthorizationDAO {
         if (auth.getId() != null) {
             savedAuth = em.merge(auth);
         }
-//        else {
-//            em.persist(auth);
-//        }
+        else {
+            em.persist(auth);
+        }
 
         tx.commit();
 
