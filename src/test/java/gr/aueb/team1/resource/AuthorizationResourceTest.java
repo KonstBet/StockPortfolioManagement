@@ -33,7 +33,7 @@ public class AuthorizationResourceTest extends JerseyTest {
     }
 
     @Test
-    public void list4TransactionsTest() {
+    public void list4AuthsTest() {
         Integer userid = init.investor.getId();
         List<AuthorizationInfo> tList = target("authorization/"+userid).request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<AuthorizationInfo>>() {});
@@ -42,12 +42,21 @@ public class AuthorizationResourceTest extends JerseyTest {
     }
 
     @Test
-    public void list2TransactionsTest() {
+    public void list2AuthsTest() {
         Integer userid = init.broker.getId();
         List<AuthorizationInfo> tList = target("authorization/"+userid).request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<AuthorizationInfo>>() {});
 
         assertEquals(2,tList.size());
+    }
+
+    @Test
+    public void BrokenlistAuthsTest() {
+
+        List<AuthorizationInfo> tList = target("authorization/"+"1000").request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<AuthorizationInfo>>() {});
+
+        assertNull(tList);
     }
 
     @Test
@@ -60,6 +69,15 @@ public class AuthorizationResourceTest extends JerseyTest {
 
         assertEquals(10,ai.getAmount());
         assertEquals("PIRAEUS",ai.getStockName());
+    }
+
+    @Test
+    public void BrokengetAuthorizationTest() {
+
+        AuthorizationInfo ai = target("authorization/"+"1000"+"/"+"1000").request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<AuthorizationInfo>() {});
+
+        assertNull(ai);
     }
 
     @Test
@@ -86,6 +104,20 @@ public class AuthorizationResourceTest extends JerseyTest {
     }
 
     @Test
+    public void BrokengiveCapitalAuthorizationTest() {
+
+        Form form = new Form();
+        form.param("amount","100");
+        form.param("brokerid", "1000");
+        form.param("enddate", LocalDateTime.of(1,1,1,1,1).format(dateTimeFormatter));
+
+        Response res = target("authorization/"+"1000"+"/givecapitalauthorization").request(MediaType.TEXT_PLAIN)
+                .post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED));
+
+        assertEquals(res.getStatus(),204);
+    }
+
+    @Test
     public void giveStockAuthorizationTest() {
         Integer userid = init.investor.getId();
         Integer brokerid = init.broker.getId();
@@ -109,5 +141,20 @@ public class AuthorizationResourceTest extends JerseyTest {
         assertEquals(10.0,auth.getAmount());
         assertEquals(init.broker.getId(),auth.getBrokerid());
         assertNotNull(auth);
+    }
+
+    @Test
+    public void BrokengiveStockAuthorizationTest() {
+
+        Form form = new Form();
+        form.param("amount","100");
+        form.param("stockholdingid","1000");
+        form.param("brokerid", "1000");
+        form.param("enddate", LocalDateTime.of(1,1,1,1,1).format(dateTimeFormatter));
+
+        Response res = target("authorization/"+"1000"+"/givestockauthorization").request(MediaType.TEXT_PLAIN)
+                .post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED));
+
+        assertEquals(res.getStatus(),204);
     }
 }

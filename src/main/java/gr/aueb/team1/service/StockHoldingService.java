@@ -36,8 +36,9 @@ public class StockHoldingService {
         StockHolding result = null;
         result = shd.findById(shid);
 
-        if (result.getUser().equals(u))
-            return result;
+        if (result != null)
+            if (result.getUser().equals(u))
+                return result;
 
         return null;
     }

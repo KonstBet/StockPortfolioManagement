@@ -38,10 +38,9 @@ public class AuthorizationService {
         AuthStock result = null;
         result = ad.findStockAuthById(aid);
 
-        if (result == null) return null;
-
-        if (result.getInvestor().getId().equals(u.getId()) || result.getBroker().getId().equals(u.getId()))
-            return result;
+        if (result != null)
+            if (result.getInvestor().getId().equals(u.getId()) || result.getBroker().getId().equals(u.getId()))
+                return result;
 
         return null;
     }
@@ -53,10 +52,9 @@ public class AuthorizationService {
         AuthCapital result = null;
         result = ad.findCapitalAuthById(aid);
 
-        if (result == null) return null;
-
-        if (result.getInvestor().getId().equals(u.getId()) || result.getBroker().getId().equals(u.getId()))
-            return result;
+        if (result != null)
+            if (result.getInvestor().getId().equals(u.getId()) || result.getBroker().getId().equals(u.getId()))
+                return result;
 
         return null;
     }

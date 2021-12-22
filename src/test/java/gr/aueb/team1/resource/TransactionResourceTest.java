@@ -58,6 +58,25 @@ public class TransactionResourceTest extends JerseyTest {
 
         assertEquals(2,tList.size());
     }
+
+    @Test
+    public void deposit0AmountTest() {
+        Integer userid = init.investor.getId();
+
+        Form form = new Form();
+        form.param("amount","0");
+
+        Response res = target("transaction/"+userid+"/deposit").request(MediaType.TEXT_PLAIN)
+                .post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED));
+
+        assertEquals(res.getStatus(),409);
+
+
+        List<TransactionInfo> tList = target("transaction/"+userid).request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<TransactionInfo>>() {});
+
+        assertEquals(1,tList.size());
+    }
     
     @Test
     public void depositNonExistentUserTest() {
@@ -94,6 +113,24 @@ public class TransactionResourceTest extends JerseyTest {
                 .get(new GenericType<List<TransactionInfo>>() {});
 
         assertEquals(2,tList.size());
+    }
+
+    @Test
+    public void withdraw0AmountTest() {
+        Integer userid = init.investor.getId();
+
+        Form form = new Form();
+        form.param("amount","0");
+
+        Response res = target("transaction/"+userid+"/withdraw").request(MediaType.TEXT_PLAIN)
+                .post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED));
+
+        assertEquals(res.getStatus(),409);
+
+        List<TransactionInfo> tList = target("transaction/"+userid).request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<TransactionInfo>>() {});
+
+        assertEquals(1,tList.size());
     }
     
     @Test

@@ -32,15 +32,6 @@ public class AuthorizationInfo {
     public AuthorizationInfo() {
     }
 
-
-    public AuthorizationInfo(Authorization auth) {
-        this.id = auth.getId();
-        this.startdate = auth.getStartdate().format(dateTimeFormatter);
-        this.enddate = auth.getEnddate().format(dateTimeFormatter);
-        this.investorid = auth.getInvestor().getId();
-        this.brokerid = auth.getBroker().getId();
-    }
-
     public AuthorizationInfo(AuthStock auth) {
         this.id = auth.getId();
         this.startdate = auth.getStartdate().format(dateTimeFormatter);
@@ -116,14 +107,14 @@ public class AuthorizationInfo {
         this.stockName = stockName;
     }
 
-    public static List<AuthorizationInfo> wrap(List<Authorization> auths) {
-
-        List<AuthorizationInfo> authInfoList = new ArrayList<>();
-
-        for (Authorization a : auths) {
-            authInfoList.add(new AuthorizationInfo(a));
-        }
-
-        return authInfoList;
-    }
+//    public static List<AuthorizationInfo> wrap(List<Authorization> auths) {
+//
+//        List<AuthorizationInfo> authInfoList = new ArrayList<>();
+//
+//        for (Authorization a : auths) {
+//            authInfoList.add(new AuthorizationInfo(a));
+//        }
+//
+//        return authInfoList;
+//    }
 }

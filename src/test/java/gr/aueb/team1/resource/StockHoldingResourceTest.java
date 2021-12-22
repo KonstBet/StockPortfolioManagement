@@ -50,6 +50,14 @@ public class StockHoldingResourceTest extends JerseyTest {
     }
 
     @Test
+    public void BrokenlistStockHoldingsTest() {
+        List<StockHoldingInfo> shList = target("stockholding/"+"1000").request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<List<StockHoldingInfo>>() {});
+
+        assertNull(shList);
+    }
+
+    @Test
     public void getStockHoldingPeiraiosTest() {
         Integer userid = init.investor.getId();
         Integer shid = init.investor.getStockHoldings().get(init.PeiraiosStock).getId();
@@ -71,5 +79,26 @@ public class StockHoldingResourceTest extends JerseyTest {
 
         assertEquals(sh.getId(),shid);
         assertEquals(sh.getAmount(),20);
+    }
+
+//    @Test
+//    public void getStockHoldingNotMineTest() {
+//        Integer userid = init.investor.getId();
+//        Integer shid = init.broker.getStockHoldings().get(init.AlphaStock).getId();
+//
+//        StockHoldingInfo sh = target("stockholding/"+userid+"/"+shid).request(MediaType.APPLICATION_JSON)
+//                .get(new GenericType<StockHoldingInfo>() {});
+//
+//        assertEquals(sh.getId(),shid);
+//        assertEquals(sh.getAmount(),20);
+//    }
+
+    @Test
+    public void BrokengetStockHoldingTest() {
+
+        StockHoldingInfo sh = target("stockholding/"+"1000"+"/"+"1000").request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<StockHoldingInfo>() {});
+
+        assertNull(sh);
     }
 }

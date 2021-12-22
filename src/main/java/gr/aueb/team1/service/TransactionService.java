@@ -34,19 +34,6 @@ public class TransactionService {
         return results;
     }
 
-    public Transaction getTransaction(Integer userid,Integer tid) {
-
-        User u = getUser(userid);
-
-        Transaction result = null;
-        result = td.findById(tid);
-
-        if (result.getUser().equals(u))
-            return result;
-
-        return null;
-    }
-
     public Transaction doDeposit(Integer userid, Double amount) {
 
         User u = getUser(userid);

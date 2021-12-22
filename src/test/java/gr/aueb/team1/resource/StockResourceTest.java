@@ -46,4 +46,12 @@ public class StockResourceTest extends JerseyTest {
 
         assertEquals("PIRAEUS",stock.getCompanyName());
     }
+
+    @Test
+    public void BrokenfetchStockTest() {
+        StockInfo stock = target("stock/"+"100000").request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<StockInfo>() {});
+
+        assertNull(stock);
+    }
 }
