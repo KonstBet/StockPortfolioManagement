@@ -113,6 +113,34 @@ public class UserResource {
 		}
 	}
 			
+	@GET
+	@Path("portfolio/{userid}")
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public String getPortfolioReport(@PathParam("userid") Integer id) {
+		try {
+			UserService us = new UserService(new UserDAOImpl());
+			return us.portfolioReport(id);
+		}
+		catch(NullPointerException e) {
+			return null;
+		}
+	}
+	
+	@GET
+	@Path("orderreport/{userid}")
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public String getOrderReport(@PathParam("userid") Integer id) {
+		try {
+			UserService us = new UserService(new UserDAOImpl());
+			return us.orderReport(id);
+		}
+		catch(NullPointerException e) {
+			return null;
+		}
+	}
+
+	
+	
 	@POST
 	@Path("createi")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -214,5 +242,7 @@ public class UserResource {
 		
 		return m1.matches() && m2.matches() && m3.matches();
 	}
+	
+
 }
 

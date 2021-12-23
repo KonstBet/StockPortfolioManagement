@@ -215,7 +215,6 @@ public class UserTest {
 	@Test
 	void portfolioReportTest() {
 		user.buyStock(stock2, 1);
-		System.out.println(user.portfolioReport());
 		Assertions.assertNotNull(user.portfolioReport());
 	}
 	
@@ -225,7 +224,6 @@ public class UserTest {
 		user.withdraw(50.0);
 		user.buyStock(stock2, 1);
 		user.buyStock(stock3, 2);
-		System.out.println(user.orderReport());
 		Assertions.assertNotNull(user.orderReport());
 	}
 	

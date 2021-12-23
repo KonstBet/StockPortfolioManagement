@@ -63,9 +63,15 @@ public class UserService {
 		return i;
 	}
 	
-//	public String portfolioReport(Integer id) {
-//		User u = findUserById(id);
-//		
-//		return u.portfolioReport();
-//	}
+	public String portfolioReport(Integer id) {
+		User u = findUserById(id);
+		
+		return u.portfolioReport();
+	}
+	
+	public String orderReport(Integer id) {
+		User u = findUserById(id);
+		
+		return u.orderReport();
+	}
 }
