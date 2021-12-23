@@ -6,6 +6,8 @@ import gr.aueb.team1.dao.impl.UserDAOImpl;
 import gr.aueb.team1.domain.Address;
 import gr.aueb.team1.domain.Broker;
 import gr.aueb.team1.domain.Investor;
+import gr.aueb.team1.domain.User;
+
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Before;
@@ -203,4 +205,24 @@ public class UserResourceTest extends JerseyTest {
 		List<Broker> bi = ud.findAllBrokers();
 		assertEquals(2, bi.size());
 	}
+    
+    @Test
+    public void testPortfolioReport() {
+    	User u = init.investor;
+    	String report = target("user/portfolio/"+u.getId()).request(MediaType.APPLICATION_JSON).get(new GenericType<String>() {});
+    	assertNotNull(report);
+    	
+    	report = target("user/portfolio/100000000").request(MediaType.APPLICATION_JSON).get(new GenericType<String>() {});
+    	assertEquals("", report);
+    }
+    
+    @Test
+    public void testOrderReport() {
+    	User u = init.investor;
+    	String report = target("user/orderreport/"+u.getId()).request(MediaType.APPLICATION_JSON).get(new GenericType<String>() {});
+    	assertNotNull(report);
+    	
+    	report = target("user/orderreport/100000000").request(MediaType.APPLICATION_JSON).get(new GenericType<String>() {});
+    	assertEquals("", report);
+    }
 }
