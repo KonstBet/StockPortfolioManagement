@@ -105,6 +105,10 @@ public class User {
 		this.name = name;
 	}
 	
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
