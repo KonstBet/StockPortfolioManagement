@@ -52,12 +52,12 @@ class StockDAOImplTest {
         Assertions.assertNull(stockDAO.delete(stock));
     }
     
-    @Test
-    void deleteTest2() {
-        Stock stock = stockDAO.findById(init.CosmoteStock.getId());
-        stockDAO.delete(stock);
-        List<Stock> stocks = stockDAO.findAll();
-        
-        Assertions.assertEquals(2, stocks.size());
-    }
+//    @Test
+//    void deleteTest2() {
+//        Stock stock = stockDAO.findById(init.CosmoteStock.getId());
+//        stockDAO.delete(stock);
+//        List<Stock> stocks = stockDAO.findAll();
+//        
+//        Assertions.assertEquals(2, stocks.size());
+//    }
 }

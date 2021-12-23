@@ -58,20 +58,26 @@ public class StockDAOImpl implements StockDAO {
 
         return savedStock;
     }
-    
-	@Override
-	public Stock delete(Stock stock) {
-		EntityTransaction tx = em.getTransaction();
-		tx.begin();
-		
-		if (stock.getHoldings().size() > 0 || stock.getOrders().size() > 0) {
-			tx.commit();
-			return null;
-		}
-		em.remove(stock);
 
-		tx.commit();
-		return stock;
+	@Override
+	public Stock delete(Stock t) {
+		// TODO Auto-generated method stub
+		return null;
 	}
+    
+//	@Override
+//	public Stock delete(Stock stock) {
+//		EntityTransaction tx = em.getTransaction();
+//		tx.begin();
+//		
+//		if (stock.getHoldings().size() > 0 || stock.getOrders().size() > 0) {
+//			tx.commit();
+//			return null;
+//		}
+//		em.remove(stock);
+//
+//		tx.commit();
+//		return stock;
+//	}
 
 }

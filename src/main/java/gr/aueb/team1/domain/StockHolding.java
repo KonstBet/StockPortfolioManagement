@@ -46,7 +46,7 @@ public class StockHolding {
 		this.stock = stock;
 		this.user = user;
 		this.committedAmount = committedAmount;
-		stock.getHoldings().put(stock, this);
+		//stock.getHoldings().put(stock, this);
 	}
 
 	public Integer getId() {
@@ -99,7 +99,7 @@ public class StockHolding {
 
 	public void remove() {
 		user.getStockHoldings().remove(stock);
-		stock.getHoldings().remove(stock);
+		//stock.getHoldings().remove(stock);
 		user = null;
 		stock = null;
 

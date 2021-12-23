@@ -1,10 +1,6 @@
 package gr.aueb.team1.domain;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 import javax.persistence.*;
 
 @Entity
@@ -36,12 +32,6 @@ public class Stock
 	
 	@Column(name="vol", precision = 10, scale = 4)
 	private Double vol;
-	
-	@OneToMany(mappedBy="stock", fetch=FetchType.LAZY,cascade = CascadeType.PERSIST)
-	private Set<Order> orders = new HashSet<Order>();
-	
-	@OneToMany(mappedBy="stock", fetch=FetchType.LAZY,cascade = CascadeType.PERSIST)
-	private Map<Stock,StockHolding> holdings = new HashMap<Stock, StockHolding>();
 
 	public Stock() {
 		
@@ -119,13 +109,13 @@ public class Stock
 		this.vol = vol;
 	}
 	
-	public Set<Order> getOrders() {
-		return orders;
-	}
-
-	public Map<Stock, StockHolding> getHoldings() {
-		return holdings;
-	}
+//	public Set<Order> getOrders() {
+//		return orders;
+//	}
+//
+//	public Map<Stock, StockHolding> getHoldings() {
+//		return holdings;
+//	}
 
 
 	public String toString() {

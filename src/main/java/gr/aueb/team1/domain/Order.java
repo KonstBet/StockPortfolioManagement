@@ -209,7 +209,7 @@ public class Order {
 			user.addStockHolding(this.stock, new StockHolding(this.amount, this.stock, user, 0));
 		}
 		
-		stock.getOrders().add(this);
+		//stock.getOrders().add(this);
 		this.status = Status.COMPLETED;
 	}
 	
@@ -224,7 +224,7 @@ public class Order {
 			user.addStockHolding(this.stock, sh);
 		}
 		
-		stock.getOrders().add(this);
+		//stock.getOrders().add(this);
 		this.status = Status.COMPLETED;
 	}
 	
@@ -255,7 +255,7 @@ public class Order {
 		
 		auth.getBroker().setBalance(auth.getBroker().getBalance() + bfee);
 		
-		stock.getOrders().add(this);
+		//stock.getOrders().add(this);
 		this.status = Status.COMPLETED;
 		return true;
 	}
@@ -288,14 +288,14 @@ public class Order {
 
 		auth.getBroker().setBalance(auth.getBroker().getBalance() + bfee);
 		
-		stock.getOrders().add(this);
+		//stock.getOrders().add(this);
 		this.status = Status.COMPLETED;
 		return true;
 		
 	}
 	
 	public void remove() {
-		stock.getOrders().remove(this);
+		//stock.getOrders().remove(this);
 		user.getOrders().remove(this);
 		stock = null;
 		user = null;
