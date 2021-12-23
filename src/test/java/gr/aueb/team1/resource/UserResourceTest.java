@@ -4,6 +4,7 @@ import gr.aueb.team1.dao.Initializer;
 import gr.aueb.team1.dao.UserDAO;
 import gr.aueb.team1.dao.impl.UserDAOImpl;
 import gr.aueb.team1.domain.Address;
+import gr.aueb.team1.domain.Broker;
 import gr.aueb.team1.domain.Investor;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
@@ -119,8 +120,6 @@ public class UserResourceTest extends JerseyTest {
     
     @Test
 	public void testCreateInvestor() {
-
-		// Create a user info object and submit
 		UserInfo ui = new UserInfo("Savvas", "Nikolaou", "snikol@pouts.io", "6910203040", "nikos1821", 0.0);
 		ui.setAddress(new Address("Str Chatzidimitriou","45","13135"));
 		Response response = target("user/createi").request().post(Entity.entity(ui, MediaType.APPLICATION_JSON));
@@ -132,5 +131,76 @@ public class UserResourceTest extends JerseyTest {
 		List<Investor> li = ud.findAllInvestors();
 		assertEquals(2, li.size());
 
+	}
+    
+    @Test
+	public void testCreateInvestorFailInvalidInput() {
+		UserInfo ui = new UserInfo("1", "2", "snikol@pouts.io!", "000", "nikos1821", 0.0);
+		ui.setAddress(new Address("Str@Chatzidimitriou","45","13135"));
+		Response response = target("user/createi").request().post(Entity.entity(ui, MediaType.APPLICATION_JSON));
+
+		// Check status and database state
+		assertEquals(204, response.getStatus());
+		
+		UserDAO ud = new UserDAOImpl();
+		List<Investor> li = ud.findAllInvestors();
+		assertEquals(1, li.size());
+
+	}
+    
+    @Test
+	public void testCreateInvestorFailNullException() {
+		UserInfo ui = new UserInfo();
+		Response response = target("user/createi").request().post(Entity.entity(ui, MediaType.APPLICATION_JSON));
+
+		// Check status and database state
+		assertEquals(204, response.getStatus());
+		
+		UserDAO ud = new UserDAOImpl();
+		List<Investor> li = ud.findAllInvestors();
+		assertEquals(1, li.size());
+
+	}
+    
+    @Test
+	public void testCreateBroker() {
+		UserInfo ui = new UserInfo("Savvas", "Nikolaou", "snikol@pouts.io", "6910203040", "nikos1821", 0.0);
+		ui.setAddress(new Address("Str Chatzidimitriou","45","13135"));
+		Response response = target("user/createb").request().post(Entity.entity(ui, MediaType.APPLICATION_JSON));
+
+		// Check status and database state
+		assertEquals(201, response.getStatus());
+		
+		UserDAO ud = new UserDAOImpl();
+		List<Broker> bi = ud.findAllBrokers();
+		assertEquals(3, bi.size());
+
+	}
+    
+    @Test
+	public void testCreateBrokerFailInvalidInput() {
+		UserInfo ui = new UserInfo("1", "2", "snikol@pouts.io!", "000", "nikos1821", 0.0);
+		ui.setAddress(new Address("Str Chatzidimitriou","45","13135"));
+		Response response = target("user/createb").request().post(Entity.entity(ui, MediaType.APPLICATION_JSON));
+
+		// Check status and database state
+		assertEquals(204, response.getStatus());
+		
+		UserDAO ud = new UserDAOImpl();
+		List<Broker> bi = ud.findAllBrokers();
+		assertEquals(2, bi.size());
+	}
+    
+    @Test
+	public void testCreateBrokerFailNullException() {
+		UserInfo ui = new UserInfo();
+		Response response = target("user/createb").request().post(Entity.entity(ui, MediaType.APPLICATION_JSON));
+
+		// Check status and database state
+		assertEquals(204, response.getStatus());
+		
+		UserDAO ud = new UserDAOImpl();
+		List<Broker> bi = ud.findAllBrokers();
+		assertEquals(2, bi.size());
 	}
 }

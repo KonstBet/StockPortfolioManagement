@@ -54,4 +54,5 @@ public class StockResourceTest extends JerseyTest {
 
         assertNull(stock);
     }
+    
 }

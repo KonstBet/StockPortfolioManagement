@@ -51,7 +51,7 @@ public class AuthorizationResourceTest extends JerseyTest {
     }
 
     @Test
-    public void BrokenlistAuthsTest() {
+    public void brokenListAuthsTest() {
 
         List<AuthorizationInfo> tList = target("authorization/"+"1000").request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<AuthorizationInfo>>() {});
@@ -72,7 +72,7 @@ public class AuthorizationResourceTest extends JerseyTest {
     }
 
     @Test
-    public void BrokengetAuthorizationTest() {
+    public void brokenGetAuthorizationTest() {
 
         AuthorizationInfo ai = target("authorization/"+"1000"+"/"+"1000").request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<AuthorizationInfo>() {});
@@ -104,7 +104,7 @@ public class AuthorizationResourceTest extends JerseyTest {
     }
 
     @Test
-    public void BrokengiveCapitalAuthorizationTest() {
+    public void brokenGiveCapitalAuthorizationTest() {
 
         Form form = new Form();
         form.param("amount","100");
@@ -144,7 +144,7 @@ public class AuthorizationResourceTest extends JerseyTest {
     }
 
     @Test
-    public void BrokengiveStockAuthorizationTest() {
+    public void brokenGiveStockAuthorizationTest() {
 
         Form form = new Form();
         form.param("amount","100");
@@ -156,5 +156,14 @@ public class AuthorizationResourceTest extends JerseyTest {
                 .post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED));
 
         assertEquals(res.getStatus(),204);
+    }
+    
+    @Test
+    public void brokenGetAuthorizationTest1() {
+
+        AuthorizationInfo ai = target("authorization/10000/10000").request(MediaType.APPLICATION_JSON)
+                .get(new GenericType<AuthorizationInfo>() {});
+
+        assertNull(ai);
     }
 }

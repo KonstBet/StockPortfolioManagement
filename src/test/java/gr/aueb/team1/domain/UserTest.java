@@ -253,10 +253,12 @@ public class UserTest {
 		usr.setTransactions(null);
 		usr.setOrders(null);
 		usr.setPassword("b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b");
+		usr.setAddress(new Address("Andreou", "1", "11111"));
 
 		Assertions.assertTrue(usr.getName().equals("Nikos") && usr.getSurname().equals("Papadopoulos")
 			&& usr.getEmail().equals("nikosme@mailbox.gr") && usr.getPhoneNo().equals("6987654321")
-			&& usr.getBalance() == 1.0 && usr.getPassword().equals("b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b"));
+			&& usr.getBalance() == 1.0 && usr.getPassword().equals("b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b")
+			&& usr.getAddress().getStreet().equals("Andreou"));
 
 		Assertions.assertNull(usr.getStockHoldings());
 		Assertions.assertNull(usr.getOrders());
