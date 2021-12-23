@@ -206,14 +206,17 @@ public class UserResource {
 
 		try {
 			UserService us = new UserService(new UserDAOImpl());
-			User u = UserInfo.unwrapU(ui);
+
 			
 			if(!validateUserInfo(ui)) {
 				System.err.println("Invalid Info");
 				return null;
 			}
-			
-			us.createUser(u);
+
+			User user = us.findUserById(ui.getId());
+			user = ui.UpdateUserbyUI(user);
+
+			user = us.createUser(user);
 
 			return Response.ok().build();
 			

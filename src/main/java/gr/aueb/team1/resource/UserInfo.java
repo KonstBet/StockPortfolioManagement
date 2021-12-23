@@ -18,8 +18,7 @@ public class UserInfo {
 	private String name;
 	
 	private String surname;
-	
-	@XmlTransient
+
 	private String password;
 	
 	private String email;
@@ -34,19 +33,22 @@ public class UserInfo {
 
 	}
 	
-	public UserInfo(String name, String surname, String email, String phoneNo, String password, Double balance) {
+	public UserInfo(String name, String surname, String email, String phoneNo, String password, Double balance, Address address) {
 		this.name = name;
 		this.surname = surname;
 		this.password = password;
 		this.setEmail(email);
 		this.setPhoneNo(phoneNo);
 		this.setBalance(0.0);
+		this.setAddress(address);
 	}
 	
 	public UserInfo(User u) {
 		this.id = u.getId();
 		this.name = u.getName();
 		this.surname = u.getSurname();
+		this.password = u.getPassword();
+		this.address = u.getAddress();
 		this.setEmail(u.getEmail());
 		this.setPhoneNo(u.getPhoneNo());
 		this.setBalance(u.getBalance());
@@ -116,19 +118,21 @@ public class UserInfo {
 		this.balance = balance;
 	}
 
-	
-	public static User unwrapU(UserInfo ui) {
-		User u = new User(ui.getName(), ui.getSurname(), ui.getEmail(), ui.getPhoneNo(), ui.getPassword());
-		u.setId(ui.getId());
-		u.setAddress(ui.getAddress());
-
+	public User UpdateUserbyUI(User u) {
+		u.setId(this.getId());
+		u.setName(this.getName());
+		u.setSurname(this.getSurname());
+		u.setEmail(this.getEmail());
+		u.setPhoneNo(this.getPhoneNo());
+		u.setPassword(this.getPassword());
+		u.setAddress(this.getAddress());
 		return u;
 	}
+
 	
 	public static Investor unwrapI(UserInfo ui) {
 
 		Investor u = new Investor(ui.getName(), ui.getSurname(), ui.getEmail(), ui.getPhoneNo(), ui.getPassword());
-		u.setId(ui.getId());
 		u.setAddress(ui.getAddress());
 
 		return u;
@@ -137,7 +141,6 @@ public class UserInfo {
 	public static Broker unwrapB(UserInfo ui) {
 
 		Broker u = new Broker(ui.getName(), ui.getSurname(), ui.getEmail(), ui.getPhoneNo(), CONSTANTS.fee, ui.getPassword());
-		u.setId(ui.getId());
 		u.setAddress(ui.getAddress());
 
 		return u;

@@ -122,7 +122,7 @@ public class UserResourceTest extends JerseyTest {
     
     @Test
 	public void testCreateInvestor() {
-		UserInfo ui = new UserInfo("Savvas", "Nikolaou", "snikol@pouts.io", "6910203040", "nikos1821", 0.0);
+		UserInfo ui = new UserInfo("Savvas", "Nikolaou", "snikol@pouts.io", "6910203040", "nikos1821", 0.0,null);
 		ui.setAddress(new Address("Str Chatzidimitriou","45","13135"));
 		Response response = target("user/createi").request().post(Entity.entity(ui, MediaType.APPLICATION_JSON));
 
@@ -137,7 +137,7 @@ public class UserResourceTest extends JerseyTest {
     
     @Test
 	public void testCreateInvestorFailInvalidInput() {
-		UserInfo ui = new UserInfo("1", "2", "snikol@pouts.io!", "000", "nikos1821", 0.0);
+		UserInfo ui = new UserInfo("1", "2", "snikol@pouts.io!", "000", "nikos1821", 0.0,null);
 		ui.setAddress(new Address("Str@Chatzidimitriou","45","13135"));
 		Response response = target("user/createi").request().post(Entity.entity(ui, MediaType.APPLICATION_JSON));
 
@@ -166,7 +166,7 @@ public class UserResourceTest extends JerseyTest {
     
     @Test
 	public void testCreateBroker() {
-		UserInfo ui = new UserInfo("Savvas", "Nikolaou", "snikol@pouts.io", "6910203040", "nikos1821", 0.0);
+		UserInfo ui = new UserInfo("Savvas", "Nikolaou", "snikol@pouts.io", "6910203040", "nikos1821", 0.0,null);
 		ui.setAddress(new Address("Str Chatzidimitriou","45","13135"));
 		Response response = target("user/createb").request().post(Entity.entity(ui, MediaType.APPLICATION_JSON));
 
@@ -181,7 +181,7 @@ public class UserResourceTest extends JerseyTest {
     
     @Test
 	public void testCreateBrokerFailInvalidInput() {
-		UserInfo ui = new UserInfo("1", "2", "snikol@pouts.io!", "000", "nikos1821", 0.0);
+		UserInfo ui = new UserInfo("1", "2", "snikol@pouts.io!", "000", "nikos1821", 0.0,null);
 		ui.setAddress(new Address("Str Chatzidimitriou","45","13135"));
 		Response response = target("user/createb").request().post(Entity.entity(ui, MediaType.APPLICATION_JSON));
 
@@ -224,5 +224,73 @@ public class UserResourceTest extends JerseyTest {
     	
     	report = target("user/orderreport/100000000").request(MediaType.APPLICATION_JSON).get(new GenericType<String>() {});
     	assertEquals("", report);
+    }
+
+    @Test
+    public void testupdateUser() {
+        UserInfo ui = new UserInfo(init.investor);
+        ui.setName("TAKAROS");
+        ui.setAddress(new Address("Str Chatzidimitriou","45","13135"));
+        Response response = target("user/update").request().put(Entity.entity(ui, MediaType.APPLICATION_JSON));
+
+        // Check status and database state
+        assertEquals(200, response.getStatus());
+
+        Form form = new Form();
+        form.param("email","mitcharal@gmail.com");
+        form.param("password","b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b");
+
+        UserInfo ui2 = target("user").request(MediaType.APPLICATION_JSON)
+                .post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED),new GenericType<UserInfo>() {});
+
+
+        assertNotNull(ui2.getAddress());
+        assertEquals("13135",ui2.getAddress().getZipCode());
+        assertEquals("TAKAROS",ui2.getName());
+    }
+
+    @Test
+    public void testupdateBrokenAddressUser() {
+        UserInfo ui = new UserInfo(init.investor);
+        ui.setName("TAKAROS");
+        ui.setAddress(new Address("Str Chat!!zidimit!riou","45","13135"));
+        Response response = target("user/update").request().put(Entity.entity(ui, MediaType.APPLICATION_JSON));
+
+        // Check status and database state
+        assertEquals(204, response.getStatus());
+
+        Form form = new Form();
+        form.param("email","mitcharal@gmail.com");
+        form.param("password","b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b");
+
+        UserInfo ui2 = target("user").request(MediaType.APPLICATION_JSON)
+                .post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED),new GenericType<UserInfo>() {});
+
+
+        assertNull(ui2.getAddress());
+        assertEquals("Mitsos",ui2.getName());
+    }
+
+    @Test
+    public void testupdateBrokenUserIDUser() {
+        UserInfo ui = new UserInfo(init.investor);
+        ui.setId(100000);
+        ui.setName("TAKAROS");
+        ui.setAddress(new Address("Str Chatzidimitriou","45","13135"));
+        Response response = target("user/update").request().put(Entity.entity(ui, MediaType.APPLICATION_JSON));
+
+        // Check status and database state
+        assertEquals(204, response.getStatus());
+
+        Form form = new Form();
+        form.param("email","mitcharal@gmail.com");
+        form.param("password","b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b");
+
+        UserInfo ui2 = target("user").request(MediaType.APPLICATION_JSON)
+                .post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED),new GenericType<UserInfo>() {});
+
+
+        assertNull(ui2.getAddress());
+        assertEquals("Mitsos",ui2.getName());
     }
 }
