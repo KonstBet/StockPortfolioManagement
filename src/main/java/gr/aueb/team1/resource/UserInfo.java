@@ -3,7 +3,6 @@ package gr.aueb.team1.resource;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import gr.aueb.team1.constants.CONSTANTS;
 import gr.aueb.team1.domain.Address;
 import gr.aueb.team1.domain.Broker;
