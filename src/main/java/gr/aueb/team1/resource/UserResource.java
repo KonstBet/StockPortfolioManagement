@@ -214,7 +214,7 @@ public class UserResource {
 			}
 
 			User user = us.findUserById(ui.getId());
-			user = ui.UpdateUserbyUI(user);
+			user = ui.updateUserByInfo(user);
 
 			user = us.createUser(user);
 

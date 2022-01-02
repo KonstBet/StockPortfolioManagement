@@ -117,7 +117,7 @@ public class UserInfo {
 		this.balance = balance;
 	}
 
-	public User UpdateUserbyUI(User u) {
+	public User updateUserByInfo(User u) {
 		u.setId(this.getId());
 		u.setName(this.getName());
 		u.setSurname(this.getSurname());
