@@ -27,7 +27,7 @@ public class UserResource {
 	@POST
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Consumes("application/x-www-form-urlencoded")
-	public UserInfo getUserInfo(@FormParam("email") String email, @FormParam("password") String password) {
+	public UserInfo loginUser(@FormParam("email") String email, @FormParam("password") String password) {
 
 		try {
 			UserDAO ud = new UserDAOImpl();
