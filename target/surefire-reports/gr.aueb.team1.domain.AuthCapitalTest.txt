@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: gr.aueb.team1.domain.AuthCapitalTest
+-------------------------------------------------------------------------------
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.018 s - in gr.aueb.team1.domain.AuthCapitalTest

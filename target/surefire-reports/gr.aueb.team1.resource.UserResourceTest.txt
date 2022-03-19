@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: gr.aueb.team1.resource.UserResourceTest
+-------------------------------------------------------------------------------
+Tests run: 20, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.045 s - in gr.aueb.team1.resource.UserResourceTest

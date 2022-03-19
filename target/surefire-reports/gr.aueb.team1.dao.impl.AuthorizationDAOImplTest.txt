@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: gr.aueb.team1.dao.impl.AuthorizationDAOImplTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 6.952 s <<< FAILURE! - in gr.aueb.team1.dao.impl.AuthorizationDAOImplTest
+gr.aueb.team1.dao.impl.AuthorizationDAOImplTest.save  Time elapsed: 0.135 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at gr.aueb.team1.dao.impl.AuthorizationDAOImplTest.save(AuthorizationDAOImplTest.java:47)
+

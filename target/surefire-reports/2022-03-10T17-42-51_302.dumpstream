@@ -1,0 +1,15 @@
+# Created at 2022-03-10T17:42:59.748
+WARNING: An illegal reflective access operation has occurred
+
+# Created at 2022-03-10T17:42:59.749
+WARNING: Illegal reflective access by javassist.util.proxy.SecurityActions (file:/C:/Users/kosta/.m2/repository/org/javassist/javassist/3.20.0-GA/javassist-3.20.0-GA.jar) to method java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int,java.security.ProtectionDomain)
+
+# Created at 2022-03-10T17:42:59.750
+WARNING: Please consider reporting this to the maintainers of javassist.util.proxy.SecurityActions
+
+# Created at 2022-03-10T17:42:59.751
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+
+# Created at 2022-03-10T17:42:59.752
+WARNING: All illegal access operations will be denied in a future release
+
