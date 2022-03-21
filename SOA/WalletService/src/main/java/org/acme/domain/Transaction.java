@@ -29,7 +29,7 @@ public class Transaction {
 
 	public Transaction() {}
 	public Transaction(Integer userid, Double amount, LocalDateTime date) {
-		super();
+		//super();
 		this.userid = userid;
 		this.amount = amount;
 		this.date = date;
