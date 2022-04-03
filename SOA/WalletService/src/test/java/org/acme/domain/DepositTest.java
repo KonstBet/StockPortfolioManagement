@@ -14,7 +14,7 @@ class DepositTest {
         LocalDateTime date = LocalDateTime.now();
         Deposit deposit = new Deposit(5,200.0, date);
 
-        Assertions.assertEquals(deposit.getUser(),5);
+        Assertions.assertEquals(deposit.getUserid(),5);
         Assertions.assertEquals(deposit.getAmount(),200.0);
         Assertions.assertEquals(deposit.getDate(),date);
     }

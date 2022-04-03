@@ -34,7 +34,7 @@ public class Transaction {
 		this.amount = amount;
 		this.date = date;
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -53,18 +53,20 @@ public class Transaction {
 	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
-	public Integer getUser() {
+	public Integer getUserid() {
 		return userid;
 	}
-	public void setUser(Integer userid) {
+
+	public void setUserid(Integer userid) {
 		this.userid = userid;
 	}
+
 	
 	public String toString() {
 		return "ID: " + getId() +
 				"\nAmount: " + getAmount() +  "€"
 				+ "\nDate: " + getDate().toString()
-				+ "\nUserid: " + getUser().toString();
+				+ "\nUserid: " + getUserid().toString();
 	}
 
 //	public void remove() {

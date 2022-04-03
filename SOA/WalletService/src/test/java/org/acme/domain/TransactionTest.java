@@ -57,13 +57,13 @@ class TransactionTest {
 
     @Test
     void getUser() {
-        Assertions.assertEquals(t.getUser(),5);
+        Assertions.assertEquals(t.getUserid(),5);
     }
 
     @Test
     void setUser() {
-        t.setUser(9);
-        Assertions.assertEquals(t.getUser(),9);
+        t.setUserid(9);
+        Assertions.assertEquals(t.getUserid(),9);
     }
 
     @Test
@@ -73,6 +73,6 @@ class TransactionTest {
         assertEquals("ID: " + t.getId() +
                 "\nAmount: " + t.getAmount() +  "€"
                 + "\nDate: " + t.getDate().toString()
-                + "\nUserid: " + t.getUser().toString(),s);
+                + "\nUserid: " + t.getUserid().toString(),s);
     }
 }

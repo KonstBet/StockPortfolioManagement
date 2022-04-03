@@ -14,7 +14,7 @@ class WithdrawalTest {
         LocalDateTime date = LocalDateTime.now();
         Withdrawal withdrawal = new Withdrawal(5,200.0, date);
 
-        Assertions.assertEquals(withdrawal.getUser(),5);
+        Assertions.assertEquals(withdrawal.getUserid(),5);
         Assertions.assertEquals(withdrawal.getAmount(),200.0);
         Assertions.assertEquals(withdrawal.getDate(),date);
     }
