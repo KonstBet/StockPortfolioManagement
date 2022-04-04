@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class Deposit extends Transaction {
 
 	public Deposit() {super();}
-	public Deposit(Integer userid, Double amount, LocalDateTime date) {
-		super(userid, amount, date);
+	public Deposit(Wallet wallet, Double amount, LocalDateTime date) {
+		super(wallet, amount, date);
 	}
 }

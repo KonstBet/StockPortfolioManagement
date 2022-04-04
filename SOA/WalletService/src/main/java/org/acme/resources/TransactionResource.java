@@ -21,8 +21,8 @@ public class TransactionResource {
     TransactionService transactionService;
 
     @GET
-    public List<Transaction> list() {
-        return transactionService.list();
+    public List<Transaction> list(WalletDTO walletDTO) {
+        return transactionService.list(walletDTO.getUserid());
     }
 
     @GET
@@ -33,7 +33,7 @@ public class TransactionResource {
 
     @POST
     @Transactional
-    public Response create(Transaction t) {
+    public Response create(TransactionDTO t) {
         return transactionService.create(t);
     }
 }

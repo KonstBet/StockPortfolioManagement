@@ -14,7 +14,7 @@ public class TransactionRepository implements PanacheRepository<Transaction> {
     }
 
     public List<Transaction> findAllByUserID(Integer userid) {
-        return list("userid", userid);
+        return list("wallet.userid", userid);
     }
 
     public Boolean saveTransaction(Transaction t) {

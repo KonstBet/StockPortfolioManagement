@@ -1,5 +1,6 @@
 package org.acme.domain;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -19,18 +20,20 @@ public class Transaction {
 	
 	@Column(name = "date", nullable = false)
 	private LocalDateTime date;
-	
-//	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.PERSIST)
-//	@JoinColumn(name="Userid")
-//	private User user;
 
-	@Column(name = "userid", nullable = false)
-	private Integer userid;
+
+	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.PERSIST)
+	@JoinColumn(name="walletid")
+	@JsonbTransient
+	private Wallet wallet;
+
+//	@Column(name = "userid", nullable = false)
+//	private Integer userid;
 
 	public Transaction() {}
-	public Transaction(Integer userid, Double amount, LocalDateTime date) {
+	public Transaction(Wallet wallet, Double amount, LocalDateTime date) {
 		//super();
-		this.userid = userid;
+		this.wallet = wallet;
 		this.amount = amount;
 		this.date = date;
 	}
@@ -53,20 +56,26 @@ public class Transaction {
 	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
-	public Integer getUserid() {
-		return userid;
+	public Wallet getWallet() {
+		return wallet;
 	}
-
-	public void setUserid(Integer userid) {
-		this.userid = userid;
+	public void setWallet(Wallet wallet) {
+		this.wallet = wallet;
 	}
+	//	public Integer getUserid() {
+//		return userid;
+//	}
+//
+//	public void setUserid(Integer userid) {
+//		this.userid = userid;
+//	}
 
 	
 	public String toString() {
 		return "ID: " + getId() +
 				"\nAmount: " + getAmount() +  "€"
 				+ "\nDate: " + getDate().toString()
-				+ "\nUserid: " + getUserid().toString();
+				+ "\nUserid: " + getWallet().toString();
 	}
 
 //	public void remove() {

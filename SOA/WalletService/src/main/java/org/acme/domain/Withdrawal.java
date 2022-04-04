@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class Withdrawal extends Transaction {
 
 	public Withdrawal() {}
-	public Withdrawal(Integer userid, Double amount, LocalDateTime date) {
-		super(userid, amount, date);
+	public Withdrawal(Wallet wallet, Double amount, LocalDateTime date) {
+		super(wallet, amount, date);
 	}
 }
