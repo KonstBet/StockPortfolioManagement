@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
@@ -22,12 +23,32 @@ public class TransactionService {
     @Inject
     WalletService walletService;
 
-    public List<Transaction> list(Integer userid){
-        return transactionRepository.findAllByUserID(userid);
+    public List<TransactionDTO> list(Integer userid){
+        List<TransactionDTO> listTransactionDTO;
+        List<Transaction> listTransactions;
+
+        //DEPOSITS
+        listTransactions = transactionRepository.findAllDepositsByUserID(userid);
+        listTransactionDTO = listTransactiontoTransactionDTO(listTransactions,"deposit");
+
+        //WITHDRAWS
+        listTransactions = transactionRepository.findAllWithdrawsByUserID(userid);
+        listTransactionDTO.addAll(listTransactiontoTransactionDTO(listTransactions,"withdraw"));
+
+        return listTransactionDTO;
     }
 
-    public Transaction get(Integer id) {
-        return transactionRepository.findByID(id);
+    public TransactionDTO get(Integer id) {
+        Transaction t = transactionRepository.findDepositByID(id);
+        if (t == null) {
+            t = transactionRepository.findWithdrawByID(id);
+            if (t == null) //BAD ID
+                return null;
+            else //WITHDRAW
+                return new TransactionDTO(t.getAmount(),"withdraw",t.getDate());
+        }
+        else //DEPOSIT
+            return new TransactionDTO(t.getAmount(),"deposit",t.getDate());
     }
 
     public Response create(TransactionDTO tDTO) {
@@ -43,7 +64,7 @@ public class TransactionService {
         else {
             if ((wallet = typeActivity(wallet,tDTO)) == null)
                 return Response.status(400).build();
-            t = tDTO.TransactionDTOtoTransaction(wallet);
+            t = tDTO.TransactionDTOtoTransaction(wallet,tDTO.getType());
         }
         if (transactionRepository.saveTransaction(t))
             return Response.created(URI.create("/transaction/" + t.getId())).build();
@@ -51,7 +72,16 @@ public class TransactionService {
             return Response.status(400).build();
     }
 
-    private Wallet typeActivity(Wallet wallet, TransactionDTO transactionDTO) {
+    public List<TransactionDTO> listTransactiontoTransactionDTO(List<Transaction> listofTransactions, String type) {
+        List<TransactionDTO> listOfTransactionDTO = new ArrayList<TransactionDTO>();
+        for (Transaction t : listofTransactions) {
+            TransactionDTO tDTO = new TransactionDTO(t.getAmount(),type,t.getDate());
+            listOfTransactionDTO.add(tDTO);
+        }
+        return listOfTransactionDTO;
+    }
+
+    private Wallet typeActivity(Wallet wallet, TransactionDTO transactionDTO) { //OPERATION ON TRANSACTION
         if (transactionDTO.getType().equals("withdraw") && transactionDTO.getAmount() > wallet.getBalance())
             return null;
 

@@ -21,17 +21,28 @@ public class WalletResource {
     @GET
     @Path("")
     public WalletDTO get(WalletDTO walletDTO) {
-        Wallet wallet = walletService.get(walletDTO.getUserid());
+        try {
+            Wallet wallet = walletService.get(walletDTO.getUserid());
 
-        walletDTO.setBalance(wallet.getBalance());
-        return walletDTO;
+            walletDTO.setUserid(null);
+            walletDTO.setBalance(wallet.getBalance());
+            return walletDTO;
+        }
+        catch(Exception e) {
+            return null;
+        }
     }
 
     @PUT
     @Path("")
     @Transactional
     public Response update(WalletDTO walletDTO) {
-        return walletService.update(walletDTO);
+        try {
+            return walletService.update(walletDTO);
+        }
+        catch(Exception e) {
+            return null;
+        }
     }
 
 }

@@ -21,19 +21,34 @@ public class TransactionResource {
     TransactionService transactionService;
 
     @GET
-    public List<Transaction> list(WalletDTO walletDTO) {
-        return transactionService.list(walletDTO.getUserid());
+    public List<TransactionDTO> list(WalletDTO walletDTO) {
+        try {
+            return transactionService.list(walletDTO.getUserid());
+        }
+        catch(Exception e) {
+            return null;
+        }
     }
 
     @GET
     @Path("/{id}")
-    public Transaction get(@PathParam("id") Integer id) {
-        return transactionService.get(id);
+    public TransactionDTO get(@PathParam("id") Integer id) {
+        try {
+            return transactionService.get(id);
+        }
+        catch(Exception e) {
+            return null;
+        }
     }
 
     @POST
     @Transactional
     public Response create(TransactionDTO t) {
-        return transactionService.create(t);
+        try {
+            return transactionService.create(t);
+        }
+        catch(Exception e) {
+            return null;
+        }
     }
 }

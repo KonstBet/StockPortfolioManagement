@@ -25,7 +25,7 @@ public class WalletDTO {
         this.balance = balance;
     }
 
-    public Wallet WalletDTOtoWallet() {
-        return new Wallet(userid,balance);
-    }
+//    public Wallet WalletDTOtoWallet() {
+//        return new Wallet(userid,balance);
+//    }
 }
