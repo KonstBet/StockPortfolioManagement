@@ -17,7 +17,8 @@ public class TransactionDTO {
 
     public TransactionDTO() {}
 
-    public TransactionDTO(Double amount, String type, LocalDateTime date) {
+    public TransactionDTO(Integer userid, Double amount, String type, LocalDateTime date) {
+        this.userid = userid;
         this.amount = amount;
         this.type = type;
         this.date = date;

@@ -8,6 +8,7 @@ import org.acme.resources.WalletDTO;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import java.net.URI;
@@ -45,10 +46,10 @@ public class TransactionService {
             if (t == null) //BAD ID
                 return null;
             else //WITHDRAW
-                return new TransactionDTO(t.getAmount(),"withdraw",t.getDate());
+                return new TransactionDTO(id,t.getAmount(),"withdraw",t.getDate());
         }
         else //DEPOSIT
-            return new TransactionDTO(t.getAmount(),"deposit",t.getDate());
+            return new TransactionDTO(id,t.getAmount(),"deposit",t.getDate());
     }
 
     public Response create(TransactionDTO tDTO) {
@@ -59,6 +60,7 @@ public class TransactionService {
         if (wallet == null) {
             if (tDTO.getType().equals("withdraw"))
                 return Response.status(400).build();
+
             t = tDTO.TransactionDTOtoTransaction();
         }
         else {
@@ -66,6 +68,7 @@ public class TransactionService {
                 return Response.status(400).build();
             t = tDTO.TransactionDTOtoTransaction(wallet,tDTO.getType());
         }
+
         if (transactionRepository.saveTransaction(t))
             return Response.created(URI.create("/transaction/" + t.getId())).build();
         else
@@ -75,7 +78,7 @@ public class TransactionService {
     public List<TransactionDTO> listTransactiontoTransactionDTO(List<Transaction> listofTransactions, String type) {
         List<TransactionDTO> listOfTransactionDTO = new ArrayList<TransactionDTO>();
         for (Transaction t : listofTransactions) {
-            TransactionDTO tDTO = new TransactionDTO(t.getAmount(),type,t.getDate());
+            TransactionDTO tDTO = new TransactionDTO(t.getId(), t.getAmount(),type,t.getDate());
             listOfTransactionDTO.add(tDTO);
         }
         return listOfTransactionDTO;

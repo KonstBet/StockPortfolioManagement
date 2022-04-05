@@ -4,6 +4,7 @@ import org.acme.domain.Transaction;
 import org.acme.domain.Wallet;
 import org.acme.services.WalletService;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;

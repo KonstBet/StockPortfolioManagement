@@ -10,7 +10,6 @@ import java.util.List;
 public class WalletRepository implements PanacheRepository<Wallet> {
 
     public Wallet findByID(Integer id) {
-        System.out.println(find("userid", id));
         return find("userid", id).firstResult();
     }
 

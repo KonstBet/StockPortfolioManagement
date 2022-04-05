@@ -48,7 +48,7 @@ public class TransactionResource {
             return transactionService.create(t);
         }
         catch(Exception e) {
-            return null;
+            return Response.status(400).build();
         }
     }
 }

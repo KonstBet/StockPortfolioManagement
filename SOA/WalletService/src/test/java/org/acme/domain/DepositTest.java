@@ -9,13 +9,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DepositTest {
 
-//    @Test
-//    void Constructor() {
-//        LocalDateTime date = LocalDateTime.now();
-//        Deposit deposit = new Deposit(5,200.0, date);
-//
-//        //Assertions.assertEquals(deposit.getUserid(),5);
-//        Assertions.assertEquals(deposit.getAmount(),200.0);
-//        Assertions.assertEquals(deposit.getDate(),date);
-//    }
+    @Test
+    void Constructor() {
+        LocalDateTime date = LocalDateTime.now();
+        Wallet wallet = new Wallet(5,1000.0);
+
+        Deposit deposit = new Deposit(wallet,200.0, date);
+
+        Assertions.assertEquals(deposit.getWallet().getUserid(),5);
+        Assertions.assertEquals(deposit.getAmount(),200.0);
+        Assertions.assertEquals(deposit.getDate(),date);
+    }
 }
