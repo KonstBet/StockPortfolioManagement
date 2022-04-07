@@ -66,7 +66,7 @@ class TransactionResourceTest {
 
     @Test
     void create() {
-        TransactionDTO transactionDTO = new TransactionDTO(4,200.0,"deposit", LocalDateTime.now());
+        TransactionDTO transactionDTO = new TransactionDTO(1,200.0,"withdraw", LocalDateTime.now());
 
         given()
                 .contentType(ContentType.JSON)
@@ -75,5 +75,18 @@ class TransactionResourceTest {
                 .post("/transaction")
                 .then()
                 .statusCode(201);
+    }
+
+    @Test
+    void createBroken() {
+        TransactionDTO transactionDTO = new TransactionDTO(1,200000.0,"withdraw", LocalDateTime.now());
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(transactionDTO)
+                .when()
+                .post("/transaction")
+                .then()
+                .statusCode(400);
     }
 }

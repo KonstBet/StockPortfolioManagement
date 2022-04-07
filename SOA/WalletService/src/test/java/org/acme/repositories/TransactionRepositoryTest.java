@@ -65,8 +65,7 @@ class TransactionRepositoryTest {
     @Transactional
     void saveTransaction() {
         Withdrawal withdraw = new Withdrawal(initializer.getWallet(),10.0, LocalDateTime.now());
-        System.out.println(withdraw.getId());
-        System.out.println(withdraw.getWallet());
+
         transactionRepository.saveTransaction(withdraw);
 
         Transaction w = transactionRepository.findWithdrawByID(withdraw.getId());

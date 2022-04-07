@@ -15,7 +15,7 @@ public class Wallet {
     @Column(name ="balance", precision = 10, scale = 4)
     private Double balance;
 
-    @OneToMany(mappedBy="wallet", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy="wallet", cascade = CascadeType.MERGE)
     private Set<Transaction> transactions = new HashSet<Transaction>();
 
     public Wallet() {
