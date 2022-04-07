@@ -46,39 +46,39 @@ public class TransactionService {
             if (t == null) //BAD ID
                 return null;
             else //WITHDRAW
-                return new TransactionDTO(id,t.getAmount(),"withdraw",t.getDate());
+                return new TransactionDTO(id,t.getWallet().getUserid(),t.getAmount(),"withdraw",t.getDate());
         }
         else //DEPOSIT
-            return new TransactionDTO(id,t.getAmount(),"deposit",t.getDate());
+            return new TransactionDTO(id,t.getWallet().getUserid(),t.getAmount(),"deposit",t.getDate());
     }
 
-    public Response create(TransactionDTO tDTO) {
+    public Integer create(TransactionDTO tDTO) {
 
         Wallet wallet= walletService.get(tDTO.getUserid());
 
         Transaction t;
         if (wallet == null) {
             if (tDTO.getType().equals("withdraw"))
-                return Response.status(400).build();
+                return -1;
 
             t = tDTO.TransactionDTOtoTransaction();
         }
         else {
             if ((wallet = typeActivity(wallet,tDTO)) == null)
-                return Response.status(400).build();
+                return -1;
             t = tDTO.TransactionDTOtoTransaction(wallet,tDTO.getType());
         }
 
         if (transactionRepository.saveTransaction(t))
-            return Response.created(URI.create("/transaction/" + t.getId())).build();
+            return t.getId();
         else
-            return Response.status(400).build();
+            return -1;
     }
 
     public List<TransactionDTO> listTransactiontoTransactionDTO(List<Transaction> listofTransactions, String type) {
         List<TransactionDTO> listOfTransactionDTO = new ArrayList<TransactionDTO>();
         for (Transaction t : listofTransactions) {
-            TransactionDTO tDTO = new TransactionDTO(t.getId(), t.getAmount(),type,t.getDate());
+            TransactionDTO tDTO = new TransactionDTO(t.getId(),t.getWallet().getUserid(), t.getAmount(),type,t.getDate());
             listOfTransactionDTO.add(tDTO);
         }
         return listOfTransactionDTO;

@@ -59,7 +59,7 @@ class TransactionResourceTest {
                         .statusCode(200)
                         .extract().as(TransactionDTO.class);
 
-        Assertions.assertEquals(transactionDTO.getUserid(),initializer.getDeposit().getId());
+        Assertions.assertEquals(transactionDTO.getUserid(),initializer.getDeposit().getWallet().getUserid());
         Assertions.assertEquals(transactionDTO.getAmount(),initializer.getDeposit().getAmount());
         Assertions.assertEquals(transactionDTO.getType(),"deposit");
     }

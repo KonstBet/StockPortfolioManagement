@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionDTO {
+    private Integer id;
     private Double amount;
     private String type;
     private Integer userid;
@@ -22,6 +23,22 @@ public class TransactionDTO {
         this.amount = amount;
         this.type = type;
         this.date = date;
+    }
+
+    public TransactionDTO(Integer id, Integer userid, Double amount, String type, LocalDateTime date) {
+        this.id = id;
+        this.userid = userid;
+        this.amount = amount;
+        this.type = type;
+        this.date = date;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Double getAmount() {

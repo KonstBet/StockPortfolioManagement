@@ -64,7 +64,7 @@ class TransactionRepositoryTest {
     @Test
     @Transactional
     void saveTransaction() {
-        Withdrawal withdraw = new Withdrawal(initializer.getWallet(),10.0, LocalDateTime.now());
+        Withdrawal withdraw = new Withdrawal(null,10.0, LocalDateTime.now());
 
         transactionRepository.saveTransaction(withdraw);
 
@@ -72,6 +72,5 @@ class TransactionRepositoryTest {
 
         Assertions.assertEquals(w.getId(),withdraw.getId());
         Assertions.assertEquals(w.getAmount(),withdraw.getAmount());
-        Assertions.assertEquals(w.getWallet().getUserid(),withdraw.getWallet().getUserid());
     }
 }

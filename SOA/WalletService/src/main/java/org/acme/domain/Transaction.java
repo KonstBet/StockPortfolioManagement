@@ -22,7 +22,7 @@ public class Transaction {
 	private LocalDateTime date;
 
 
-	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.MERGE)
+	@ManyToOne(fetch=FetchType.LAZY,cascade = CascadeType.PERSIST)
 	@JoinColumn(name="walletid")
 	@JsonbTransient
 	private Wallet wallet;

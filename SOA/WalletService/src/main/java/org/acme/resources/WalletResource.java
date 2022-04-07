@@ -21,13 +21,16 @@ public class WalletResource {
 
     @GET
     @Path("")
-    public WalletDTO get(WalletDTO walletDTO) {
+    public Response get(WalletDTO walletDTO) {
         try {
             Wallet wallet = walletService.get(walletDTO.getUserid());
 
+            if (wallet == null)
+                return Response.status(404).build();
+
             walletDTO.setUserid(null);
             walletDTO.setBalance(wallet.getBalance());
-            return walletDTO;
+            return Response.ok(walletDTO).build();
         }
         catch(Exception e) {
             return null;
@@ -39,7 +42,9 @@ public class WalletResource {
     @Transactional
     public Response update(WalletDTO walletDTO) {
         try {
-            return walletService.update(walletDTO);
+            if (!walletService.update(walletDTO))
+                return Response.status(400).build();
+            return Response.ok().build();
         }
         catch(Exception e) {
             return null;

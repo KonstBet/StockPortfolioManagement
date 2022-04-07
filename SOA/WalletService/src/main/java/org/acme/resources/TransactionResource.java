@@ -21,9 +21,13 @@ public class TransactionResource {
     TransactionService transactionService;
 
     @GET
-    public List<TransactionDTO> list(WalletDTO walletDTO) {
+    public Response list(WalletDTO walletDTO) {
         try {
-            return transactionService.list(walletDTO.getUserid());
+            List<TransactionDTO> transactionDTOList = transactionService.list(walletDTO.getUserid());
+
+            if (transactionDTOList == null || transactionDTOList.size() == 0)
+                return Response.status(404).build();
+            return Response.ok(transactionDTOList).build();
         }
         catch(Exception e) {
             return null;
@@ -32,9 +36,12 @@ public class TransactionResource {
 
     @GET
     @Path("/{id}")
-    public TransactionDTO get(@PathParam("id") Integer id) {
+    public Response get(@PathParam("id") Integer id) {
         try {
-            return transactionService.get(id);
+            TransactionDTO transactionDTO = transactionService.get(id);
+            if (transactionDTO == null)
+                return Response.status(404).build();
+            return Response.ok(transactionDTO).build();
         }
         catch(Exception e) {
             return null;
@@ -44,9 +51,11 @@ public class TransactionResource {
     @POST
     @Transactional
     public Response create(TransactionDTO t) {
-
         try {
-            return transactionService.create(t);
+            Integer id = transactionService.create(t);
+            if (id < 0)
+                return Response.status(400).build();
+            return Response.created(URI.create("/transaction/" + id)).build();
         }
         catch(Exception e) {
             return Response.status(400).build();

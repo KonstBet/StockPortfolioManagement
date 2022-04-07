@@ -24,15 +24,15 @@ public class WalletService {
         return wallet;
     }
 
-    public Response update(WalletDTO walletDTO) {
+    public Boolean update(WalletDTO walletDTO) {
         Wallet wallet = walletRepository.findByID(walletDTO.getUserid());
         if (wallet == null)
-            return Response.status(400).build();
+            return false;
 
         wallet.setBalance(walletDTO.getBalance());
         if (walletRepository.saveWallet(wallet))
-            return Response.ok().build();
+            return true;
         else
-            return Response.status(400).build();
+            return false;
     }
 }
