@@ -9,7 +9,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-@Path("/user")
+@Path("/users")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
@@ -46,5 +46,18 @@ public class UserResource {
         }
     }
 
-
+    @PUT
+    @Path("/{id}")
+    @Transactional
+    public Response update(@PathParam("id") Integer id, UserDTO userDTO) {
+        try {
+            Boolean flag = userService.update(id, userDTO);
+            if (!flag)
+                return Response.status(404).build();
+            return Response.ok().build();
+        }
+        catch(Exception e) {
+            return null;
+        }
+    }
 }

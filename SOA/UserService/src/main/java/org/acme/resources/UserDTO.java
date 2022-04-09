@@ -1,5 +1,6 @@
 package org.acme.resources;
 
+import org.acme.domain.Address;
 import org.acme.domain.User;
 
 import javax.persistence.Column;
@@ -15,11 +16,15 @@ public class UserDTO {
 
     private String surname;
 
+    private String password;
+
     private String email;
 
     private String phoneNo;
 
     private String type;
+
+    private Address address;
 
     private Double committedBalance;
 
@@ -27,21 +32,28 @@ public class UserDTO {
 
     public UserDTO() {}
 
-    public UserDTO(Integer id, String name, String surname, String email, String phoneNo, String type) {
+    public UserDTO(Integer id, String name, String surname, String password, String email, String phoneNo, Address address, String type) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.phoneNo = phoneNo;
         this.type = type;
+
+        this.address = address;
+        this.password = password;
     }
-    public UserDTO(Integer id, String name, String surname, String email, String phoneNo, String type, Double temp) {
+    public UserDTO(Integer id, String name, String surname, String password, String email, String phoneNo, Address address, String type, Double temp) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.phoneNo = phoneNo;
         this.type = type;
+
+        this.address = address;
+        this.password = password;
+
         if (type.equals("investor"))
             this.committedBalance = temp;
         else if (type.equals("broker"))
@@ -112,4 +124,19 @@ public class UserDTO {
         this.brokerageFee = brokerageFee;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 }
