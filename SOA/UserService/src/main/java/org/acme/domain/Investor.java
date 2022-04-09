@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@DiscriminatorValue("I")
+@DiscriminatorValue("investor")
 public class Investor extends User {
 
     @Column(name = "committedBalance", length = 100, nullable = false, columnDefinition = "double default 0.0")

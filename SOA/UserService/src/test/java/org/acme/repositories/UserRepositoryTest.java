@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @QuarkusTest
@@ -45,6 +47,20 @@ class UserRepositoryTest {
         Assertions.assertEquals(broker.getAuthorizations().size(),initializer.getBroker().getAuthorizations().size());
         Assertions.assertEquals(broker.getEmail(),initializer.getBroker().getEmail());
         Assertions.assertEquals(broker.getBrokerageFee(),initializer.getBroker().getBrokerageFee());
+    }
+
+    @Test
+    void findAllInvestors() {
+        List<User> userList = userRepository.findAllInvestors();
+
+        Assertions.assertEquals(userList.size(),1);
+    }
+
+    @Test
+    void findAllBrokers() {
+        List<User> userList = userRepository.findAllBrokers();
+
+        Assertions.assertEquals(userList.size(),1);
     }
 
     @Test
