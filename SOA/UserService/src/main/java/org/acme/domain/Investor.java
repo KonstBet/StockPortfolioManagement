@@ -18,6 +18,9 @@ public class Investor extends User {
         this.committedBalance = 0.0;
     }
 
+    @OneToMany(mappedBy = "investor", cascade = CascadeType.PERSIST)
+    private Set<Authorization> authorizations = new HashSet<Authorization>();
+
     public Double getCommittedBalance() {
         return committedBalance;
     }
@@ -26,8 +29,11 @@ public class Investor extends User {
         this.committedBalance = committedBalance;
     }
 
-    //TODO
-//    @OneToMany(mappedBy = "investor", cascade = CascadeType.PERSIST)
-//    private Set<Authorization> authorizations = new HashSet<Authorization>();
+    public Set<Authorization> getAuthorizations() {
+        return authorizations;
+    }
 
+    public void setAuthorizations(Set<Authorization> authorizations) {
+        this.authorizations = authorizations;
+    }
 }

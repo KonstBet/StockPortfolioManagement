@@ -18,6 +18,9 @@ public class Broker extends User {
         this.brokerageFee = brokerageFee;
     }
 
+    @OneToMany(mappedBy = "broker", cascade = CascadeType.PERSIST)
+    private Set<Authorization> authorizations = new HashSet<Authorization>();
+
     public Double getBrokerageFee() {
         return brokerageFee;
     }
@@ -26,8 +29,11 @@ public class Broker extends User {
         this.brokerageFee = brokerageFee;
     }
 
-    //TODO
-//    @OneToMany(mappedBy = "broker", cascade = CascadeType.PERSIST)
-//    private Set<Authorization> authorizations = new HashSet<Authorization>();
+    public Set<Authorization> getAuthorizations() {
+        return authorizations;
+    }
 
+    public void setAuthorizations(Set<Authorization> authorizations) {
+        this.authorizations = authorizations;
+    }
 }

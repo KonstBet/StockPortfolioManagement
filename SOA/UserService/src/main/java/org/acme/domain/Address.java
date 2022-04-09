@@ -49,9 +49,9 @@ public class Address {
 		this.zipCode = zipCode;
 	}
 	
-	public String toString() {
-		return "Street: " + getStreet()
-				+ "\nNumber: " + getNumber()
-				+ "\nZipCode: " + getZipCode();
-	}
+//	public String toString() {
+//		return "Street: " + getStreet()
+//				+ "\nNumber: " + getNumber()
+//				+ "\nZipCode: " + getZipCode();
+//	}
 }
