@@ -80,4 +80,18 @@ class UserServiceTest {
 
         Assertions.assertFalse(flag);
     }
+
+    @Test
+    @Transactional
+    void create() {
+        UserDTO userDTO = new UserDTO(null,"giannhs","papad","987654321","gp@email.com","987654321",null,"broker",10.0);
+
+        Boolean flag = userService.create(userDTO);
+
+        Assertions.assertTrue(flag);
+
+        List<UserDTO> userDTOList = userService.list("broker");
+
+        Assertions.assertEquals(userDTOList.size(),2);
+    }
 }

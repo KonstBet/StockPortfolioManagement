@@ -60,4 +60,19 @@ public class UserResource {
             return null;
         }
     }
+
+    @POST
+    @Path("")
+    @Transactional
+    public Response create(UserDTO userDTO) {
+        try {
+            Boolean flag = userService.create(userDTO);
+            if (!flag)
+                return Response.status(404).build();
+            return Response.ok().build();
+        }
+        catch(Exception e) {
+            return null;
+        }
+    }
 }

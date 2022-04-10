@@ -85,4 +85,28 @@ class UserResourceTest {
 
         Assertions.assertEquals(userDTO.getEmail(),"papaki@mail.com");
     }
+
+    @Test
+    void create() {
+        UserDTO userDTO = new UserDTO(null,"giannhs","papad","987654321","gp@email.com","987654321",null,"broker",10.0);
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(userDTO)
+                .when()
+                .post("/users")
+                .then()
+                .statusCode(200);
+
+        List list = given()
+                .when()
+                .queryParam("type","broker")
+                .get("/users")
+                .then()
+                .statusCode(200)
+                .extract().
+                as(List.class);
+
+        Assertions.assertEquals(list.size(),2);
+    }
 }

@@ -89,6 +89,28 @@ public class UserService {
         return false;
     }
 
+    public boolean create(UserDTO userDTO) {
+        if (userDTO.getName() == null || userDTO.getSurname() == null || userDTO.getEmail() == null|| userDTO.getPassword() == null)
+            return false;
+
+        if (userDTO.getType().equals("investor")) {
+            Investor investor = new Investor(userDTO.getName(),userDTO.getSurname(),userDTO.getEmail(),userDTO.getPhoneNo(),userDTO.getPassword());
+            investor.setAddress(userDTO.getAddress());
+
+            userRepository.saveUser(investor);
+            return true;
+        }
+        else if (userDTO.getType().equals("broker")) {
+            if (userDTO.getBrokerageFee() == null || userDTO.getBrokerageFee() < 1) return false;
+            Broker broker = new Broker(userDTO.getName(),userDTO.getSurname(),userDTO.getEmail(),userDTO.getPhoneNo(),userDTO.getPassword(),userDTO.getBrokerageFee());
+            broker.setAddress(userDTO.getAddress());
+
+            userRepository.saveUser(broker);
+            return true;
+        }
+        return false;
+    }
+
     //--------------------------------------------------------------------------------------
 
     private List<UserDTO> UserListToUserDTOList(List<User> userList, String type) {
