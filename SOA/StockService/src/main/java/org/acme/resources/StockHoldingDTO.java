@@ -8,23 +8,23 @@ public class StockHoldingDTO {
 
     private Long id;
     private Integer amount;
-    private Integer committedAmount;
     private Long userId;
     private Long stockId;
+    private Boolean isLocked = false;
 
     public StockHoldingDTO(){}
 
     public StockHoldingDTO(StockHolding stockHolding){
-        this(stockHolding.getId(), stockHolding.getAmount(),
-                stockHolding.getCommittedAmount(), stockHolding.getUserId(), stockHolding.getStock().getId());
+        this(stockHolding.getId(), stockHolding.getAmount(), stockHolding.getUserId(),
+                stockHolding.getStock().getId(), stockHolding.getIsLocked());
     }
 
-    public StockHoldingDTO(Long id, Integer amount, Integer committedAmount, Long userId, Long stockId) {
+    public StockHoldingDTO(Long id, Integer amount, Long userId, Long stockId, Boolean isLocked) {
         this.id = id;
         this.amount = amount;
-        this.committedAmount = committedAmount;
         this.userId = userId;
         this.stockId = stockId;
+        this.isLocked = isLocked;
     }
 
     public static List<StockHoldingDTO> listToDTOList(List<StockHolding> stockHoldings){
@@ -51,12 +51,12 @@ public class StockHoldingDTO {
         this.amount = amount;
     }
 
-    public Integer getCommittedAmount() {
-        return committedAmount;
+    public Boolean getLocked() {
+        return isLocked;
     }
 
-    public void setCommittedAmount(Integer committedAmount) {
-        this.committedAmount = committedAmount;
+    public void setLocked(Boolean locked) {
+        isLocked = locked;
     }
 
     public Long getUserId() {

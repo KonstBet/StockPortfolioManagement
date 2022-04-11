@@ -15,9 +15,6 @@ public class StockHolding {
     @Column(name="amount", length=100, nullable=false)
     private Integer amount;
 
-    @Column(name="committed_amount", length=100, nullable=false)
-    private Integer committedAmount;
-
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
@@ -25,13 +22,15 @@ public class StockHolding {
     @JoinColumn(name="stock_id")
     private Stock stock;
 
+    @Column(name = "is_locked", nullable = false)
+    private Boolean isLocked = false;
+
     public StockHolding() {}
 
     public StockHolding(Integer amount, Stock stock, Long userId) {
         this.amount = amount;
         this.stock = stock;
         this.userId = userId;
-        this.committedAmount = 0;
     }
 
     public Long getId() {
@@ -43,12 +42,12 @@ public class StockHolding {
     }
 
 
-    public Integer getCommittedAmount() {
-        return this.committedAmount;
+    public Boolean getIsLocked() {
+        return isLocked;
     }
 
-    public void setCommittedAmount(Integer committedAmount) {
-        this.committedAmount = committedAmount;
+    public void setIsLocked(Boolean locked) {
+        isLocked = locked;
     }
 
     public Long getUserId() {
