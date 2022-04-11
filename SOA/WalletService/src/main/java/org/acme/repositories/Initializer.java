@@ -49,7 +49,6 @@ public class Initializer {
     @Transactional
     public void EraseData() {
         transactionRepository.deleteAll();
-        transactionRepository.deleteAll();
         walletRepository.deleteAll();
     }
 

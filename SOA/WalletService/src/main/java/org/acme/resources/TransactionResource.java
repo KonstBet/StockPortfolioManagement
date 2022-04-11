@@ -21,9 +21,9 @@ public class TransactionResource {
     TransactionService transactionService;
 
     @GET
-    public Response list(WalletDTO walletDTO) {
+    public Response list(@QueryParam("userid") Integer userid) {
         try {
-            List<TransactionDTO> transactionDTOList = transactionService.list(walletDTO.getUserid());
+            List<TransactionDTO> transactionDTOList = transactionService.list(userid);
 
             if (transactionDTOList == null || transactionDTOList.size() == 0)
                 return Response.status(404).build();

@@ -28,14 +28,11 @@ class WalletResourceTest {
 
     @Test
     void get() {
-        WalletDTO walletDTO = new WalletDTO();
-        walletDTO.setUserid(initializer.getWallet().getUserid());
 
         given()
-                .contentType(ContentType.JSON)
-                .body(walletDTO)
+                .pathParam("id",initializer.getDeposit().getWallet().getUserid())
                 .when()
-                .get("/balance")
+                .get("/balance/{id}")
                 .then()
                 .statusCode(200)
                 .body("balance",is(1000.0F)); //RETURNS FLOAT

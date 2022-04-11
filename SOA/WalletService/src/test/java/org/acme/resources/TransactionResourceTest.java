@@ -36,14 +36,13 @@ class TransactionResourceTest {
 
         List transactionDTOList =
                 given()
-                .contentType(ContentType.JSON)
-                .body(walletDTO)
-                .when()
-                .get("/transaction")
-                .then()
-                .statusCode(200)
-                .extract().
-                as(List.class);
+                        .queryParam("userid",initializer.getWallet().getUserid())
+                        .when()
+                        .get("/transaction")
+                        .then()
+                        .statusCode(200)
+                        .extract().
+                        as(List.class);
 
         Assertions.assertEquals(transactionDTOList.size(),2);
     }
