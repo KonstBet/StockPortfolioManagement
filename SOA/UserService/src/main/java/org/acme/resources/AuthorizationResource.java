@@ -1,6 +1,8 @@
 package org.acme.resources;
 
 import org.acme.services.AuthorizationService;
+import org.acme.services.WalletService;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -17,9 +19,13 @@ public class AuthorizationResource {
     @Inject
     AuthorizationService authorizationService;
 
+    @Inject
+    @RestClient
+    WalletService walletService;
+
     @GET
     @Path("")
-    public Response list(Integer userid) {
+    public Response list(@QueryParam("userid") Integer userid) {
         try {
             List<AuthorizationDTO> authorizationDTOList = authorizationService.list(userid);
 
@@ -42,7 +48,7 @@ public class AuthorizationResource {
             return Response.ok(authorizationDTO).build();
         }
         catch(Exception e) {
-            return null;
+            return Response.status(404).build();
         }
     }
 
@@ -53,10 +59,29 @@ public class AuthorizationResource {
         try {
             if (!authorizationService.create(authorizationDTO))
                 return Response.status(400).build();
-            return Response.ok().build();
+
+            System.out.println("AAAAAA");
+            //READ WALLET BALANCE
+            WalletDTO walletDTO = new WalletDTO();
+            walletDTO.setUserid(authorizationDTO.getInvestorid());System.out.println("AAA");
+
+            Integer userid = authorizationDTO.getInvestorid();
+
+            Response response = walletService.get(userid);
+            System.out.println("BBBBB");System.out.println(response);
+            //CHANGE WALLET BALANCE
+            walletDTO = (WalletDTO) response.getEntity();System.out.println("FFF");System.out.println(walletDTO.getBalance());
+            walletDTO.setBalance(walletDTO.getBalance() - authorizationDTO.getAmount());System.out.println(walletDTO.getBalance());
+            response = walletService.update(walletDTO);
+
+            System.out.println("CCC");
+            if (response.getStatus() == 200)
+                return Response.ok().build();
+            else return Response.status(400).build();
         }
         catch(Exception e) {
-            return null;
+            System.out.println(e);
+            return Response.status(400).build();
         }
     }
 }

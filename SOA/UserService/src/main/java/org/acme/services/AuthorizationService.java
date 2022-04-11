@@ -4,6 +4,7 @@ import org.acme.domain.*;
 import org.acme.repositories.AuthorizationRepository;
 import org.acme.repositories.UserRepository;
 import org.acme.resources.AuthorizationDTO;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -53,13 +54,11 @@ public class AuthorizationService {
         if (authorizationDTO.getType().equals("AuthCapital")) {
             Investor investor = userRepository.findInvestorByID(authorizationDTO.getInvestorid());
             Broker broker = userRepository.findBrokerByID(authorizationDTO.getBrokerid());
-
             AuthCapital authCapital = new AuthCapital(investor,broker, LocalDateTime.now(),authorizationDTO.getEnddate(),authorizationDTO.getAmount());
 
             investor.getAuthorizations().add(authCapital);
             investor.setCommittedBalance(investor.getCommittedBalance() + authCapital.getAmount());
             broker.getAuthorizations().add((authCapital));
-
             authorizationRepository.saveAuthorization(authCapital);
             return true;
         }

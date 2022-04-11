@@ -20,15 +20,15 @@ public class WalletResource {
     WalletService walletService;
 
     @GET
-    @Path("")
-    public Response get(WalletDTO walletDTO) {
+    @Path("/{id}")
+    public Response get(@PathParam("id") Integer id) {
         try {
-            Wallet wallet = walletService.get(walletDTO.getUserid());
+            Wallet wallet = walletService.get(id);
 
             if (wallet == null)
                 return Response.status(404).build();
 
-            walletDTO.setUserid(null);
+            WalletDTO walletDTO = new WalletDTO();
             walletDTO.setBalance(wallet.getBalance());
             return Response.ok(walletDTO).build();
         }
