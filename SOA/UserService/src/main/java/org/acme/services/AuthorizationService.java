@@ -38,12 +38,12 @@ public class AuthorizationService {
     public AuthorizationDTO get(Integer id) {
         AuthCapital ac = authorizationRepository.findAuthCapitalByID(id);
         if (ac != null)
-            return new AuthorizationDTO(ac.getStartdate(),ac.getEnddate(),ac.getInvestor().getId(),
+            return new AuthorizationDTO(ac.getId(),ac.getStartdate(),ac.getEnddate(),ac.getInvestor().getId(),
                 ac.getBroker().getId(),"AuthCapital",ac.getAmount());
 
         AuthStock as = authorizationRepository.findAuthStockByID(id);
         if (as != null) {
-            return new AuthorizationDTO(as.getStartdate(),as.getEnddate(),as.getInvestor().getId(),
+            return new AuthorizationDTO(as.getId(),as.getStartdate(),as.getEnddate(),as.getInvestor().getId(),
                     as.getBroker().getId(),"AuthCapital",Double.valueOf(as.getAmount()),as.getStockholdingid());
         }
 
@@ -91,12 +91,12 @@ public class AuthorizationService {
 
             if (type.equals("AuthCapital")) {//AuthCapital
                 AuthCapital ac = (AuthCapital) auth;
-                authorizationDTOList.add(new AuthorizationDTO(ac.getStartdate(),ac.getEnddate(),ac.getInvestor().getId(),
+                authorizationDTOList.add(new AuthorizationDTO(ac.getId(),ac.getStartdate(),ac.getEnddate(),ac.getInvestor().getId(),
                         ac.getBroker().getId(),"AuthCapital",ac.getAmount()));
             }
             else if (type.equals("AuthStock")) {//AuthStock
                 AuthStock as = (AuthStock) auth;
-                authorizationDTOList.add(new AuthorizationDTO(as.getStartdate(),as.getEnddate(),as.getInvestor().getId(),
+                authorizationDTOList.add(new AuthorizationDTO(as.getId(),as.getStartdate(),as.getEnddate(),as.getInvestor().getId(),
                         as.getBroker().getId(),"AuthCapital",Double.valueOf(as.getAmount()),as.getStockholdingid()));
             }
             else return null;

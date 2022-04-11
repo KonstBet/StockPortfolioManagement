@@ -82,7 +82,7 @@ class AuthorizationResourceTest {
 
     @Test
     void create() {
-        AuthorizationDTO authorizationDTO = new AuthorizationDTO(LocalDateTime.now(),LocalDateTime.now().plusDays(30),initializer.getInvestor().getId()
+        AuthorizationDTO authorizationDTO = new AuthorizationDTO(null, LocalDateTime.now(),LocalDateTime.now().plusDays(30),initializer.getInvestor().getId()
                 ,initializer.getBroker().getId(),"AuthStock",200.0,2);
 
         given()

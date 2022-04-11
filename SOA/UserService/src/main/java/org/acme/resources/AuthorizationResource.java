@@ -59,6 +59,7 @@ public class AuthorizationResource {
         try {
             if (!authorizationService.create(authorizationDTO))
                 return Response.status(400).build();
+
             //READ WALLET BALANCE
             WalletDTO walletDTO = new WalletDTO();
             walletDTO.setUserid(authorizationDTO.getInvestorid());
@@ -68,7 +69,8 @@ public class AuthorizationResource {
             Response response = walletService.get(userid);
 
             //CHANGE WALLET BALANCE
-            walletDTO = (WalletDTO) response.getEntity();
+            walletDTO = response.readEntity(WalletDTO.class);
+            walletDTO.setUserid(authorizationDTO.getInvestorid());
             walletDTO.setBalance(walletDTO.getBalance() - authorizationDTO.getAmount());
             response = walletService.update(walletDTO);
 
@@ -77,7 +79,6 @@ public class AuthorizationResource {
             else return Response.status(400).build();
         }
         catch(Exception e) {
-            System.out.println(e);
             return Response.status(400).build();
         }
     }

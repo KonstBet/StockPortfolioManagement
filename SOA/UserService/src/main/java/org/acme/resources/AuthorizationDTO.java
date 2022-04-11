@@ -27,7 +27,8 @@ public class AuthorizationDTO {
     public AuthorizationDTO() {
     }
 
-    public AuthorizationDTO(LocalDateTime startdate, LocalDateTime enddate, Integer investorid, Integer brokerid, String type, Double amount) {
+    public AuthorizationDTO(Integer id, LocalDateTime startdate, LocalDateTime enddate, Integer investorid, Integer brokerid, String type, Double amount) {
+        this.id = id;
         this.startdate = startdate;
         this.enddate = enddate;
         this.investorid = investorid;
@@ -36,7 +37,8 @@ public class AuthorizationDTO {
         this.amount = amount;
     }
 
-    public AuthorizationDTO(LocalDateTime startdate, LocalDateTime enddate, Integer investorid, Integer brokerid, String type, Double amount, Integer stockholdingid) {
+    public AuthorizationDTO(Integer id, LocalDateTime startdate, LocalDateTime enddate, Integer investorid, Integer brokerid, String type, Double amount, Integer stockholdingid) {
+        this.id = id;
         this.startdate = startdate;
         this.enddate = enddate;
         this.investorid = investorid;
