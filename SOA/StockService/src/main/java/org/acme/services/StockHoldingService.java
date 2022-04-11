@@ -33,4 +33,14 @@ public class StockHoldingService {
         if(stockHolding == null) return null;
         return new StockHoldingDTO(stockHolding);
     }
+
+    public Boolean updateStockHoldingStatus(Long id, Boolean isLocked){
+
+        StockHolding stockHolding = stockHoldingRepository.findByPk(id);
+        if(stockHolding == null) return false;
+        stockHolding.setIsLocked(isLocked);
+
+        return stockHoldingRepository.saveStockHolding(stockHolding);
+
+    }
 }

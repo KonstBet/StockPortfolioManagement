@@ -8,6 +8,7 @@ import org.acme.repositories.StockHoldingRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.wildfly.common.Assert;
 
 import javax.inject.Inject;
 import java.util.Arrays;
@@ -90,6 +91,43 @@ class StockHoldingResourceTest {
         Long id = Long.MAX_VALUE;
         Response response = given().pathParam("stockholding_id",id).get("/stockholdings/{stockholding_id}");
         Assertions.assertEquals(response.getStatusCode(), 404);
+    }
+
+    @Test
+    void changeStockHoldingStatus(){
+
+        // first we fetch all the users stockholdings
+        Response response = given().contentType(ContentType.JSON)
+                .queryParam("user_id", initializer.userId1)
+                .when().get("/stockholdings");
+
+        // convert to dto list
+        List<StockHoldingDTO> stockHoldingDTOList = Arrays.asList(response.getBody().as(StockHoldingDTO[].class));
+
+        // fetch the first stock by its id
+        response = given().contentType(ContentType.JSON)
+                .pathParam("stockholding_id",stockHoldingDTOList.get(0).getId()).when().get("/stockholdings/{stockholding_id}");
+
+        // convert to stockDTO
+        StockHoldingDTO stockHoldingDTO = response.then().statusCode(200).extract().as(StockHoldingDTO.class);
+
+        // "locked" is false
+        Assertions.assertEquals(false, stockHoldingDTO.getLocked());
+        // mark locked as true
+        stockHoldingDTO.setLocked(true);
+
+        response = given().contentType(ContentType.JSON).body(stockHoldingDTO).when().put("/stockholdings/"+stockHoldingDTO.getId() +"/status");
+        Assertions.assertEquals(200, response.getStatusCode());
+
+        // re-fetch stock holding and check isLocked status
+        response = given().contentType(ContentType.JSON)
+                .pathParam("stockholding_id",stockHoldingDTOList.get(0).getId()).when().get("/stockholdings/{stockholding_id}");
+        stockHoldingDTO = response.then().statusCode(200).extract().as(StockHoldingDTO.class);
+
+        Assertions.assertEquals(stockHoldingDTO.getLocked(), true);
+
+
+
     }
 
 }

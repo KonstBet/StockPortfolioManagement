@@ -5,6 +5,7 @@ import org.acme.services.StockHoldingService;
 import org.acme.services.StockService;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -45,6 +46,25 @@ public class StockHoldingResource {
 
         } catch(Exception e) {return null;}
     }
+
+
+    @PUT
+    @Transactional
+    @Path("/{stockholding_id}/status")
+    public Response changeStockHoldingStatus(@PathParam("stockholding_id") Long stockHoldingId, StockHoldingDTO stockHoldingDTO){
+        try{
+
+           if(!stockHoldingService.updateStockHoldingStatus(stockHoldingId, stockHoldingDTO.getLocked())){
+               return Response.status(400).build();
+           }
+
+           return Response.ok().build();
+
+
+
+        }catch(Exception e){return null;}
+    }
+
 
 
 }

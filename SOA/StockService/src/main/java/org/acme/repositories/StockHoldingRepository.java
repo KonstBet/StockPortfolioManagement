@@ -22,5 +22,4 @@ public class StockHoldingRepository implements PanacheRepository<StockHolding> {
         return isPersistent(stockHolding);
     }
 
-
 }
