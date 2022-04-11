@@ -59,22 +59,19 @@ public class AuthorizationResource {
         try {
             if (!authorizationService.create(authorizationDTO))
                 return Response.status(400).build();
-
-            System.out.println("AAAAAA");
             //READ WALLET BALANCE
             WalletDTO walletDTO = new WalletDTO();
-            walletDTO.setUserid(authorizationDTO.getInvestorid());System.out.println("AAA");
+            walletDTO.setUserid(authorizationDTO.getInvestorid());
 
             Integer userid = authorizationDTO.getInvestorid();
 
             Response response = walletService.get(userid);
-            System.out.println("BBBBB");System.out.println(response);
+
             //CHANGE WALLET BALANCE
-            walletDTO = (WalletDTO) response.getEntity();System.out.println("FFF");System.out.println(walletDTO.getBalance());
-            walletDTO.setBalance(walletDTO.getBalance() - authorizationDTO.getAmount());System.out.println(walletDTO.getBalance());
+            walletDTO = (WalletDTO) response.getEntity();
+            walletDTO.setBalance(walletDTO.getBalance() - authorizationDTO.getAmount());
             response = walletService.update(walletDTO);
 
-            System.out.println("CCC");
             if (response.getStatus() == 200)
                 return Response.ok().build();
             else return Response.status(400).build();

@@ -38,22 +38,13 @@ class AuthorizationResourceTest {
 
         WalletDTO walletDTO = new WalletDTO();
         walletDTO.setUserid(initializer.getInvestor().getId());
+        walletDTO.setBalance(1000.0);
 
-        WalletDTO walletDTO2 = new WalletDTO();
-        walletDTO2.setUserid(initializer.getInvestor().getId());
-        walletDTO2.setBalance(1000.0);
+        Mockito.when(walletService.get(initializer.getInvestor().getId())).thenReturn(Response.ok(walletDTO).build());
 
-        Integer userid = initializer.getInvestor().getId();
+        walletDTO.setBalance(800.0);
+        Mockito.when(walletService.update(walletDTO)).thenReturn(Response.ok().build());
 
-        Mockito.when(walletService.get(userid)).thenReturn(Response.ok(walletDTO2).build());
-
-        walletDTO2.setBalance(800.0);
-        Mockito.when(walletService.update(walletDTO2)).thenReturn(Response.ok().build());
-
-        System.out.println("AA " + initializer.getInvestor().getId());
-
-//        Response response = walletService.get(walletDTO);
-//        System.out.println(response);
     }
 
     @Test
@@ -94,13 +85,6 @@ class AuthorizationResourceTest {
         AuthorizationDTO authorizationDTO = new AuthorizationDTO(LocalDateTime.now(),LocalDateTime.now().plusDays(30),initializer.getInvestor().getId()
                 ,initializer.getBroker().getId(),"AuthStock",200.0,2);
 
-        System.out.print("BB " + initializer.getInvestor().getId());
-        WalletDTO walletDTO = new WalletDTO();
-        walletDTO.setUserid(initializer.getInvestor().getId());
-
-//        Response response = walletService.get(walletDTO);
-//        System.out.println(response);
-
         given()
                 .contentType(ContentType.JSON)
                 .body(authorizationDTO)
@@ -113,7 +97,7 @@ class AuthorizationResourceTest {
 
         List list = given()
                 .contentType(ContentType.JSON)
-                .body(userid)
+                .queryParam("userid",initializer.getInvestor().getId())
                 .when()
                 .get("/authorizations")
                 .then()
