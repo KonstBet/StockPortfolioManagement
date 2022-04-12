@@ -35,39 +35,40 @@ class AuthorizationServiceTest {
     void list() {
         List<AuthorizationDTO> authorizationDTOList;
 
-        authorizationDTOList = authorizationService.list(initializer.getInvestor().getId());
+        authorizationDTOList = authorizationService.listInvestorAuthorizations(initializer.getInvestor().getId());
 
-        Assertions.assertEquals(authorizationDTOList.size(),2);
+        Assertions.assertEquals(authorizationDTOList.size(),1);
 
-        authorizationDTOList = authorizationService.list(initializer.getBroker().getId());
+        authorizationDTOList = authorizationService.listBrokerAuthorizations(initializer.getBroker().getId());
 
-        Assertions.assertEquals(authorizationDTOList.size(),2);
+        Assertions.assertEquals(authorizationDTOList.size(),1);
     }
 
     @Test
     void get() {
-        AuthorizationDTO authorizationDTO = authorizationService.get(initializer.getAuthCapital().getId());
-
+        AuthorizationDTO authorizationDTO = authorizationService.findById(initializer.getAuthorization().getId());
         Assertions.assertNotNull(authorizationDTO);
-        Assertions.assertEquals(authorizationDTO.getType(),"AuthCapital");
-        Assertions.assertEquals(authorizationDTO.getAmount(),initializer.getAuthCapital().getAmount());
+        Assertions.assertEquals(authorizationDTO.getBrokerId(),initializer.getBroker().getId());
+        Assertions.assertEquals(authorizationDTO.getInvestorId(),initializer.getInvestor().getId());
     }
 
     @Test
     @Transactional
     void create() {
-        AuthorizationDTO authorizationDTO = new AuthorizationDTO(null, LocalDateTime.now(),LocalDateTime.now().plusDays(30),initializer.getInvestor().getId()
-        ,initializer.getBroker().getId(),"AuthStock",200.0,2);
+        AuthorizationDTO authorizationDTO = new AuthorizationDTO(
+                null, LocalDateTime.now(),
+                LocalDateTime.now().plusDays(30),
+                initializer.getInvestor().getId()
+        ,initializer.getBroker().getId(), true);
 
-        Boolean flag = authorizationService.create(authorizationDTO);
+        Boolean flag = authorizationService.createAuthorization(authorizationDTO);
 
         Assertions.assertTrue(flag);
 
-
         List<AuthorizationDTO> authorizationDTOList;
 
-        authorizationDTOList = authorizationService.list(initializer.getInvestor().getId());
+        authorizationDTOList = authorizationService.listInvestorAuthorizations(initializer.getInvestor().getId());
 
-        Assertions.assertEquals(authorizationDTOList.size(),3);
+        Assertions.assertEquals(authorizationDTOList.size(),2);
     }
 }

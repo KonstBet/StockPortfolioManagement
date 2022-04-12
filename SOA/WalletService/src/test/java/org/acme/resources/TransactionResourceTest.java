@@ -32,11 +32,11 @@ class TransactionResourceTest {
     @Test
     void list() {
         WalletDTO walletDTO = new WalletDTO();
-        walletDTO.setUserid(initializer.getWallet().getUserid());
+        walletDTO.setUserid(initializer.getWallet().getUserId());
 
         List transactionDTOList =
                 given()
-                        .queryParam("userid",initializer.getWallet().getUserid())
+                        .queryParam("user_id",initializer.getWallet().getUserId())
                         .when()
                         .get("/transaction")
                         .then()

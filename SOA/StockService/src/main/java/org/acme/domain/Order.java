@@ -37,19 +37,24 @@ public class Order
     @JoinColumn(name="stock_id")
     private Stock stock;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+    @Column(name = "investor_id", nullable = false)
+    private Long investorId;
+
+    @Column(name = "broker_id")
+    private Long brokerId;
 
     public Order() {}
 
-    public Order(Integer stockAmount, Double fee, LocalDateTime date, Double orderPrice, OrderType type, Stock stock, Long userId) {
+    public Order(Integer stockAmount, Double fee, LocalDateTime date, Double orderPrice,
+                 OrderType type, Stock stock, Long investorId, Long brokerId) {
         this.stockAmount = stockAmount;
         this.fee = fee;
         this.date = date;
         this.orderPrice = orderPrice;
         this.type = type;
         this.stock = stock;
-        this.userId = userId;
+        this.investorId = investorId;
+        this.brokerId = brokerId;
     }
 
     public Long getId() {
@@ -116,18 +121,27 @@ public class Order
         this.stock = stock;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getInvestorId() {
+        return investorId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setInvestorId(Long investorId) {
+        this.investorId = investorId;
+    }
+
+    public Long getBrokerId() {
+        return brokerId;
+    }
+
+    public void setBrokerId(Long brokerId) {
+        this.brokerId = brokerId;
     }
 
     public String toString() {
         return "ID: " + getId() +
                 "\nType:" + getType() +
-                "\nUser: " + getUserId() +
+                "\nInvestor: " + getInvestorId() +
+                "\nBroker" + getBrokerId() +
                 "\nStock: " + getStock().getCompanyName() +
                 "\nAmount: " + getStockAmount() +
                 "\nOrder Total: " + getOrderPrice() +

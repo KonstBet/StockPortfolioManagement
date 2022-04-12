@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import java.util.List;
 
 public class UserDTO {
-    private Integer id;
+    private Long id;
 
     private String name;
 
@@ -26,13 +26,19 @@ public class UserDTO {
 
     private Address address;
 
-    private Double committedBalance;
-
     private Double brokerageFee;
 
     public UserDTO() {}
 
-    public UserDTO(Integer id, String name, String surname, String password, String email, String phoneNo, Address address, String type) {
+    public UserDTO(User user, String type, Double temp){
+        this(user.getId(), user.getName(), user.getSurname(), user.getPassword(),
+                user.getEmail(), user.getPhoneNo(), user.getAddress(), type, temp);
+    }
+
+    public UserDTO(Long id, String name, String surname, String password, String email, String phoneNo, Address address, String type) {
+        this(id, name, surname, password, email, phoneNo, address, type, 0.0);
+    }
+    public UserDTO(Long id, String name, String surname, String password, String email, String phoneNo, Address address, String type, Double temp) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -42,29 +48,14 @@ public class UserDTO {
 
         this.address = address;
         this.password = password;
-    }
-    public UserDTO(Integer id, String name, String surname, String password, String email, String phoneNo, Address address, String type, Double temp) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.phoneNo = phoneNo;
-        this.type = type;
-
-        this.address = address;
-        this.password = password;
-
-        if (type.equals("investor"))
-            this.committedBalance = temp;
-        else if (type.equals("broker"))
-            this.brokerageFee = temp;
+        if (type.equals("broker")) this.brokerageFee = temp;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -108,13 +99,6 @@ public class UserDTO {
         this.type = type;
     }
 
-    public Double getCommittedBalance() {
-        return committedBalance;
-    }
-
-    public void setCommittedBalance(Double committedBalance) {
-        this.committedBalance = committedBalance;
-    }
 
     public Double getBrokerageFee() {
         return brokerageFee;

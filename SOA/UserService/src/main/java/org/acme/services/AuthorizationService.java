@@ -21,86 +21,76 @@ public class AuthorizationService {
     @Inject
     UserRepository userRepository;
 
-    public List<AuthorizationDTO> list(Integer userid) {
-        List<AuthorizationDTO> authorizationDTOList;
+    public AuthorizationDTO findById(Long authorizationId){
 
-        List <Authorization> authorizationList;
+        Authorization authorization = authorizationRepository.findAuthorizationById(authorizationId);
 
-        authorizationList = authorizationRepository.findAllAuthCapitalsByUserID(userid);
-        authorizationDTOList = AuthorizationListToAuthorizationDTOList(authorizationList,"AuthCapital");
+        if(authorization == null ) return null;
 
-        authorizationList = authorizationRepository.findAllAuthStocksByUserID(userid);
-        authorizationDTOList.addAll(AuthorizationListToAuthorizationDTOList(authorizationList,"AuthStock"));
+        return new AuthorizationDTO(authorization);
 
-        return authorizationDTOList;
     }
 
-    public AuthorizationDTO get(Integer id) {
-        AuthCapital ac = authorizationRepository.findAuthCapitalByID(id);
-        if (ac != null)
-            return new AuthorizationDTO(ac.getId(),ac.getStartdate(),ac.getEnddate(),ac.getInvestor().getId(),
-                ac.getBroker().getId(),"AuthCapital",ac.getAmount());
+    public List<AuthorizationDTO> listInvestorAuthorizations(Long userId) {
 
-        AuthStock as = authorizationRepository.findAuthStockByID(id);
-        if (as != null) {
-            return new AuthorizationDTO(as.getId(),as.getStartdate(),as.getEnddate(),as.getInvestor().getId(),
-                    as.getBroker().getId(),"AuthCapital",Double.valueOf(as.getAmount()),as.getStockholdingid());
-        }
+        List<Authorization> authorizations;
 
-        return null;
+        authorizations = authorizationRepository.findInvestorAuthorizations(userId);
+        if(authorizations == null) return null;
+
+
+        return AuthorizationDTO.listToDTOList(authorizations);
     }
 
-    public Boolean create(AuthorizationDTO authorizationDTO) {
-        if (authorizationDTO.getType().equals("AuthCapital")) {
-            Investor investor = userRepository.findInvestorByID(authorizationDTO.getInvestorid());
-            Broker broker = userRepository.findBrokerByID(authorizationDTO.getBrokerid());
-            AuthCapital authCapital = new AuthCapital(investor,broker, LocalDateTime.now(),authorizationDTO.getEnddate(),authorizationDTO.getAmount());
+    public List<AuthorizationDTO> listBrokerAuthorizations(Long userId) {
 
-            investor.getAuthorizations().add(authCapital);
-            investor.setCommittedBalance(investor.getCommittedBalance() + authCapital.getAmount());
-            broker.getAuthorizations().add((authCapital));
-            authorizationRepository.saveAuthorization(authCapital);
+        List<Authorization> authorizations;
+
+        authorizations = authorizationRepository.findBrokerAuthorizations(userId);
+        if(authorizations == null) return null;
+
+
+        return AuthorizationDTO.listToDTOList(authorizations);
+    }
+
+    public Boolean createAuthorization(AuthorizationDTO authorizationDTO){
+
+        Investor investor = userRepository.findInvestorByID(authorizationDTO.getInvestorId());
+        Broker broker = userRepository.findBrokerByID(authorizationDTO.getBrokerId());
+
+        Authorization authorization = new Authorization(investor, broker,
+                authorizationDTO.getStartDate(), authorizationDTO.getEndDate(),
+                authorizationDTO.getActive());
+
+        return authorizationRepository.saveAuthorization(authorization);
+
+    }
+
+    public Boolean isAuthorized(Long investorId, Long brokerId){
+
+        List<Authorization> authorizations = authorizationRepository.findPairAuthorizationList(investorId, brokerId);
+
+        if(authorizations.size() == 0) return false;
+
+
+        // Parse authorization list (there could be multiple instances)
+        for(Authorization authorization: authorizations){
+            // if auth is not active continue
+            if(!authorization.getActive()) continue;
+            LocalDateTime now = LocalDateTime.now();
+
+            //if auth is not active yet, continue
+            if(now.isBefore(authorization.getStartDate())) continue;
+
+            // if auth is nto active yet, continue
+            if(now.isAfter(authorization.getEndDate())) continue;
+
             return true;
         }
-        if (authorizationDTO.getType().equals("AuthStock")) {
-            Investor investor = userRepository.findInvestorByID(authorizationDTO.getInvestorid());
-            Broker broker = userRepository.findBrokerByID(authorizationDTO.getBrokerid());
 
-            AuthStock authStock = new AuthStock(investor,authorizationDTO.getStockholdingid(),broker, LocalDateTime.now()
-                    ,authorizationDTO.getEnddate(),authorizationDTO.getAmount().intValue());
-
-            investor.getAuthorizations().add(authStock);
-            broker.getAuthorizations().add((authStock));
-
-            authorizationRepository.saveAuthorization(authStock);
-            return true;
-        }
         return false;
-    }
 
 
 
-
-
-    //--------------------------------------------------------------------------
-
-    private List<AuthorizationDTO> AuthorizationListToAuthorizationDTOList(List<Authorization> authorizationList, String type) {
-        List<AuthorizationDTO> authorizationDTOList = new ArrayList<>();
-
-        for(Authorization auth : authorizationList) {
-
-            if (type.equals("AuthCapital")) {//AuthCapital
-                AuthCapital ac = (AuthCapital) auth;
-                authorizationDTOList.add(new AuthorizationDTO(ac.getId(),ac.getStartdate(),ac.getEnddate(),ac.getInvestor().getId(),
-                        ac.getBroker().getId(),"AuthCapital",ac.getAmount()));
-            }
-            else if (type.equals("AuthStock")) {//AuthStock
-                AuthStock as = (AuthStock) auth;
-                authorizationDTOList.add(new AuthorizationDTO(as.getId(),as.getStartdate(),as.getEnddate(),as.getInvestor().getId(),
-                        as.getBroker().getId(),"AuthCapital",Double.valueOf(as.getAmount()),as.getStockholdingid()));
-            }
-            else return null;
-        }
-        return authorizationDTOList;
     }
 }

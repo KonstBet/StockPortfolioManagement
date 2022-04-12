@@ -76,7 +76,7 @@ class UserServiceTest {
         Assertions.assertEquals(usrDTO.getEmail(),"papaki@mail.com");
 
         //3
-        flag = userService.update(999999,userDTO);
+        flag = userService.update(999999L,userDTO);
 
         Assertions.assertFalse(flag);
     }
@@ -84,7 +84,8 @@ class UserServiceTest {
     @Test
     @Transactional
     void create() {
-        UserDTO userDTO = new UserDTO(null,"giannhs","papad","987654321","gp@email.com","987654321",null,"broker",10.0);
+        UserDTO userDTO = new UserDTO(null,"giannhs","papad",
+                "987654321","gp@email.com","987654321",null,"broker",10.0);
 
         Boolean flag = userService.create(userDTO);
 

@@ -8,12 +8,13 @@ import java.util.Set;
 @DiscriminatorValue("broker")
 public class Broker extends User {
 
-    @Column(name = "brokerageFee", length = 20, nullable = false, columnDefinition = "double default 0.0")
+    @Column(name = "brokerage_fee", length = 20, nullable = false, columnDefinition = "double default 0.0")
     private Double brokerageFee;
 
     public Broker() {}
 
-    public Broker(String name, String surname, String email, String phoneNo, String password, Double brokerageFee) {
+    public Broker(String name, String surname, String email,
+                  String phoneNo, String password, Double brokerageFee) {
         super(name, surname, email, phoneNo, password);
         this.brokerageFee = brokerageFee;
     }

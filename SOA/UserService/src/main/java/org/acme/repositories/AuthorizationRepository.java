@@ -1,8 +1,6 @@
 package org.acme.repositories;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
-import org.acme.domain.AuthCapital;
-import org.acme.domain.AuthStock;
 import org.acme.domain.Authorization;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -11,22 +9,20 @@ import java.util.List;
 @ApplicationScoped
 public class AuthorizationRepository  implements PanacheRepository<Authorization> {
 
-    //Find single authorization
-    public AuthStock findAuthStockByID(Integer id) {
-        return find("id = ?1 and type = ?2", id,"AuthStock").firstResult();
+    public Authorization findAuthorizationById(Long id){
+        return findById(id);
     }
 
-    public AuthCapital findAuthCapitalByID(Integer id) {
-        return find("id = ?1 and type = ?2", id,"AuthCapital").firstResult();
+    public List<Authorization> findPairAuthorizationList(Long investorId, Long brokerId){
+        return list("investor_id = ?1 and broker_id = ?2", investorId, brokerId);
     }
 
-    //Find all authorizations of a User
-    public List<Authorization> findAllAuthStocksByUserID(Integer userid) {
-        return list("(Investorid = ?1 or Brokerid = ?1) and type = ?2", userid,"AuthStock");
+    public List<Authorization> findInvestorAuthorizations(Long userId){
+        return list("investor_id", userId);
     }
 
-    public List<Authorization> findAllAuthCapitalsByUserID(Integer userid) {
-        return list("(Investorid = ?1 or Brokerid = ?1) and type = ?2", userid,"AuthCapital");
+    public List<Authorization> findBrokerAuthorizations(Long userId){
+        return list("broker_id", userId);
     }
 
     public Boolean saveAuthorization(Authorization auth) {

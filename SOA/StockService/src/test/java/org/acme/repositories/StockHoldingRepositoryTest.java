@@ -46,5 +46,22 @@ class StockHoldingRepositoryTest {
         Assertions.assertEquals(stockHoldings.get(0).getUserId(), initializer.userId2);
     }
 
+    @Test
+    void getByStockIdAndUserId(){
+        List<StockHolding> stockHoldings = stockHoldingRepository.findUserStockholdings(initializer.userId2);
+        Stock stock = stockRepository.findByPk(stockHoldings.get(0).getStock().getId());
+
+        StockHolding stockHolding = stockHoldingRepository.findByUserAndStockId(initializer.userId2, stock.getId());
+
+        Assertions.assertEquals(stockHolding.getAmount(),10);
+    }
+
+    @Test
+    void getNotExistingStockHoldingByStockIdAndUserId(){
+        StockHolding stockHolding = stockHoldingRepository.findByUserAndStockId(initializer.userId2, Long.MAX_VALUE);
+
+        Assertions.assertNull(stockHolding);
+    }
+
 
 }

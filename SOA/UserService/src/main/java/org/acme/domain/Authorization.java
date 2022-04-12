@@ -4,77 +4,89 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="Authorizations")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
+@Table(name="authorizations")
 public class Authorization {
 
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
-    @Column(name = "startdate", nullable = false)
-    private LocalDateTime startdate;
+    @Column(name = "start_date", nullable = false)
+    private LocalDateTime startDate;
 
-    @Column(name = "enddate", nullable = false)
-    private LocalDateTime enddate;
+    @Column(name = "end_date", nullable = false)
+    private LocalDateTime endDate;
+
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "Investorid")
+    @JoinColumn(name = "investor_id")
     private Investor investor;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "Brokerid")
+    @JoinColumn(name = "broker_id")
     private Broker broker;
 
-    public Authorization() {
-    }
 
-    public Authorization(Investor investor, Broker broker, LocalDateTime startdate, LocalDateTime enddate) {
-        super();
+    public Authorization() {}
+
+    public Authorization(Investor investor, Broker broker,
+                         LocalDateTime startDate, LocalDateTime endDate, Boolean isActive) {
         this.investor = investor;
         this.broker = broker;
-        this.startdate = startdate;
-        this.enddate = enddate;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.isActive = isActive;
     }
 
-    public Integer getId() {
+
+    public Long getId() {
         return id;
     }
-    public void setId(Integer id) {
+
+    public void setId(Long id) {
         this.id = id;
     }
-    public LocalDateTime getStartdate() {
-        return startdate;
+
+    public LocalDateTime getStartDate() {
+        return startDate;
     }
-    public void setStartdate(LocalDateTime startdate) {
-        this.startdate = startdate;
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
     }
-    public LocalDateTime getEnddate() {
-        return enddate;
+
+    public LocalDateTime getEndDate() {
+        return endDate;
     }
-    public void setEnddate(LocalDateTime enddate) {
-        this.enddate = enddate;
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
     }
+
     public Investor getInvestor() {
         return investor;
     }
+
     public void setInvestor(Investor investor) {
         this.investor = investor;
     }
+
     public Broker getBroker() {
         return broker;
     }
+
     public void setBroker(Broker broker) {
         this.broker = broker;
     }
 
-    //    public String toString() {
-//        return "Investor: " + getInvestor().getEmail() +
-//                "\nBroker: " + getBroker().getEmail() +
-//                "\nStart: " + getStartdate().toString() +
-//                "\nEnd: " + getEnddate().toString();
-//    }
+    public Boolean getActive() {
+        return isActive;
+    }
 
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
 }

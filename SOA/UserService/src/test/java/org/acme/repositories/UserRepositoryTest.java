@@ -35,7 +35,6 @@ class UserRepositoryTest {
         Investor investor = userRepository.findInvestorByID(initializer.getInvestor().getId());
 
         Assertions.assertEquals(investor.getId(),initializer.getInvestor().getId());
-        Assertions.assertEquals(investor.getAuthorizations().size(),initializer.getInvestor().getAuthorizations().size());
         Assertions.assertEquals(investor.getEmail(),initializer.getInvestor().getEmail());
     }
 
@@ -44,7 +43,6 @@ class UserRepositoryTest {
         Broker broker = userRepository.findBrokerByID(initializer.getBroker().getId());
 
         Assertions.assertEquals(broker.getId(),initializer.getBroker().getId());
-        Assertions.assertEquals(broker.getAuthorizations().size(),initializer.getBroker().getAuthorizations().size());
         Assertions.assertEquals(broker.getEmail(),initializer.getBroker().getEmail());
         Assertions.assertEquals(broker.getBrokerageFee(),initializer.getBroker().getBrokerageFee());
     }

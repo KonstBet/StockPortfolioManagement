@@ -1,114 +1,99 @@
 package org.acme.resources;
 
+import org.acme.domain.Authorization;
 import org.acme.domain.Broker;
 import org.acme.domain.Investor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AuthorizationDTO {
 
-    private Integer id;
+    private Long id;
 
-    private LocalDateTime startdate;
+    private LocalDateTime startDate;
 
-    private LocalDateTime enddate;
+    private LocalDateTime endDate;
 
-    private Integer investorid;
+    private Long investorId;
 
-    private Integer brokerid;
+    private Long brokerId;
 
-    private String type;
+    private Boolean isActive;
 
-    private Double amount;
+    public AuthorizationDTO() {}
 
-    private Integer stockholdingid;
+    public AuthorizationDTO(Authorization authorization){
 
-    public AuthorizationDTO() {
+        this(authorization.getId(), authorization.getStartDate(), authorization.getEndDate(),
+                authorization.getInvestor().getId(), authorization.getBroker().getId(), authorization.getActive());
     }
 
-    public AuthorizationDTO(Integer id, LocalDateTime startdate, LocalDateTime enddate, Integer investorid, Integer brokerid, String type, Double amount) {
+    public AuthorizationDTO(Long id, LocalDateTime startDate, LocalDateTime endDate, Long investorId,
+                            Long brokerId, Boolean isActive) {
         this.id = id;
-        this.startdate = startdate;
-        this.enddate = enddate;
-        this.investorid = investorid;
-        this.brokerid = brokerid;
-        this.type = type;
-        this.amount = amount;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.investorId = investorId;
+        this.brokerId = brokerId;
+        this.isActive = isActive;
     }
 
-    public AuthorizationDTO(Integer id, LocalDateTime startdate, LocalDateTime enddate, Integer investorid, Integer brokerid, String type, Double amount, Integer stockholdingid) {
-        this.id = id;
-        this.startdate = startdate;
-        this.enddate = enddate;
-        this.investorid = investorid;
-        this.brokerid = brokerid;
-        this.type = type;
-        this.amount = amount;
-        this.stockholdingid = stockholdingid;
-    }
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public LocalDateTime getStartdate() {
-        return startdate;
+    public LocalDateTime getStartDate() {
+        return startDate;
     }
 
-    public void setStartdate(LocalDateTime startdate) {
-        this.startdate = startdate;
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
     }
 
-    public LocalDateTime getEnddate() {
-        return enddate;
+    public LocalDateTime getEndDate() {
+        return endDate;
     }
 
-    public void setEnddate(LocalDateTime enddate) {
-        this.enddate = enddate;
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
     }
 
-    public Integer getInvestorid() {
-        return investorid;
+    public Long getInvestorId() {
+        return investorId;
     }
 
-    public void setInvestorid(Integer investorid) {
-        this.investorid = investorid;
+    public void setInvestorId(Long investorId) {
+        this.investorId = investorId;
     }
 
-    public Integer getBrokerid() {
-        return brokerid;
+    public Long getBrokerId() {
+        return brokerId;
     }
 
-    public void setBrokerid(Integer brokerid) {
-        this.brokerid = brokerid;
+    public void setBrokerId(Long brokerId) {
+        this.brokerId = brokerId;
     }
 
-    public String getType() {
-        return type;
+    public Boolean getActive() {
+        return isActive;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 
-    public Double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
-
-    public Integer getStockholdingid() {
-        return stockholdingid;
-    }
-
-    public void setStockholdingid(Integer stockholdingid) {
-        this.stockholdingid = stockholdingid;
+    public static List<AuthorizationDTO> listToDTOList(List<Authorization> authorizations){
+        List<AuthorizationDTO> authorizationDTOS = new ArrayList<>();
+        for(Authorization auth: authorizations){
+            authorizationDTOS.add(new AuthorizationDTO(auth));
+        }
+        return authorizationDTOS;
     }
 }
