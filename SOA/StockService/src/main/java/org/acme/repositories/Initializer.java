@@ -37,6 +37,7 @@ public class Initializer {
 
     @Transactional
     public void eraseData() {
+        orderRepository.deleteAll();
         stockHoldingRepository.deleteAll();
         stockRepository.deleteAll();
     }
