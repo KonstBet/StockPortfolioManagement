@@ -77,15 +77,4 @@ public class Stock
     public Double getVol() {
         return vol;
     }
-
-
-    public String toString() {
-        return "ID: " + getId() +
-                "\nCompany Name: " + getCompanyName() +
-                "\nOpen: " + getOpen() + "€" +
-                "\nClose: " + getClose() + "€" +
-                "\nHigh: " + getHigh() + "€" +
-                "\nLow: " + getLow() + "€" +
-                "\nVol: " + getVol() + "€";
-    }
 }

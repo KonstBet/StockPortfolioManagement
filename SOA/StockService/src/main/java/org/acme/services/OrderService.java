@@ -73,10 +73,13 @@ public class OrderService {
         double fee = 0.0;
         boolean executingAsBroker = verifyBrokerAuthorization(orderDTO);
 
+        if(orderDTO.getBrokerId() != null && !executingAsBroker) return false;
+
         // find stock by its id
         Stock stock = stockRepository.findByPk(orderDTO.getStockId());
         // if stock is invalid, return false
         if( stock == null ) return false;
+
 
         // calculate Cost of order.
         double cost = calculateCost(orderDTO, stock);
@@ -170,7 +173,6 @@ public class OrderService {
             stockHolding.setAmount(stockHolding.getAmount() - orderDTO.getStockAmount());
             return stockHoldingRepository.saveStockHolding(stockHolding);
         }
-
         // purchasing stock
         // first  case: we didn't have any stockholdings for this particular stock id
         // second case: we already  havae some stockholdings, add more to the amount we have!

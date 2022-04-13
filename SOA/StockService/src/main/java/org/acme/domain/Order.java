@@ -61,9 +61,6 @@ public class Order
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Integer getStockAmount() {
         return stockAmount;
@@ -135,18 +132,5 @@ public class Order
 
     public void setBrokerId(Long brokerId) {
         this.brokerId = brokerId;
-    }
-
-    public String toString() {
-        return "ID: " + getId() +
-                "\nType:" + getType() +
-                "\nInvestor: " + getInvestorId() +
-                "\nBroker" + getBrokerId() +
-                "\nStock: " + getStock().getCompanyName() +
-                "\nAmount: " + getStockAmount() +
-                "\nOrder Total: " + getOrderPrice() +
-                "\nDate: " + getDate() +
-                "\nBroker Fee: " + getFee() +
-                "\nStatus: " + getStatus();
     }
 }
