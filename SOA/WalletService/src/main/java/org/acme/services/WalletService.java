@@ -17,7 +17,7 @@ public class WalletService {
     @Inject
     WalletRepository walletRepository;
 
-    public Wallet get(Integer id) {
+    public Wallet get(Long id) {
         Wallet wallet = walletRepository.findByID(id);
         if (wallet == null) return null;
 
@@ -25,7 +25,7 @@ public class WalletService {
     }
 
     public Boolean update(WalletDTO walletDTO) {
-        Wallet wallet = walletRepository.findByID(walletDTO.getUserid());
+        Wallet wallet = walletRepository.findByID(walletDTO.getUserId());
         if (wallet == null)
             return false;
 

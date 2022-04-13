@@ -34,7 +34,7 @@ public class UserResource {
 
     @GET
     @Path("/{id}")
-    public Response get(@PathParam("id") Integer id) {
+    public Response get(@PathParam("id") Long id) {
         try {
             UserDTO userDTO = userService.get(id);
             if (userDTO == null)
@@ -49,7 +49,7 @@ public class UserResource {
     @PUT
     @Path("/{id}")
     @Transactional
-    public Response update(@PathParam("id") Integer id, UserDTO userDTO) {
+    public Response update(@PathParam("id") Long id, UserDTO userDTO) {
         try {
             Boolean flag = userService.update(id, userDTO);
             if (!flag)

@@ -18,6 +18,9 @@ public class Initializer {
     @Inject
     StockHoldingRepository stockHoldingRepository;
 
+    @Inject
+    OrderRepository orderRepository;
+
     private List<Stock> stocks;
     public Long userId1 = 1L;
     public Long userId2 = 2L;
@@ -51,6 +54,15 @@ public class Initializer {
         StockHolding stockHolding3 = new StockHolding(10, jpStock, userId2);
 
 
+        Order order = new Order(15, 0.0, LocalDateTime.now(),
+                15*jpStock.getHigh(), OrderType.PURCHASE, jpStock, userId1, null);
+
+        Order order2 = new Order(20, 0.0, LocalDateTime.now(),
+                20*metaStock.getHigh(), OrderType.PURCHASE, metaStock, userId1, null);
+
+        Order order3 = new Order(10, 0.0, LocalDateTime.now(),
+                10*jpStock.getHigh(), OrderType.PURCHASE, jpStock, userId2, null);
+
         // save my lists to get ids on test cases!
         stocks.add(jpStock);
         stocks.add(metaStock);
@@ -61,5 +73,10 @@ public class Initializer {
         stockHoldingRepository.saveStockHolding(stockHolding);
         stockHoldingRepository.saveStockHolding(stockHolding2);
         stockHoldingRepository.saveStockHolding(stockHolding3);
+        orderRepository.saveOrder(order);
+        orderRepository.saveOrder(order2);
+        orderRepository.saveOrder(order3);
+
+
     }
 }

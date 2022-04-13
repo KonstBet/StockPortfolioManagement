@@ -9,8 +9,8 @@ import java.util.Set;
 public class Wallet {
 
     @Id
-    @Column(name = "userid", nullable = false)
-    private Integer userid;
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
     @Column(name ="balance", precision = 10, scale = 4)
     private Double balance;
@@ -20,17 +20,17 @@ public class Wallet {
 
     public Wallet() {
     }
-    public Wallet(Integer userid, Double balance) {
-        this.userid = userid;
+    public Wallet(Long userId, Double balance) {
+        this.userId = userId;
         this.balance = balance;
     }
 
-    public Integer getUserid() {
-        return userid;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUserId(Long userid) {
+        this.userId = userid;
     }
 
     public Double getBalance() {

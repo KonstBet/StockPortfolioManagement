@@ -50,14 +50,14 @@ class TransactionRepositoryTest {
 
     @Test
     void findAllDepositsByUserID() {
-        List<Transaction> depositList = transactionRepository.findAllDepositsByUserID(1);
+        List<Transaction> depositList = transactionRepository.findAllDepositsByUserID(1L);
 
         Assertions.assertEquals(depositList.size(),1);
     }
 
     @Test
     void findAllWithdrawsByUserID() {
-        List<Transaction> withdrawList = transactionRepository.findAllWithdrawsByUserID(1);
+        List<Transaction> withdrawList = transactionRepository.findAllWithdrawsByUserID(1L);
         Assertions.assertEquals(withdrawList.size(),1);
     }
 

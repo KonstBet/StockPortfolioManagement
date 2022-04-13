@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserTest {
 
     @Test
-    void Constructor() {
+    void constructor() {
         User usr = new User("Nikos","Papadopoulos","nikosme@mailbox.gr","6987654321","b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b");
 
         Assertions.assertTrue(usr.getName().equals("Nikos") && usr.getSurname().equals("Papadopoulos")
@@ -19,9 +19,8 @@ class UserTest {
     }
 
     @Test
-    void GettersSetters() {
+    void gettersSetters() {
         User usr = new User();
-        usr.setId(100);
         usr.setName("Nikos");
         usr.setSurname("Papadopoulos");
         usr.setEmail("nikosme@mailbox.gr");
@@ -39,7 +38,7 @@ class UserTest {
                 && usr.getEmail().equals("nikosme@mailbox.gr") && usr.getPhoneNo().equals("6987654321")
                 && usr.getPassword().equals("b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b")
                 && usr.getAddress().getStreet().equals("Chiou") && usr.getAddress().getNumber().equals("21")
-                && usr.getAddress().getZipCode().equals("12345") && usr.getId() == 100);
+                && usr.getAddress().getZipCode().equals("12345"));
     }
 
 }

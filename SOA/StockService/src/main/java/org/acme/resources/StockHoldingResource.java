@@ -47,7 +47,6 @@ public class StockHoldingResource {
         } catch(Exception e) {return null;}
     }
 
-
     @PUT
     @Transactional
     @Path("/{stockholding_id}/status")
@@ -64,7 +63,5 @@ public class StockHoldingResource {
 
         }catch(Exception e){return null;}
     }
-
-
 
 }

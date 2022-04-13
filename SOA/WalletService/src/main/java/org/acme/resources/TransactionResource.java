@@ -21,9 +21,9 @@ public class TransactionResource {
     TransactionService transactionService;
 
     @GET
-    public Response list(@QueryParam("userid") Integer userid) {
+    public Response list(@QueryParam("user_id") Long userId) {
         try {
-            List<TransactionDTO> transactionDTOList = transactionService.list(userid);
+            List<TransactionDTO> transactionDTOList = transactionService.list(userId);
 
             if (transactionDTOList == null || transactionDTOList.size() == 0)
                 return Response.status(404).build();
@@ -36,7 +36,7 @@ public class TransactionResource {
 
     @GET
     @Path("/{id}")
-    public Response get(@PathParam("id") Integer id) {
+    public Response get(@PathParam("id") Long id) {
         try {
             TransactionDTO transactionDTO = transactionService.get(id);
             if (transactionDTO == null)
@@ -52,7 +52,7 @@ public class TransactionResource {
     @Transactional
     public Response create(TransactionDTO t) {
         try {
-            Integer id = transactionService.create(t);
+            Long id = transactionService.create(t);
             if (id < 0)
                 return Response.status(400).build();
             return Response.created(URI.create("/transaction/" + id)).build();

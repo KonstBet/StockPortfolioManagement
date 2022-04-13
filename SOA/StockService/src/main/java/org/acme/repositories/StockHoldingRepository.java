@@ -17,6 +17,12 @@ public class StockHoldingRepository implements PanacheRepository<StockHolding> {
         return list("userId", userId);
     }
 
+
+    // find a stockholding by user id and stock id pair
+    public StockHolding findByUserAndStockId(Long userId, Long stockId){
+        return find("userId = ?1 and stock_id = ?2", userId, stockId).firstResult();
+    }
+
     public Boolean saveStockHolding(StockHolding stockHolding) {
         persist(stockHolding);
         return isPersistent(stockHolding);

@@ -20,18 +20,19 @@ public class OrderDTO {
     private OrderType type;
     private OrderStatus status = OrderStatus.PENDING;
     private Long stockId;
-    private Long userId;
+    private Long investorId;
+    private Long brokerId;
 
     public OrderDTO(){}
 
     public OrderDTO(Order order){
         this(order.getId(), order.getStockAmount(), order.getFee(), order.getDate(),
                 order.getOrderPrice(), order.getType(), order.getStatus(),
-                order.getStock().getId(), order.getUserId());
+                order.getStock().getId(), order.getInvestorId(), order.getBrokerId());
     }
 
     public OrderDTO(Long id, Integer stockAmount, Double fee, LocalDateTime date,
-                    Double orderPrice, OrderType type, OrderStatus status, Long stockId, Long userId) {
+                    Double orderPrice, OrderType type, OrderStatus status, Long stockId, Long investorId, Long brokerId) {
         this.id = id;
         this.stockAmount = stockAmount;
         this.fee = fee;
@@ -40,15 +41,28 @@ public class OrderDTO {
         this.type = type;
         this.status = status;
         this.stockId = stockId;
-        this.userId = userId;
+        this.brokerId = brokerId;
+        this.investorId = investorId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public void setStockId(Long stockId) {
+        this.stockId = stockId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public Long getInvestorId() {
+        return investorId;
+    }
+
+    public void setInvestorId(Long investorId) {
+        this.investorId = investorId;
+    }
+
+    public Long getBrokerId() {
+        return brokerId;
+    }
+
+    public void setBrokerId(Long brokerId) {
+        this.brokerId = brokerId;
     }
 
     public Long getId() {

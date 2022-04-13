@@ -18,7 +18,7 @@ public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     @Column(name = "name", length = 30, nullable = false)
     private String name;
@@ -38,25 +38,11 @@ public class User {
     @Embedded
     private Address address;
 
-
-
-    // Below columns are located at different microservices
-
-    //    @OneToMany(mappedBy="user", cascade = CascadeType.PERSIST)
-    //    private Map<Stock, StockHolding> stockHoldings = new HashMap<Stock, StockHolding>();
-
-    //    @OneToMany(mappedBy="user", cascade = CascadeType.PERSIST)
-    //    private Set<Order> orders= new HashSet<Order>();
-
-    //    @Column(name = "balance", precision = 10, scale = 4)
-    //    private Double balance;
-
     public User() {
         this.name = null;
         this.surname = null;
         this.email = null;
         this.phoneNo = null;
-        //this.balance = 0.0;
     }
 
     public User(String name, String surname, String email, String phoneNo, String password) {
@@ -65,16 +51,11 @@ public class User {
         this.password = password;
         this.email = email;
         this.phoneNo = phoneNo;
-        //this.balance = 0.0;
     }
 
 
-    public Integer getId() {
+    public Long getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {

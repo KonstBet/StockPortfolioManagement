@@ -1,7 +1,6 @@
 package org.acme.repositories;
 
-import org.acme.domain.AuthCapital;
-import org.acme.domain.AuthStock;
+import org.acme.domain.Authorization;
 import org.acme.domain.Broker;
 import org.acme.domain.Investor;
 
@@ -21,10 +20,9 @@ public class Initializer {
 
     private Investor investor;
     private Broker broker;
-    private AuthStock authStock;
-    private AuthCapital authCapital;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
+    private Authorization authorization;
 
     public Investor getInvestor() {
         return investor;
@@ -42,36 +40,16 @@ public class Initializer {
         this.broker = broker;
     }
 
-    public AuthStock getAuthStock() {
-        return authStock;
-    }
-
-    public void setAuthStock(AuthStock authStock) {
-        this.authStock = authStock;
-    }
-
-    public AuthCapital getAuthCapital() {
-        return authCapital;
-    }
-
-    public void setAuthCapital(AuthCapital authCapital) {
-        this.authCapital = authCapital;
-    }
-
     public LocalDateTime getStartTime() {
         return startTime;
-    }
-
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
     }
 
     public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
+    public Authorization getAuthorization() {
+        return authorization;
     }
 
     @Transactional
@@ -86,19 +64,16 @@ public class Initializer {
         broker = new Broker("Makhs","Gewrgios","makhsg@mailbox.gr","6987654313","b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976c",10.0);
         startTime = LocalDateTime.now();
         endTime = startTime.plusHours(24);
-
-        authCapital = new AuthCapital(investor,broker,startTime,endTime,1000.0);
-        authStock = new AuthStock(investor,9,broker,startTime,endTime,50);
+        authorization = new Authorization(investor, broker, startTime,endTime, true);
 
 
-        investor.getAuthorizations().add(authCapital);
-        investor.getAuthorizations().add(authStock);
-        broker.getAuthorizations().add(authCapital);
-        broker.getAuthorizations().add(authStock);
+//        investor.getAuthorizations().add(authCapital);
+//        investor.getAuthorizations().add(authStock);
+//        broker.getAuthorizations().add(authCapital);
+//        broker.getAuthorizations().add(authStock);
 
         userRepository.saveUser(investor);
         userRepository.saveUser(broker);
-        authorizationRepository.saveAuthorization(authCapital);
-        authorizationRepository.saveAuthorization(authStock);
+        authorizationRepository.saveAuthorization(authorization);
     }
 }

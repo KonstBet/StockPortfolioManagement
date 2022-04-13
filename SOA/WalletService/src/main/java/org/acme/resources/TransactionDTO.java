@@ -10,34 +10,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionDTO {
-    private Integer id;
+    private Long id;
     private Double amount;
     private String type;
-    private Integer userid;
+    private Long userId;
     private LocalDateTime date;
 
     public TransactionDTO() {}
 
-    public TransactionDTO(Integer userid, Double amount, String type, LocalDateTime date) {
-        this.userid = userid;
+    public TransactionDTO(Long userId, Double amount, String type, LocalDateTime date) {
+        this.userId = userId;
         this.amount = amount;
         this.type = type;
         this.date = date;
     }
 
-    public TransactionDTO(Integer id, Integer userid, Double amount, String type, LocalDateTime date) {
+    public TransactionDTO(Long id, Long userId, Double amount, String type, LocalDateTime date) {
         this.id = id;
-        this.userid = userid;
+        this.userId = userId;
         this.amount = amount;
         this.type = type;
         this.date = date;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -57,12 +57,12 @@ public class TransactionDTO {
         this.type = type;
     }
 
-    public Integer getUserid() {
-        return userid;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public LocalDateTime getDate() {
@@ -74,7 +74,7 @@ public class TransactionDTO {
     }
 
     public Transaction TransactionDTOtoTransaction() {//new Wallet
-            Wallet wallet = new Wallet(userid,amount);
+            Wallet wallet = new Wallet(userId,amount);
             Deposit deposit = new Deposit(wallet,amount,LocalDateTime.now());
             wallet.getTransactions().add(deposit);
             deposit.setWallet(wallet);
@@ -82,11 +82,9 @@ public class TransactionDTO {
     }
     public Transaction TransactionDTOtoTransaction(Wallet w, String type) {//existing Wallet
 
-            Transaction transaction = new Transaction(w,amount,LocalDateTime.now());
-            if (type.equals("deposit"))
-                transaction = new Deposit(w,amount,LocalDateTime.now());
-            else
-                transaction = new Withdrawal(w,amount,LocalDateTime.now());
+            Transaction transaction;
+            if (type.equals("deposit")) transaction = new Deposit(w,amount,LocalDateTime.now());
+            else transaction = new Withdrawal(w,amount,LocalDateTime.now());
 
             w.getTransactions().add(transaction);
             transaction.setWallet(w);

@@ -28,7 +28,7 @@ class WalletRepositoryTest {
 
     @Test
     void findByID() {
-        Wallet wallet = walletRepository.findByID(initializer.getWallet().getUserid());
+        Wallet wallet = walletRepository.findByID(initializer.getWallet().getUserId());
 
         Assertions.assertEquals(wallet.getBalance(),initializer.getWallet().getBalance());
         Assertions.assertEquals(wallet.getTransactions().size(),initializer.getWallet().getTransactions().size());
@@ -37,11 +37,11 @@ class WalletRepositoryTest {
     @Test
     @Transactional
     void saveWallet() {
-        Wallet wallet = new Wallet(2,200.0);
+        Wallet wallet = new Wallet(2L,200.0);
 
         walletRepository.saveWallet(wallet);
 
-        Wallet w = walletRepository.findByID(2);
+        Wallet w = walletRepository.findByID(2L);
 
         Assertions.assertEquals(w.getBalance(),200.0);
     }

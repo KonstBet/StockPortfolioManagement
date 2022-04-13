@@ -30,7 +30,7 @@ class WalletServiceTest {
 
     @Test
     void get() {
-        Wallet wallet = walletService.get(1);
+        Wallet wallet = walletService.get(1L);
 
         Assertions.assertNotNull(wallet);
     }
@@ -39,11 +39,11 @@ class WalletServiceTest {
     @Transactional
     void update() {
         WalletDTO walletDTO = new WalletDTO();
-        walletDTO.setUserid(1);
+        walletDTO.setUserId(1L);
         walletDTO.setBalance(100000.0);
         walletService.update(walletDTO);
 
-        Wallet wallet = walletService.get(1);
+        Wallet wallet = walletService.get(1L);
 
         Assertions.assertEquals(wallet.getBalance(),100000.0);
     }

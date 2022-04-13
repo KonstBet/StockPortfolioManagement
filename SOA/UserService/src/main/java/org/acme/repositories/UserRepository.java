@@ -12,11 +12,16 @@ import java.util.List;
 @ApplicationScoped
 public class UserRepository  implements PanacheRepository<User> {
 
-    public Investor findInvestorByID(Integer id) {
+
+    public User findUserById(Long id){
+        return findById(id);
+    }
+
+    public Investor findInvestorByID(Long id) {
         return find("id = ?1 and type = ?2", id,"investor").firstResult();
     }
 
-    public Broker findBrokerByID(Integer id) {
+    public Broker findBrokerByID(Long id) {
         return find("id = ?1 and type = ?2", id,"broker").firstResult();
     }
 

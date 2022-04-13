@@ -21,7 +21,7 @@ public class UserService {
         List<UserDTO> userDTOList;
 
         if (type == null)
-            return UserListToUserDTOList(userRepository.findAll().list(), type);
+            return UserListToUserDTOList(userRepository.findAll().list(), null);
         else if (type.equals("investor"))
             return UserListToUserDTOList(userRepository.findAllInvestors(), type);
         else if (type.equals("broker"))
@@ -29,19 +29,18 @@ public class UserService {
         else return null;
     }
 
-    public UserDTO get(Integer id) {
+    public UserDTO get(Long id) {
         User u = userRepository.findInvestorByID(id);
         if (u != null)
-            return new UserDTO(u.getId(), u.getName(), u.getSurname(),null, u.getEmail(), u.getPhoneNo(),u.getAddress(), "investor", ((Investor) u).getCommittedBalance());
+            return new UserDTO(u, "investor", 0.0);
         else {
             u = userRepository.findBrokerByID(id);
-            if (u != null)
-                return new UserDTO(u.getId(), u.getName(), u.getSurname(),null, u.getEmail(), u.getPhoneNo(),u.getAddress(), "broker", ((Broker) u).getBrokerageFee());
-        }
+            if (u != null) return new UserDTO(u, "broker", ((Broker) u).getBrokerageFee());
+         }
         return null;
     }
 
-    public Boolean update(Integer id, UserDTO userDTO) {
+    public Boolean update(Long id, UserDTO userDTO) {
         User u = userRepository.findInvestorByID(id);
 
         if (u != null) {
@@ -90,7 +89,8 @@ public class UserService {
     }
 
     public boolean create(UserDTO userDTO) {
-        if (userDTO.getName() == null || userDTO.getSurname() == null || userDTO.getEmail() == null|| userDTO.getPassword() == null)
+        if (userDTO.getName() == null || userDTO.getSurname() == null
+                || userDTO.getEmail() == null|| userDTO.getPassword() == null)
             return false;
 
         if (userDTO.getType().equals("investor")) {
@@ -118,12 +118,12 @@ public class UserService {
         for (User u : userList) {
             UserDTO userDTO;
             if (type == null)
-                userDTO = new UserDTO(u.getId(),u.getName(),u.getSurname(), null, u.getEmail(),u.getPhoneNo(),u.getAddress(),type);
+                userDTO = new UserDTO(u,"", 0.0);
             else if (type.equals("investor")) {
-                userDTO = new UserDTO(u.getId(), u.getName(), u.getSurname(),null, u.getEmail(), u.getPhoneNo(),u.getAddress(), type, ((Investor) u).getCommittedBalance());
+                userDTO = new UserDTO(u, type, 0.0);
             }
             else if (type.equals("broker")) {
-                userDTO = new UserDTO(u.getId(), u.getName(), u.getSurname(),null, u.getEmail(), u.getPhoneNo(),u.getAddress(), type, ((Broker) u).getBrokerageFee());
+                userDTO = new UserDTO(u, type, ((Broker) u).getBrokerageFee());
             }
             else return null;//BAD TYPE
             userDTOList.add(userDTO);

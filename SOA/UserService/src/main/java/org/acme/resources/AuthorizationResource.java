@@ -10,6 +10,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.Objects;
 
 @Path("/authorizations")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -19,18 +20,19 @@ public class AuthorizationResource {
     @Inject
     AuthorizationService authorizationService;
 
-    @Inject
-    @RestClient
-    WalletService walletService;
-
     @GET
     @Path("")
-    public Response list(@QueryParam("userid") Integer userid) {
+    public Response list(@QueryParam("user_id") Long userId, @QueryParam("type") String type) {
         try {
-            List<AuthorizationDTO> authorizationDTOList = authorizationService.list(userid);
+            List<AuthorizationDTO> authorizationDTOList;
+            if(type.equals("broker")){
+                authorizationDTOList = authorizationService.listBrokerAuthorizations(userId);
+            }else{
+                authorizationDTOList = authorizationService.listInvestorAuthorizations(userId);
+            }
 
-            if (authorizationDTOList == null || authorizationDTOList.size() == 0)
-                return Response.status(404).build();
+            if (authorizationDTOList == null) return Response.status(404).build();
+
             return Response.ok(authorizationDTOList).build();
         }
         catch(Exception e) {
@@ -40,11 +42,11 @@ public class AuthorizationResource {
 
     @GET
     @Path("/{id}")
-    public Response get(@PathParam("id") Integer id) {
+    public Response findById(@PathParam("id") Long id) {
         try {
-            AuthorizationDTO authorizationDTO = authorizationService.get(id);
-            if (authorizationDTO == null)
-                return Response.status(404).build();
+            AuthorizationDTO authorizationDTO = authorizationService.findById(id);
+            if (authorizationDTO == null) return Response.status(404).build();
+
             return Response.ok(authorizationDTO).build();
         }
         catch(Exception e) {
@@ -52,31 +54,32 @@ public class AuthorizationResource {
         }
     }
 
+    @GET
+    @Path("/link/verify")
+    public Response verifyPairing(  @QueryParam("investor_id") Long investorId, @QueryParam("broker_id") Long brokerId){
+
+        try{
+            Boolean isAuthorized = authorizationService.isAuthorized(investorId, brokerId);
+
+            if(!isAuthorized) return Response.status(403).build();
+
+            return Response.ok().build();
+        }catch(Exception e){
+            return Response.status(403).build();
+        }
+    }
+
+
     @POST
     @Path("")
     @Transactional
     public Response create(AuthorizationDTO authorizationDTO) {
         try {
-            if (!authorizationService.create(authorizationDTO))
+
+            if (!authorizationService.createAuthorization(authorizationDTO))
                 return Response.status(400).build();
 
-            //READ WALLET BALANCE
-            WalletDTO walletDTO = new WalletDTO();
-            walletDTO.setUserid(authorizationDTO.getInvestorid());
-
-            Integer userid = authorizationDTO.getInvestorid();
-
-            Response response = walletService.get(userid);
-
-            //CHANGE WALLET BALANCE
-            walletDTO = response.readEntity(WalletDTO.class);
-            walletDTO.setUserid(authorizationDTO.getInvestorid());
-            walletDTO.setBalance(walletDTO.getBalance() - authorizationDTO.getAmount());
-            response = walletService.update(walletDTO);
-
-            if (response.getStatus() == 200)
-                return Response.ok().build();
-            else return Response.status(400).build();
+            return Response.ok().build();
         }
         catch(Exception e) {
             return Response.status(400).build();

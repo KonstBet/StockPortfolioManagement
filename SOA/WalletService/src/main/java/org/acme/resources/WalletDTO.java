@@ -1,20 +1,16 @@
 package org.acme.resources;
 
-import org.acme.domain.Wallet;
-
-import java.util.Optional;
-
 public class WalletDTO {
 
-    private Integer userid;
+    private Long userId;
     private Double balance;
 
-    public Integer getUserid() {
-        return userid;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Double getBalance() {
@@ -24,8 +20,4 @@ public class WalletDTO {
     public void setBalance(Double balance) {
         this.balance = balance;
     }
-
-//    public Wallet WalletDTOtoWallet() {
-//        return new Wallet(userid,balance);
-//    }
 }

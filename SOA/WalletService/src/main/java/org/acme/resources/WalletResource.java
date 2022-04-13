@@ -21,7 +21,7 @@ public class WalletResource {
 
     @GET
     @Path("/{id}")
-    public Response get(@PathParam("id") Integer id) {
+    public Response get(@PathParam("id") Long id) {
         try {
             Wallet wallet = walletService.get(id);
 
@@ -42,6 +42,7 @@ public class WalletResource {
     @Transactional
     public Response update(WalletDTO walletDTO) {
         try {
+
             if (!walletService.update(walletDTO))
                 return Response.status(400).build();
             return Response.ok().build();
