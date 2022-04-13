@@ -32,7 +32,7 @@ public class OrderResource {
             if(type == OrderType.PURCHASE)  orderDTOS = orderService.getPurchaseOrders(userId);
             else if(type == OrderType.SALE) orderDTOS = orderService.getSaleOrders(userId);
             else orderDTOS = orderService.getOrders(userId);
-            
+
             if(orderDTOS == null) return Response.status(404).build();
 
             return Response.ok(orderDTOS).build();
