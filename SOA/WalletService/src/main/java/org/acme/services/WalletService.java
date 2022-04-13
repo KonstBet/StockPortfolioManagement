@@ -19,8 +19,6 @@ public class WalletService {
 
     public Wallet get(Long id) {
         Wallet wallet = walletRepository.findByID(id);
-        System.out.println("Wallet is:");
-        System.out.println(wallet);
         if (wallet == null) return null;
 
         return wallet;

@@ -54,8 +54,6 @@ public class TransactionService {
 
     public Long create(TransactionDTO tDTO) {
 
-        System.out.println(tDTO.getUserId());
-
         Wallet wallet= walletService.get(tDTO.getUserId());
 
         Transaction t;
