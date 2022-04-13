@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TransactionTest {
 
-    Integer userid = 5;
     Transaction t;
     public LocalDateTime date1;
 
@@ -28,7 +27,7 @@ class TransactionTest {
 
     @Test
     void setId() {
-        t.setId(7);
+        t.setId(7L);
         Assertions.assertEquals(t.getId(),7);
     }
 
@@ -62,15 +61,15 @@ class TransactionTest {
 
     @Test
     void setUser() {
-        Wallet wallet = new Wallet(5,1000.0);
+        Wallet wallet = new Wallet(5L,1000.0);
         t.setWallet(wallet);
-        Assertions.assertEquals(t.getWallet().getUserid(),5);
+        Assertions.assertEquals(t.getWallet().getUserId(),5);
         Assertions.assertEquals(t.getWallet().getBalance(),1000.0);
     }
 
     @Test
     void testToString() {
-        Wallet wallet = new Wallet(5,1000.0);
+        Wallet wallet = new Wallet(5L,1000.0);
         t.setWallet(wallet);
 
         Transaction t = new Transaction(wallet, 12.00, date1);

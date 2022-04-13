@@ -9,8 +9,8 @@ import java.util.List;
 @ApplicationScoped
 public class WalletRepository implements PanacheRepository<Wallet> {
 
-    public Wallet findByID(Integer id) {
-        return find("userid", id).firstResult();
+    public Wallet findByID(Long id) {
+        return find("user_id", id).firstResult();
     }
 
     public Boolean saveWallet(Wallet wallet) {

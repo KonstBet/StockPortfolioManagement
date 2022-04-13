@@ -7,10 +7,9 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@ApplicationScoped
-@Path("/authorizations")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@Path("/authorizations")
 @RegisterRestClient(configKey = "authorization-api")
 public interface AuthorizationService {
 

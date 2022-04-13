@@ -54,7 +54,7 @@ public class Initializer {
 
     @Transactional
     public void Initialize() {
-        wallet = new Wallet(1,1000.0);
+        wallet = new Wallet(1L,1000.0);
         deposit = new Deposit(wallet,1000.0, LocalDateTime.now());
         wallet.getTransactions().add(deposit);
 

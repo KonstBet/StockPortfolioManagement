@@ -18,7 +18,7 @@ public interface WalletService {
 
     @GET
     @Path("/{id}")
-    Response get(@PathParam("id") Long id);
+    Response getUserWallet(@PathParam("id") Long id);
 
     @PUT
     @Path("")

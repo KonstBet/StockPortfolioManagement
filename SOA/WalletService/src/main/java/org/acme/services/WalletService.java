@@ -17,15 +17,17 @@ public class WalletService {
     @Inject
     WalletRepository walletRepository;
 
-    public Wallet get(Integer id) {
+    public Wallet get(Long id) {
         Wallet wallet = walletRepository.findByID(id);
+        System.out.println("Wallet is:");
+        System.out.println(wallet);
         if (wallet == null) return null;
 
         return wallet;
     }
 
     public Boolean update(WalletDTO walletDTO) {
-        Wallet wallet = walletRepository.findByID(walletDTO.getUserid());
+        Wallet wallet = walletRepository.findByID(walletDTO.getUserId());
         if (wallet == null)
             return false;
 

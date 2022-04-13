@@ -21,7 +21,7 @@ public class WalletResource {
 
     @GET
     @Path("/{id}")
-    public Response get(@PathParam("id") Integer id) {
+    public Response get(@PathParam("id") Long id) {
         try {
             Wallet wallet = walletService.get(id);
 

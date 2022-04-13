@@ -20,10 +20,6 @@ public class AuthorizationResource {
     @Inject
     AuthorizationService authorizationService;
 
-    @Inject
-    @RestClient
-    WalletService walletService;
-
     @GET
     @Path("")
     public Response list(@QueryParam("user_id") Long userId, @QueryParam("type") String type) {

@@ -9,7 +9,7 @@ import java.util.Set;
 public class Wallet {
 
     @Id
-    @Column(name = "userid", nullable = false)
+    @Column(name = "user_id", nullable = false)
     private Long userId;
 
     @Column(name ="balance", precision = 10, scale = 4)

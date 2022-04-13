@@ -32,7 +32,7 @@ class TransactionServiceTest {
 
     @Test
     void list() {
-        List<TransactionDTO> transactionDTOList = transactionService.list(1);
+        List<TransactionDTO> transactionDTOList = transactionService.list(1L);
 
         Assertions.assertEquals(transactionDTOList.size(),2);
     }
@@ -47,11 +47,11 @@ class TransactionServiceTest {
     @Test
     @Transactional
     void create() {
-        TransactionDTO transactionDTO = new TransactionDTO(1, 100.0,"deposit", LocalDateTime.now());
+        TransactionDTO transactionDTO = new TransactionDTO(1L, 100.0,"deposit", LocalDateTime.now());
 
         transactionService.create(transactionDTO);
 
-        List<TransactionDTO> transactionDTOList = transactionService.list(1);
+        List<TransactionDTO> transactionDTOList = transactionService.list(1L);
 
         Assertions.assertEquals(transactionDTOList.size(),3);
     }

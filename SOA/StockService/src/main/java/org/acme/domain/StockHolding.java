@@ -54,6 +54,9 @@ public class StockHolding {
         return this.userId;
     }
 
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
 
     public Stock getStock() {
         return this.stock;

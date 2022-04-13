@@ -8,23 +8,23 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WalletTest {
 
-    Integer userid = 5;
+    Long userId = 5L;
     Wallet wallet;
 
     @BeforeEach
     void setUpTests() {
-        wallet = new Wallet(userid,500.0);
+        wallet = new Wallet(userId,500.0);
     }
 
     @Test
-    void getUserid() {
-        Assertions.assertEquals(wallet.getUserid(),5);
+    void getUserId() {
+        Assertions.assertEquals(wallet.getUserId(),5);
     }
 
     @Test
     void setUserid() {
-        wallet.setUserid(7);
-        Assertions.assertEquals(wallet.getUserid(),7);
+        wallet.setUserId(7L);
+        Assertions.assertEquals(wallet.getUserId(),7);
     }
 
     @Test

@@ -58,14 +58,14 @@ class TransactionResourceTest {
                         .statusCode(200)
                         .extract().as(TransactionDTO.class);
 
-        Assertions.assertEquals(transactionDTO.getUserid(),initializer.getDeposit().getWallet().getUserid());
+        Assertions.assertEquals(transactionDTO.getUserId(),initializer.getDeposit().getWallet().getUserId());
         Assertions.assertEquals(transactionDTO.getAmount(),initializer.getDeposit().getAmount());
         Assertions.assertEquals(transactionDTO.getType(),"deposit");
     }
 
     @Test
     void create() {
-        TransactionDTO transactionDTO = new TransactionDTO(1,200.0,"withdraw", LocalDateTime.now());
+        TransactionDTO transactionDTO = new TransactionDTO(1L,200.0,"withdraw", LocalDateTime.now());
 
         given()
                 .contentType(ContentType.JSON)
@@ -78,7 +78,7 @@ class TransactionResourceTest {
 
     @Test
     void createBroken() {
-        TransactionDTO transactionDTO = new TransactionDTO(1,200000.0,"withdraw", LocalDateTime.now());
+        TransactionDTO transactionDTO = new TransactionDTO(1L,200000.0,"withdraw", LocalDateTime.now());
 
         given()
                 .contentType(ContentType.JSON)

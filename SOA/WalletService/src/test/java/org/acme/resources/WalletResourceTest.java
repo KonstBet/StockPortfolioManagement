@@ -30,7 +30,7 @@ class WalletResourceTest {
     void get() {
 
         given()
-                .pathParam("id",initializer.getDeposit().getWallet().getUserid())
+                .pathParam("id",initializer.getDeposit().getWallet().getUserId())
                 .when()
                 .get("/balance/{id}")
                 .then()
@@ -41,7 +41,7 @@ class WalletResourceTest {
     @Test
     void update() {
         WalletDTO walletDTO = new WalletDTO();
-        walletDTO.setUserid(initializer.getWallet().getUserid());
+        walletDTO.setUserid(initializer.getWallet().getUserId());
         walletDTO.setBalance(50000.0);
 
 

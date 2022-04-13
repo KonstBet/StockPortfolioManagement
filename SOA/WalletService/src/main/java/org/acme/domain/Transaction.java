@@ -13,7 +13,7 @@ public class Transaction {
 	@Id
 	@Column(name = "id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private Long id;
 	
     @Column(name ="amount", precision = 10, scale = 4)
 	private Double amount;
@@ -27,21 +27,19 @@ public class Transaction {
 	@JsonbTransient
 	private Wallet wallet;
 
-//	@Column(name = "userid", nullable = false)
-//	private Integer userid;
 
 	public Transaction() {}
 	public Transaction(Wallet wallet, Double amount, LocalDateTime date) {
-		//super();
+		super();
 		this.wallet = wallet;
 		this.amount = amount;
 		this.date = date;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public Double getAmount() {
@@ -62,7 +60,7 @@ public class Transaction {
 	public void setWallet(Wallet wallet) {
 		this.wallet = wallet;
 	}
-	//	public Integer getUserid() {
+	//	public Integer getUserId() {
 //		return userid;
 //	}
 //

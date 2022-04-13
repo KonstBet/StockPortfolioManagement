@@ -82,7 +82,7 @@ public class AuthorizationService {
             //if auth is not active yet, continue
             if(now.isBefore(authorization.getStartDate())) continue;
 
-            // if auth is nto active yet, continue
+            // if auth is expired, continue
             if(now.isAfter(authorization.getEndDate())) continue;
 
             return true;

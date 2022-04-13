@@ -12,11 +12,11 @@ class WithdrawalTest {
     @Test
     void Constructor() {
         LocalDateTime date = LocalDateTime.now();
-        Wallet wallet = new Wallet(5,1000.0);
+        Wallet wallet = new Wallet(5L,1000.0);
 
         Withdrawal withdrawal = new Withdrawal(wallet, 200.0, date);
 
-        Assertions.assertEquals(withdrawal.getWallet().getUserid(),5);
+        Assertions.assertEquals(withdrawal.getWallet().getUserId(),5);
         Assertions.assertEquals(withdrawal.getAmount(),200.0);
         Assertions.assertEquals(withdrawal.getDate(),date);
     }
