@@ -9,7 +9,7 @@ public class WalletDTO {
         return userId;
     }
 
-    public void setUserid(Long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

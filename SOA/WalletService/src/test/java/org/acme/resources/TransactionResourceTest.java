@@ -32,7 +32,7 @@ class TransactionResourceTest {
     @Test
     void list() {
         WalletDTO walletDTO = new WalletDTO();
-        walletDTO.setUserid(initializer.getWallet().getUserId());
+        walletDTO.setUserId(initializer.getWallet().getUserId());
 
         List transactionDTOList =
                 given()

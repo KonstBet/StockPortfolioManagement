@@ -41,7 +41,8 @@ class WalletResourceTest {
     @Test
     void update() {
         WalletDTO walletDTO = new WalletDTO();
-        walletDTO.setUserid(initializer.getWallet().getUserId());
+        System.out.println(initializer.getWallet().getUserId());
+        walletDTO.setUserId(initializer.getWallet().getUserId());
         walletDTO.setBalance(50000.0);
 
 

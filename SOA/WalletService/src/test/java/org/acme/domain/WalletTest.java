@@ -22,7 +22,7 @@ class WalletTest {
     }
 
     @Test
-    void setUserid() {
+    void setUserId() {
         wallet.setUserId(7L);
         Assertions.assertEquals(wallet.getUserId(),7);
     }

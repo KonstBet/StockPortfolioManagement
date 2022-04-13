@@ -21,7 +21,7 @@ public class TransactionResource {
     TransactionService transactionService;
 
     @GET
-    public Response list(@QueryParam("userid") Long userId) {
+    public Response list(@QueryParam("user_id") Long userId) {
         try {
             List<TransactionDTO> transactionDTOList = transactionService.list(userId);
 

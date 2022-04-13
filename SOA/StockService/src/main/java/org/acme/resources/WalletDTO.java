@@ -7,6 +7,11 @@ public class WalletDTO {
 
     public WalletDTO() {}
 
+    public WalletDTO(Long userid, Double balance) {
+        this.userid = userid;
+        this.balance = balance;
+    }
+
     public Long getUserId() {
         return userid;
     }

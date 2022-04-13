@@ -39,7 +39,7 @@ class WalletServiceTest {
     @Transactional
     void update() {
         WalletDTO walletDTO = new WalletDTO();
-        walletDTO.setUserid(1L);
+        walletDTO.setUserId(1L);
         walletDTO.setBalance(100000.0);
         walletService.update(walletDTO);
 

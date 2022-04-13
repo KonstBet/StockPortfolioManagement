@@ -64,7 +64,7 @@ public class Transaction {
 //		return userid;
 //	}
 //
-//	public void setUserid(Integer userid) {
+//	public void setUserId(Integer userid) {
 //		this.userid = userid;
 //	}
 
