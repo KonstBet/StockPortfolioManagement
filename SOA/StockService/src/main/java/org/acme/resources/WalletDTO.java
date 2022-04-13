@@ -12,14 +12,6 @@ public class WalletDTO {
         this.balance = balance;
     }
 
-    public Long getUserId() {
-        return userid;
-    }
-
-    public void setUserId(Long userid) {
-        this.userid = userid;
-    }
-
     public Double getBalance() {
         return balance;
     }

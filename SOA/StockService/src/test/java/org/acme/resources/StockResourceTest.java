@@ -54,9 +54,6 @@ class StockResourceTest {
         // convert to stockDTO
         StockDTO stockDTO = response.then().statusCode(200).extract().as(StockDTO.class);
 
-
-        System.out.println(stockDTO.getId());
-
         // verify that we received the same stock as the inital
         Assertions.assertEquals(stockDTOList.get(0).getId(), stockDTO.getId());
         Assertions.assertEquals(stockDTOList.get(0).getCompanyName(), stockDTO.getCompanyName());
