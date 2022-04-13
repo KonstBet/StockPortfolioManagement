@@ -68,7 +68,7 @@ public class UserResource {
         try {
             Boolean flag = userService.create(userDTO);
             if (!flag)
-                return Response.status(404).build();
+                return Response.status(400).build();
             return Response.ok().build();
         }
         catch(Exception e) {

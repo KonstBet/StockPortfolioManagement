@@ -116,7 +116,7 @@ public class UserService {
     private List<UserDTO> UserListToUserDTOList(List<User> userList, String type) {
         List<UserDTO> userDTOList = new ArrayList<UserDTO>();
         for (User u : userList) {
-            UserDTO userDTO;
+            UserDTO userDTO = new UserDTO();
             if (type == null)
                 userDTO = new UserDTO(u,"", 0.0);
             else if (type.equals("investor")) {
@@ -125,7 +125,7 @@ public class UserService {
             else if (type.equals("broker")) {
                 userDTO = new UserDTO(u, type, ((Broker) u).getBrokerageFee());
             }
-            else return null;//BAD TYPE
+
             userDTOList.add(userDTO);
         }
         return userDTOList;

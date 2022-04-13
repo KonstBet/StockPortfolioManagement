@@ -39,6 +39,18 @@ class WalletResourceTest {
     }
 
     @Test
+    void getBadID() {
+
+        given()
+                .pathParam("id",99999)
+                .when()
+                .get("/balance/{id}")
+                .then()
+                .statusCode(200)
+                .body("balance",is(0F)); //RETURNS FLOAT
+    }
+
+    @Test
     void update() {
         WalletDTO walletDTO = new WalletDTO();
         walletDTO.setUserId(initializer.getWallet().getUserId());
@@ -52,5 +64,21 @@ class WalletResourceTest {
                 .put("/balance")
                 .then()
                 .statusCode(200);
+    }
+
+    @Test
+    void updateBadID() {
+        WalletDTO walletDTO = new WalletDTO();
+        walletDTO.setUserId(99999L);
+        walletDTO.setBalance(50000.0);
+
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(walletDTO)
+                .when()
+                .put("/balance")
+                .then()
+                .statusCode(400);
     }
 }

@@ -47,4 +47,15 @@ class WalletServiceTest {
 
         Assertions.assertEquals(wallet.getBalance(),100000.0);
     }
+
+    @Test
+    @Transactional
+    void updateNULL() {
+        WalletDTO walletDTO = new WalletDTO();
+        walletDTO.setUserId(999L);
+        walletDTO.setBalance(100000.0);
+        Boolean flag = walletService.update(walletDTO);
+
+        Assertions.assertFalse(flag);
+    }
 }

@@ -69,10 +69,8 @@ public class TransactionService {
             t = tDTO.TransactionDTOtoTransaction(wallet,tDTO.getType());
         }
 
-        if (transactionRepository.saveTransaction(t))
-            return t.getId();
-        else
-            return -1L;
+        transactionRepository.saveTransaction(t);
+        return t.getId();
     }
 
     public List<TransactionDTO> listTransactiontoTransactionDTO(List<Transaction> listofTransactions, String type) {

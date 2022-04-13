@@ -25,8 +25,11 @@ public class WalletResource {
         try {
             Wallet wallet = walletService.get(id);
 
-            if (wallet == null)
-                return Response.status(404).build();
+            if (wallet == null) {
+                WalletDTO walletDTO = new WalletDTO();
+                walletDTO.setBalance(0.0);
+                return Response.ok(walletDTO).build();
+            }
 
             WalletDTO walletDTO = new WalletDTO();
             walletDTO.setBalance(wallet.getBalance());

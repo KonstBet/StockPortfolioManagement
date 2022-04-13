@@ -69,12 +69,12 @@ public class Transaction {
 //	}
 
 	
-	public String toString() {
-		return "ID: " + getId() +
-				"\nAmount: " + getAmount() +  "€"
-				+ "\nDate: " + getDate().toString()
-				+ "\nUserid: " + getWallet().toString();
-	}
+//	public String toString() {
+//		return "ID: " + getId() +
+//				"\nAmount: " + getAmount() +  "€"
+//				+ "\nDate: " + getDate().toString()
+//				+ "\nUserid: " + getWallet().toString();
+//	}
 
 //	public void remove() {
 //		getUser().getTransactions().remove(this);

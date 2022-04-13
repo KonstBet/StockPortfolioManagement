@@ -43,6 +43,17 @@ class UserResourceTest {
     }
 
     @Test
+    void listBadType() {
+
+        given()
+            .when()
+            .queryParam("type","BAD TYPE")
+            .get("/users")
+            .then()
+            .statusCode(404);
+    }
+
+    @Test
     void get() {
 
         UserDTO userDTO =
@@ -58,6 +69,17 @@ class UserResourceTest {
         Assertions.assertEquals(userDTO.getSurname(),initializer.getInvestor().getSurname());
         Assertions.assertEquals(userDTO.getType(),"investor");
         Assertions.assertEquals(userDTO.getEmail(),initializer.getInvestor().getEmail());
+    }
+
+    @Test
+    void getBadID() {
+
+        given()
+                .pathParam("id",99999)
+                .when()
+                .get("/users/{id}")
+                .then()
+                .statusCode(404);
     }
 
     @Test
@@ -87,6 +109,21 @@ class UserResourceTest {
     }
 
     @Test
+    void updateBadID() {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setEmail("papaki@mail.com");
+
+        given()
+                .contentType(ContentType.JSON)
+                .pathParam("id",99999)
+                .body(userDTO)
+                .when()
+                .put("/users/{id}")
+                .then()
+                .statusCode(404);
+    }
+
+    @Test
     void create() {
         UserDTO userDTO = new UserDTO(null,"giannhs","papad","987654321","gp@email.com","987654321",null,"broker",10.0);
 
@@ -108,5 +145,18 @@ class UserResourceTest {
                 as(List.class);
 
         Assertions.assertEquals(list.size(),2);
+    }
+
+    @Test
+    void createBadType() {
+        UserDTO userDTO = new UserDTO(null,"giannhs","papad","987654321","gp@email.com","987654321",null,"BAD TYPE",10.0);
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(userDTO)
+                .when()
+                .post("/users")
+                .then()
+                .statusCode(400);
     }
 }

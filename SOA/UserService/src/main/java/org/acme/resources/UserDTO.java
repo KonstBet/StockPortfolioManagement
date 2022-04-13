@@ -35,9 +35,6 @@ public class UserDTO {
                 user.getEmail(), user.getPhoneNo(), user.getAddress(), type, temp);
     }
 
-    public UserDTO(Long id, String name, String surname, String password, String email, String phoneNo, Address address, String type) {
-        this(id, name, surname, password, email, phoneNo, address, type, 0.0);
-    }
     public UserDTO(Long id, String name, String surname, String password, String email, String phoneNo, Address address, String type, Double temp) {
         this.id = id;
         this.name = name;

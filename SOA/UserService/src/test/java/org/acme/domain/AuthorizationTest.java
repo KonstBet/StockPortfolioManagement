@@ -19,7 +19,7 @@ class AuthorizationTest {
     public LocalDateTime date2;
     public Authorization auth;
 
-    @BeforeEach
+    @Test
     void setUpTests() {
         investor = new Investor();
         investor.setName("Giannhs");
@@ -33,6 +33,19 @@ class AuthorizationTest {
         date2 = LocalDateTime.now().plusMonths(2);
 
         auth = new Authorization(investor, broker, date1, date2, true);
+
+        Assertions.assertTrue(investor==auth.getInvestor() && broker==auth.getBroker());
+
+        auth.setActive(false);
+        auth.setBroker(null);
+        auth.setInvestor(null);
+        auth.setStartDate(date2);
+        auth.setEndDate(date1);
+        auth.setId(111111L);
+
+        Assertions.assertTrue(auth.getActive() == false && auth.getBroker() == null
+        && auth.getInvestor() == null && auth.getEndDate().equals(date1) && auth.getStartDate().equals(date2)
+        && auth.getId().equals(111111L));
     }
 
 

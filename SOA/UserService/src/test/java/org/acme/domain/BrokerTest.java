@@ -16,11 +16,12 @@ class BrokerTest {
 
         Assertions.assertEquals(broker.getBrokerageFee(),10.0);
         broker.setBrokerageFee(500.0);
+        broker.setAuthorizations(null);
 
         Assertions.assertTrue(broker.getName().equals("Nikos")
                 && broker.getSurname().equals("Papadopoulos")
                 && broker.getEmail().equals("nikosme@mailbox.gr") && broker.getPhoneNo().equals("6987654321")
                 && broker.getPassword().equals("b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b")
-                && broker.getBrokerageFee() == 500.0);
+                && broker.getBrokerageFee() == 500.0 && broker.getAuthorizations()==null);
     }
 }

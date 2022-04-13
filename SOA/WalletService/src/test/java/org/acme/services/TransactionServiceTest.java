@@ -38,10 +38,24 @@ class TransactionServiceTest {
     }
 
     @Test
-    void get() {
+    void getDeposit() {
         TransactionDTO transactionDTO = transactionService.get(initializer.getDeposit().getId());
 
         Assertions.assertNotNull(transactionDTO);
+    }
+
+    @Test
+    void getWithdraw() {
+        TransactionDTO transactionDTO = transactionService.get(initializer.getWithdraw().getId());
+
+        Assertions.assertNotNull(transactionDTO);
+    }
+
+    @Test
+    void getBadID() {
+        TransactionDTO transactionDTO = transactionService.get(99999L);
+
+        Assertions.assertNull(transactionDTO);
     }
 
     @Test
@@ -54,5 +68,29 @@ class TransactionServiceTest {
         List<TransactionDTO> transactionDTOList = transactionService.list(1L);
 
         Assertions.assertEquals(transactionDTOList.size(),3);
+    }
+
+    @Test
+    @Transactional
+    void createNULLDeposit() {
+        TransactionDTO transactionDTO = new TransactionDTO(9999L, 100.0,"deposit", LocalDateTime.now());
+
+        transactionService.create(transactionDTO);
+
+        List<TransactionDTO> transactionDTOList = transactionService.list(9999L);
+
+        Assertions.assertEquals(transactionDTOList.size(),1);
+    }
+
+    @Test
+    @Transactional
+    void createNULLWithdraw() {
+        TransactionDTO transactionDTO = new TransactionDTO(9999L, 10.0,"withdraw", LocalDateTime.now());
+
+        transactionService.create(transactionDTO);
+
+        List<TransactionDTO> transactionDTOList = transactionService.list(9999L);
+
+        Assertions.assertEquals(transactionDTOList.size(),0);
     }
 }

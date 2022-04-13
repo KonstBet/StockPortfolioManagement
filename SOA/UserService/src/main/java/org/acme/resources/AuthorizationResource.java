@@ -31,7 +31,7 @@ public class AuthorizationResource {
                 authorizationDTOList = authorizationService.listInvestorAuthorizations(userId);
             }
 
-            if (authorizationDTOList == null) return Response.status(404).build();
+            //if (authorizationDTOList == null) return Response.status(404).build();
 
             return Response.ok(authorizationDTOList).build();
         }

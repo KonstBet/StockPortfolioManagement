@@ -48,12 +48,29 @@ class AuthorizationResourceTest {
     }
 
     @Test
-    void list() {
+    void listInvestors() {
 
         List list = given()
                 .contentType(ContentType.JSON)
                 .queryParam("user_id",initializer.getInvestor().getId())
                 .queryParam("type", "investor")
+                .when()
+                .get("/authorizations")
+                .then()
+                .statusCode(200)
+                .extract().
+                as(List.class);
+
+        Assertions.assertEquals(list.size(),1);
+    }
+
+    @Test
+    void listBrokers() {
+
+        List list = given()
+                .contentType(ContentType.JSON)
+                .queryParam("user_id",initializer.getBroker().getId())
+                .queryParam("type", "broker")
                 .when()
                 .get("/authorizations")
                 .then()
@@ -84,48 +101,76 @@ class AuthorizationResourceTest {
 
         Assertions.assertEquals(403, response.getStatusCode());
     }
-//    @Test
-//    void get() {
-//
-//        AuthorizationDTO authorizationDTO =
-//                given()
-//                        .pathParam("id",initializer.getAuthCapital().getId())
-//                        .when()
-//                        .get("/authorizations/{id}")
-//                        .then()
-//                        .statusCode(200)
-//                        .extract().as(AuthorizationDTO.class);
-//
-//        Assertions.assertEquals(authorizationDTO.getType(),"AuthCapital");
-//        Assertions.assertEquals(authorizationDTO.getAmount(),initializer.getAuthCapital().getAmount());
-//        Assertions.assertEquals(authorizationDTO.getInvestorid(),initializer.getInvestor().getId());
-//    }
 
-//    @Test
-//    void create() {
-//        AuthorizationDTO authorizationDTO = new AuthorizationDTO(null, LocalDateTime.now(),LocalDateTime.now().plusDays(30),initializer.getInvestor().getId()
-//                ,initializer.getBroker().getId(),"AuthStock",200.0,2);
-//
-//        given()
-//                .contentType(ContentType.JSON)
-//                .body(authorizationDTO)
-//                .when()
-//                .post("/authorizations")
-//                .then()
-//                .statusCode(200);
-//
-//        Integer userid = initializer.getInvestor().getId();
-//
-//        List list = given()
-//                .contentType(ContentType.JSON)
-//                .queryParam("userid",initializer.getInvestor().getId())
-//                .when()
-//                .get("/authorizations")
-//                .then()
-//                .statusCode(200)
-//                .extract().
-//                as(List.class);
-//
-//        Assertions.assertEquals(list.size(),3);
-//    }
+    @Test
+    void findById() {
+
+        AuthorizationDTO authorizationDTO =
+                given()
+                        .pathParam("id",initializer.getAuthorization().getId())
+                        .when()
+                        .get("/authorizations/{id}")
+                        .then()
+                        .statusCode(200)
+                        .extract().as(AuthorizationDTO.class);
+
+        Assertions.assertTrue(authorizationDTO.getActive());
+        Assertions.assertEquals(authorizationDTO.getBrokerId(),initializer.getBroker().getId());
+        Assertions.assertEquals(authorizationDTO.getInvestorId(),initializer.getInvestor().getId());
+    }
+
+    @Test
+    void findByIdBadID() {
+
+        given()
+                .pathParam("id",99999)
+                .when()
+                .get("/authorizations/{id}")
+                .then()
+                .statusCode(404);
+
+    }
+
+    @Test
+    void create() {
+        AuthorizationDTO authorizationDTO = new AuthorizationDTO(null,initializer.getStartTime(),initializer.getEndTime()
+            ,initializer.getInvestor().getId(),initializer.getBroker().getId(),true);
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(authorizationDTO)
+                .when()
+                .post("/authorizations")
+                .then()
+                .statusCode(200);
+
+        Long userid = initializer.getInvestor().getId();
+
+        List list = given()
+                .contentType(ContentType.JSON)
+                .queryParam("user_id",initializer.getInvestor().getId())
+                .queryParam("type", "investor")
+                .when()
+                .get("/authorizations")
+                .then()
+                .statusCode(200)
+                .extract().
+                as(List.class);
+
+        Assertions.assertEquals(list.size(),2);
+    }
+
+    @Test
+    void createBadID() {
+        AuthorizationDTO authorizationDTO = new AuthorizationDTO(null, initializer.getStartTime(), initializer.getEndTime()
+                , 99999L, initializer.getBroker().getId(), true);
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(authorizationDTO)
+                .when()
+                .post("/authorizations")
+                .then()
+                .statusCode(400);
+    }
 }

@@ -30,9 +30,7 @@ public class WalletService {
             return false;
 
         wallet.setBalance(walletDTO.getBalance());
-        if (walletRepository.saveWallet(wallet))
-            return true;
-        else
-            return false;
+        walletRepository.saveWallet(wallet);
+        return true;
     }
 }

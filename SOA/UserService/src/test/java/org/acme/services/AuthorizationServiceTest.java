@@ -53,6 +53,12 @@ class AuthorizationServiceTest {
     }
 
     @Test
+    void getBadID() {
+        AuthorizationDTO authorizationDTO = authorizationService.findById(99999L);
+        Assertions.assertNull(authorizationDTO);
+    }
+
+    @Test
     @Transactional
     void create() {
         AuthorizationDTO authorizationDTO = new AuthorizationDTO(

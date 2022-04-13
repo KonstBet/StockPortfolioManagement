@@ -36,8 +36,6 @@ public class AuthorizationService {
         List<Authorization> authorizations;
 
         authorizations = authorizationRepository.findInvestorAuthorizations(userId);
-        if(authorizations == null) return null;
-
 
         return AuthorizationDTO.listToDTOList(authorizations);
     }
@@ -47,8 +45,6 @@ public class AuthorizationService {
         List<Authorization> authorizations;
 
         authorizations = authorizationRepository.findBrokerAuthorizations(userId);
-        if(authorizations == null) return null;
-
 
         return AuthorizationDTO.listToDTOList(authorizations);
     }
@@ -57,6 +53,8 @@ public class AuthorizationService {
 
         Investor investor = userRepository.findInvestorByID(authorizationDTO.getInvestorId());
         Broker broker = userRepository.findBrokerByID(authorizationDTO.getBrokerId());
+
+        if (broker == null || investor == null) return false;
 
         Authorization authorization = new Authorization(investor, broker,
                 authorizationDTO.getStartDate(), authorizationDTO.getEndDate(),
@@ -89,8 +87,5 @@ public class AuthorizationService {
         }
 
         return false;
-
-
-
     }
 }

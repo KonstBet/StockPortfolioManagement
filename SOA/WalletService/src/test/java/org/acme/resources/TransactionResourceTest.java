@@ -31,8 +31,6 @@ class TransactionResourceTest {
 
     @Test
     void list() {
-        WalletDTO walletDTO = new WalletDTO();
-        walletDTO.setUserId(initializer.getWallet().getUserId());
 
         List transactionDTOList =
                 given()
@@ -45,6 +43,16 @@ class TransactionResourceTest {
                         as(List.class);
 
         Assertions.assertEquals(transactionDTOList.size(),2);
+    }
+
+    @Test
+    void listBadID() {
+        given()
+                .queryParam("user_id",99999)
+                .when()
+                .get("/transaction")
+                .then()
+                .statusCode(404);
     }
 
     @Test
@@ -61,6 +69,16 @@ class TransactionResourceTest {
         Assertions.assertEquals(transactionDTO.getUserId(),initializer.getDeposit().getWallet().getUserId());
         Assertions.assertEquals(transactionDTO.getAmount(),initializer.getDeposit().getAmount());
         Assertions.assertEquals(transactionDTO.getType(),"deposit");
+    }
+
+    @Test
+    void getBadID() {
+        given()
+                .pathParam("id",99999)
+                .when()
+                .get("/transaction/{id}")
+                .then()
+                .statusCode(404);
     }
 
     @Test
