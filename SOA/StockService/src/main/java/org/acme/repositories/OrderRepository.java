@@ -15,15 +15,15 @@ public class OrderRepository implements PanacheRepository<Order> {
     }
 
     public List<Order> listUserOrders(Long userId){
-        return list("userId", userId);
+        return list("investor_id", userId);
     }
 
     public List<Order> listUserPurchaseOrders(Long userId){
-        return list("userId = ?1 and type = ?2", userId, OrderType.PURCHASE);
+        return list("investor_id = ?1 and type = ?2", userId, OrderType.PURCHASE);
     }
 
     public List<Order> listUserSaleOrders(Long userId){
-        return list("userId = ?1 and type = ?2", userId, OrderType.SALE);
+        return list("investor_id = ?1 and type = ?2", userId, OrderType.SALE);
     }
 
     public Boolean saveOrder(Order order) {
