@@ -19,7 +19,7 @@ public class StockResource {
 
     @GET
     @Path("")
-    public Response list(StockDTO stockDTO){
+    public Response list(){
 
         try{
 

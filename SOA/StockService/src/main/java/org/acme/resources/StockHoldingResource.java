@@ -21,7 +21,7 @@ public class StockHoldingResource {
 
     @GET
     @Path("")
-    public Response list(@QueryParam("user_id") Long userId, StockHoldingDTO stockHoldingDTO){
+    public Response list(@QueryParam("user_id") Long userId){
 
         try{
 
