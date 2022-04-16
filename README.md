@@ -4,7 +4,6 @@
 ##A Project by:
 ### Konstantinos Betchavas
 ### Manolis Liolios
-### Panagiotis Georgakopoulos
 
 [REST API Architecture & Microservices](specifications.pdf)
 
