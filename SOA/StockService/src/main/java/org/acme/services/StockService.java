@@ -23,12 +23,21 @@ public class StockService {
 
         if(stocks == null) return null;
 
-        return  StockDTO.listToDTOList(stocks);
+        return StockDTO.listToDTOList(stocks);
     }
 
     public StockDTO getStockById(Long id){
         Stock stock = stockRepository.findByPk(id);
         if(stock == null) return null;
         return new StockDTO(stock);
+    }
+
+    public boolean createStock(StockDTO stockDTO){
+
+        Stock stock = new Stock(stockDTO.getCompanyName(),stockDTO.getOpen(),
+                stockDTO.getClose(), stockDTO.getHigh(), stockDTO.getLow(), stockDTO.getVol());
+
+        return stockRepository.saveStock(stock);
+
     }
 }

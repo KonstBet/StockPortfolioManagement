@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
+    import javax.transaction.Transactional;
     import java.util.Arrays;
     import java.util.List;
 
@@ -66,6 +67,17 @@ class StockResourceTest {
         Assertions.assertEquals(response.getStatusCode(), 404);
 
 
+    }
+
+
+    @Test
+    @Transactional
+    void createStock(){
+        StockDTO stockDTO = new StockDTO(1L, "Lio Software", 10.0, 11.0, 15.0, 12.0, 1000.0);
+
+       Response response = given().contentType(ContentType.JSON).body(stockDTO).when().post("/stocks");
+
+       Assertions.assertEquals(200, response.getStatusCode());
     }
 
 }

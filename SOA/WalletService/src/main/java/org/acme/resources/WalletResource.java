@@ -33,6 +33,7 @@ public class WalletResource {
 
             WalletDTO walletDTO = new WalletDTO();
             walletDTO.setBalance(wallet.getBalance());
+            walletDTO.setUserId(id);
             return Response.ok(walletDTO).build();
         }
         catch(Exception e) {

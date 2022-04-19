@@ -36,9 +36,7 @@ public class OrderResource {
             if(orderDTOS == null) return Response.status(404).build();
 
             return Response.ok(orderDTOS).build();
-        }catch(Exception e){
-            return null;
-        }
+        }catch(Exception e){return Response.status(500).build();}
 
     }
 
@@ -54,7 +52,7 @@ public class OrderResource {
 
             return Response.ok(orderDTO).build();
 
-        }catch(Exception e){return null;}
+        }catch(Exception e){return Response.status(500).build();}
     }
 
     @POST
@@ -68,9 +66,7 @@ public class OrderResource {
             }
             // creation failed!
             return Response.status(400).build();
-        }catch(Exception e){
-            return null;
-        }
+        }catch(Exception e){return Response.status(500).build();}
     }
 
 
