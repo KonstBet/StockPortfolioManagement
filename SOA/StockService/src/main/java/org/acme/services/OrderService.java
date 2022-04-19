@@ -5,7 +5,6 @@ import org.acme.repositories.OrderRepository;
 import org.acme.repositories.StockHoldingRepository;
 import org.acme.repositories.StockRepository;
 import org.acme.resources.OrderDTO;
-import org.acme.resources.StockHoldingDTO;
 import org.acme.resources.WalletDTO;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import javax.enterprise.context.ApplicationScoped;
@@ -26,8 +25,8 @@ public class OrderService {
     @Inject
     StockRepository stockRepository;
 
-     @RestClient AuthorizationService authorizationService;
-     @RestClient WalletService walletService;
+    @Inject @RestClient AuthorizationService authorizationService;
+    @Inject @RestClient WalletService walletService;
 
 
     public List<OrderDTO> getOrders(Long userId){
@@ -69,21 +68,29 @@ public class OrderService {
 
     public Boolean createOrder(OrderDTO orderDTO){
 
+        System.out.println("started order");
         Order order = new Order();
         double fee = 0.0;
         boolean executingAsBroker = verifyBrokerAuthorization(orderDTO);
+        System.out.println("executing as broker?" + executingAsBroker);
 
         if(orderDTO.getBrokerId() != null && !executingAsBroker) return false;
 
+        System.out.println("Finding stock" + orderDTO.getStockId());
         // find stock by its id
         Stock stock = stockRepository.findByPk(orderDTO.getStockId());
+
+
         // if stock is invalid, return false
         if( stock == null ) return false;
+        System.out.println("stock is: " + stock.getCompanyName());
 
 
         // calculate Cost of order.
         double cost = calculateCost(orderDTO, stock);
 
+
+        System.out.println("cost is: " + cost);
         // if we are selling stock, verify we have enough quantity to sell!
         if(orderDTO.getType() == OrderType.SALE && !hasEnoughStockToSell(orderDTO)) return false;
 
@@ -109,7 +116,6 @@ public class OrderService {
         }else{
             investorWalletDTO.setBalance(investorWalletDTO.getBalance() + (cost - fee));
         }
-
         // create order details
         order.setOrderPrice(cost);
         order.setInvestorId(orderDTO.getInvestorId());
@@ -121,11 +127,11 @@ public class OrderService {
 
         // save order and update wallet balances on micro-service
         if(orderRepository.saveOrder(order)){
-            walletService.update(investorWalletDTO);
+            Response response = walletService.update(investorWalletDTO);
             // if purchasing as broker, give broker the transaction fee!
             if(executingAsBroker) walletService.update(brokerWalletDTO);
         }
-
+        System.out.println("updating stockholdings...");
         return updateStockHoldings(orderDTO, stock);
     }
 
@@ -174,8 +180,8 @@ public class OrderService {
             return stockHoldingRepository.saveStockHolding(stockHolding);
         }
         // purchasing stock
-        // first  case: we didn't have any stockholdings for this particular stock id
-        // second case: we already  havae some stockholdings, add more to the amount we have!
+        // first case: we didn't have any stockholdings for this particular stock id
+        // second case: we already  have some stockholdings, add more to the amount we have!
         if(stockHolding == null){
             stockHolding = new StockHolding(orderDTO.getStockAmount(), stock, orderDTO.getInvestorId());
         }else{

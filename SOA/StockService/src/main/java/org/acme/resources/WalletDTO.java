@@ -2,15 +2,18 @@ package org.acme.resources;
 
 public class WalletDTO {
 
-    private Long userid;
+    private Long userId;
     private Double balance;
 
     public WalletDTO() {}
 
-    public WalletDTO(Long userid, Double balance) {
-        this.userid = userid;
+    public WalletDTO(Long userId, Double balance) {
+        this.userId = userId;
         this.balance = balance;
     }
+
+    public Long getUserId(){return userId;}
+    public void setUserId(Long userId){this.userId = userId;}
 
     public Double getBalance() {
         return balance;

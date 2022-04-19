@@ -31,7 +31,7 @@ public class StockHoldingResource {
 
             return Response.ok(stockHoldingDTOList).build();
 
-        }catch(Exception e){return null;}
+        }catch(Exception e){return Response.status(500).build();}
     }
 
     @GET
@@ -61,7 +61,7 @@ public class StockHoldingResource {
 
 
 
-        }catch(Exception e){return null;}
+        }catch(Exception e){return Response.status(500).build();}
     }
 
 }

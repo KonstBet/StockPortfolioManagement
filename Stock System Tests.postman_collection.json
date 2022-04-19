@@ -1,0 +1,593 @@
+{
+	"info": {
+		"_postman_id": "be55b7a5-0ae0-4915-b7f9-0bcadb605145",
+		"name": "Stock System Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "WalletService - POST transaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"deposit\",\r\n    \"amount\": 10000,\r\n    \"userId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/transaction",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transaction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WalletService - POST transaction vol2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"deposit\",\r\n    \"amount\": 10000,\r\n    \"userId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/transaction",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transaction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WalletService - GET transaction",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/transaction?user_id=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transaction"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WalletService - GET transaction by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/transaction/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transaction",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WalletService - GET balance",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/balance/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"balance",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WalletService - PUT balance",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"balance\": 5000.0,\r\n    \"userId\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/balance",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"balance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserService - POST investor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"gianhs\",\r\n    \"surname\": \"ppadopoulos\",\r\n    \"email\": \"m@mail.com\",\r\n    \"phoneNo\": \"13456789\",\r\n    \"password\": \"1345\",\r\n    \"type\": \"investor\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8090/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserService - POST broker",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"gianhs\",\r\n    \"surname\": \"ppadopoulos\",\r\n    \"email\": \"m@mail.com\",\r\n    \"phoneNo\": \"13456789\",\r\n    \"password\": \"1345\",\r\n    \"type\": \"broker\",\r\n    \"brokerageFee\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8090/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserService - GET investors",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/users?type=investor",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "investor"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserService - GET brokers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/users?type=broker",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "broker"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserService - GET user by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/users/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserService - PUT user by id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"gianhs\",\r\n    \"surname\": \"papad\",\r\n    \"email\": \"aa@mail.com\",\r\n    \"phoneNo\": \"1111111111\"\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8090/users/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserService - POST authorization",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"startDate\": \"2022-04-11T02:06:12.073516\",\r\n    \"endDate\": \"2022-12-11T02:06:12.073516\",\r\n    \"active\": true,\r\n    \"investorId\": 1,\r\n    \"brokerId\": 2\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8090/authorizations",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"authorizations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserService - GET authorizations of user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/authorizations?user_id=1&type=investor",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"authorizations"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "1"
+						},
+						{
+							"key": "type",
+							"value": "investor"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserService - GET authorization by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/authorizations/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"authorizations",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserService - GET verify pairing",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/authorizations/link/verify?investor_id=1&broker_id=2",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"authorizations",
+						"link",
+						"verify"
+					],
+					"query": [
+						{
+							"key": "investor_id",
+							"value": "1"
+						},
+						{
+							"key": "broker_id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StockService - POST stock (META)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"companyName\" :\"Meta\",\n    \"open\": 131.67,\n    \"close\": 131.05,\n    \"high\": 133.9,\n    \"low\": 131.49,\n    \"vol\": 10000.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8100/stocks",
+					"host": [
+						"localhost"
+					],
+					"port": "8100",
+					"path": [
+						"stocks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StockService - POST stock (JP Morgan)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"companyName\" :\"JPMorgan Chase & Co\",\n    \"open\": 222.38,\n    \"close\": 220.05,\n    \"high\": 225.13,\n    \"low\": 220.03,\n    \"vol\": 30000.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8100/stocks",
+					"host": [
+						"localhost"
+					],
+					"port": "8100",
+					"path": [
+						"stocks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StockService - GET Stocks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8100/stocks",
+					"host": [
+						"localhost"
+					],
+					"port": "8100",
+					"path": [
+						"stocks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StockService - GET Stock by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8100/stocks/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8100",
+					"path": [
+						"stocks",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StockService - POST Purchase Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"stockAmount\": 2,\n    \"fee\": 0,\n    \"date\": \"2022-04-19T21:34:55\",\n    \"type\": \"PURCHASE\",\n    \"stockId\": 1,\n    \"investorId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8100/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8100",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StockService - GET Stockholdings of user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8100/stockholdings?user_id=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8100",
+					"path": [
+						"stockholdings"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StockService - POST SALE order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"stockAmount\": 2,\n    \"fee\": 0,\n    \"date\": \"2022-04-19T21:34:55\",\n    \"type\": \"SALE\",\n    \"stockId\": 1,\n    \"investorId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8100/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8100",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StockService - GET Stockholding by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8100/stockholdings/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8100",
+					"path": [
+						"stockholdings",
+						"4"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -4,6 +4,7 @@ import org.acme.domain.Stock;
 import org.acme.services.StockService;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -29,7 +30,22 @@ public class StockResource {
 
             return Response.ok(stockDTOList).build();
 
-        }catch(Exception e){return null;}
+        }catch(Exception e){return Response.status(500).build();}
+    }
+
+    @POST
+    @Transactional
+    public Response createStock(StockDTO stockDTO){
+
+        try{
+
+            if(stockService.createStock(stockDTO)){
+                return Response.ok().build();
+            }
+            return Response.status(400).build();
+
+        }catch(Exception e){return Response.status(500).build();}
+
     }
 
     @GET
@@ -42,7 +58,7 @@ public class StockResource {
 
             return Response.ok(stockDTO).build();
 
-        } catch(Exception e) {return null;}
+        } catch(Exception e) {return Response.status(500).build();}
     }
 
 
