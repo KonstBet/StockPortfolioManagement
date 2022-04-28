@@ -1,6 +1,11 @@
 package org.acme.resources;
 
 import org.acme.services.UserService;
+import org.eclipse.microprofile.faulttolerance.Retry;
+import org.eclipse.microprofile.faulttolerance.Timeout;
+import org.eclipse.microprofile.metrics.MetricUnits;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -12,6 +17,8 @@ import java.util.List;
 @Path("/users")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@Retry(maxRetries = 3)
+@Timeout(2000)
 public class UserResource {
 
     @Inject
@@ -19,6 +26,8 @@ public class UserResource {
 
     @GET
     @Path("")
+    @Counted(name = "UsersListRequestsCounter", description = "How many requests for users list has been performed.")
+    @Timed(name = "UsersListTimer", description = "A measure of how long it takes to perform a UsersList request.", unit = MetricUnits.MILLISECONDS)
     public Response list(@QueryParam("type") String type) {
         try {
             List<UserDTO> userDTOList = userService.list(type);
@@ -34,6 +43,8 @@ public class UserResource {
 
     @GET
     @Path("/{id}")
+    @Counted(name = "UserGetRequestsCounter", description = "How many requests for user get has been performed.")
+    @Timed(name = "UserGetTimer", description = "A measure of how long it takes to perform a UserGet request.", unit = MetricUnits.MILLISECONDS)
     public Response get(@PathParam("id") Long id) {
         try {
             UserDTO userDTO = userService.get(id);
@@ -49,6 +60,8 @@ public class UserResource {
     @PUT
     @Path("/{id}")
     @Transactional
+    @Counted(name = "UserUpdateRequestsCounter", description = "How many requests for user update has been performed.")
+    @Timed(name = "UserUpdateTimer", description = "A measure of how long it takes to perform a UserUpdate request.", unit = MetricUnits.MILLISECONDS)
     public Response update(@PathParam("id") Long id, UserDTO userDTO) {
         try {
             Boolean flag = userService.update(id, userDTO);
@@ -64,6 +77,8 @@ public class UserResource {
     @POST
     @Path("")
     @Transactional
+    @Counted(name = "UserCreateRequestsCounter", description = "How many requests for user create has been performed.")
+    @Timed(name = "UserCreateTimer", description = "A measure of how long it takes to perform a UserCreate request.", unit = MetricUnits.MILLISECONDS)
     public Response create(UserDTO userDTO) {
         try {
             Boolean flag = userService.create(userDTO);

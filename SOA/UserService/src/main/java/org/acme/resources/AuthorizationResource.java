@@ -2,6 +2,11 @@ package org.acme.resources;
 
 import org.acme.services.AuthorizationService;
 import org.acme.services.WalletService;
+import org.eclipse.microprofile.faulttolerance.Retry;
+import org.eclipse.microprofile.faulttolerance.Timeout;
+import org.eclipse.microprofile.metrics.MetricUnits;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.inject.Inject;
@@ -15,6 +20,8 @@ import java.util.Objects;
 @Path("/authorizations")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@Retry(maxRetries = 3)
+@Timeout(2000)
 public class AuthorizationResource {
 
     @Inject
@@ -22,6 +29,8 @@ public class AuthorizationResource {
 
     @GET
     @Path("")
+    @Counted(name = "AuthorizationsListRequestsCounter", description = "How many requests for authorizations list has been performed.")
+    @Timed(name = "AuthorizationsListTimer", description = "A measure of how long it takes to perform an AuthorizationsList request.", unit = MetricUnits.MILLISECONDS)
     public Response list(@QueryParam("user_id") Long userId, @QueryParam("type") String type) {
         try {
             List<AuthorizationDTO> authorizationDTOList;
@@ -42,6 +51,8 @@ public class AuthorizationResource {
 
     @GET
     @Path("/{id}")
+    @Counted(name = "AuthorizationsGetRequestsCounter", description = "How many requests for authorizations get has been performed.")
+    @Timed(name = "AuthorizationsGetTimer", description = "A measure of how long it takes to perform an AuthorizationsGet request.", unit = MetricUnits.MILLISECONDS)
     public Response findById(@PathParam("id") Long id) {
         try {
             AuthorizationDTO authorizationDTO = authorizationService.findById(id);
@@ -56,6 +67,8 @@ public class AuthorizationResource {
 
     @GET
     @Path("/link/verify")
+    @Counted(name = "AuthorizationsVerifyRequestsCounter", description = "How many requests for authorizations verifyPairing has been performed.")
+    @Timed(name = "AuthorizationsVerifyTimer", description = "A measure of how long it takes to perform an AuthorizationsVerifyParing request.", unit = MetricUnits.MILLISECONDS)
     public Response verifyPairing(  @QueryParam("investor_id") Long investorId, @QueryParam("broker_id") Long brokerId){
 
         try{
@@ -73,6 +86,8 @@ public class AuthorizationResource {
     @POST
     @Path("")
     @Transactional
+    @Counted(name = "AuthorizationsCreateRequestsCounter", description = "How many requests for authorizations create has been performed.")
+    @Timed(name = "AuthorizationsCreateTimer", description = "A measure of how long it takes to perform an AuthorizationsCreate request.", unit = MetricUnits.MILLISECONDS)
     public Response create(AuthorizationDTO authorizationDTO) {
         try {
 
