@@ -4,6 +4,11 @@ import org.acme.domain.Order;
 import org.acme.domain.OrderType;
 import org.acme.services.OrderService;
 import org.acme.services.StockService;
+import org.eclipse.microprofile.faulttolerance.Retry;
+import org.eclipse.microprofile.faulttolerance.Timeout;
+import org.eclipse.microprofile.metrics.MetricUnits;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.mockito.internal.matchers.Or;
 
 import javax.inject.Inject;
@@ -16,6 +21,8 @@ import java.util.List;
 @Path("/orders")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@Retry(maxRetries = 3)
+@Timeout(2000)
 public class OrderResource {
 
     @Inject
@@ -23,6 +30,8 @@ public class OrderResource {
 
     @GET
     @Path("")
+    @Counted(name = "OrdersListRequestsCounter", description = "How many requests for orders list has been performed.")
+    @Timed(name = "OrdersListTimer", description = "A measure of how long it takes to perform a OrdersList request.", unit = MetricUnits.MILLISECONDS)
     public Response getOrders(@QueryParam("user_id") Long userId, @QueryParam("type") OrderType type){
 
         try{
@@ -43,6 +52,8 @@ public class OrderResource {
 
     @GET
     @Path("/{order_id}")
+    @Counted(name = "OrdersGetRequestsCounter", description = "How many requests for order get has been performed.")
+    @Timed(name = "OrdersGetTimer", description = "A measure of how long it takes to perform a OrdersGet request.", unit = MetricUnits.MILLISECONDS)
     public Response getOrderById(@PathParam("order_id") Long orderId){
 
         try{
@@ -58,6 +69,8 @@ public class OrderResource {
     @POST
     @Transactional
     @Path("")
+    @Counted(name = "OrdersExecuteRequestsCounter", description = "How many requests for order execute/create has been performed.")
+    @Timed(name = "OrdersExecuteTimer", description = "A measure of how long it takes to perform a OrdersExecute request.", unit = MetricUnits.MILLISECONDS)
     public Response executeOrder(OrderDTO orderDTO){
 
         try{

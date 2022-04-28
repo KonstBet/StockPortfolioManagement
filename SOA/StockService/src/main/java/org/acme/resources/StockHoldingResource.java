@@ -3,6 +3,11 @@ package org.acme.resources;
 import org.acme.domain.StockHolding;
 import org.acme.services.StockHoldingService;
 import org.acme.services.StockService;
+import org.eclipse.microprofile.faulttolerance.Retry;
+import org.eclipse.microprofile.faulttolerance.Timeout;
+import org.eclipse.microprofile.metrics.MetricUnits;
+import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -14,6 +19,8 @@ import java.util.List;
 @Path("/stockholdings")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@Retry(maxRetries = 3)
+@Timeout(2000)
 public class StockHoldingResource {
 
     @Inject
@@ -21,6 +28,8 @@ public class StockHoldingResource {
 
     @GET
     @Path("")
+    @Counted(name = "StockHoldingsListRequestsCounter", description = "How many requests for stockholding list has been performed.")
+    @Timed(name = "StockHoldingsListTimer", description = "A measure of how long it takes to perform a StockHoldingsList request.", unit = MetricUnits.MILLISECONDS)
     public Response list(@QueryParam("user_id") Long userId){
 
         try{
@@ -36,6 +45,8 @@ public class StockHoldingResource {
 
     @GET
     @Path("/{stockholding_id}")
+    @Counted(name = "StockHoldingsGetRequestsCounter", description = "How many requests for stockholding get has been performed.")
+    @Timed(name = "StockHoldingsGetListTimer", description = "A measure of how long it takes to perform a StockHoldingsGet request.", unit = MetricUnits.MILLISECONDS)
     public Response getStock(@PathParam("stockholding_id") Long stockHoldingId){
         try {
             StockHoldingDTO stockHoldingDTO = stockHoldingService.getStockHoldingById(stockHoldingId);
@@ -50,6 +61,8 @@ public class StockHoldingResource {
     @PUT
     @Transactional
     @Path("/{stockholding_id}/status")
+    @Counted(name = "StockHoldingsChangeStatusRequestsCounter", description = "How many requests for stockholding changeStatus has been performed.")
+    @Timed(name = "StockHoldingsChangeStatusTimer", description = "A measure of how long it takes to perform a StockHoldingsChangeStatus request.", unit = MetricUnits.MILLISECONDS)
     public Response changeStockHoldingStatus(@PathParam("stockholding_id") Long stockHoldingId, StockHoldingDTO stockHoldingDTO){
         try{
 
