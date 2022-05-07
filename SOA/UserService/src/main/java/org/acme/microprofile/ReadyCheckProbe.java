@@ -2,9 +2,9 @@ package org.acme.microprofile;
 
 
 import io.quarkus.runtime.StartupEvent;
-import org.acme.domain.Wallet;
-import org.acme.resources.TransactionDTO;
-import org.acme.services.TransactionService;
+import org.acme.domain.Investor;
+import org.acme.resources.UserDTO;
+import org.acme.services.UserService;
 import org.acme.services.WalletService;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
@@ -22,30 +22,27 @@ import java.util.List;
 public class ReadyCheckProbe implements HealthCheck {
 
     @Inject
-    TransactionService transactionService;
-
-    @Inject
-    WalletService walletService;
-
-    private Integer i = -99;
+    UserService userService;
 
     @Transactional
     void onStart(@Observes StartupEvent ev) {
-        TransactionDTO transactionDTO = new TransactionDTO(i.longValue(), 9999.0,"deposit", LocalDateTime.now());
+        UserDTO userDTO = new UserDTO(null, "Nikos","Papadopoulos","b68fe43f0d1a0d7aef123722670be50268e15365401c442f8806ef83b612976b",
+                "nikosme@mailbox.gr","6987654321",null,"investor",null);
 
-        transactionService.create(transactionDTO);
+        userService.create(userDTO);
     }
+
     @Override
     public HealthCheckResponse call() {
-        List<TransactionDTO> transactionDTOList = transactionService.list(i.longValue());
+        Integer id = 1;
+        UserDTO userDTO = userService.get(id.longValue());
 
-        Wallet wallet = walletService.get(i.longValue());
-
-        if (transactionDTOList.size() == 1 && wallet != null) {
+        if (userDTO != null) {
             return HealthCheckResponse.named("Fake user can be read! Database is up!").up()
-                    .withData("With id:",wallet.getUserId().toString())
-                    .withData("With balance:",wallet.getBalance().toString())
-                    .withData("One deposit with id:",transactionDTOList.get(0).getId())
+                    .withData("With id:",userDTO.getId())
+                    .withData("With email:",userDTO.getEmail())
+                    .withData("With name:",userDTO.getName())
+                    .withData("With surname:",userDTO.getSurname())
                     .build();
         }
 
