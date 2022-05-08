@@ -6,6 +6,7 @@ import org.acme.repositories.StockHoldingRepository;
 import org.acme.repositories.StockRepository;
 import org.acme.resources.OrderDTO;
 import org.acme.resources.WalletDTO;
+import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -66,6 +67,8 @@ public class OrderService {
         return new OrderDTO(order);
     }
 
+    @CircuitBreaker(requestVolumeThreshold = 4, delay = 5000,
+            successThreshold = 2)
     public Boolean createOrder(OrderDTO orderDTO){
 
         System.out.println("started order");
@@ -140,6 +143,8 @@ public class OrderService {
      * PRIVATE HELPERS FOR ORDERS
      */
 
+    @CircuitBreaker(requestVolumeThreshold = 4, delay = 5000,
+            successThreshold = 2)
     private WalletDTO getUserWallet(Long userId){
         if(userId == null) return null;
         Response response = walletService.getUserWallet(userId);
@@ -191,7 +196,8 @@ public class OrderService {
     }
 
     // Private helper to authorize broker!
-
+    @CircuitBreaker(requestVolumeThreshold = 4, delay = 5000,
+            successThreshold = 2)
     private boolean verifyBrokerAuthorization(OrderDTO orderDTO){
         // verify broker has the rights to do this action
         if(orderDTO.getBrokerId() != null){
