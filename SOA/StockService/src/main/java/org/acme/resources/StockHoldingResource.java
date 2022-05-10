@@ -19,8 +19,6 @@ import java.util.List;
 @Path("/stockholdings")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@Retry(maxRetries = 3)
-@Timeout(2000)
 public class StockHoldingResource {
 
     @Inject
