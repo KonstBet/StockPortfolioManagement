@@ -2,6 +2,8 @@ package org.acme.services;
 
 
 import org.acme.resources.WalletDTO;
+import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
@@ -19,12 +21,24 @@ import javax.ws.rs.core.Response;
 public interface WalletService {
 
     @Timeout(1000)
+    @Retry(maxRetries = 2)
+    @Fallback(fallbackMethod = "fallbackgetUserWallet")
     @GET
     @Path("/{id}")
     Response getUserWallet(@PathParam("id") Long id);
 
     @Timeout(1000)
+    @Retry(maxRetries = 2)
+    @Fallback(fallbackMethod = "fallbackupdate")
     @PUT
     @Path("")
     Response update(WalletDTO walletDTO);
+
+    private Response fallbackgetUserWallet(@PathParam("id") Long id) {
+        return Response.noContent().build();
+    }
+
+    private Response fallbackupdate(WalletDTO walletDTO) {
+        return Response.notModified().build();
+    }
 }

@@ -1,5 +1,7 @@
 package org.acme.services;
 
+import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.faulttolerance.Retry;
 import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
@@ -16,12 +18,13 @@ import javax.ws.rs.core.Response;
 public interface AuthorizationService {
 
     @Timeout(1000)
-    @GET
-    @Path("/{id}")
-    Response get(@PathParam("id") Long id);
-
-    @Timeout(1000)
+    @Retry(maxRetries = 4)
+    @Fallback(fallbackMethod = "fallbackverifyLink")
     @GET
     @Path("/link/verify")
     Response verifyLink(@QueryParam("investor_id") Long investorId, @QueryParam("broker_id") Long brokerId);
+
+    static Response fallbackverifyLink(@QueryParam("investor_id") Long investorId, @QueryParam("broker_id") Long brokerId) {
+        return Response.noContent().build();
+    }
 }

@@ -143,8 +143,7 @@ public class OrderService {
      * PRIVATE HELPERS FOR ORDERS
      */
 
-    @CircuitBreaker(requestVolumeThreshold = 4, delay = 5000,
-            successThreshold = 2)
+
     private WalletDTO getUserWallet(Long userId){
         if(userId == null) return null;
         Response response = walletService.getUserWallet(userId);
@@ -196,8 +195,6 @@ public class OrderService {
     }
 
     // Private helper to authorize broker!
-    @CircuitBreaker(requestVolumeThreshold = 4, delay = 5000,
-            successThreshold = 2)
     private boolean verifyBrokerAuthorization(OrderDTO orderDTO){
         // verify broker has the rights to do this action
         if(orderDTO.getBrokerId() != null){

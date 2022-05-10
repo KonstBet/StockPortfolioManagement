@@ -77,7 +77,7 @@ public class OrderResource {
             }
             // creation failed!
             return Response.status(400).build();
-        }catch(Exception e){return Response.status(500).build();}
+        }catch(Exception e){return Response.status(500).entity(e).build();}
     }
 
 
