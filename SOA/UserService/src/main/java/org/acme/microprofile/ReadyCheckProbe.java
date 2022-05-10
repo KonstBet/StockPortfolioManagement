@@ -2,10 +2,8 @@ package org.acme.microprofile;
 
 
 import io.quarkus.runtime.StartupEvent;
-import org.acme.domain.Investor;
 import org.acme.resources.UserDTO;
 import org.acme.services.UserService;
-import org.acme.services.WalletService;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 import org.eclipse.microprofile.health.Readiness;
@@ -14,8 +12,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Readiness
 @ApplicationScoped

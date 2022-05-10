@@ -1,24 +1,18 @@
 package org.acme.resources;
 
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.mockito.InjectMock;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.acme.repositories.Initializer;
-import org.acme.services.WalletService;
-import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import javax.inject.Inject;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.*;
 
 @QuarkusTest
 class AuthorizationResourceTest {
@@ -26,25 +20,10 @@ class AuthorizationResourceTest {
     @Inject
     Initializer initializer;
 
-    @InjectMock
-    @RestClient
-    WalletService walletService;
-
     @BeforeEach
     void initialize() {
         initializer.EraseData();
         initializer.Initialize();
-
-
-        WalletDTO walletDTO = new WalletDTO();
-        walletDTO.setUserId(initializer.getInvestor().getId());
-        walletDTO.setBalance(1000.0);
-
-        Mockito.when(walletService.get(initializer.getInvestor().getId())).thenReturn(javax.ws.rs.core.Response.ok(walletDTO).build());
-
-        walletDTO.setBalance(800.0);
-        Mockito.when(walletService.update(walletDTO)).thenReturn(javax.ws.rs.core.Response.ok().build());
-
     }
 
     @Test

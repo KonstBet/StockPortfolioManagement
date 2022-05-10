@@ -1,13 +1,9 @@
 package org.acme.resources;
 
 import org.acme.services.AuthorizationService;
-import org.acme.services.WalletService;
-import org.eclipse.microprofile.faulttolerance.Retry;
-import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Timed;
-import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -15,7 +11,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
-import java.util.Objects;
 
 @Path("/authorizations")
 @Consumes(MediaType.APPLICATION_JSON)
