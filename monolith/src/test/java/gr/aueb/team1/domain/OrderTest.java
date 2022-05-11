@@ -205,8 +205,7 @@ public class OrderTest {
     	investor.giveAuthorization(9, sh, broker, date1);
     	Order or = new Order(investor, PeiraiosStock, 9, fee, date1, Action.SELL, Status.PENDING);
     	Order or1 = new Order(investor, PeiraiosStock, 1, fee, date1, Action.SELL, Status.PENDING);
-    	System.out.println(investor.getStockHoldings().get(PeiraiosStock).getAmount());
-    	System.out.println(investor.getStockHoldings().get(PeiraiosStock).getCommittedAmount());
+
     	or1.applyOrder(); 
     	
     	or.applyBrokerOrder(as1);

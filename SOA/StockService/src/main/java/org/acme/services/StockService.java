@@ -18,9 +18,7 @@ public class StockService {
     public List<StockDTO> getAllStocks(){
 
         List<Stock> stocks;
-        System.out.println("AAA");
         stocks = stockRepository.listStocks();
-        System.out.println("AAA");
         if(stocks == null) return null;
 
         return StockDTO.listToDTOList(stocks);
