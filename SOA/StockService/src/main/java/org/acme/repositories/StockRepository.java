@@ -18,8 +18,8 @@ public class StockRepository implements PanacheRepository<Stock> {
     }
 
 
-    public List<Stock> listStocks(){
-        return listAll();
+    public List<Stock> listStocks(){System.out.println("AAA");
+        return list("id > 1");
     }
 
     public Boolean saveStock(Stock stock) {

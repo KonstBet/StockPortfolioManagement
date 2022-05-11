@@ -22,7 +22,7 @@ public class UserRepository  implements PanacheRepository<User> {
 
     //Find all authorizations of a User
     public List<User> findAllInvestors() {
-        return list("type = ?1", "investor");
+        return list("type = ?1 and id != 1", "investor");
     }
 
     public List<User> findAllBrokers() {

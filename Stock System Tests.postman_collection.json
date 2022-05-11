@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "be55b7a5-0ae0-4915-b7f9-0bcadb605145",
+		"_postman_id": "eb3be1a8-7bfd-4ea4-92b6-2875cfa437cf",
 		"name": "Stock System Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"type\": \"deposit\",\r\n    \"amount\": 10000,\r\n    \"userId\": 1\r\n}",
+					"raw": "{\r\n    \"type\": \"deposit\",\r\n    \"amount\": 10000,\r\n    \"userId\": 2\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -39,7 +39,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"type\": \"deposit\",\r\n    \"amount\": 10000,\r\n    \"userId\": 1\r\n}",
+					"raw": "{\r\n    \"type\": \"deposit\",\r\n    \"amount\": 10000,\r\n    \"userId\": 2\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -65,7 +65,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/transaction?user_id=1",
+					"raw": "localhost:8080/transaction?user_id=2",
 					"host": [
 						"localhost"
 					],
@@ -76,7 +76,7 @@
 					"query": [
 						{
 							"key": "user_id",
-							"value": "1"
+							"value": "2"
 						}
 					]
 				}
@@ -89,14 +89,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/transaction/1",
+					"raw": "localhost:8080/transaction/2",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"transaction",
-						"1"
+						"2"
 					]
 				}
 			},
@@ -108,14 +108,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/balance/1",
+					"raw": "localhost:8080/balance/2",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"balance",
-						"1"
+						"2"
 					]
 				}
 			},
@@ -128,7 +128,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"balance\": 5000.0,\r\n    \"userId\": 1\r\n}",
+					"raw": "{\r\n    \"balance\": 10000.0,\r\n    \"userId\": 2\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -256,14 +256,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8090/users/1",
+					"raw": "localhost:8090/users/2",
 					"host": [
 						"localhost"
 					],
 					"port": "8090",
 					"path": [
 						"users",
-						"1"
+						"2"
 					]
 				}
 			},
@@ -284,14 +284,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8090/users/1",
+					"raw": "localhost:8090/users/2",
 					"host": [
 						"localhost"
 					],
 					"port": "8090",
 					"path": [
 						"users",
-						"1"
+						"2"
 					]
 				}
 			},
@@ -304,7 +304,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"startDate\": \"2022-04-11T02:06:12.073516\",\r\n    \"endDate\": \"2022-12-11T02:06:12.073516\",\r\n    \"active\": true,\r\n    \"investorId\": 1,\r\n    \"brokerId\": 2\r\n    \r\n}",
+					"raw": "{\r\n    \"startDate\": \"2022-04-11T02:06:12.073516\",\r\n    \"endDate\": \"2022-12-11T02:06:12.073516\",\r\n    \"active\": true,\r\n    \"investorId\": 2,\r\n    \"brokerId\": 3\r\n    \r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -330,7 +330,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8090/authorizations?user_id=1&type=investor",
+					"raw": "localhost:8090/authorizations?user_id=2&type=investor",
 					"host": [
 						"localhost"
 					],
@@ -341,7 +341,7 @@
 					"query": [
 						{
 							"key": "user_id",
-							"value": "1"
+							"value": "2"
 						},
 						{
 							"key": "type",
@@ -358,14 +358,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8090/authorizations/3",
+					"raw": "localhost:8090/authorizations/4",
 					"host": [
 						"localhost"
 					],
 					"port": "8090",
 					"path": [
 						"authorizations",
-						"3"
+						"4"
 					]
 				}
 			},
@@ -377,7 +377,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8090/authorizations/link/verify?investor_id=1&broker_id=2",
+					"raw": "localhost:8090/authorizations/link/verify?investor_id=2&broker_id=3",
 					"host": [
 						"localhost"
 					],
@@ -390,11 +390,11 @@
 					"query": [
 						{
 							"key": "investor_id",
-							"value": "1"
+							"value": "2"
 						},
 						{
 							"key": "broker_id",
-							"value": "2"
+							"value": "3"
 						}
 					]
 				}
@@ -479,14 +479,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8100/stocks/1",
+					"raw": "localhost:8100/stocks/2",
 					"host": [
 						"localhost"
 					],
 					"port": "8100",
 					"path": [
 						"stocks",
-						"1"
+						"2"
 					]
 				}
 			},
@@ -499,7 +499,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"stockAmount\": 2,\n    \"fee\": 0,\n    \"date\": \"2022-04-19T21:34:55\",\n    \"type\": \"PURCHASE\",\n    \"stockId\": 1,\n    \"investorId\": 1\n}",
+					"raw": "{\n    \"stockAmount\": 2,\n    \"fee\": 0,\n    \"date\": \"2022-04-19T21:34:55\",\n    \"type\": \"PURCHASE\",\n    \"stockId\": 2,\n    \"investorId\": 2\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -525,7 +525,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8100/stockholdings?user_id=1",
+					"raw": "localhost:8100/stockholdings?user_id=2",
 					"host": [
 						"localhost"
 					],
@@ -536,7 +536,7 @@
 					"query": [
 						{
 							"key": "user_id",
-							"value": "1"
+							"value": "2"
 						}
 					]
 				}
@@ -550,7 +550,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"stockAmount\": 2,\n    \"fee\": 0,\n    \"date\": \"2022-04-19T21:34:55\",\n    \"type\": \"SALE\",\n    \"stockId\": 1,\n    \"investorId\": 1\n}",
+					"raw": "{\n    \"stockAmount\": 2,\n    \"fee\": 0,\n    \"date\": \"2022-04-19T21:34:55\",\n    \"type\": \"SALE\",\n    \"stockId\": 2,\n    \"investorId\": 2\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -576,14 +576,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8100/stockholdings/4",
+					"raw": "localhost:8100/stockholdings/5",
 					"host": [
 						"localhost"
 					],
 					"port": "8100",
 					"path": [
 						"stockholdings",
-						"4"
+						"5"
 					]
 				}
 			},
