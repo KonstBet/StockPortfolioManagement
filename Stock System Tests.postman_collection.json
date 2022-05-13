@@ -520,6 +520,33 @@
 			"response": []
 		},
 		{
+			"name": "StockService - POST Purchase via Broker",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"stockAmount\": 2,\n    \"fee\": 0,\n    \"date\": \"2022-04-19T21:34:55\",\n    \"type\": \"PURCHASE\",\n    \"stockId\": 2,\n    \"investorId\": 2,\n    \"brokerId\": 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8100/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8100",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "StockService - GET Stockholdings of user",
 			"request": {
 				"method": "GET",
@@ -584,6 +611,181 @@
 					"path": [
 						"stockholdings",
 						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add delay to WalletService",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/balance/delay",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"balance",
+						"delay"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add delay to AuthorizationService",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/authorizations/link/verify/delay",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"authorizations",
+						"link",
+						"verify",
+						"delay"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StockService - POST Purchase Order Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"stockAmount\": 2,\n    \"fee\": 0,\n    \"date\": \"2022-04-19T21:34:55\",\n    \"type\": \"PURCHASE\",\n    \"stockId\": 2,\n    \"investorId\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8100/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8100",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StockService - POST Purchase via Broker Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"stockAmount\": 2,\n    \"fee\": 0,\n    \"date\": \"2022-04-19T21:34:55\",\n    \"type\": \"PURCHASE\",\n    \"stockId\": 2,\n    \"investorId\": 2,\n    \"brokerId\": 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8100/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8100",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StockService - POST Purchase Order Copy 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"stockAmount\": 2,\n    \"fee\": 0,\n    \"date\": \"2022-04-19T21:34:55\",\n    \"type\": \"PURCHASE\",\n    \"stockId\": 2,\n    \"investorId\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8100/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8100",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StockService - POST Purchase Order Copy 3",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"stockAmount\": 2,\n    \"fee\": 0,\n    \"date\": \"2022-04-19T21:34:55\",\n    \"type\": \"PURCHASE\",\n    \"stockId\": 2,\n    \"investorId\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8100/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8100",
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StockService - POST Purchase via Broker Copy 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"stockAmount\": 2,\n    \"fee\": 0,\n    \"date\": \"2022-04-19T21:34:55\",\n    \"type\": \"PURCHASE\",\n    \"stockId\": 2,\n    \"investorId\": 2,\n    \"brokerId\": 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8100/orders",
+					"host": [
+						"localhost"
+					],
+					"port": "8100",
+					"path": [
+						"orders"
 					]
 				}
 			},

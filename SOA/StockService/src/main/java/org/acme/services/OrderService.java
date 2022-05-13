@@ -6,6 +6,7 @@ import org.acme.repositories.StockHoldingRepository;
 import org.acme.repositories.StockRepository;
 import org.acme.resources.OrderDTO;
 import org.acme.resources.WalletDTO;
+import org.apache.http.impl.nio.reactor.ExceptionEvent;
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import javax.enterprise.context.ApplicationScoped;
@@ -13,6 +14,7 @@ import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 @ApplicationScoped
 public class OrderService {
@@ -67,9 +69,9 @@ public class OrderService {
         return new OrderDTO(order);
     }
 
-    @CircuitBreaker(requestVolumeThreshold = 4, delay = 5000,
+    @CircuitBreaker(requestVolumeThreshold = 4, delay = 15000,
             successThreshold = 2)
-    public Boolean createOrder(OrderDTO orderDTO){
+    public Boolean createOrder(OrderDTO orderDTO) throws TimeoutException {
 
         Order order = new Order();
         double fee = 0.0;
@@ -189,13 +191,14 @@ public class OrderService {
     }
 
     // Private helper to authorize broker!
-    private boolean verifyBrokerAuthorization(OrderDTO orderDTO){
+    private boolean verifyBrokerAuthorization(OrderDTO orderDTO) throws TimeoutException {
         // verify broker has the rights to do this action
         if(orderDTO.getBrokerId() != null){
             Response response = authorizationService.verifyLink(orderDTO.getInvestorId(), orderDTO.getBrokerId());
             // return false to unauthorized or failed requests
-            if(response.getStatus() != 200) return false;
-            return true;
+            if(response.getStatus() == 200) return true;
+            else if (response.getStatus() == 404) return false;
+            else throw new TimeoutException();
         }
         return false;
     }

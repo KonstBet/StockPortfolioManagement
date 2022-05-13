@@ -24,12 +24,16 @@ public class WalletResource {
     @Inject
     WalletService walletService;
 
+    private Integer delay = 0;
+
     @GET
     @Path("/{id}")
     @Counted(name = "BalanceGetRequestsCounter", description = "How many requests for balance get has been performed.")
     @Timed(name = "BalanceGetTimer", description = "A measure of how long it takes to perform a balanceGet request.", unit = MetricUnits.MILLISECONDS)
     public Response get(@PathParam("id") Long id) {
         try {
+            Thread.sleep(delay);
+
             Wallet wallet = walletService.get(id);
 
             if (wallet == null) {
@@ -55,12 +59,26 @@ public class WalletResource {
     @Timed(name = "BalanceUpdateTimer", description = "A measure of how long it takes to perform a balanceUpdate request.", unit = MetricUnits.MILLISECONDS)
     public Response update(WalletDTO walletDTO) {
         try {
+            Thread.sleep(delay);
 
             if (!walletService.update(walletDTO))
                 return Response.status(400).build();
             return Response.ok().build();
         }
         catch(Exception e) {
+            return Response.status(400).build();
+        }
+    }
+
+    @GET
+    @Path("/delay")
+    public Response addDelay(  ){
+        try{
+            if (delay == 0)
+                delay = 2000;
+            else delay = 0;
+            return Response.ok().build();
+        }catch(Exception e){
             return Response.status(400).build();
         }
     }

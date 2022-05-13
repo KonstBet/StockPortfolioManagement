@@ -35,10 +35,12 @@ public interface WalletService {
     Response update(WalletDTO walletDTO);
 
     private Response fallbackgetUserWallet(@PathParam("id") Long id) {
+        System.out.println("getUserWallet went to fallback -- returned default noContent response");
         return Response.noContent().build();
     }
 
     private Response fallbackupdate(WalletDTO walletDTO) {
+        System.out.println("updateWallet went to fallback -- returned default notModified response");
         return Response.notModified().build();
     }
 }

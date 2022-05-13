@@ -25,6 +25,7 @@ public interface AuthorizationService {
     Response verifyLink(@QueryParam("investor_id") Long investorId, @QueryParam("broker_id") Long brokerId);
 
     static Response fallbackverifyLink(@QueryParam("investor_id") Long investorId, @QueryParam("broker_id") Long brokerId) {
+        System.out.println("verifyLink went to fallback -- returned default noContent response");
         return Response.noContent().build();
     }
 }

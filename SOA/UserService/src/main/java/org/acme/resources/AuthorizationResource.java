@@ -20,6 +20,8 @@ public class AuthorizationResource {
     @Inject
     AuthorizationService authorizationService;
 
+    private Integer delayverifyPairing = 0;
+
     @GET
     @Path("")
     @Counted(name = "AuthorizationsListRequestsCounter", description = "How many requests for authorizations list has been performed.")
@@ -65,6 +67,7 @@ public class AuthorizationResource {
     public Response verifyPairing(  @QueryParam("investor_id") Long investorId, @QueryParam("broker_id") Long brokerId){
 
         try{
+            Thread.sleep(delayverifyPairing);
             Boolean isAuthorized = authorizationService.isAuthorized(investorId, brokerId);
 
             if(!isAuthorized) return Response.status(403).build();
@@ -72,6 +75,20 @@ public class AuthorizationResource {
             return Response.ok().build();
         }catch(Exception e){
             return Response.status(403).build();
+        }
+    }
+
+    //Used to test verifyPairing by adding delay
+    @GET
+    @Path("/link/verify/delay")
+    public Response delayverifyPairing(  ){
+        try{
+            if (delayverifyPairing == 0)
+                delayverifyPairing = 2000;
+            else delayverifyPairing = 0;
+            return Response.ok().build();
+        }catch(Exception e){
+            return Response.status(400).build();
         }
     }
 
