@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.acme</groupId>
-  <artifactId>code-with-quarkus</artifactId>
+  <artifactId>stock-service</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <properties>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
@@ -46,6 +46,10 @@
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-container-image-docker</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>
       <scope>test</scope>
     </dependency>
@@ -66,7 +70,7 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-jdbc-h2</artifactId>
-        <scope>compile</scope>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.sun.xml.ws</groupId>
@@ -74,22 +78,22 @@
       <version>3.0.2</version>
       <scope>compile</scope>
     </dependency>
-      <dependency>
-          <groupId>org.jetbrains</groupId>
-          <artifactId>annotations</artifactId>
-          <version>RELEASE</version>
-          <scope>compile</scope>
-      </dependency>
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-rest-client-jsonb</artifactId>
       <version>2.8.0.Final</version>
       <scope>compile</scope>
     </dependency>
-      <dependency>
-          <groupId>io.quarkus</groupId>
-          <artifactId>quarkus-smallrye-health</artifactId>
-      </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-health</artifactId>
+    </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-smallrye-fault-tolerance</artifactId>
