@@ -221,7 +221,7 @@ class OrderResourceTest {
                 .when()
                 .post("/orders");
 
-        Assertions.assertEquals(400, response.getStatusCode());
+        Assertions.assertEquals(500, response.getStatusCode());
     }
 
     @Test
